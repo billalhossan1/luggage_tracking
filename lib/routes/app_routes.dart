@@ -5,4 +5,5 @@ class AppRoutes {
   /////////////  initial or splash screen
   final String initial = "/";
   final String homeScreen = "/home-screen";
+  final String categoryScreen = "/category-screen";
 }
