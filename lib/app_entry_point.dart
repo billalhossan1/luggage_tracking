@@ -11,21 +11,18 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-     AppSize.size = MediaQuery.of(context).size;
+    AppSize.size = MediaQuery.of(context).size;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      defaultTransition: Transition.zoom,
-      initialRoute: AppRoutes.instance.homeScreen,
+      defaultTransition: Transition.cupertinoDialog,
+      initialRoute: AppRoutes.instance.navigationScreen,
       getPages: appRootRoutesFile,
       enableLog: true,
       theme: appThemeData,
       themeMode: ThemeMode.light,
-      transitionDuration: const Duration(microseconds: 100),
+      transitionDuration: const Duration(milliseconds: 300),
 
-      title: 'Flutter Demo',
-      
-      
+      title: 'luggage-tracking',
     );
   }
 }
-

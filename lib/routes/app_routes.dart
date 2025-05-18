@@ -8,4 +8,5 @@ class AppRoutes {
   final String categoryScreen = "/category-screen";
   final String productCategoryScreen = "/product-category-screen";
   final String productDetailsScreen = "/product-details-screen";
+  final String navigationScreen = "/navigation-screen";
 }
