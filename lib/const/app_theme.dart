@@ -2,10 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 
 ThemeData appThemeData = ThemeData.light(useMaterial3: true).copyWith(
-  scaffoldBackgroundColor: AppColors.instance.white50,
+  scaffoldBackgroundColor: AppColors.instance.white500,
   dividerColor: AppColors.instance.black50,
   appBarTheme: AppBarTheme(
-    backgroundColor: AppColors.instance.white50,
+    backgroundColor: AppColors.instance.white500,
     surfaceTintColor: AppColors.instance.white50,
   ),
   inputDecorationTheme: InputDecorationTheme(
