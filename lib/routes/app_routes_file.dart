@@ -5,6 +5,7 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
+import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
@@ -17,5 +18,6 @@ List<GetPage> appRootRoutesFile = <GetPage>[
 ////////====================== BAse Screens===========================
   GetPage(name: AppRoutes.instance.homeScreen, page: () => const HomeScreen()),
   GetPage(name: AppRoutes.instance.categoryScreen, page: () => const CategoryScreen()),
+  GetPage(name: AppRoutes.instance.productCategoryScreen, page: () => const ProductCategoryScreen()),
 
 ];

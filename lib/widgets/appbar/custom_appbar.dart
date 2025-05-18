@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -30,9 +31,14 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          leading: Padding(
-            padding: const EdgeInsets.all(12),
-            child: AppImage(path: AssetsIconsPath.instance.leftArrow),
+          leading: GestureDetector(
+            onTap: () {
+              Get.back();
+            },
+            child: Padding(
+              padding: const EdgeInsets.all(12),
+              child: AppImage(path: AssetsIconsPath.instance.leftArrow),
+            ),
           ),
         ),
       ),

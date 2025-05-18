@@ -102,102 +102,110 @@ class HomeScreen extends StatelessWidget {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     // var item = controller.services[index];
-                    return Container(
-                      margin: EdgeInsets.only(right: AppSize.width(value: 8)),
-                      padding: EdgeInsets.all(12),
-                      width: AppSize.width(value: 163),
-                      decoration: BoxDecoration(
-                        border: Border.all(
-                          color: AppColors.instance.white500, // Border color
-                          width: .5, // Border width
-                        ),
-                        color: AppColors.instance.white50,
-                        borderRadius: BorderRadius.circular(
-                          AppSize.width(value: 12),
-                        ),
-                      ),
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          Stack(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Container(
-                                    width: AppSize.width(value: 18),
-                                    height: AppSize.width(value: 18),
-                                    decoration: BoxDecoration(
-                                      color: AppColors.instance.white200,
-                                      shape: BoxShape.circle,
-                                    ),
-                                  ),
-                                  AppImage(
-                                    path: AssetsIconsPath.instance.favorate,
-                                    width: AppSize.width(value: 18),
-                                    height: AppSize.width(value: 18),
-                                  ),
-                                ],
-                              ),
-                              AppImage(
-                                path: AssetsImagesPath.instance.product2,
-                                fit: BoxFit.cover,
-                                width: AppSize.width(value: 115),
-                                height: AppSize.width(value: 115),
-                              ),
-                            ],
-                          ),
-                          Gap(height: AppSize.width(value: 16)),
-                          AppText(
-                            data: "Luggage Tag",
-                            fontSize: AppSize.width(value: 14),
-                            fontWeight: FontWeight.w400,
-                            color: AppColors.instance.black400,
-                          ),
-                          Gap(height: AppSize.width(value: 8)),
-                          Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Column(
-                                crossAxisAlignment: CrossAxisAlignment.start,
-                                children: [
-                                  AppText(
-                                    data: "Trkil",
-                                    fontSize: AppSize.width(value: 12),
-                                    fontWeight: FontWeight.w400,
-                                    color: AppColors.instance.black200,
-                                  ),
-                                  Gap(height: AppSize.width(value: 8)),
-                                  AppText(
-                                    data: "\$${3.00}",
-                                    fontSize: AppSize.width(value: 14),
-                                    fontWeight: FontWeight.w600,
-                                    color: AppColors.instance.black400,
-                                  ),
-                                ],
-                              ),
-                              Container(
-                                padding: EdgeInsets.all(6),
-                                decoration: BoxDecoration(
-                                  color: AppColors.instance.white500,
-                                  borderRadius: BorderRadius.circular(8),
-                                ),
-                                child: Icon(
-                                  Icons.add,
-                                  size: AppSize.width(value: 18),
-                                  color: AppColors.instance.purple_500,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ],
-                      ),
+                    return Padding(
+                      padding: EdgeInsets.only(right: AppSize.width(value: 8)),
+                      child: ProductCard(),
                     );
                   },
                 ),
               ),
             ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class ProductCard extends StatelessWidget {
+  const ProductCard({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(12),
+      width: AppSize.width(value: 163),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.instance.white500, // Border color
+          width: .5, // Border width
+        ),
+        color: AppColors.instance.white50,
+        borderRadius: BorderRadius.circular(AppSize.width(value: 12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: AppSize.width(value: 18),
+                    height: AppSize.width(value: 18),
+                    decoration: BoxDecoration(
+                      color: AppColors.instance.white200,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  AppImage(
+                    path: AssetsIconsPath.instance.favorate,
+                    width: AppSize.width(value: 18),
+                    height: AppSize.width(value: 18),
+                  ),
+                ],
+              ),
+              AppImage(
+                path: AssetsImagesPath.instance.product2,
+                fit: BoxFit.cover,
+                width: AppSize.width(value: 115),
+                height: AppSize.width(value: 115),
+              ),
+            ],
+          ),
+          Gap(height: AppSize.width(value: 16)),
+          AppText(
+            data: "Luggage Tag",
+            fontSize: AppSize.width(value: 14),
+            fontWeight: FontWeight.w400,
+            color: AppColors.instance.black400,
+          ),
+          Gap(height: AppSize.width(value: 8)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    data: "Trkil",
+                    fontSize: AppSize.width(value: 12),
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.instance.black200,
+                  ),
+                  Gap(height: AppSize.width(value: 8)),
+                  AppText(
+                    data: "\$${3.00}",
+                    fontSize: AppSize.width(value: 14),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.instance.black400,
+                  ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: AppColors.instance.white500,
+                  borderRadius: BorderRadius.circular(8),
+                ),
+                child: Icon(
+                  Icons.add,
+                  size: AppSize.width(value: 18),
+                  color: AppColors.instance.purple_500,
+                ),
+              ),
+            ],
           ),
         ],
       ),
