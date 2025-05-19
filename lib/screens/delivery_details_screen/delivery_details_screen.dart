@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
+import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
@@ -58,7 +59,13 @@ class DeliveryDetailsScreen extends StatelessWidget {
           horizontal: AppSize.width(value: 10),
           vertical: AppSize.width(value: 20),
         ),
-        child: AppButton(title: "Continue"),
+        child: AppButton(
+          title: "Continue",
+          titleSize: 20,
+          onTap: () {
+            Get.toNamed(AppRoutes.instance.deliveryDetainShowScreen);
+          },
+        ),
       ),
     );
   }
