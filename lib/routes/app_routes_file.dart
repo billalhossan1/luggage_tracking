@@ -3,9 +3,11 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
+import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_show/delivery_details_show_screen.dart';
+import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
@@ -55,4 +57,9 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.paymentScreen,
     page: () => const PaymentScreen(),
   ),
+  GetPage(
+    name: AppRoutes.instance.deviceScreen,
+    page: () => const DeviceScreen(),
+  ),
+  GetPage(name: AppRoutes.instance.accountScreen, page: () => AccountScreen()),
 ];

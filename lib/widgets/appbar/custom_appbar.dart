@@ -8,8 +8,13 @@ import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
+  final bool showLeading;
 
-  const CustomAppBar({super.key, required this.title});
+  const CustomAppBar({
+    super.key,
+    required this.title,
+    this.showLeading = true, // default is true
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -18,7 +23,9 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
       child: Container(
         decoration: BoxDecoration(
           color: AppColors.instance.white50,
-          borderRadius: BorderRadius.vertical(bottom: Radius.circular(12)),
+          borderRadius: const BorderRadius.vertical(
+            bottom: Radius.circular(12),
+          ),
         ),
         child: AppBar(
           title: AppText(
@@ -27,19 +34,21 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
             fontWeight: FontWeight.w500,
             color: AppColors.instance.black500,
           ),
-
           backgroundColor: Colors.transparent,
           elevation: 0,
           centerTitle: true,
-          leading: GestureDetector(
-            onTap: () {
-              Get.back();
-            },
-            child: Padding(
-              padding: const EdgeInsets.all(12),
-              child: AppImage(path: AssetsIconsPath.instance.leftArrow),
-            ),
-          ),
+          leading:
+              showLeading
+                  ? GestureDetector(
+                    onTap: () {
+                      Get.back();
+                    },
+                    child: Padding(
+                      padding: const EdgeInsets.all(12),
+                      child: AppImage(path: AssetsIconsPath.instance.leftArrow),
+                    ),
+                  )
+                  : null,
         ),
       ),
     );

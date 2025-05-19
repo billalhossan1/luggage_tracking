@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
+import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/controllers/navigation_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -21,9 +23,9 @@ class NavigationScreen extends StatelessWidget {
               index: controller.selectedIndex.value,
               children: const [
                 HomeScreen(),
+                DeviceScreen(),
                 Placeholder(),
-                Placeholder(),
-                Placeholder(),
+                AccountScreen(),
               ],
             ),
           ),

@@ -4,16 +4,18 @@ import 'package:luggage_tracking/utils/app_size.dart';
 
 class AppCard extends StatelessWidget {
   final Widget child;
-  const AppCard({super.key, required this.child});
+  final double? padding;
+  final double? borderRedius;
+  const AppCard({super.key, required this.child, this.padding, this.borderRedius});
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.all(AppSize.width(value: 16)),
+      padding: EdgeInsets.all(AppSize.width(value:padding ?? 16)),
       width: AppSize.width(value: double.infinity),
       decoration: BoxDecoration(
         color: AppColors.instance.white50,
-        borderRadius: BorderRadius.circular(12),
+        borderRadius: BorderRadius.circular(borderRedius ?? 12),
       ),
       child: child,
     );

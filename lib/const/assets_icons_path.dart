@@ -15,4 +15,13 @@ class AssetsIconsPath {
   final String trackerNav = "assets/icons/tracker_device.png";
   final String accountNav = "assets/icons/account_nav.png";
   final String date = "assets/icons/date.png";
+  final String about = "assets/icons/about.png";
+  final String dealCart = "assets/icons/deal_cart.png";
+  final String faq = "assets/icons/faq.png";
+  final String feedback = "assets/icons/feedback.png";
+  final String logout = "assets/icons/logout.png";
+  final String setting = "assets/icons/setting.png";
+  final String terms = "assets/icons/terms.png";
+  final String wishList = "assets/icons/wish_list.png";
+  final String workFunc = "assets/icons/work_func.png";
 }
