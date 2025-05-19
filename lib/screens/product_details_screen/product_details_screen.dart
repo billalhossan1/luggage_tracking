@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/customer_event_info_screen/controller/customer_event_info_screen.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -227,7 +228,16 @@ class ProductDetailsScreen extends StatelessWidget {
                         ),
                       ),
                       Gap(width: AppSize.width(value: 8)),
-                      Expanded(child: AppButton(title: "Buy Now")),
+                      Expanded(
+                        child: AppButton(
+                          title: "Buy Now",
+                          onTap: () {
+                            Get.toNamed(
+                              AppRoutes.instance.deliveryDetainScreen,
+                            );
+                          },
+                        ),
+                      ),
                     ],
                   ),
                 ),

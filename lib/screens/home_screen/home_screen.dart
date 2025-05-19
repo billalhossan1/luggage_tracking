@@ -80,9 +80,7 @@ class HomeScreen extends StatelessWidget {
                   itemCount: 10,
                   itemBuilder: (context, index) {
                     // var item = controller.services[index];
-                    return ServiceCategoryBox(
-                      
-                    );
+                    return ServiceCategoryBox();
                   },
                 ),
               ),
@@ -241,7 +239,12 @@ class HomeBannerSection extends StatelessWidget {
         width: AppSize.width(value: double.infinity),
         height: AppSize.width(value: 173),
         decoration: BoxDecoration(
-          color: AppColors.instance.red1,
+          image: DecorationImage(
+            image: AssetImage(
+              AssetsImagesPath.instance.bannerBg,
+            ), // অথবা NetworkImage(...)
+            fit: BoxFit.cover, // optional: image কিভাবে fit করবে
+          ),
           borderRadius: BorderRadius.circular(16),
         ),
         child: Padding(
@@ -254,7 +257,7 @@ class HomeBannerSection extends StatelessWidget {
             children: [
               Expanded(
                 flex: 1,
-                child: AppImage(path: AssetsImagesPath.instance.product1),
+                child: AppImage(path: AssetsImagesPath.instance.bannerProduct),
               ),
               Expanded(
                 flex: 1,

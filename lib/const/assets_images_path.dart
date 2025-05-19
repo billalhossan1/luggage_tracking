@@ -7,5 +7,7 @@ class AssetsImagesPath {
   final String homeBanner = "assets/images/home_banner.png";
   final String product1 = "assets/images/product1.png";
   final String product2 = "assets/images/product2.png";
+  final String bannerBg = "assets/images/banner_bg.png";
+  final String bannerProduct = "assets/images/banner_product.png";
   
 }
