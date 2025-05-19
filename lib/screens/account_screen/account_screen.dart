@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/route_manager.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image_circular.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
@@ -51,6 +53,9 @@ class AccountScreen extends StatelessWidget {
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.wishList,
                 text: "Wish list",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.wishListScreen);
+                },
               ),
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.dealCart,
@@ -63,6 +68,9 @@ class AccountScreen extends StatelessWidget {
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.about,
                 text: "About",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.acoutScreen);
+                },
               ),
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.workFunc,
@@ -71,6 +79,9 @@ class AccountScreen extends StatelessWidget {
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.terms,
                 text: "Terms & Conditions",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.termsAndCondionScreen);
+                },
               ),
               IcontextRow(iconPath: AssetsIconsPath.instance.faq, text: "FAQ"),
               IcontextRow(
@@ -88,4 +99,3 @@ class AccountScreen extends StatelessWidget {
     );
   }
 }
-

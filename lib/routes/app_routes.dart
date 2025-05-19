@@ -14,4 +14,7 @@ class AppRoutes {
   final String paymentScreen = "/payment-screen";
   final String deviceScreen = "/device-screen";
   final String accountScreen = "/account-screen";
+  final String wishListScreen = "/wishlist-screen";
+  final String acoutScreen = "/about-screen";
+  final String termsAndCondionScreen = "/terms-screen";
 }

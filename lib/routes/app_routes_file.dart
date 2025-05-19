@@ -3,6 +3,7 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
+import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
@@ -14,6 +15,8 @@ import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
 import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/product_details_screen/product_details_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
+import 'package:luggage_tracking/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
+import 'package:luggage_tracking/screens/wish_list_screen/wish_list_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -62,4 +65,16 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     page: () => const DeviceScreen(),
   ),
   GetPage(name: AppRoutes.instance.accountScreen, page: () => AccountScreen()),
+  GetPage(
+    name: AppRoutes.instance.wishListScreen,
+    page: () => WishListScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.acoutScreen,
+    page: () => AboutScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.termsAndCondionScreen,
+    page: () => TermsAndConditionScreen(),
+  ),
 ];
