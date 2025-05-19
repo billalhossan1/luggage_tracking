@@ -9,5 +9,6 @@ class AssetsImagesPath {
   final String product2 = "assets/images/product2.png";
   final String bannerBg = "assets/images/banner_bg.png";
   final String bannerProduct = "assets/images/banner_product.png";
+  final String creditCard = "assets/images/credit_card.png";
   
 }

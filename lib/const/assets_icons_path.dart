@@ -14,4 +14,5 @@ class AssetsIconsPath {
   final String deviceNav = "assets/icons/device_nav.png";
   final String trackerNav = "assets/icons/tracker_device.png";
   final String accountNav = "assets/icons/account_nav.png";
+  final String date = "assets/icons/date.png";
 }
