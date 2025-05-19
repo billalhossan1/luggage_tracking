@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
@@ -16,8 +17,7 @@ class AppButton extends StatelessWidget {
     this.borderRadius,
     this.decoration,
     this.titleColor,
-    this.gradient,
-    this.titleSize
+    this.titleSize,
   });
 
   final void Function()? onTap;
@@ -30,7 +30,6 @@ class AppButton extends StatelessWidget {
   final BorderRadiusGeometry? borderRadius;
   final BoxDecoration? decoration;
   final Color? titleColor;
-  final Gradient? gradient;
   final double? titleSize;
 
   @override
@@ -44,37 +43,11 @@ class AppButton extends StatelessWidget {
         margin: margin,
         decoration:
             decoration ??
-            ShapeDecoration(
-              gradient:
-                  gradient ??
-                  LinearGradient(
-                    begin: Alignment(0.00, 0.50),
-                    end: Alignment(1.00, 0.50),
-                    colors: [
-                      const Color(0xFFFFD858),
-                      const Color(0xFFFFB953),
-                      const Color(0xFFFF954E),
-                    ],
-                  ),
-              shape: RoundedRectangleBorder(
-                borderRadius:borderRadius ?? BorderRadius.circular(40),
-              ),
+            BoxDecoration(
+              color: AppColors.instance.purple_500,
+              borderRadius: BorderRadius.circular(8),
             ),
-        // BoxDecoration(
-        //   gradient:
-        //       gradient ??
-        //       LinearGradient(
-        //         colors: [
-        //           AppColors.yellow,
-        //           AppColors.yellow.withOpacity(0.8),
-        //         ],
-        //         begin: Alignment.topLeft,
-        //         end: Alignment.bottomRight,
-        //       ),
-        //   borderRadius:
-        //       borderRadius ??
-        //       BorderRadius.circular(AppSize.width(value: 10)),
-        // ),
+
         child:
             isLoading
                 ? SizedBox(
@@ -87,9 +60,9 @@ class AppButton extends StatelessWidget {
                 )
                 : AppText(
                   data: title,
-                  // color: titleColor ?? AppColors.black500,
-                  fontWeight: FontWeight.w700,
-                  fontSize:titleSize ?? 16,
+                  color: titleColor ?? AppColors.instance.white300,
+                  fontWeight: FontWeight.w400,
+                  fontSize: titleSize ?? 16,
                 ),
       ),
     );

@@ -6,6 +6,7 @@ import 'package:luggage_tracking/screens/customer_event_info_screen/controller/c
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/cards/title_descreption_widget.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
@@ -179,6 +180,58 @@ class ProductDetailsScreen extends StatelessWidget {
                     ),
                   ),
                 ),
+                Gap(height: AppSize.width(value: 16)),
+                Container(
+                  padding: EdgeInsets.all(12),
+                  width: AppSize.width(value: double.infinity),
+                  decoration: BoxDecoration(
+                    color: AppColors.instance.white50,
+                    borderRadius: BorderRadius.circular(16),
+                  ),
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Container(
+                          padding: EdgeInsets.symmetric(
+                            vertical: AppSize.width(value: 10),
+                            horizontal: AppSize.width(value: 6),
+                          ),
+                          decoration: BoxDecoration(
+                            borderRadius: BorderRadius.circular(12),
+                            border: Border.all(
+                              color: AppColors.instance.purple_500,
+                              width: 2,
+                            ),
+                          ),
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Icon(
+                                Icons.remove,
+                                size: AppSize.width(value: 22),
+                                color: AppColors.instance.purple_500,
+                              ),
+                              AppText(
+                                data: "0",
+                                fontSize: AppSize.width(value: 20),
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.instance.purple_500,
+                              ),
+                              Icon(
+                                Icons.add,
+                                size: AppSize.width(value: 22),
+                                color: AppColors.instance.purple_500,
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
+                      Gap(width: AppSize.width(value: 8)),
+                      Expanded(child: AppButton(title: "Buy Now")),
+                    ],
+                  ),
+                ),
+                Gap(height: 100),
               ],
             ),
           );
