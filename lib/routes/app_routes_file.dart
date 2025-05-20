@@ -21,6 +21,7 @@ import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
 import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
 import 'package:luggage_tracking/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
+import 'package:luggage_tracking/screens/location_screen/location_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
@@ -71,6 +72,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.subPlanScreen,
     page: () => const SubPlanScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.locationScreen,
+    page: () => const LocationScreen(),
   ),
 
   //////////=======================navigation screen===================

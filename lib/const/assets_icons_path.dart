@@ -34,6 +34,8 @@ class AssetsIconsPath {
   final String onBoardIcon = "assets/icons/onboard_icon.png";
   final String appLogoWhiteBg = "assets/icons/app_logo_white_bg.png";
   final String planCardIcon = "assets/icons/plan_card_icon.png";
+  final String locationIcon = "assets/icons/location_logo.png";
+  final String locationImg = "assets/icons/location_img.png";
 
 
   ///========svg img==================
