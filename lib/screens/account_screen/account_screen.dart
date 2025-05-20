@@ -25,6 +25,9 @@ class AccountScreen extends StatelessWidget {
             spacing: AppSize.width(value: 12),
             children: [
               AppCard(
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.profileDetailsScreen);
+                },
                 child: Column(
                   spacing: AppSize.width(value: 8),
                   children: [

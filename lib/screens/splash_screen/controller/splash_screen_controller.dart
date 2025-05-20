@@ -13,10 +13,12 @@ class SplashScreenController extends GetxController {
       Future.delayed(Durations.medium1, () {
         animation.value = 1.0;
         animation2.value = 1.0;
+         
       });
 
       
       Future.delayed(Duration(seconds: 3), () {
+        // Get.delete<SplashScreenController>();
         // if (value) {
           // Get.offAllNamed(AppRoutes.instance.onBoardingScreen);
         // } else {

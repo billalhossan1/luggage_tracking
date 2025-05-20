@@ -17,4 +17,6 @@ class AppRoutes {
   final String wishListScreen = "/wishlist-screen";
   final String acoutScreen = "/about-screen";
   final String termsAndCondionScreen = "/terms-screen";
+  final String profileDetailsScreen = "/profile-details-screen";
+  final String profileEditScreen = "/profile-edit-screen";
 }

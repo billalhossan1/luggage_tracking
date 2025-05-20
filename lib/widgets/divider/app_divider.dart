@@ -9,8 +9,10 @@ class AppDivider extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsets.symmetric(vertical: AppSize.width(value:vertical ?? 10)),
-      child: Divider(color: AppColors.instance.black50, height: 1),
+      padding: EdgeInsets.symmetric(
+        vertical: AppSize.width(value: vertical ?? 10),
+      ),
+      child: Divider(color: AppColors.instance.white600, height: 1),
     );
   }
 }

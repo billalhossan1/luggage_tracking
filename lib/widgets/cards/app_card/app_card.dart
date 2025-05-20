@@ -6,18 +6,27 @@ class AppCard extends StatelessWidget {
   final Widget child;
   final double? padding;
   final double? borderRedius;
-  const AppCard({super.key, required this.child, this.padding, this.borderRedius});
+  final Function()? onTap;
+  const AppCard({
+    super.key,
+    required this.child,
+    this.padding,
+    this.borderRedius, this.onTap,
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: EdgeInsets.all(AppSize.width(value:padding ?? 16)),
-      width: AppSize.width(value: double.infinity),
-      decoration: BoxDecoration(
-        color: AppColors.instance.white50,
-        borderRadius: BorderRadius.circular(borderRedius ?? 12),
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        padding: EdgeInsets.all(AppSize.width(value: padding ?? 16)),
+        width: AppSize.width(value: double.infinity),
+        decoration: BoxDecoration(
+          color: AppColors.instance.white50,
+          borderRadius: BorderRadius.circular(borderRedius ?? 12),
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 }

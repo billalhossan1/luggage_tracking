@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
@@ -9,11 +10,13 @@ import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_show/delivery_details_show_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
+import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
 import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/product_details_screen/product_details_screen.dart';
+import 'package:luggage_tracking/screens/profile_details/profile_details_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
 import 'package:luggage_tracking/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:luggage_tracking/screens/wish_list_screen/wish_list_screen.dart';
@@ -76,5 +79,13 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.termsAndCondionScreen,
     page: () => TermsAndConditionScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.profileDetailsScreen,
+    page: () => ProfileDetailsScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.profileEditScreen,
+    page: () => ProfileEditScreen(),
   ),
 ];
