@@ -24,6 +24,7 @@ import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/location_screen/location_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/onboarding_screen/onboarding_screen.dart';
+import 'package:luggage_tracking/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
 import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/product_details_screen/product_details_screen.dart';
@@ -76,6 +77,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.locationScreen,
     page: () => const LocationScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.otpScreen,
+    binding: AuthBinding(),
+    page: () => const OtpVerificationScreen(),
   ),
 
   //////////=======================navigation screen===================

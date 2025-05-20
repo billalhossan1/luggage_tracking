@@ -15,7 +15,7 @@ class MyApp extends StatelessWidget {
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
       defaultTransition: Transition.cupertinoDialog,
-      initialRoute: AppRoutes.instance.locationScreen,
+      initialRoute: AppRoutes.instance.otpScreen,
       getPages: appRootRoutesFile,
       enableLog: true,
       theme: appThemeData,

@@ -35,4 +35,5 @@ class AppRoutes {
   final String onBoardingScreen = "/onboarding-screen";
   final String subPlanScreen = "/sub-plan-screen";
   final String locationScreen = "/location-screen";
+  final String otpScreen = "/otp-screen";
 }
