@@ -1,10 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
+import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
+import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class OnboardingScreen extends StatefulWidget {
@@ -44,65 +48,167 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Stack(
-        fit: StackFit.expand,
-        children: [
-          // Background Image
-          Image.asset(
-            AssetsImagesPath
-                .instance
-                .onBoardingImg, // Make sure this image path is correct
-            fit: BoxFit.cover,
-          ),
-          Align(
-            alignment: Alignment.center,
-            child: SizedBox(
-              width: AppSize.width(value: 92),
-              height: AppSize.width(value: 92),
-              child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
+      body: GestureDetector(
+        onTap: () {
+          showCustomBottomSheet();
+        },
+        child: Stack(
+          fit: StackFit.expand,
+          children: [
+            // Background Image
+            Image.asset(
+              AssetsImagesPath
+                  .instance
+                  .onBoardingImg, // Make sure this image path is correct
+              fit: BoxFit.cover,
             ),
-          ),
-
-          // Overlay content
-          Padding(
-            padding: const EdgeInsets.symmetric(
-              horizontal: 24.0,
-              vertical: 40.0,
+            Align(
+              alignment: Alignment.center,
+              child: SizedBox(
+                width: AppSize.width(value: 92),
+                height: AppSize.width(value: 92),
+                child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
+              ),
             ),
-            child: Column(
-              mainAxisAlignment: MainAxisAlignment.end,
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                AppText(
-                  data: "Welcome To",
-                  fontSize: AppSize.width(value: 29),
-                  fontWeight: FontWeight.w600,
-                  color: AppColors.instance.white50,
-                ),
 
-                Gap(height: AppSize.width(value: 8)),
-                ScaleTransition(
-                  scale: _scaleAnimation,
-                  child: AppText(
-                    data: "Trkil",
-                    fontSize: AppSize.width(value: 96),
+            // Overlay content
+            Padding(
+              padding: const EdgeInsets.symmetric(
+                horizontal: 24.0,
+                vertical: 40.0,
+              ),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    data: "Welcome To",
+                    fontSize: AppSize.width(value: 29),
                     fontWeight: FontWeight.w600,
                     color: AppColors.instance.white50,
                   ),
-                ),
-                Gap(height: AppSize.width(value: 12)),
-                AppText(
-                  data:
-                      "A smart tracking system to make your life\nsmarter, and completely stress-free",
-                  fontSize: AppSize.width(value: 16),
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.instance.white600,
-                ),
-              ],
+
+                  Gap(height: AppSize.width(value: 8)),
+                  ScaleTransition(
+                    scale: _scaleAnimation,
+                    child: AppText(
+                      data: "Trkil",
+                      fontSize: AppSize.width(value: 96),
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.instance.white50,
+                    ),
+                  ),
+                  Gap(height: AppSize.width(value: 12)),
+                  AppText(
+                    data:
+                        "A smart tracking system to make your life\nsmarter, and completely stress-free",
+                    fontSize: AppSize.width(value: 16),
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.instance.white600,
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }
+}
+
+void showCustomBottomSheet() {
+  Get.bottomSheet(
+    Container(
+      padding: const EdgeInsets.all(16),
+      decoration: BoxDecoration(
+        color: AppColors.instance.white50,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+      ),
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          // Top Icon in circular container
+          AppImage(
+            path: AssetsIconsPath.instance.appLogoWhiteBg,
+            width: AppSize.width(value: 48),
+            height: AppSize.width(value: 48),
+          ),
+          Gap(height: AppSize.width(value: 16)),
+
+          // Title + Subtitle
+          Text.rich(
+            TextSpan(
+              text: 'Track your luggage effortlessly with  ',
+              style: TextStyle(
+                fontSize: AppSize.width(value: 16),
+                fontWeight: FontWeight.w400,
+                fontFamily: AppConst.fontFamily1,
+                color: AppColors.instance.black300,
+              ),
+              children: [
+                TextSpan(
+                  text: 'Trkil',
+                  style: TextStyle(
+                    fontSize: AppSize.width(value: 16),
+                    fontWeight: FontWeight.w600,
+                    fontFamily: AppConst.fontFamily1,
+                    color: AppColors.instance.black300,
+                  ),
+                ),
+              ],
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 4),
+          Text(
+            'Sign in or register now.',
+            style: TextStyle(
+              fontSize: AppSize.width(value: 16),
+              fontWeight: FontWeight.w400,
+              fontFamily: AppConst.fontFamily1,
+              color: AppColors.instance.black300,
+            ),
+            textAlign: TextAlign.center,
+          ),
+          const SizedBox(height: 24),
+
+          // Sign In Button (Outlined)
+          SizedBox(
+            width: double.infinity,
+            child: OutlinedButton(
+              onPressed: () {
+                Get.offAllNamed(AppRoutes.instance.signIn);
+              },
+              style: OutlinedButton.styleFrom(
+                side: BorderSide(color: AppColors.instance.purple_500),
+                foregroundColor: AppColors.instance.purple_500,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(12), // Radius 12 px
+                ),
+              ),
+              child: AppText(
+                data: "Sign In",
+                fontSize: AppSize.width(value: 16),
+                fontWeight: FontWeight.w400,
+                color: AppColors.instance.purple_500,
+              ),
+            ),
+          ),
+
+          const SizedBox(height: 12),
+
+          // Registration Button (Filled)
+          AppButton(
+            title: "Registration",
+            borderRadius: BorderRadius.circular(12),
+            height: AppSize.width(value: 43),
+            onTap: () {
+              Get.toNamed(AppRoutes.instance.signUp);
+            },
+          ),
+        ],
+      ),
+    ),
+    isScrollControlled: true,
+  );
 }

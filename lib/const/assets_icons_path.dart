@@ -32,6 +32,7 @@ class AssetsIconsPath {
   final String google = "assets/icons/google.png";
   final String edit = "assets/icons/edit.png";
   final String onBoardIcon = "assets/icons/onboard_icon.png";
+  final String appLogoWhiteBg = "assets/icons/app_logo_white_bg.png";
 
 
   ///========svg img==================
