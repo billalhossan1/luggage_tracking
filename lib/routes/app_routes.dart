@@ -23,4 +23,7 @@ class AppRoutes {
   final String accountSettingScreen = "/account-setting-screen";
   final String changePasswordScreen = "/change-password-screen";
   final String deleteAccountScreen = "/delete-account-screen";
+  final String workFuncScreen = "/work-func-screen";
+  final String feedbackScreen = "/feedback-screen";
+  final String faqScreen = "/faq-screen";
 }

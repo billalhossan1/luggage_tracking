@@ -15,6 +15,8 @@ import 'package:luggage_tracking/screens/delivery_details_screen/delivery_detail
 import 'package:luggage_tracking/screens/delivery_details_show/delivery_details_show_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
+import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
+import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
@@ -24,6 +26,7 @@ import 'package:luggage_tracking/screens/profile_details/profile_details_screen.
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
 import 'package:luggage_tracking/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:luggage_tracking/screens/wish_list_screen/wish_list_screen.dart';
+import 'package:luggage_tracking/screens/work_func_screen/work_func_screen.dart';
 
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
@@ -107,5 +110,17 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.deleteAccountScreen,
     page: () => DeteleAccountScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.workFuncScreen,
+    page: () => WorkFuncScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.feedbackScreen,
+    page: () => FeedbackScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.faqScreen,
+    page: () => FaqScreen(),
   ),
 ];

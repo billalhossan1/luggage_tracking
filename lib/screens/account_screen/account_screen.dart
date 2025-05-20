@@ -84,6 +84,9 @@ class AccountScreen extends StatelessWidget {
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.workFunc,
                 text: "Work Functionality",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.workFuncScreen);
+                },
               ),
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.terms,
@@ -92,10 +95,19 @@ class AccountScreen extends StatelessWidget {
                   Get.toNamed(AppRoutes.instance.termsAndCondionScreen);
                 },
               ),
-              IcontextRow(iconPath: AssetsIconsPath.instance.faq, text: "FAQ"),
+              IcontextRow(
+                iconPath: AssetsIconsPath.instance.faq,
+                text: "FAQ",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.faqScreen);
+                },
+              ),
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.feedback,
                 text: "Feedback",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.feedbackScreen);
+                },
               ),
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.logout,
