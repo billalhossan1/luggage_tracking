@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/signin_screen/controller/sign_in_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
 import 'package:luggage_tracking/utils/app_size.dart';

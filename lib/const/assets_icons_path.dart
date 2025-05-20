@@ -31,6 +31,7 @@ class AssetsIconsPath {
   final String fb = "assets/icons/fb.png";
   final String google = "assets/icons/google.png";
   final String edit = "assets/icons/edit.png";
+  final String onBoardIcon = "assets/icons/onboard_icon.png";
 
 
   ///========svg img==================
