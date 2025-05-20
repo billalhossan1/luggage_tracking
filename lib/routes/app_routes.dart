@@ -30,4 +30,5 @@ class AppRoutes {
   ///====================Auth Screen =================
   final String signIn = "/sign-in-screen";
   final String signUp = "/sign-up-screen";
+  final String forgetPasswordScreen = "/forget-password-screen";
 }

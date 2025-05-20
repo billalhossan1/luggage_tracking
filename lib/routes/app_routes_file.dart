@@ -18,6 +18,8 @@ import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
 import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
 import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
+import 'package:luggage_tracking/screens/forget_password_screen/controller/forget_password_controller.dart';
+import 'package:luggage_tracking/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
@@ -49,6 +51,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.signUp,
     binding: AuthBinding(),
     page: () => const SignUpScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.forgetPasswordScreen,
+    binding: AuthBinding(),
+    page: () => const ForgetPasswordScreen(),
   ),
 
   //////////=======================navigation screen===================

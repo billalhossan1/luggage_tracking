@@ -192,7 +192,7 @@ class SignUpScreen extends StatelessWidget {
                                 TapGestureRecognizer()
                                   ..onTap = () {
                                     // Tap handle logic here
-                                    Get.toNamed(AppRoutes.instance.signIn);
+                                    Get.back();
                                     // Navigator.push(...); // optionally navigate to another page
                                   },
                           ),
