@@ -10,6 +10,7 @@ import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/change_password_screen/chnage_password_screen.dart';
+import 'package:luggage_tracking/screens/create_new_password_screen/create_new_password_screen.dart';
 import 'package:luggage_tracking/screens/dealing_history/dealing_history.dart';
 import 'package:luggage_tracking/screens/delete_account_screen/detele_account_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
@@ -18,7 +19,6 @@ import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
 import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
 import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
-import 'package:luggage_tracking/screens/forget_password_screen/controller/forget_password_controller.dart';
 import 'package:luggage_tracking/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
@@ -56,6 +56,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.forgetPasswordScreen,
     binding: AuthBinding(),
     page: () => const ForgetPasswordScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.cretaeNewPasswordScreen,
+    binding: AuthBinding(),
+    page: () => const CreateNewPasswordScreen(),
   ),
 
   //////////=======================navigation screen===================
