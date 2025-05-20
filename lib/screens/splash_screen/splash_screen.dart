@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
+import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/screens/splash_screen/controller/splash_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -16,6 +17,7 @@ class SplashScreen extends StatelessWidget {
       init: SplashScreenController(),
       builder: (controller) {
         return Scaffold(
+          backgroundColor: AppColors.instance.purple_500,
           body: Obx(
             () => Center(
               child: Padding(

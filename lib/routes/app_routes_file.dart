@@ -1,4 +1,3 @@
-
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
@@ -43,6 +42,8 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.initial,
     binding: SplashScreenBinding(),
     page: () => const SplashScreen(),
+    transitionDuration: Duration(milliseconds: 800),
+    opaque: false 
   ),
 
   //////////=======================Auth screen===================
@@ -127,10 +128,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.wishListScreen,
     page: () => WishListScreen(),
   ),
-  GetPage(
-    name: AppRoutes.instance.acoutScreen,
-    page: () => AboutScreen(),
-  ),
+  GetPage(name: AppRoutes.instance.acoutScreen, page: () => AboutScreen()),
   GetPage(
     name: AppRoutes.instance.termsAndCondionScreen,
     page: () => TermsAndConditionScreen(),
@@ -167,8 +165,5 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.feedbackScreen,
     page: () => FeedbackScreen(),
   ),
-  GetPage(
-    name: AppRoutes.instance.faqScreen,
-    page: () => FaqScreen(),
-  ),
+  GetPage(name: AppRoutes.instance.faqScreen, page: () => FaqScreen()),
 ];

@@ -133,11 +133,14 @@ class SignInScreen extends StatelessWidget {
                                 ),
                               ],
                             ),
-                            AppText(
-                              data: "Forgot Password?",
-                              color: AppColors.instance.blue1,
-                              fontSize: AppSize.width(value: 12),
-                              fontWeight: FontWeight.w500,
+                            GestureDetector(
+                              onTap: () {},
+                              child: AppText(
+                                data: "Forgot Password?",
+                                color: AppColors.instance.blue1,
+                                fontSize: AppSize.width(value: 12),
+                                fontWeight: FontWeight.w500,
+                              ),
                             ),
                           ],
                         ),
@@ -146,9 +149,9 @@ class SignInScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           isLoading: controller.isLoading.value,
                           onTap: () {
-                            // controller.signInUser();
+                            Get.toNamed(AppRoutes.instance.navigationScreen);
                           },
-                          title: "Sign Up",
+                          title: "Sign In",
                           titleSize: AppSize.width(value: 20),
                         ),
                         Gap(height: AppSize.width(value: 40)),
@@ -201,6 +204,7 @@ class SignInScreen extends StatelessWidget {
                       ],
                     ),
                   ),
+                  Gap(height: AppSize.width(value: 16)),
                   Center(
                     child: RichText(
                       text: TextSpan(
@@ -222,7 +226,7 @@ class SignInScreen extends StatelessWidget {
                                 TapGestureRecognizer()
                                   ..onTap = () {
                                     // Tap handle logic here
-                                    Get.toNamed(AppRoutes.instance.signUp);
+                                    Get.offNamed(AppRoutes.instance.signUp);
                                     // Navigator.push(...); // optionally navigate to another page
                                   },
                           ),
