@@ -30,6 +30,7 @@ import 'package:luggage_tracking/screens/profile_details/profile_details_screen.
 import 'package:luggage_tracking/screens/signin_screen/signin_screen.dart';
 import 'package:luggage_tracking/screens/signup_screen/signup_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
+import 'package:luggage_tracking/screens/sub_plan_screen/sub_plan_screen.dart';
 import 'package:luggage_tracking/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:luggage_tracking/screens/wish_list_screen/wish_list_screen.dart';
 import 'package:luggage_tracking/screens/work_func_screen/work_func_screen.dart';
@@ -66,6 +67,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.onBoardingScreen,
     page: () => const OnboardingScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.subPlanScreen,
+    page: () => const SubPlanScreen(),
   ),
 
   //////////=======================navigation screen===================

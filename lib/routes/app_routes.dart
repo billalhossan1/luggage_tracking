@@ -33,4 +33,5 @@ class AppRoutes {
   final String forgetPasswordScreen = "/forget-password-screen";
   final String cretaeNewPasswordScreen = "/create-new-password-screen";
   final String onBoardingScreen = "/onboarding-screen";
+  final String subPlanScreen = "/sub-plan-screen";
 }
