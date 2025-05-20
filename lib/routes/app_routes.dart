@@ -19,4 +19,5 @@ class AppRoutes {
   final String termsAndCondionScreen = "/terms-screen";
   final String profileDetailsScreen = "/profile-details-screen";
   final String profileEditScreen = "/profile-edit-screen";
+  final String dealingHistoryScreen = "/dealing-history-screen";
 }
