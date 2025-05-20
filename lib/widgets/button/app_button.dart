@@ -17,7 +17,7 @@ class AppButton extends StatelessWidget {
     this.borderRadius,
     this.decoration,
     this.titleColor,
-    this.titleSize,
+    this.titleSize, this.filColor,
   });
 
   final void Function()? onTap;
@@ -31,6 +31,7 @@ class AppButton extends StatelessWidget {
   final BoxDecoration? decoration;
   final Color? titleColor;
   final double? titleSize;
+  final Color? filColor;
 
   @override
   Widget build(BuildContext context) {
@@ -44,8 +45,8 @@ class AppButton extends StatelessWidget {
         decoration:
             decoration ??
             BoxDecoration(
-              color: AppColors.instance.purple_500,
-              borderRadius: BorderRadius.circular(8),
+              color:filColor ?? AppColors.instance.purple_500,
+              borderRadius:borderRadius ?? BorderRadius.circular( 8),
             ),
 
         child:

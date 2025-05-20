@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
@@ -32,7 +34,7 @@ class AccountSettingScreen extends StatelessWidget {
               iconPath: AssetsIconsPath.instance.lock,
               text: "Change Password",
               onTap: () {
-                // Get.toNamed(AppRoutes.instance.accountSettingScreen);
+                Get.toNamed(AppRoutes.instance.changePasswordScreen);
               },
             ),
             Gap(height: AppSize.width(value: 8)),
@@ -40,7 +42,7 @@ class AccountSettingScreen extends StatelessWidget {
               iconPath: AssetsIconsPath.instance.trush,
               text: "Delete Account",
               onTap: () {
-                // Get.toNamed(AppRoutes.instance.accountSettingScreen);
+                Get.toNamed(AppRoutes.instance.deleteAccountScreen);
               },
             ),
           ],

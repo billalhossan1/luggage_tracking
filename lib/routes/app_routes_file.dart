@@ -8,7 +8,9 @@ import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
+import 'package:luggage_tracking/screens/change_password_screen/chnage_password_screen.dart';
 import 'package:luggage_tracking/screens/dealing_history/dealing_history.dart';
+import 'package:luggage_tracking/screens/delete_account_screen/detele_account_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_show/delivery_details_show_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
@@ -97,5 +99,13 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.accountSettingScreen,
     page: () => AccountSettingScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.changePasswordScreen,
+    page: () => ChnagePasswordScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.deleteAccountScreen,
+    page: () => DeteleAccountScreen(),
   ),
 ];

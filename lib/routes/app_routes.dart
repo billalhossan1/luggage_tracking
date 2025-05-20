@@ -21,4 +21,6 @@ class AppRoutes {
   final String profileEditScreen = "/profile-edit-screen";
   final String dealingHistoryScreen = "/dealing-history-screen";
   final String accountSettingScreen = "/account-setting-screen";
+  final String changePasswordScreen = "/change-password-screen";
+  final String deleteAccountScreen = "/delete-account-screen";
 }
