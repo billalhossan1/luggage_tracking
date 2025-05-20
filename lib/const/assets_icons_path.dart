@@ -5,8 +5,9 @@ class AssetsIconsPath {
   static AssetsIconsPath get instance => _instance;
 
   //=================AppIcons WA================================
-  final String splashLogo = "assets/icons/spash_logo.png";
+  
   final String notification = "assets/icons/notification.png";
+  final String appLogoCircle = "assets/icons/logo_circle.png";
   final String search = "assets/icons/search.png";
   final String favorate = "assets/icons/favorate.png";
   final String leftArrow = "assets/icons/left_arrow.png";
@@ -26,4 +27,12 @@ class AssetsIconsPath {
   final String workFunc = "assets/icons/work_func.png";
   final String lock = "assets/icons/lock.png";
   final String trush = "assets/icons/trush.png";
+  final String add = "assets/icons/add.png";
+  final String fb = "assets/icons/fb.png";
+  final String google = "assets/icons/google.png";
+  final String edit = "assets/icons/edit.png";
+
+
+  ///========svg img==================
+  final String splashLogo = "assets/icons/Trkli-App Logo file-04.svg";
 }

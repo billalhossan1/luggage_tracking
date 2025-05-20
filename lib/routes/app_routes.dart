@@ -26,4 +26,8 @@ class AppRoutes {
   final String workFuncScreen = "/work-func-screen";
   final String feedbackScreen = "/feedback-screen";
   final String faqScreen = "/faq-screen";
+
+  ///====================Auth Screen =================
+  final String signIn = "/sign-in-screen";
+  final String signUp = "/sign-up-screen";
 }

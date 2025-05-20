@@ -2,6 +2,7 @@
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
+import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
@@ -23,6 +24,8 @@ import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
 import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/product_details_screen/product_details_screen.dart';
 import 'package:luggage_tracking/screens/profile_details/profile_details_screen.dart';
+import 'package:luggage_tracking/screens/signin_screen/signin_screen.dart';
+import 'package:luggage_tracking/screens/signup_screen/signup_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
 import 'package:luggage_tracking/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
 import 'package:luggage_tracking/screens/wish_list_screen/wish_list_screen.dart';
@@ -34,6 +37,18 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.initial,
     binding: SplashScreenBinding(),
     page: () => const SplashScreen(),
+  ),
+
+  //////////=======================Auth screen===================
+  GetPage(
+    name: AppRoutes.instance.signIn,
+    binding: AuthBinding(),
+    page: () => const SignInScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.signUp,
+    binding: AuthBinding(),
+    page: () => const SignUpScreen(),
   ),
 
   //////////=======================navigation screen===================

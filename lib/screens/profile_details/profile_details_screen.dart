@@ -1,11 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:get/route_manager.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
+import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/button/btn_icon_text.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/service_widget/profile_top_widget.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
@@ -32,43 +32,15 @@ class ProfileDetailsScreen extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  GestureDetector(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.instance.profileEditScreen);
-                    },
-                    child: Container(
-                      decoration: BoxDecoration(
-                        color: AppColors.instance.white500,
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      padding: EdgeInsets.symmetric(
-                        horizontal: AppSize.width(value: 10),
-                        vertical: AppSize.width(value: 8),
-                      ),
-                      child: Center(
-                        child: Row(
-                          children: [
-                            Icon(
-                              Icons.edit,
-                              color: AppColors.instance.black400,
-                              size: AppSize.width(value: 14),
-                            ),
-                            Gap(width: AppSize.width(value: 8)),
-                    
-                            AppText(
-                              data: "Edit",
-                              color: AppColors.instance.black400,
-                            ),
-                          ],
-                        ),
-                      ),
-                    ),
+                  BtnIconText(
+                    text: "Edit",
+                    iconPath: AssetsIconsPath.instance.about,
                   ),
                   Gap(width: AppSize.width(value: 16)),
 
                   GestureDetector(
                     onTap: () {
-                    //   Get.toNamed(AppRoutes.instance.profileEditScreen);
+                      //   Get.toNamed(AppRoutes.instance.profileEditScreen);
                     },
                     child: Container(
                       decoration: BoxDecoration(
