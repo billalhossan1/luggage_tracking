@@ -70,6 +70,9 @@ class AccountScreen extends StatelessWidget {
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.setting,
                 text: "Account Setting",
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.accountSettingScreen);
+                },
               ),
               IcontextRow(
                 iconPath: AssetsIconsPath.instance.about,

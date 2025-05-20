@@ -24,4 +24,6 @@ class AssetsIconsPath {
   final String terms = "assets/icons/terms.png";
   final String wishList = "assets/icons/wish_list.png";
   final String workFunc = "assets/icons/work_func.png";
+  final String lock = "assets/icons/lock.png";
+  final String trush = "assets/icons/trush.png";
 }

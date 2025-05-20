@@ -6,6 +6,7 @@ import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart'
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
+import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/dealing_history/dealing_history.dart';
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
@@ -92,5 +93,9 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.dealingHistoryScreen,
     page: () => DealingHistoryScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.accountSettingScreen,
+    page: () => AccountSettingScreen(),
   ),
 ];
