@@ -26,6 +26,7 @@ class AppRoutes {
   final String workFuncScreen = "/work-func-screen";
   final String feedbackScreen = "/feedback-screen";
   final String faqScreen = "/faq-screen";
+  final String addDeviceScanner = "/add-device-scanner";
 
   ///====================Auth Screen =================
   final String signIn = "/sign-in-screen";
@@ -40,4 +41,5 @@ class AppRoutes {
   final String findNearby = "/find-nearby-screen";
   final String shareItem = "/share-item-screen";
   final String shareUserItemScreen = "/share-item-user-screen";
+  final String signUpWithPersonalData = "/signup-with-personal-data-screen";
 }

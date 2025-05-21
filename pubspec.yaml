@@ -37,6 +37,7 @@ dependencies:
   cupertino_icons: ^1.0.8
   get: ^4.7.2
   flutter_svg: ^2.1.0
+  mobile_scanner: ^7.0.0
 
   
 

@@ -78,7 +78,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                             onTap: () {
                               // controller.signInUser();
                             },
-                            title: "Sign Up",
+                            title: "Continiue",
                             titleSize: AppSize.width(value: 20),
                           ),
                         ],

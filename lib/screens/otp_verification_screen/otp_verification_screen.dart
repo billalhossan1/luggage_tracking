@@ -2,10 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/controllers/otp_verification_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class OtpVerificationScreen extends StatelessWidget {
@@ -58,17 +60,16 @@ class OtpVerificationScreen extends StatelessWidget {
                     child: Column(
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        Obx(
-                          () =>
-                              controller.isEmailVerification.value
-                                  ? AppText(
-                                    data: controller.argMail.value,
-                                    fontWeight: FontWeight.w500,
-                                    color: AppColors.instance.purple_500,
-                                  )
-                                  : const SizedBox(),
-                        ),
-
+                        // Obx(
+                        //   () =>
+                        //       controller.isEmailVerification.value
+                        //           ? AppText(
+                        //             data: controller.argMail.value,
+                        //             fontWeight: FontWeight.w500,
+                        //             color: AppColors.instance.purple_500,
+                        //           )
+                        //           : const SizedBox(),
+                        // ),
                         const SizedBox(height: 40),
                         Obx(
                           () => TextFormField(
@@ -119,41 +120,22 @@ class OtpVerificationScreen extends StatelessWidget {
                           ),
                         ),
                         const SizedBox(height: 30),
-                        Obx(
-                          () => GestureDetector(
-                            onTap: () {
-                              if (!controller.isLoading.value) {
-                                controller.clickVerificationCodeButton();
-                              }
-                            },
-                            child: Container(
-                              width: double.infinity,
-                              height: 50,
-                              alignment: Alignment.center,
-                              decoration: BoxDecoration(
-                                color: AppColors.instance.purple_500,
-                                borderRadius: BorderRadius.circular(8),
-                              ),
-                              child:
-                                  controller.isLoading.value
-                                      ? const SizedBox(
-                                        height: 24,
-                                        width: 24,
-                                        child: CircularProgressIndicator(
-                                          strokeWidth: 2,
-                                        ),
-                                      )
-                                      : AppText(
-                                        data: "Reset Password",
-                                        color: AppColors.instance.white400,
-                                        fontWeight: FontWeight.w600,
-                                        fontSize: 16,
-                                      ),
-                            ),
-                          ),
-                        ),
                       ],
                     ),
+                  ),
+                  AppButton(
+                    title: "Reset Password",
+                    onTap: () {
+                      try {
+                        Get.toNamed(AppRoutes.instance.cretaeNewPasswordScreen);
+                      } catch (e) {
+                        debugPrint("Navigation error: $e");
+                        Get.snackbar(
+                          "Error",
+                          "Could not navigate to next screen",
+                        );
+                      }
+                    },
                   ),
                 ],
               ),

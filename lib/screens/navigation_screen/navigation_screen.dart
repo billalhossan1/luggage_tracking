@@ -22,11 +22,11 @@ class NavigationScreen extends StatelessWidget {
           body: Obx(
             () => IndexedStack(
               index: controller.selectedIndex.value,
-              children: const [
-                HomeScreen(),
+              children: [
+                const HomeScreen(),
                 DeviceScreen(),
-                TrackerItemScreen(),
-                AccountScreen(),
+                const TrackerItemScreen(),
+                const AccountScreen(),
               ],
             ),
           ),

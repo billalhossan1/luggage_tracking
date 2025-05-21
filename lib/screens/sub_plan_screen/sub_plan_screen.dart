@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -24,7 +27,11 @@ class SubPlanScreen extends StatelessWidget {
                 color: AppColors.instance.black400,
               ),
             ),
+
             PlanCard(
+              onTap: () {
+                Get.toNamed(AppRoutes.instance.locationScreen);
+              },
               heading: "Annual plan",
               price: "\$114.99/year",
               offer1: "Permissions for Multiple Trackers",
@@ -60,6 +67,7 @@ class PlanCard extends StatelessWidget {
   final String? offer3;
   final String? price;
   final bool isSelected;
+  final Function()? onTap;
   const PlanCard({
     super.key,
     this.heading,
@@ -68,54 +76,58 @@ class PlanCard extends StatelessWidget {
     this.offer3,
     this.price,
     this.isSelected = true,
+    this.onTap,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: EdgeInsets.symmetric(
-        horizontal: AppSize.width(value: 16),
-        vertical: AppSize.width(value: 5),
-      ),
-      padding: EdgeInsets.symmetric(
-        horizontal: AppSize.width(value: 12),
-        vertical: AppSize.width(value: 10),
-      ),
-      width: AppSize.width(value: double.infinity),
-      decoration: BoxDecoration(
-        color:
-            isSelected
-                ? AppColors.instance.purple_50
-                : AppColors.instance.white100,
-        borderRadius: BorderRadius.circular(12),
-        border: Border.all(
+    return GestureDetector(
+      onTap: onTap,
+      child: Container(
+        margin: EdgeInsets.symmetric(
+          horizontal: AppSize.width(value: 16),
+          vertical: AppSize.width(value: 5),
+        ),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppSize.width(value: 12),
+          vertical: AppSize.width(value: 10),
+        ),
+        width: AppSize.width(value: double.infinity),
+        decoration: BoxDecoration(
           color:
               isSelected
-                  ? AppColors.instance.purple_500
-                  : AppColors.instance.black400,
+                  ? AppColors.instance.purple_50
+                  : AppColors.instance.white100,
+          borderRadius: BorderRadius.circular(12),
+          border: Border.all(
+            color:
+                isSelected
+                    ? AppColors.instance.purple_500
+                    : AppColors.instance.black400,
+          ),
         ),
-      ),
-      child: Column(
-        spacing: AppSize.width(value: 16),
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          AppText(
-            data: heading ?? "Annual plan",
-            fontSize: AppSize.width(value: 18),
-            fontWeight: FontWeight.w400,
-            color: AppColors.instance.black400,
-          ),
-          AppText(
-            data: price ?? "\$114.99/year",
-            fontSize: AppSize.width(value: 14),
-            fontWeight: FontWeight.w500,
-            color: AppColors.instance.blue2,
-          ),
+        child: Column(
+          spacing: AppSize.width(value: 16),
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            AppText(
+              data: heading ?? "Annual plan",
+              fontSize: AppSize.width(value: 18),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.black400,
+            ),
+            AppText(
+              data: price ?? "\$114.99/year",
+              fontSize: AppSize.width(value: 14),
+              fontWeight: FontWeight.w500,
+              color: AppColors.instance.blue2,
+            ),
 
-          PlanCardRow(text: offer1 ?? "Permissions for Multiple Trackers"),
-          PlanCardRow(text: offer2 ?? "sync with Garmin or Apple"),
-          PlanCardRow(text: offer3 ?? "Personalized training plans"),
-        ],
+            PlanCardRow(text: offer1 ?? "Permissions for Multiple Trackers"),
+            PlanCardRow(text: offer2 ?? "sync with Garmin or Apple"),
+            PlanCardRow(text: offer3 ?? "Personalized training plans"),
+          ],
+        ),
       ),
     );
   }

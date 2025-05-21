@@ -14,13 +14,13 @@ class MyApp extends StatelessWidget {
     AppSize.size = MediaQuery.of(context).size;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.instance.deviceScreen,
+      initialRoute: AppRoutes.instance.initial,
       getPages: appRootRoutesFile,
       enableLog: true,
       theme: appThemeData,
       themeMode: ThemeMode.light,
       defaultTransition: Transition.zoom,
-      transitionDuration: Duration(milliseconds: 300),
+      transitionDuration: Duration(milliseconds: 400),
 
       title: 'luggage-tracking',
     );

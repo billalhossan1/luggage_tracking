@@ -7,6 +7,7 @@ import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
+import 'package:luggage_tracking/screens/add_Device_scanner/add_device_scanner.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/change_password_screen/chnage_password_screen.dart';
 import 'package:luggage_tracking/screens/create_new_password_screen/create_new_password_screen.dart';
@@ -33,6 +34,7 @@ import 'package:luggage_tracking/screens/share_item_screen/share_item_screen.dar
 import 'package:luggage_tracking/screens/share_item_user_screen/share_item_user_screen.dart';
 import 'package:luggage_tracking/screens/signin_screen/signin_screen.dart';
 import 'package:luggage_tracking/screens/signup_screen/signup_screen.dart';
+import 'package:luggage_tracking/screens/signup_with_personal_data_screen/signup_with_personal_data_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
 import 'package:luggage_tracking/screens/sub_plan_screen/sub_plan_screen.dart';
 import 'package:luggage_tracking/screens/terms_and_condition_screen/terms_and_condition_screen.dart';
@@ -120,6 +122,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     page: () => const TrackerItemScreen(),
   ),
   GetPage(
+    name: AppRoutes.instance.addDeviceScanner,
+    page: () => const AddTrkilDeviceScreen(),
+  ),
+  GetPage(
     name: AppRoutes.instance.findNearby,
     page: () => const FindNearby(),
   ),
@@ -142,7 +148,12 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.deviceScreen,
-    page: () => const DeviceScreen(),
+    binding: AppBinding(),
+    page: () =>  DeviceScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.signUpWithPersonalData,
+    page: () =>  SignupWithPersonalDataScreen(),
   ),
   GetPage(name: AppRoutes.instance.accountScreen, page: () => AccountScreen()),
   GetPage(

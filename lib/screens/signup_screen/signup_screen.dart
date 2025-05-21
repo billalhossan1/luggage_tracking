@@ -114,7 +114,7 @@ class SignUpScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           isLoading: controller.isLoading.value,
                           onTap: () {
-                            // controller.signInUser();
+                            Get.toNamed(AppRoutes.instance.signUpWithPersonalData);
                           },
                           title: "Sign In",
                           titleSize: AppSize.width(value: 20),

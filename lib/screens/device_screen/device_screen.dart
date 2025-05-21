@@ -3,8 +3,9 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/device_screen/controller/device_screen_controller.dart';
 import 'package:luggage_tracking/screens/share_item_screen/share_item_screen.dart';
-import 'package:luggage_tracking/screens/share_item_user_screen/controller/share_item_user_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image_circular.dart';
@@ -14,12 +15,10 @@ import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class DeviceScreen extends StatelessWidget {
-  const DeviceScreen({super.key});
-
+  DeviceScreen({super.key});
+  final controller = Get.put(DeviceScreenController());
   @override
   Widget build(BuildContext context) {
-    final controller = Get.put(ShareItemUserController());
-
     return Scaffold(
       appBar: CustomAppBar(title: "Device"),
       body: Padding(
@@ -39,7 +38,11 @@ class DeviceScreen extends StatelessWidget {
                     color: AppColors.instance.black400,
                   ),
                   // Replace with your actual button
-                  ConnectBtn(),
+                  ConnectBtn(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.addDeviceScanner);
+                    },
+                  ),
                 ],
               ),
             ),
@@ -69,25 +72,52 @@ class DeviceScreen extends StatelessWidget {
                       ),
                     ),
                     AppDivider(),
-                    Gap(height: 10),
                     Obx(() {
-                      return Expanded(
-                        child: Column(
-                          children: [
-                            Expanded(
-                              child: ListView.builder(
-                                itemCount: 3,
-                                itemBuilder: (context, index) {
-                                  return TitleSubImgCard(
-                                    title: "Big Samsonite Luggage",
-                                    imgPath: AssetsIconsPath.instance.product3,
-                                  );
-                                },
+                      if (controller.selectedItem.value == 1) {
+                        return Expanded(
+                          child: Column(
+                            children: [
+                              // List of items
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: 3,
+                                  itemBuilder: (context, index) {
+                                    return TitleSubImgCard(
+                                      title: "Big Samsonite Luggage",
+                                      imgPath:
+                                          AssetsIconsPath.instance.product3,
+                                    );
+                                  },
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
-                      );
+
+                              // Bottom password section
+                            ],
+                          ),
+                        );
+                      } else {
+                        return Expanded(
+                          child: Column(
+                            children: [
+                              // List of items
+                              Expanded(
+                                child: ListView.builder(
+                                  itemCount: 2,
+                                  itemBuilder: (context, index) {
+                                    return TitleSubImgCard(
+                                      title: "Big Samsonite Luggage",
+                                      imgPath:
+                                          AssetsIconsPath.instance.product3,
+                                    );
+                                  },
+                                ),
+                              ),
+
+                              // Bottom password section
+                            ],
+                          ),
+                        );
+                      }
                     }),
                   ],
                 ),
@@ -197,7 +227,7 @@ class CustomTabButton extends StatelessWidget {
   final int? value;
   final String? text;
   final bool isSelected;
-  final ShareItemUserController controller;
+  final DeviceScreenController controller;
 
   const CustomTabButton({
     super.key,

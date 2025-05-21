@@ -1,7 +1,10 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
+import 'package:get/utils.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -47,7 +50,11 @@ class UserCard extends StatelessWidget {
               ),
             ],
           ),
-          ConnectBtn(),
+          ConnectBtn(
+            onTap: () {
+              Get.toNamed(AppRoutes.instance.shareUserItemScreen);
+            },
+          ),
         ],
       ),
     );
@@ -55,9 +62,8 @@ class UserCard extends StatelessWidget {
 }
 
 class ConnectBtn extends StatelessWidget {
-  const ConnectBtn({
-    super.key,
-  });
+  final Function()? onTap;
+  const ConnectBtn({super.key, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -75,11 +81,14 @@ class ConnectBtn extends StatelessWidget {
             height: AppSize.width(value: 14),
           ),
           Gap(width: AppSize.width(value: 8)),
-          AppText(
-            data: "Connect",
-            fontSize: AppSize.width(value: 14),
-            fontWeight: FontWeight.w400,
-            color: AppColors.instance.white300,
+          GestureDetector(
+            onTap: onTap,
+            child: AppText(
+              data: "Connect",
+              fontSize: AppSize.width(value: 14),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.white300,
+            ),
           ),
         ],
       ),

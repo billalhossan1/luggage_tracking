@@ -134,7 +134,11 @@ class SignInScreen extends StatelessWidget {
                               ],
                             ),
                             GestureDetector(
-                              onTap: () {},
+                              onTap: () {
+                                Get.toNamed(
+                                  AppRoutes.instance.forgetPasswordScreen,
+                                );
+                              },
                               child: AppText(
                                 data: "Forgot Password?",
                                 color: AppColors.instance.blue1,

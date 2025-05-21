@@ -1,7 +1,7 @@
 import 'package:get/get.dart';
 
-class ShareItemUserController extends GetxController {
-  var selectedItem = 1.obs;
+class DeviceScreenController extends GetxController {
+  RxInt selectedItem = 1.obs;
 
   void selectItem(int? value) {
     selectedItem.value = value ?? 1;

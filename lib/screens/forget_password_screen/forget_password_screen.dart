@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/signin_screen/controller/sign_in_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -69,7 +70,7 @@ class ForgetPasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             isLoading: controller.isLoading.value,
                             onTap: () {
-                              // controller.signInUser();
+                              Get.toNamed(AppRoutes.instance.otpScreen);
                             },
                             title: "Sign Up",
                             titleSize: AppSize.width(value: 20),
