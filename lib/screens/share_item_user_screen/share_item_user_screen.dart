@@ -8,8 +8,10 @@ import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image_circular.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/service_widget/profile_top_widget.dart';
+import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class ShareItemUserScreen extends StatelessWidget {
@@ -57,14 +59,71 @@ class ShareItemUserScreen extends StatelessWidget {
             AppDivider(),
             Obx(() {
               if (controller.selectedItem.value == 1) {
-                return TitleSubImgCard(
-                  title: "Big Samsonite Luggage",
-                  imgPath: AssetsIconsPath.instance.product3,
+                return Expanded(
+                  child: Column(
+                    children: [
+                      // List of items
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return TitleSubImgCard(
+                              title: "Big Samsonite Luggage",
+                              imgPath: AssetsIconsPath.instance.product3,
+                            );
+                          },
+                        ),
+                      ),
+
+                      // Bottom password section
+                      Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Gap(height: AppSize.width(value: 20)),
+                          AppText(
+                            data:
+                                "Please confirm your password to verification and remove your account.",
+                            fontSize: AppSize.width(value: 14),
+                            fontWeight: FontWeight.w400,
+                            color: AppColors.instance.black200,
+                          ),
+                          Gap(height: AppSize.width(value: 20)),
+                          AppInputWidgetTwo(
+                            hintText: "Password",
+                            filled: true,
+                            isPassWord: true,
+                            maxLines: 1,
+                            textInputAction: TextInputAction.done,
+                            contentPadding: EdgeInsets.symmetric(),
+                          ),
+                          Gap(height: AppSize.width(value: 20)),
+                          AppButton(title: "Send Request", titleSize: 20),
+                          Gap(height: AppSize.width(value: 60)),
+                        ],
+                      ),
+                    ],
+                  ),
                 );
               } else {
-                return TitleSubImgCard(
-                  title: "lovers vanity bag",
-                  imgPath: AssetsIconsPath.instance.product4,
+                return Expanded(
+                  child: Column(
+                    children: [
+                      // List of items
+                      Expanded(
+                        child: ListView.builder(
+                          itemCount: 3,
+                          itemBuilder: (context, index) {
+                            return TitleSubImgCard(
+                              title: "Big Samsonite Luggage",
+                              imgPath: AssetsIconsPath.instance.product3,
+                            );
+                          },
+                        ),
+                      ),
+
+                      // Bottom password section
+                    ],
+                  ),
                 );
               }
             }),
