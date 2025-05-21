@@ -13,5 +13,6 @@ class AssetsImagesPath {
   final String person = "assets/images/person.jpg";
   final String onBoardingImg = "assets/images/onboarding_img.png";
   final String mapImg = "assets/images/map.png";
+  final String nearbyBg = "assets/images/nearby_bg.png";
   
 }

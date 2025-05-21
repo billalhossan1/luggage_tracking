@@ -18,6 +18,7 @@ import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
 import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
 import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
+import 'package:luggage_tracking/screens/find_nearby/find_nearby.dart';
 import 'package:luggage_tracking/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/location_screen/location_screen.dart';
@@ -106,6 +107,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.trackItemScreen,
     page: () => const TrackerItemScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.findNearby,
+    page: () => const FindNearby(),
   ),
   GetPage(
     name: AppRoutes.instance.productDetailsScreen,

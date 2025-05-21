@@ -37,4 +37,5 @@ class AppRoutes {
   final String locationScreen = "/location-screen";
   final String otpScreen = "/otp-screen";
   final String trackItemScreen = "/track-item-screen";
+  final String findNearby = "/find-nearby-screen";
 }

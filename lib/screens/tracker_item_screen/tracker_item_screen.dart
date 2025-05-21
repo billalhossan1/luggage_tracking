@@ -3,6 +3,7 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/controller/tracker_controller.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/widgets/icon_text_column.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/widgets/item_tracker_widget.dart';
@@ -172,10 +173,7 @@ class TrackerItemScreen extends StatelessWidget {
 }
 
 class TrackItemCardSection extends StatelessWidget {
-  const TrackItemCardSection({
-    super.key,
-    required this.controller,
-  });
+  const TrackItemCardSection({super.key, required this.controller});
 
   final TrackerController controller;
 
@@ -198,51 +196,33 @@ class TrackItemCardSection extends StatelessWidget {
                         AppDivider(),
                         Row(
                           children: [
-                            Expanded(
-                              child: IconTextColumn(),
-                            ),
-                            Gap(
-                              width: AppSize.width(
-                                value: 8,
-                              ),
-                            ),
+                            Expanded(child: IconTextColumn()),
+                            Gap(width: AppSize.width(value: 8)),
                             Expanded(
                               child: IconTextColumn(
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.instance.findNearby);
+                                },
                                 text: "Find Nearby",
-                                iconPath:
-                                    AssetsIconsPath
-                                        .instance
-                                        .arrowGreen,
+                                iconPath: AssetsIconsPath.instance.arrowGreen,
                               ),
                             ),
                           ],
                         ),
-                        Gap(
-                          height: AppSize.width(value: 8),
-                        ),
+                        Gap(height: AppSize.width(value: 8)),
                         Row(
                           children: [
                             Expanded(
                               child: IconTextColumn(
                                 text: "Share Item",
-                                iconPath:
-                                    AssetsIconsPath
-                                        .instance
-                                        .addUser,
+                                iconPath: AssetsIconsPath.instance.addUser,
                               ),
                             ),
-                            Gap(
-                              width: AppSize.width(
-                                value: 8,
-                              ),
-                            ),
+                            Gap(width: AppSize.width(value: 8)),
                             Expanded(
                               child: IconTextColumn(
                                 text: "Notification",
-                                iconPath:
-                                    AssetsIconsPath
-                                        .instance
-                                        .bellRed,
+                                iconPath: AssetsIconsPath.instance.bellRed,
                               ),
                             ),
                           ],
@@ -256,4 +236,3 @@ class TrackItemCardSection extends StatelessWidget {
     );
   }
 }
-
