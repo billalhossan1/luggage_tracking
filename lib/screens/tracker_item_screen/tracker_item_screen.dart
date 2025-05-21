@@ -10,6 +10,7 @@ import 'package:luggage_tracking/screens/tracker_item_screen/widgets/item_tracke
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
@@ -214,6 +215,9 @@ class TrackItemCardSection extends StatelessWidget {
                           children: [
                             Expanded(
                               child: IconTextColumn(
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.instance.shareItem);
+                                },
                                 text: "Share Item",
                                 iconPath: AssetsIconsPath.instance.addUser,
                               ),
@@ -221,6 +225,112 @@ class TrackItemCardSection extends StatelessWidget {
                             Gap(width: AppSize.width(value: 8)),
                             Expanded(
                               child: IconTextColumn(
+                                onTap: () {
+                                  Get.bottomSheet(
+                                    Container(
+                                      padding: EdgeInsets.only(
+                                        top: AppSize.width(value: 36),
+                                        left: AppSize.width(value: 20),
+                                        right: AppSize.width(value: 20),
+                                        bottom: AppSize.width(
+                                          value: 100,
+                                        ), // Add bottom padding for spacing
+                                      ),
+                                      decoration: BoxDecoration(
+                                        color: AppColors.instance.white200,
+                                        borderRadius: BorderRadius.only(
+                                          topLeft: Radius.circular(12),
+                                          topRight: Radius.circular(12),
+                                        ),
+                                      ),
+                                      // ✅ Remove width or use full screen width
+                                      width: double.infinity,
+
+                                      // ✅ Wrap Column with IntrinsicHeight or not needed if Column fits naturally
+                                      child: Column(
+                                        mainAxisSize:
+                                            MainAxisSize
+                                                .min, // ✅ Makes the height dynamic!
+                                        crossAxisAlignment:
+                                            CrossAxisAlignment.start,
+                                        children: [
+                                          AppText(
+                                            data: "Are you sure ?",
+                                            fontSize: AppSize.width(value: 20),
+                                            fontWeight: FontWeight.w400,
+                                            color: AppColors.instance.black900,
+                                          ),
+                                          Gap(height: AppSize.width(value: 20)),
+                                          AppText(
+                                            data:
+                                                "Do you want to turn on tracking notification option",
+                                            fontSize: AppSize.width(value: 12),
+                                            fontWeight: FontWeight.w500,
+                                            color: AppColors.instance.black300,
+                                          ),
+                                          Gap(height: AppSize.width(value: 16)),
+                                          Row(
+                                            children: [
+                                              Expanded(
+                                                flex: 1,
+                                                child: SizedBox(),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: AppButton(
+                                                  title: "No",
+                                                  height: AppSize.width(
+                                                    value: 38,
+                                                  ),
+                                                ),
+                                              ),
+                                              Gap(
+                                                width: AppSize.width(value: 20),
+                                              ),
+                                              Expanded(
+                                                flex: 2,
+                                                child: OutlinedButton(
+                                                  onPressed: () {
+                                                    // Add your logic here
+                                                  },
+                                                  style: OutlinedButton.styleFrom(
+                                                    side: BorderSide(
+                                                      color:
+                                                          AppColors
+                                                              .instance
+                                                              .purple_500,
+                                                    ),
+                                                    foregroundColor:
+                                                        AppColors
+                                                            .instance
+                                                            .purple_500,
+                                                    shape: RoundedRectangleBorder(
+                                                      borderRadius:
+                                                          BorderRadius.circular(
+                                                            8,
+                                                          ),
+                                                    ),
+                                                  ),
+                                                  child: AppText(
+                                                    data: "Yes",
+                                                    fontSize: AppSize.width(
+                                                      value: 16,
+                                                    ),
+                                                    fontWeight: FontWeight.w400,
+                                                    color:
+                                                        AppColors
+                                                            .instance
+                                                            .purple_500,
+                                                  ),
+                                                ),
+                                              ),
+                                            ],
+                                          ),
+                                        ],
+                                      ),
+                                    ),
+                                  );
+                                },
                                 text: "Notification",
                                 iconPath: AssetsIconsPath.instance.bellRed,
                               ),

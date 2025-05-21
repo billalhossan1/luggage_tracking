@@ -29,6 +29,7 @@ import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
 import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/product_details_screen/product_details_screen.dart';
 import 'package:luggage_tracking/screens/profile_details/profile_details_screen.dart';
+import 'package:luggage_tracking/screens/share_item_screen/share_item_screen.dart';
 import 'package:luggage_tracking/screens/signin_screen/signin_screen.dart';
 import 'package:luggage_tracking/screens/signup_screen/signup_screen.dart';
 import 'package:luggage_tracking/screens/splash_screen/splash_screen.dart';
@@ -103,6 +104,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.productCategoryScreen,
     page: () => const ProductCategoryScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.shareItem,
+    page: () => const ShareItemScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.trackItemScreen,

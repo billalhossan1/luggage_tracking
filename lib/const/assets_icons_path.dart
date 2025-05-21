@@ -45,6 +45,7 @@ class AssetsIconsPath {
   final String bellRed = "assets/icons/bell_red.png";
   final String voliumWhite = "assets/icons/volium_white.png";
   final String navigatorIndicator = "assets/icons/nearby_indicator.png";
+  final String addUserWhite = "assets/icons/add_user_white.png";
 
 
   ///========svg img==================
