@@ -23,8 +23,8 @@ class ProfileTopWidget extends StatelessWidget {
       children: [
         AppImageCircular(
           path: imgPath,
-          width: AppSize.width(value: 74),
-          height: AppSize.width(value: 74),
+          width: AppSize.width(value: 64),
+          height: AppSize.width(value: 64),
           fit: BoxFit.cover,
           // color: AppColors.black300,
         ),
@@ -38,7 +38,7 @@ class ProfileTopWidget extends StatelessWidget {
               fontWeight: FontWeight.w500,
               color: AppColors.instance.black500,
             ),
-            Gap(height: AppSize.width(value: 4)),
+            Gap(height: AppSize.width(value: 10)),
             AppText(
               data: email,
               fontSize: AppSize.width(value: 14),
@@ -52,3 +52,7 @@ class ProfileTopWidget extends StatelessWidget {
     );
   }
 }
+
+
+
+

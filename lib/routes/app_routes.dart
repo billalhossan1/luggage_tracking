@@ -39,4 +39,5 @@ class AppRoutes {
   final String trackItemScreen = "/track-item-screen";
   final String findNearby = "/find-nearby-screen";
   final String shareItem = "/share-item-screen";
+  final String shareUserItemScreen = "/share-item-user-screen";
 }
