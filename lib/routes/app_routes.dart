@@ -36,4 +36,5 @@ class AppRoutes {
   final String subPlanScreen = "/sub-plan-screen";
   final String locationScreen = "/location-screen";
   final String otpScreen = "/otp-screen";
+  final String trackItemScreen = "/track-item-screen";
 }

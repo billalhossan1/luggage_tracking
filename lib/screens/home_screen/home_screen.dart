@@ -22,6 +22,7 @@ class HomeScreen extends StatelessWidget {
         slivers: [
           // SliverAppBar with some basic properties
           SliverAppBar(
+            automaticallyImplyLeading: false,
             toolbarHeight: AppSize.width(value: 56),
             pinned: true, // height when expanded
             flexibleSpace: HomeScreenAppBar(

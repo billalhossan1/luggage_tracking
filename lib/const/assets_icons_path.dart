@@ -36,6 +36,14 @@ class AssetsIconsPath {
   final String planCardIcon = "assets/icons/plan_card_icon.png";
   final String locationIcon = "assets/icons/location_logo.png";
   final String locationImg = "assets/icons/location_img.png";
+  final String product3 = "assets/icons/product_3.png";
+  final String product4 = "assets/icons/product_4.png";
+  final String share = "assets/icons/share_icon.png";
+  final String navigateIcon = "assets/icons/navigate_icon.png";
+  final String addUser = "assets/icons/add_user.png";
+  final String arrowGreen = "assets/icons/arrow_green_bg.png";
+  final String bellRed = "assets/icons/bell_red.png";
+  final String voliumWhite = "assets/icons/volium_white.png";
 
 
   ///========svg img==================

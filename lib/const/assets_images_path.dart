@@ -12,5 +12,6 @@ class AssetsImagesPath {
   final String creditCard = "assets/images/credit_card.png";
   final String person = "assets/images/person.jpg";
   final String onBoardingImg = "assets/images/onboarding_img.png";
+  final String mapImg = "assets/images/map.png";
   
 }
