@@ -47,28 +47,39 @@ class UserCard extends StatelessWidget {
               ),
             ],
           ),
-          Container(
-            padding: EdgeInsets.all(8),
-            decoration: BoxDecoration(
-              color: AppColors.instance.purple_600,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                AppImage(
-                  path: AssetsIconsPath.instance.addUserWhite,
-                  width: AppSize.width(value: 14),
-                  height: AppSize.width(value: 14),
-                ),
-                Gap(width: AppSize.width(value: 8)),
-                AppText(
-                  data: "Connect",
-                  fontSize: AppSize.width(value: 14),
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.instance.white300,
-                ),
-              ],
-            ),
+          ConnectBtn(),
+        ],
+      ),
+    );
+  }
+}
+
+class ConnectBtn extends StatelessWidget {
+  const ConnectBtn({
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(8),
+      decoration: BoxDecoration(
+        color: AppColors.instance.purple_600,
+        borderRadius: BorderRadius.circular(16),
+      ),
+      child: Row(
+        children: [
+          AppImage(
+            path: AssetsIconsPath.instance.addUserWhite,
+            width: AppSize.width(value: 14),
+            height: AppSize.width(value: 14),
+          ),
+          Gap(width: AppSize.width(value: 8)),
+          AppText(
+            data: "Connect",
+            fontSize: AppSize.width(value: 14),
+            fontWeight: FontWeight.w400,
+            color: AppColors.instance.white300,
           ),
         ],
       ),
