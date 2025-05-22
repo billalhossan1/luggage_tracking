@@ -55,16 +55,16 @@ class DeviceScreen extends StatelessWidget {
                     Obx(
                       () => Row(
                         children: [
-                          CustomTabButton(
+                          DeviceCustomTabButton(
                             controller: controller,
-                            text: "Shared Products",
+                            text: "My Item",
                             value: 1,
                             isSelected: controller.selectedItem.value == 1,
                           ),
                           const SizedBox(width: 10),
-                          CustomTabButton(
+                          DeviceCustomTabButton(
                             controller: controller,
-                            text: "Share History",
+                            text: "Others Item",
                             value: 2,
                             isSelected: controller.selectedItem.value == 2,
                           ),
@@ -223,13 +223,13 @@ void showCustomBottomSheet() {
   );
 }
 
-class CustomTabButton extends StatelessWidget {
+class DeviceCustomTabButton extends StatelessWidget {
   final int? value;
   final String? text;
   final bool isSelected;
   final DeviceScreenController controller;
 
-  const CustomTabButton({
+  const DeviceCustomTabButton({
     super.key,
     required this.controller,
     required this.isSelected,
@@ -248,20 +248,14 @@ class CustomTabButton extends StatelessWidget {
           horizontal: AppSize.width(value: 8),
           vertical: AppSize.width(value: 10),
         ),
-        decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? AppColors.instance.purple_200
-                  : AppColors.instance.white500,
-          borderRadius: BorderRadius.circular(16),
-        ),
+        decoration: BoxDecoration(borderRadius: BorderRadius.circular(16)),
         child: AppText(
           data: text ?? "Tab",
-          fontSize: AppSize.width(value: 12),
+          fontSize: AppSize.width(value: 16),
           fontWeight: FontWeight.w500,
           color:
               isSelected
-                  ? AppColors.instance.white300
+                  ? AppColors.instance.black500
                   : AppColors.instance.black200,
         ),
       ),
