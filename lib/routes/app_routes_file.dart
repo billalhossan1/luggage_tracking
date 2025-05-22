@@ -116,7 +116,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.shareUserItemScreen,
     binding: AppBinding(),
-    page: () => const ShareItemUserScreen(),
+    page: () =>  ShareItemUserScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.trackItemScreen,

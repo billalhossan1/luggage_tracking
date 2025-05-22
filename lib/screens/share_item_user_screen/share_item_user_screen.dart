@@ -3,6 +3,8 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/screens/share_item_user_screen/controller/share_item_user_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -15,7 +17,9 @@ import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class ShareItemUserScreen extends StatelessWidget {
-  const ShareItemUserScreen({super.key});
+  ShareItemUserScreen({super.key});
+  final controller1 = Get.put(AccountController());
+  final controller = Get.put(ShareItemUserController());
 
   @override
   Widget build(BuildContext context) {
@@ -97,7 +101,23 @@ class ShareItemUserScreen extends StatelessWidget {
                             contentPadding: EdgeInsets.symmetric(),
                           ),
                           Gap(height: AppSize.width(value: 20)),
-                          AppButton(title: "Send Request", titleSize: 20),
+                          AppButton(
+                            title: "Send Request",
+                            titleSize: 20,
+                            onTap: () {
+                              Get.offAllNamed(
+                                AppRoutes.instance.navigationScreen,
+                              );
+                              Future.delayed(Duration(seconds: 1), () {
+                                Get.bottomSheet(
+                                  SendPasswordBottomSheet(
+                                    controller: controller1,
+                                  ),
+                                  isScrollControlled: true,
+                                );
+                              });
+                            },
+                          ),
                           Gap(height: AppSize.width(value: 60)),
                         ],
                       ),
@@ -134,17 +154,184 @@ class ShareItemUserScreen extends StatelessWidget {
   }
 }
 
+class SendPasswordBottomSheet extends StatelessWidget {
+  final AccountController controller;
+
+  const SendPasswordBottomSheet({super.key, required this.controller});
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.instance.white50,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Gap(height: AppSize.width(value: 20)),
+            ProfileTopWidget(
+              imgPath: AssetsImagesPath.instance.person,
+              name: "Mr. Spatch",
+              email: "Spatch@gmail,com",
+            ),
+            Gap(height: AppSize.width(value: 16)),
+            TitleSubImgCard(
+              imgPath: AssetsIconsPath.instance.product3,
+              ismoreShow: false,
+            ),
+            Gap(height: AppSize.width(value: 16)),
+            AppText(
+              data: "Mr. Spatch want to share a tracking device with you",
+              fontSize: AppSize.width(value: 12),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.green1,
+            ),
+            Gap(height: AppSize.width(value: 16)),
+            Row(
+              children: [
+                Expanded(child: SizedBox()),
+                Expanded(
+                  child: AppButton(
+                    onTap: () {
+                      Get.back();
+                    },
+                    height: AppSize.width(value: 36),
+                    borderRadius: BorderRadius.circular(8),
+                    title: "Cancel",
+                    filColor: AppColors.instance.white200,
+                    titleColor: AppColors.instance.black200,
+                  ),
+                ),
+                Gap(width: AppSize.width(value: 8)),
+                Expanded(
+                  child: AppButton(
+                    onTap: () {
+                      Get.offAllNamed(AppRoutes.instance.shareUserItemScreen);
+                      Future.delayed(Duration(seconds: 1), () {
+                        Get.bottomSheet(
+                          RequastAcseptBottomSheet(controller: controller),
+                          isScrollControlled: true,
+                        );
+                      });
+                    },
+                    height: AppSize.width(value: 36),
+                    title: "Accept",
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ],
+            ),
+            Gap(height: AppSize.width(value: 20)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class RequastAcseptBottomSheet extends StatelessWidget {
+  const RequastAcseptBottomSheet({super.key, required this.controller});
+
+  final AccountController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.instance.white50,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Gap(height: AppSize.width(value: 20)),
+            ProfileTopWidget(
+              imgPath: AssetsImagesPath.instance.person,
+              name: "Mr. Spatch",
+              email: "Spatch@gmail,com",
+            ),
+            AppDivider(),
+            Gap(height: AppSize.width(value: 16)),
+            TitleSubImgCard(
+              imgPath: AssetsIconsPath.instance.product3,
+              ismoreShow: false,
+            ),
+            Gap(height: AppSize.width(value: 16)),
+            AppText(
+              data: "CONGRATULATION , Suporna accept your request",
+              fontSize: AppSize.width(value: 12),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.green1,
+            ),
+            Gap(height: AppSize.width(value: 16)),
+            Row(
+              children: [
+                Expanded(child: SizedBox()),
+                Expanded(
+                  child: AppButton(
+                    onTap: () {},
+                    height: AppSize.width(value: 36),
+                    borderRadius: BorderRadius.circular(8),
+                    title: "Share History",
+                    filColor: AppColors.instance.white200,
+                    titleColor: AppColors.instance.black200,
+                  ),
+                ),
+                Gap(width: AppSize.width(value: 8)),
+                Expanded(
+                  child: AppButton(
+                    onTap: () {
+                      // সব আগের route pop করে Home এ নিয়ে যায়
+                      Get.offAllNamed(AppRoutes.instance.navigationScreen);
+
+                      // তারপর Home থেকে Track Item এ push করে
+                      Future.delayed(Duration(milliseconds: 100), () {
+                        Get.toNamed(AppRoutes.instance.trackItemScreen);
+                      });
+                    },
+
+                    height: AppSize.width(value: 36),
+                    title: "Go Track Item",
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+              ],
+            ),
+            Gap(height: AppSize.width(value: 20)),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
 class TitleSubImgCard extends StatelessWidget {
   final String? imgPath;
   final String? title;
   final String? subTitle;
+  final bool ismoreShow;
+  final double? paddingAll;
 
-  const TitleSubImgCard({super.key, this.imgPath, this.title, this.subTitle});
+  const TitleSubImgCard({
+    super.key,
+    this.imgPath,
+    this.title,
+    this.subTitle,
+    this.ismoreShow = true,
+    this.paddingAll,
+  });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(16),
+      padding: EdgeInsets.all(AppSize.width(value: 12)),
       child: Row(
         children: [
           AppImageCircular(
@@ -166,15 +353,17 @@ class TitleSubImgCard extends StatelessWidget {
                       fontWeight: FontWeight.w400,
                       color: AppColors.instance.black300,
                     ),
-                    GestureDetector(
-                      onTap: () {
-                        showCustomBottomSheet();
-                      },
-                      child: Icon(
-                        Icons.more_vert,
-                        size: AppSize.width(value: 14),
-                      ),
-                    ),
+                    ismoreShow
+                        ? GestureDetector(
+                          onTap: () {
+                            showCustomBottomSheet();
+                          },
+                          child: Icon(
+                            Icons.more_vert,
+                            size: AppSize.width(value: 14),
+                          ),
+                        )
+                        : SizedBox(),
                   ],
                 ),
                 Gap(height: AppSize.width(value: 12)),
