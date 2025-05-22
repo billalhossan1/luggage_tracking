@@ -47,6 +47,7 @@ class AssetsIconsPath {
   final String navigatorIndicator = "assets/icons/nearby_indicator.png";
   final String addUserWhite = "assets/icons/add_user_white.png";
   final String splashLogo = "assets/icons/splash_logo.png";
+  final String setting2 = "assets/icons/setting2.png";
 
 
   

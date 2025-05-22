@@ -24,6 +24,7 @@ import 'package:luggage_tracking/screens/forget_password_screen/forget_password_
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/location_screen/location_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
+import 'package:luggage_tracking/screens/notification_screen/notification_screen.dart';
 import 'package:luggage_tracking/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
@@ -198,4 +199,5 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     page: () => FeedbackScreen(),
   ),
   GetPage(name: AppRoutes.instance.faqScreen, page: () => FaqScreen()),
+  GetPage(name: AppRoutes.instance.notificationScreen, page: () => NotificationScreen()),
 ];

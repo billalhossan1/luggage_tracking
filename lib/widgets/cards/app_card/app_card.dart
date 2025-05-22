@@ -13,7 +13,8 @@ class AppCard extends StatelessWidget {
     required this.child,
     this.padding,
     this.borderRedius,
-    this.onTap, this.filColor,
+    this.onTap,
+    this.filColor,
   });
 
   @override
@@ -24,7 +25,17 @@ class AppCard extends StatelessWidget {
         padding: EdgeInsets.all(AppSize.width(value: padding ?? 16)),
         width: AppSize.width(value: double.infinity),
         decoration: BoxDecoration(
-          color:filColor ?? AppColors.instance.white50,
+          boxShadow: [
+            BoxShadow(
+              color: AppColors.instance.black900.withValues(
+                alpha: 0.07,
+              ), // ছায়ার রঙ ও অপাসিটি
+              offset: Offset(0, 2), // শুধুমাত্র নিচে ছায়া (x=0, y=4)
+              blurRadius: 2, // ছায়ার ধোঁয়াশা
+              spreadRadius: 0, // ছায়া কতটা ছড়াবে
+            ),
+          ],
+          color: filColor ?? AppColors.instance.white50,
           borderRadius: BorderRadius.circular(borderRedius ?? 12),
         ),
         child: child,

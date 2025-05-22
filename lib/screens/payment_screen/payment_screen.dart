@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';

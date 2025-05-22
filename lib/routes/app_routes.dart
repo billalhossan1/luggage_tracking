@@ -27,6 +27,7 @@ class AppRoutes {
   final String feedbackScreen = "/feedback-screen";
   final String faqScreen = "/faq-screen";
   final String addDeviceScanner = "/add-device-scanner";
+  final String notificationScreen = "/notification-screen";
 
   ///====================Auth Screen =================
   final String signIn = "/sign-in-screen";

@@ -32,11 +32,16 @@ class HomeScreen extends StatelessWidget {
                   width: AppSize.width(value: 24),
                   height: AppSize.width(value: 24),
                 ),
-                Gap(width: AppSize.width(value: 8)),
-                AppImage(
-                  path: AssetsIconsPath.instance.notification,
-                  width: AppSize.width(value: 24),
-                  height: AppSize.width(value: 24),
+                Gap(width: AppSize.width(value: 16)),
+                GestureDetector(
+                  onTap: () {
+                    Get.toNamed(AppRoutes.instance.notificationScreen);
+                  },
+                  child: AppImage(
+                    path: AssetsIconsPath.instance.notification,
+                    width: AppSize.width(value: 24),
+                    height: AppSize.width(value: 24),
+                  ),
                 ),
               ],
               title: "Welcome to Trkil",
