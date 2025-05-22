@@ -13,6 +13,7 @@ class AddDescripsion extends StatelessWidget {
     this.border,
     this.errBorder,
     required this.title,
+    this.hintStyle, this.boxSize,
   });
 
   final String title;
@@ -21,6 +22,8 @@ class AddDescripsion extends StatelessWidget {
   final Color? fillColor;
   final InputBorder? border;
   final InputBorder? errBorder;
+  final TextStyle? hintStyle;
+  final double? boxSize;
 
   @override
   Widget build(BuildContext context) {
@@ -46,7 +49,7 @@ class AddDescripsion extends StatelessWidget {
         ),
         const Gap(height: 10),
         SizedBox(
-          height: AppSize.width(value: 162),
+          height: AppSize.width(value: boxSize ?? 162),
           child: TextFormField(
             controller: controller,
             keyboardType: TextInputType.multiline,
@@ -57,7 +60,8 @@ class AddDescripsion extends StatelessWidget {
 
             decoration: InputDecoration(
               hintText: hintText,
-              hintStyle: TextStyle(color: AppColors.instance.white200),
+              hintStyle:
+                  hintStyle ?? TextStyle(color: AppColors.instance.white200),
               filled: true,
               fillColor: fillColor ?? AppColors.instance.white50,
               border: border ?? outlineBorder,

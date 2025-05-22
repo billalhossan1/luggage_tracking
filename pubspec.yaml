@@ -38,6 +38,7 @@ dependencies:
   get: ^4.7.2
   flutter_svg: ^2.1.0
   mobile_scanner: ^7.0.0
+  flutter_rating_bar: ^4.0.1
 
   
 

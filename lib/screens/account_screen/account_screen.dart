@@ -1,18 +1,27 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
+import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
+import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image_circular.dart';
+import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/cards/app_card/app_card.dart';
+import 'package:luggage_tracking/widgets/texts/add_descrepsion.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 import 'package:luggage_tracking/widgets/texts/icon_text_row.dart';
 
 class AccountScreen extends StatelessWidget {
-  const AccountScreen({super.key});
+  AccountScreen({super.key});
+  final controller = Get.put(AccountController());
 
   @override
   Widget build(BuildContext context) {
@@ -106,7 +115,9 @@ class AccountScreen extends StatelessWidget {
                 iconPath: AssetsIconsPath.instance.feedback,
                 text: "Feedback",
                 onTap: () {
-                  Get.toNamed(AppRoutes.instance.feedbackScreen);
+                  Get.bottomSheet(
+                    FeedBackRattinigBottomSheet(controller: controller),
+                  );
                 },
               ),
               IcontextRow(
@@ -115,6 +126,88 @@ class AccountScreen extends StatelessWidget {
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+
+class FeedBackRattinigBottomSheet extends StatelessWidget {
+  const FeedBackRattinigBottomSheet({super.key, required this.controller});
+
+  final AccountController controller;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      child: Container(
+        padding: const EdgeInsets.all(16),
+        decoration: BoxDecoration(
+          color: AppColors.instance.white50,
+          borderRadius: const BorderRadius.vertical(top: Radius.circular(20)),
+        ),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Gap(height: AppSize.width(value: 20)),
+
+            AppText(
+              data: "Give Your Rating",
+              fontSize: AppSize.width(value: 22),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.black200,
+            ),
+            Gap(height: AppSize.width(value: 16)),
+            Center(
+              child: Obx(
+                () => RatingBar.builder(
+                  initialRating: controller.rating.value,
+                  minRating: 1,
+                  direction: Axis.horizontal,
+                  allowHalfRating: true,
+                  itemCount: 5,
+                  itemSize: 40,
+                  itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
+                  itemBuilder:
+                      (context, _) =>
+                          const Icon(Icons.star, color: Colors.amber),
+                  onRatingUpdate: controller.updateRatting,
+                ),
+              ),
+            ),
+
+            AddDescripsion(
+              boxSize: 120,
+              fillColor: AppColors.instance.white50,
+              title: "",
+              hintText: "Review",
+              hintStyle: TextStyle(
+                fontFamily: AppConst.fontFamily1,
+                fontSize: AppSize.width(value: 16),
+                fontWeight: FontWeight.w400,
+                color: AppColors.instance.black300,
+              ),
+              border: OutlineInputBorder(
+                borderRadius: BorderRadius.circular(8.0),
+                borderSide: BorderSide(
+                  color: AppColors.instance.black200,
+                  width: 1.0,
+                ),
+              ),
+            ),
+            Padding(
+              padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 40)),
+              child: AppButton(
+                title: "Submit",
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Get.back(); // Close bottom sheet
+                  AppSnackBar.message("You rated: ${controller.rating.value}");
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

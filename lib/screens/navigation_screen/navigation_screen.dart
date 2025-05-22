@@ -26,7 +26,7 @@ class NavigationScreen extends StatelessWidget {
                 const HomeScreen(),
                 DeviceScreen(),
                 const TrackerItemScreen(),
-                const AccountScreen(),
+                 AccountScreen(),
               ],
             ),
           ),

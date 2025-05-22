@@ -156,7 +156,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.signUpWithPersonalData,
     page: () =>  SignupWithPersonalDataScreen(),
   ),
-  GetPage(name: AppRoutes.instance.accountScreen, page: () => AccountScreen()),
+  GetPage(name: AppRoutes.instance.accountScreen,binding: AppBinding(), page: () => AccountScreen()),
   GetPage(
     name: AppRoutes.instance.wishListScreen,
     page: () => WishListScreen(),
