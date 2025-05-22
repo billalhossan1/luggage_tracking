@@ -46,8 +46,8 @@ class AssetsIconsPath {
   final String voliumWhite = "assets/icons/volium_white.png";
   final String navigatorIndicator = "assets/icons/nearby_indicator.png";
   final String addUserWhite = "assets/icons/add_user_white.png";
+  final String splashLogo = "assets/icons/splash_logo.png";
 
 
-  ///========svg img==================
-  final String splashLogo = "assets/icons/Trkli-App Logo file-04.svg";
+  
 }

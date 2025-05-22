@@ -26,7 +26,7 @@ class IconTextColumn extends StatelessWidget {
           color: AppColors.instance.white200,
           boxShadow: [
             BoxShadow(
-              color: Colors.black.withOpacity(0.1), // Shadow color
+              color: Colors.black.withValues(alpha: .1), // Shadow color
               offset: Offset(-4, 4), // x: left (-), y: bottom (+)
               blurRadius: 6,
               spreadRadius: 1,

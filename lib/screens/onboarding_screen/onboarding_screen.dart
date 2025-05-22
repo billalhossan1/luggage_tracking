@@ -48,7 +48,8 @@ class _OnboardingScreenState extends State<OnboardingScreen>
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      backgroundColor: Colors.transparent,
+      backgroundColor: AppColors.instance.purple_500,
+      // backgroundColor: Colors.transparent,
       body: GestureDetector(
         onTap: () {
           showCustomBottomSheet();

@@ -41,12 +41,12 @@ class ExpandableTile extends StatelessWidget {
   final int index;
 
   const ExpandableTile({
-    Key? key,
+    super.key,
     required this.title,
     required this.description,
     required this.controller,
     required this.index,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -65,7 +65,7 @@ class ExpandableTile extends StatelessWidget {
             borderRadius: BorderRadius.circular(8),
             boxShadow: [
               BoxShadow(
-                color: Colors.grey.withOpacity(0.1),
+                color: Colors.grey.withValues(alpha: .1),
                 blurRadius: 5,
                 offset: const Offset(0, 2),
               ),

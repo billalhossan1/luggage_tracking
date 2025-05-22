@@ -19,8 +19,8 @@ class MyApp extends StatelessWidget {
       enableLog: true,
       theme: appThemeData,
       themeMode: ThemeMode.light,
-      defaultTransition: Transition.zoom,
-      transitionDuration: Duration(milliseconds: 400),
+      defaultTransition: Transition.fadeIn,
+      transitionDuration: Duration(milliseconds: 200),
 
       title: 'luggage-tracking',
     );

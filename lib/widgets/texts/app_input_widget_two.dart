@@ -380,7 +380,7 @@ class _AppInputWidgetTwoState extends State<AppInputWidgetTwo> {
 
           // hint text (will be replaced by label when focused)
           hintStyle: Theme.of(context).textTheme.titleSmall?.copyWith(
-            color: AppColors.instance.black400.withOpacity(0.5),
+            color: AppColors.instance.black400.withValues(alpha: .5),
           ),
           filled: true,
           fillColor: AppColors.instance.white200, // fill color white

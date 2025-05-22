@@ -53,7 +53,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   borderRadius: BorderRadius.circular(20),
                   boxShadow: [
                     BoxShadow(
-                      color: Colors.grey.withOpacity(0.1),
+                      color: Colors.grey.withValues(alpha: .1),
                       blurRadius: 8,
                       spreadRadius: 1,
                     ),

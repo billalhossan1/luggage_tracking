@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/screens/splash_screen/controller/splash_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
+import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 
 class SplashScreen extends StatelessWidget {
   const SplashScreen({super.key});
@@ -29,9 +29,7 @@ class SplashScreen extends StatelessWidget {
                     scale: controller.animation.value,
                     duration: Duration(seconds: 2),
                     curve: Curves.easeOutExpo,
-                    child: SvgPicture.asset(
-                      AssetsIconsPath.instance.splashLogo,
-                    ),
+                    child: AppImage(path: AssetsIconsPath.instance.splashLogo),
                   ),
                 ),
               ),
