@@ -58,7 +58,7 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(height: AppSize.height(value: 20)),
                   Form(
-                    key: controller.signInFormKey,
+                    // key: controller.signInFormKey,
                     child: Column(
                       children: [
                         AppInputWidgetTwo(

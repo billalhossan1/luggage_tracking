@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/signin_screen/controller/sign_in_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -55,7 +56,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                     ),
                     Gap(height: AppSize.height(value: 40)),
                     Form(
-                      key: controller.signInFormKey,
+                      // key: controller.signInFormKey,
                       child: Column(
                         children: [
                           AppInputWidgetTwo(
@@ -76,7 +77,7 @@ class CreateNewPasswordScreen extends StatelessWidget {
                             borderRadius: BorderRadius.circular(12),
                             isLoading: controller.isLoading.value,
                             onTap: () {
-                              // controller.signInUser();
+                              Get.offAllNamed(AppRoutes.instance.signIn);
                             },
                             title: "Continiue",
                             titleSize: AppSize.width(value: 20),

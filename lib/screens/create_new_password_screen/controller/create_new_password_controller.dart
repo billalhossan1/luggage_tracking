@@ -1,4 +1,4 @@
-import 'dart:developer';
+
 
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -7,7 +7,7 @@ class CreateNewPasswordScreenController extends GetxController {
   //////////////  variable & object
   RxBool isLoading = RxBool(false);
   RxBool isRememberMe = RxBool(false);
-  GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
+  // GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
   // final AuthRepository authRepository = AuthRepository();
 
   //////////  text controller
@@ -30,13 +30,13 @@ class CreateNewPasswordScreenController extends GetxController {
   // }
 
   void clickSignIButton() {
-    try {
-      if (signInFormKey.currentState!.validate()) {
-        // signIn();
-      }
-    } catch (e) {
-      log("error form click SignIn button function : $e");
-    }
+    // try {
+    //   if (signInFormKey.currentState!.validate()) {
+    //     // signIn();
+    //   }
+    // } catch (e) {
+    //   log("error form click SignIn button function : $e");
+    // }
   }
 
   // appClose() {
