@@ -14,7 +14,7 @@ class MyApp extends StatelessWidget {
     AppSize.size = MediaQuery.of(context).size;
     return GetMaterialApp(
       debugShowCheckedModeBanner: false,
-      initialRoute: AppRoutes.instance.shareUserItemScreen,
+      initialRoute: AppRoutes.instance.initial,
       getPages: appRootRoutesFile,
       enableLog: true,
       theme: appThemeData,
