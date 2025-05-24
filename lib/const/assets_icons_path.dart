@@ -48,6 +48,8 @@ class AssetsIconsPath {
   final String addUserWhite = "assets/icons/add_user_white.png";
   final String splashLogo = "assets/icons/splash_logo.png";
   final String setting2 = "assets/icons/setting2.png";
+  final String soundInActive = "assets/icons/soundInActive.png";
+  final String soundActive = "assets/icons/sound_active.png";
 
 
   
