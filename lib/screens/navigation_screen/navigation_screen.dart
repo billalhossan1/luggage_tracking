@@ -26,7 +26,7 @@ class NavigationScreen extends StatelessWidget {
                 const HomeScreen(),
                 DeviceScreen(),
                 const TrackerItemScreen(),
-                 AccountScreen(),
+                AccountScreen(),
               ],
             ),
           ),
@@ -51,44 +51,46 @@ class NavigationScreen extends StatelessWidget {
                   ],
                 ),
                 child: Obx(
-                  () => Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceAround,
-                    children: List.generate(4, (index) {
-                      final isSelected =
-                          controller.selectedIndex.value == index;
-                      final iconPaths = [
-                        AssetsIconsPath.instance.homeNav,
-                        AssetsIconsPath.instance.deviceNav,
-                        AssetsIconsPath.instance.trackerNav,
-                        AssetsIconsPath.instance.accountNav,
-                      ];
+                  () => SafeArea(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceAround,
+                      children: List.generate(4, (index) {
+                        final isSelected =
+                            controller.selectedIndex.value == index;
+                        final iconPaths = [
+                          AssetsIconsPath.instance.homeNav,
+                          AssetsIconsPath.instance.deviceNav,
+                          AssetsIconsPath.instance.trackerNav,
+                          AssetsIconsPath.instance.accountNav,
+                        ];
 
-                      return GestureDetector(
-                        onTap: () => controller.changeIndex(index),
-                        child: Container(
-                          padding: const EdgeInsets.all(10),
-                          decoration:
-                              isSelected
-                                  ? BoxDecoration(
-                                    color:
-                                        AppColors
-                                            .instance
-                                            .purple_500, // Purple circle
-                                    shape: BoxShape.circle,
-                                  )
-                                  : null,
-                          child: AppImage(
-                            path: iconPaths[index],
-                            width: 24,
-                            height: 24,
-                            iconColor:
+                        return GestureDetector(
+                          onTap: () => controller.changeIndex(index),
+                          child: Container(
+                            padding: const EdgeInsets.all(10),
+                            decoration:
                                 isSelected
-                                    ? Colors.white
-                                    : AppColors.instance.black200,
+                                    ? BoxDecoration(
+                                      color:
+                                          AppColors
+                                              .instance
+                                              .purple_500, // Purple circle
+                                      shape: BoxShape.circle,
+                                    )
+                                    : null,
+                            child: AppImage(
+                              path: iconPaths[index],
+                              width: 24,
+                              height: 24,
+                              iconColor:
+                                  isSelected
+                                      ? Colors.white
+                                      : AppColors.instance.black200,
+                            ),
                           ),
-                        ),
-                      );
-                    }),
+                        );
+                      }),
+                    ),
                   ),
                 ),
               ),

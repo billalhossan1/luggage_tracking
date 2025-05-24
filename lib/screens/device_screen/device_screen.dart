@@ -28,7 +28,7 @@ class DeviceScreen extends StatelessWidget {
         autoShowLeading: false,
       ),
       body: Padding(
-        padding: const EdgeInsets.all(20),
+        padding: EdgeInsets.all(AppSize.width(value: 16)),
         child: Column(
           children: [
             AppCard(

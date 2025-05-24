@@ -54,17 +54,19 @@ class DeliveryDetailsScreen extends StatelessWidget {
           ),
         ),
       ),
-      bottomNavigationBar: Padding(
-        padding: EdgeInsets.symmetric(
-          horizontal: AppSize.width(value: 10),
-          vertical: AppSize.width(value: 20),
-        ),
-        child: AppButton(
-          title: "Continue",
-          titleSize: 20,
-          onTap: () {
-            Get.toNamed(AppRoutes.instance.deliveryDetainShowScreen);
-          },
+      bottomNavigationBar: SafeArea(
+        child: Padding(
+          padding: EdgeInsets.symmetric(
+            horizontal: AppSize.width(value: 10),
+            vertical: AppSize.width(value: 20),
+          ),
+          child: AppButton(
+            title: "Continue",
+            titleSize: 20,
+            onTap: () {
+              Get.toNamed(AppRoutes.instance.deliveryDetainShowScreen);
+            },
+          ),
         ),
       ),
     );

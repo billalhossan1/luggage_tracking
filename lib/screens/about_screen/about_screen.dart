@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
@@ -11,7 +12,7 @@ class AboutScreen extends StatelessWidget {
       appBar: CustomAppBar(title: "About"),
       body: SingleChildScrollView(
         child: Padding(
-          padding: const EdgeInsets.all(12),
+          padding: EdgeInsets.all(AppSize.width(value: 16)),
           child: Column(
             children: [
               AppText(
