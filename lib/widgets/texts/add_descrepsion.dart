@@ -14,6 +14,7 @@ class AddDescripsion extends StatelessWidget {
     this.errBorder,
     required this.title,
     this.hintStyle, this.boxSize,
+    
   });
 
   final String title;
@@ -53,8 +54,8 @@ class AddDescripsion extends StatelessWidget {
           child: TextFormField(
             controller: controller,
             keyboardType: TextInputType.multiline,
-            maxLines: null,
             expands: true,
+            maxLines: null,
             textAlignVertical: TextAlignVertical.top,
             style: TextStyle(color: AppColors.instance.black700),
 

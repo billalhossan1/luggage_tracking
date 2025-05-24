@@ -281,7 +281,7 @@ class RequastAcseptBottomSheet extends StatelessWidget {
                     borderRadius: BorderRadius.circular(8),
                     title: "Share History",
                     filColor: AppColors.instance.white200,
-                    titleColor: AppColors.instance.black200,
+                    titleColor: AppColors.instance.black500,
                   ),
                 ),
                 Gap(width: AppSize.width(value: 8)),

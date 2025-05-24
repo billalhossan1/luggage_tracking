@@ -152,10 +152,10 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
             Gap(height: AppSize.width(value: 20)),
 
             AppText(
-              data: "Give Your Rating",
+              data: "Your Feedback",
               fontSize: AppSize.width(value: 22),
               fontWeight: FontWeight.w400,
-              color: AppColors.instance.black200,
+              color: AppColors.instance.black500,
             ),
             Gap(height: AppSize.width(value: 16)),
             Center(
@@ -166,6 +166,7 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
+
                   itemSize: 40,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   itemBuilder:
@@ -188,7 +189,7 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
                 color: AppColors.instance.black300,
               ),
               border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(8.0),
+                borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
                   color: AppColors.instance.black200,
                   width: 1.0,
@@ -198,8 +199,8 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
             Padding(
               padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 40)),
               child: AppButton(
-                title: "Submit",
-                borderRadius: BorderRadius.circular(12),
+                title: "Confirm",
+                borderRadius: BorderRadius.circular(16),
                 onTap: () {
                   Get.back(); // Close bottom sheet
                   AppSnackBar.message("You rated: ${controller.rating.value}");

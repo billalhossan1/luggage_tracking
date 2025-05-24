@@ -71,12 +71,12 @@ class AppSnackBar {
   static message(String parameterValue) {
     Get.showSnackbar(
       GetSnackBar(
-        backgroundColor: AppColors.instance.black300,
+        backgroundColor: AppColors.instance.purple_100,
         animationDuration: const Duration(seconds: 2),
         duration: const Duration(seconds: 3),
         messageText: AppText(
           data: parameterValue,
-          color: AppColors.instance.white200,
+          color: AppColors.instance.white500,
           fontSize: 16,
           textAlign: TextAlign.center,
           fontWeight: FontWeight.w400,

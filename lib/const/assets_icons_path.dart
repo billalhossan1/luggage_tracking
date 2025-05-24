@@ -50,6 +50,7 @@ class AssetsIconsPath {
   final String setting2 = "assets/icons/setting2.png";
   final String soundInActive = "assets/icons/soundInActive.png";
   final String soundActive = "assets/icons/sound_active.png";
+  final String isFavorate = "assets/icons/isFavorate.png";
 
 
   

@@ -9,6 +9,7 @@ import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/appbar/home_screen_appbar.dart';
+import 'package:luggage_tracking/widgets/cards/product_card.dart';
 import 'package:luggage_tracking/widgets/service_widget/service_category_box.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
@@ -116,6 +117,8 @@ class HomeScreen extends StatelessWidget {
                     return Padding(
                       padding: EdgeInsets.only(right: AppSize.width(value: 8)),
                       child: ProductCard(
+                        isBookmark: false,
+                        isToggleable: true,
                         onTap: () {
                           Get.toNamed(AppRoutes.instance.productDetailsScreen);
                         },
@@ -132,105 +135,111 @@ class HomeScreen extends StatelessWidget {
   }
 }
 
-class ProductCard extends StatelessWidget {
-  final Function()? onTap;
-  const ProductCard({super.key, this.onTap});
+// class ProductCard extends StatelessWidget {
+//   final bool isBookmark;
+//   final Function()? onTap;
+//   const ProductCard({super.key, this.onTap, required this.isBookmark});
 
-  @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: onTap,
-      child: Container(
-        padding: EdgeInsets.all(12),
-        width: AppSize.width(value: 163),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.instance.white500, // Border color
-            width: .5, // Border width
-          ),
-          color: AppColors.instance.white50,
-          borderRadius: BorderRadius.circular(AppSize.width(value: 12)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: AppSize.width(value: 18),
-                      height: AppSize.width(value: 18),
-                      decoration: BoxDecoration(
-                        color: AppColors.instance.white200,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    AppImage(
-                      path: AssetsIconsPath.instance.favorate,
-                      width: AppSize.width(value: 18),
-                      height: AppSize.width(value: 18),
-                    ),
-                  ],
-                ),
-                AppImage(
-                  path: AssetsImagesPath.instance.product2,
-                  fit: BoxFit.cover,
-                  width: AppSize.width(value: 115),
-                  height: AppSize.width(value: 115),
-                ),
-              ],
-            ),
-            Gap(height: AppSize.width(value: 16)),
-            AppText(
-              data: "Luggage Tag",
-              fontSize: AppSize.width(value: 14),
-              fontWeight: FontWeight.w400,
-              color: AppColors.instance.black400,
-            ),
-            Gap(height: AppSize.width(value: 8)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      data: "Trkil",
-                      fontSize: AppSize.width(value: 12),
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.instance.black200,
-                    ),
-                    Gap(height: AppSize.width(value: 8)),
-                    AppText(
-                      data: "\$${3.00}",
-                      fontSize: AppSize.width(value: 14),
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.instance.black400,
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: AppColors.instance.white500,
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  child: Icon(
-                    Icons.add,
-                    size: AppSize.width(value: 18),
-                    color: AppColors.instance.purple_500,
-                  ),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-}
+//   @override
+//   Widget build(BuildContext context) {
+//     return GestureDetector(
+//       onTap: onTap,
+//       child: Container(
+//         padding: EdgeInsets.all(12),
+//         width: AppSize.width(value: 163),
+//         decoration: BoxDecoration(
+//           border: Border.all(
+//             color: AppColors.instance.white500, // Border color
+//             width: .5, // Border width
+//           ),
+//           color: AppColors.instance.white50,
+//           borderRadius: BorderRadius.circular(AppSize.width(value: 12)),
+//         ),
+//         child: Column(
+//           crossAxisAlignment: CrossAxisAlignment.start,
+//           children: [
+//             Stack(
+//               children: [
+//                 Row(
+//                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//                   children: [
+//                     Container(
+//                       width: AppSize.width(value: 18),
+//                       height: AppSize.width(value: 18),
+//                       decoration: BoxDecoration(
+//                         color: AppColors.instance.white200,
+//                         shape: BoxShape.circle,
+//                       ),
+//                     ),
+
+//                    isBookmark ? AppImage(
+//                       path: AssetsIconsPath.instance.isFavorate,
+//                       width: AppSize.width(value: 18),
+//                       height: AppSize.width(value: 18),
+//                     ) : AppImage(
+//                       path: AssetsIconsPath.instance.favorate,
+//                       width: AppSize.width(value: 18),
+//                       height: AppSize.width(value: 18),
+//                     ) ,
+//                   ],
+//                 ),
+//                 AppImage(
+//                   path: AssetsImagesPath.instance.product2,
+//                   fit: BoxFit.cover,
+//                   width: AppSize.width(value: 115),
+//                   height: AppSize.width(value: 115),
+//                 ),
+//               ],
+//             ),
+//             Gap(height: AppSize.width(value: 16)),
+//             AppText(
+//               data: "Luggage Tag",
+//               fontSize: AppSize.width(value: 14),
+//               fontWeight: FontWeight.w400,
+//               color: AppColors.instance.black400,
+//             ),
+//             Gap(height: AppSize.width(value: 8)),
+//             Row(
+//               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+//               children: [
+//                 Column(
+//                   crossAxisAlignment: CrossAxisAlignment.start,
+//                   children: [
+//                     AppText(
+//                       data: "Trkil",
+//                       fontSize: AppSize.width(value: 12),
+//                       fontWeight: FontWeight.w400,
+//                       color: AppColors.instance.black200,
+//                     ),
+//                     Gap(height: AppSize.width(value: 8)),
+//                     AppText(
+//                       data: "\$${3.00}",
+//                       fontSize: AppSize.width(value: 14),
+//                       fontWeight: FontWeight.w600,
+//                       color: AppColors.instance.black400,
+//                     ),
+//                   ],
+//                 ),
+//                 Container(
+//                   padding: EdgeInsets.all(6),
+//                   decoration: BoxDecoration(
+//                     color: AppColors.instance.white500,
+//                     borderRadius: BorderRadius.circular(8),
+//                   ),
+//                   child: Icon(
+//                     Icons.add,
+//                     size: AppSize.width(value: 18),
+//                     color: AppColors.instance.purple_500,
+//                   ),
+//                 ),
+//               ],
+//             ),
+//           ],
+//         ),
+//       ),
+//     );
+//   }
+// }
 
 class HomeBannerSection extends StatelessWidget {
   final Function()? onTap;

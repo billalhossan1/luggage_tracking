@@ -6,7 +6,8 @@ ThemeData appThemeData = ThemeData.light(useMaterial3: true).copyWith(
   dividerColor: AppColors.instance.black50,
   appBarTheme: AppBarTheme(
     backgroundColor: AppColors.instance.white200,
-    surfaceTintColor: AppColors.instance.white50,
+    // surfaceTintColor: AppColors.instance.white200,
+    surfaceTintColor: Colors.transparent,
   ),
   inputDecorationTheme: InputDecorationTheme(
     border: OutlineInputBorder(

@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/cards/product_card.dart';
 
 class WishListScreen extends StatelessWidget {
   const WishListScreen({super.key});
@@ -20,6 +20,8 @@ class WishListScreen extends StatelessWidget {
         padding: EdgeInsets.all(8),
         itemBuilder: (context, index) {
           return ProductCard(
+            isBookmark: true,
+            isToggleable: true,
             onTap: () {
               Get.toNamed(AppRoutes.instance.productDetailsScreen);
             },
