@@ -8,8 +8,14 @@ import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class ItemTrackerWidget extends StatelessWidget {
   final Function()? onTap;
-
-  const ItemTrackerWidget({super.key, this.onTap});
+  final Widget? child;
+  final bool showLocationRow;
+  const ItemTrackerWidget({
+    super.key,
+    this.onTap,
+    this.child,
+    this.showLocationRow = true,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -33,6 +39,7 @@ class ItemTrackerWidget extends StatelessWidget {
                     ),
                     Gap(width: AppSize.width(value: 8)),
                     Column(
+                      spacing: AppSize.width(value: 4),
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
                         AppText(
@@ -41,31 +48,33 @@ class ItemTrackerWidget extends StatelessWidget {
                           fontWeight: FontWeight.w400,
                           color: AppColors.instance.black400,
                         ),
-                        SizedBox(height: AppSize.width(value: 6)),
-                        Row(
-                          children: [
-                            AppText(
-                              data: "1235 New York, JFK Airport",
-                              fontSize: AppSize.width(value: 12),
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.instance.black200,
-                            ),
-                            Gap(width: AppSize.width(value: 8)),
-                            Icon(
-                              Icons.pix,
-                              size: AppSize.width(value: 8),
-                              color: AppColors.instance.black200,
-                            ),
-                            Gap(width: AppSize.width(value: 8)),
-                            AppText(
-                              data: "Now",
-                              fontSize: AppSize.width(value: 12),
-                              fontWeight: FontWeight.w400,
-                              color: AppColors.instance.black200,
-                            ),
-                          ],
-                        ),
-                        SizedBox(height: AppSize.width(value: 6)),
+
+                        //this row
+                        if (showLocationRow)
+                          Row(
+                            children: [
+                              AppText(
+                                data: "1235 New York, JFK Airport",
+                                fontSize: AppSize.width(value: 12),
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.instance.black200,
+                              ),
+                              Gap(width: AppSize.width(value: 8)),
+                              Icon(
+                                Icons.pix,
+                                size: AppSize.width(value: 8),
+                                color: AppColors.instance.black200,
+                              ),
+                              Gap(width: AppSize.width(value: 8)),
+                              AppText(
+                                data: "Now",
+                                fontSize: AppSize.width(value: 12),
+                                fontWeight: FontWeight.w400,
+                                color: AppColors.instance.black200,
+                              ),
+                            ],
+                          ),
+
                         Row(
                           children: [
                             AppImage(
@@ -89,22 +98,24 @@ class ItemTrackerWidget extends StatelessWidget {
                 Positioned(
                   top: AppSize.width(value: 8),
                   right: AppSize.width(value: 8),
-                  child: Row(
-                    children: [
-                      AppImage(
-                        path: AssetsIconsPath.instance.navigateIcon,
-                        width: AppSize.width(value: 14),
-                        height: AppSize.width(value: 14),
+                  child:
+                      child ??
+                      Row(
+                        children: [
+                          AppImage(
+                            path: AssetsIconsPath.instance.navigateIcon,
+                            width: AppSize.width(value: 14),
+                            height: AppSize.width(value: 14),
+                          ),
+                          Gap(width: AppSize.width(value: 4)),
+                          AppText(
+                            data: "With you",
+                            fontSize: AppSize.width(value: 12),
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.instance.black300,
+                          ),
+                        ],
                       ),
-                      Gap(width: AppSize.width(value: 4)),
-                      AppText(
-                        data: "With you",
-                        fontSize: AppSize.width(value: 12),
-                        fontWeight: FontWeight.w500,
-                        color: AppColors.instance.black300,
-                      ),
-                    ],
-                  ),
                 ),
               ],
             ),

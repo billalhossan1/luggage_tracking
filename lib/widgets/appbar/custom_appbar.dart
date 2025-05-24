@@ -9,12 +9,13 @@ import 'package:luggage_tracking/widgets/texts/app_text.dart';
 class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
   final String title;
   final bool showLeading;
+  final bool autoShowLeading;
   final List<Widget>? action;
 
   const CustomAppBar({
     super.key,
     required this.title,
-    this.showLeading = true, this.action, // default is true
+    this.showLeading = true, this.action, this.autoShowLeading = true, // default is true
   });
 
   @override
@@ -29,6 +30,7 @@ class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         child: AppBar(
+          automaticallyImplyLeading: autoShowLeading,
           actions: action,
           title: AppText(
             data: title,

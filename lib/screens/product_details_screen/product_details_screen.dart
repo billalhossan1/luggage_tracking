@@ -19,7 +19,7 @@ class ProductDetailsScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: CustomAppBar(title: "Products niceties"),
+      appBar: CustomAppBar(title: "Products Details"),
       body: GetBuilder<CustomerEventInfoController>(
         init: CustomerEventInfoController(),
         builder: (controller) {
@@ -182,70 +182,134 @@ class ProductDetailsScreen extends StatelessWidget {
                   ),
                 ),
                 Gap(height: AppSize.width(value: 16)),
-                Container(
-                  padding: EdgeInsets.all(12),
-                  width: AppSize.width(value: double.infinity),
-                  decoration: BoxDecoration(
-                    color: AppColors.instance.white50,
-                    borderRadius: BorderRadius.circular(16),
-                  ),
-                  child: Row(
-                    children: [
-                      Expanded(
-                        child: Container(
-                          padding: EdgeInsets.symmetric(
-                            vertical: AppSize.width(value: 10),
-                            horizontal: AppSize.width(value: 6),
-                          ),
-                          decoration: BoxDecoration(
-                            borderRadius: BorderRadius.circular(12),
-                            border: Border.all(
-                              color: AppColors.instance.purple_500,
-                              width: 2,
-                            ),
-                          ),
-                          child: Row(
-                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                            children: [
-                              Icon(
-                                Icons.remove,
-                                size: AppSize.width(value: 22),
-                                color: AppColors.instance.purple_500,
-                              ),
-                              AppText(
-                                data: "0",
-                                fontSize: AppSize.width(value: 20),
-                                fontWeight: FontWeight.w400,
-                                color: AppColors.instance.purple_500,
-                              ),
-                              Icon(
-                                Icons.add,
-                                size: AppSize.width(value: 22),
-                                color: AppColors.instance.purple_500,
-                              ),
-                            ],
-                          ),
-                        ),
-                      ),
-                      Gap(width: AppSize.width(value: 8)),
-                      Expanded(
-                        child: AppButton(
-                          title: "Buy Now",
-                          onTap: () {
-                            Get.toNamed(
-                              AppRoutes.instance.deliveryDetainScreen,
-                            );
-                          },
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Gap(height: 100),
+                // Container(
+                //   padding: EdgeInsets.all(12),
+                //   width: AppSize.width(value: double.infinity),
+                //   decoration: BoxDecoration(
+                //     color: AppColors.instance.white50,
+                //     borderRadius: BorderRadius.circular(16),
+                //   ),
+                //   child: Row(
+                //     children: [
+                //       Expanded(
+                //         child: Container(
+                //           padding: EdgeInsets.symmetric(
+                //             vertical: AppSize.width(value: 10),
+                //             horizontal: AppSize.width(value: 6),
+                //           ),
+                //           decoration: BoxDecoration(
+                //             borderRadius: BorderRadius.circular(12),
+                //             border: Border.all(
+                //               color: AppColors.instance.purple_500,
+                //               width: 2,
+                //             ),
+                //           ),
+                //           child: Row(
+                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                //             children: [
+                //               Icon(
+                //                 Icons.remove,
+                //                 size: AppSize.width(value: 22),
+                //                 color: AppColors.instance.purple_500,
+                //               ),
+                //               AppText(
+                //                 data: "0",
+                //                 fontSize: AppSize.width(value: 20),
+                //                 fontWeight: FontWeight.w400,
+                //                 color: AppColors.instance.purple_500,
+                //               ),
+                //               Icon(
+                //                 Icons.add,
+                //                 size: AppSize.width(value: 22),
+                //                 color: AppColors.instance.purple_500,
+                //               ),
+                //             ],
+                //           ),
+                //         ),
+                //       ),
+                //       Gap(width: AppSize.width(value: 8)),
+                //       Expanded(
+                //         child: AppButton(
+                //           title: "Buy Now",
+                //           onTap: () {
+                //             Get.toNamed(
+                //               AppRoutes.instance.deliveryDetainScreen,
+                //             );
+                //           },
+                //         ),
+                //       ),
+                //     ],
+                //   ),
+                // ),
+                Gap(height: AppSize.width(value: 26)),
               ],
             ),
           );
         },
+      ),
+      bottomNavigationBar: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          Gap(height: AppSize.width(value: 8)),
+          Container(
+            padding: EdgeInsets.all(12),
+            width: AppSize.width(value: double.infinity),
+            decoration: BoxDecoration(
+              color: AppColors.instance.white50,
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Row(
+              children: [
+                Expanded(
+                  child: Container(
+                    padding: EdgeInsets.symmetric(
+                      vertical: AppSize.width(value: 10),
+                      horizontal: AppSize.width(value: 6),
+                    ),
+                    decoration: BoxDecoration(
+                      borderRadius: BorderRadius.circular(12),
+                      border: Border.all(
+                        color: AppColors.instance.purple_500,
+                        width: 2,
+                      ),
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Icon(
+                          Icons.remove,
+                          size: AppSize.width(value: 22),
+                          color: AppColors.instance.purple_500,
+                        ),
+                        AppText(
+                          data: "0",
+                          fontSize: AppSize.width(value: 20),
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.instance.purple_500,
+                        ),
+                        Icon(
+                          Icons.add,
+                          size: AppSize.width(value: 22),
+                          color: AppColors.instance.purple_500,
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+                Gap(width: AppSize.width(value: 8)),
+                Expanded(
+                  child: AppButton(
+                    title: "Buy Now",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.deliveryDetainScreen);
+                    },
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Gap(height: AppSize.width(value: AppSize.width(value: 26))),
+        ],
       ),
     );
   }
