@@ -64,12 +64,16 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   .onBoardingImg, // Make sure this image path is correct
               fit: BoxFit.cover,
             ),
-            Align(
-              alignment: Alignment.center,
-              child: SizedBox(
-                width: AppSize.width(value: 92),
-                height: AppSize.width(value: 92),
-                child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
+            Positioned(
+              top: AppSize.size.height * 0.4,
+              left: 0,
+              right: 0,
+              child: Align(
+                child: SizedBox(
+                  width: AppSize.width(value: 92),
+                  height: AppSize.width(value: 92),
+                  child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
+                ),
               ),
             ),
 
@@ -77,7 +81,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
             Padding(
               padding: const EdgeInsets.symmetric(
                 horizontal: 24.0,
-                vertical: 40.0,
+                vertical: 90.0,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.end,
@@ -108,6 +112,15 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                     fontWeight: FontWeight.w400,
                     color: AppColors.instance.white600,
                   ),
+                  Gap(height: AppSize.width(value: 46)),
+                  AppButton(
+                    title: "Get Started",
+                    borderRadius: BorderRadius.circular(12),
+                    titleSize: 20,
+                    onTap: () {
+                      showCustomBottomSheet();
+                    },
+                  ),
                 ],
               ),
             ),
@@ -126,89 +139,91 @@ void showCustomBottomSheet() {
         color: AppColors.instance.white50,
         borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
       ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          // Top Icon in circular container
-          AppImage(
-            path: AssetsIconsPath.instance.appLogoWhiteBg,
-            width: AppSize.width(value: 48),
-            height: AppSize.width(value: 48),
-          ),
-          Gap(height: AppSize.width(value: 16)),
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            // Top Icon in circular container
+            AppImage(
+              path: AssetsIconsPath.instance.appLogoWhiteBg,
+              width: AppSize.width(value: 48),
+              height: AppSize.width(value: 48),
+            ),
+            Gap(height: AppSize.width(value: 16)),
 
-          // Title + Subtitle
-          Text.rich(
-            TextSpan(
-              text: 'Track your luggage effortlessly with  ',
+            // Title + Subtitle
+            Text.rich(
+              TextSpan(
+                text: 'Track your luggage effortlessly with  ',
+                style: TextStyle(
+                  fontSize: AppSize.width(value: 16),
+                  fontWeight: FontWeight.w400,
+                  fontFamily: AppConst.fontFamily1,
+                  color: AppColors.instance.black300,
+                ),
+                children: [
+                  TextSpan(
+                    text: 'Trkil',
+                    style: TextStyle(
+                      fontSize: AppSize.width(value: 16),
+                      fontWeight: FontWeight.w600,
+                      fontFamily: AppConst.fontFamily1,
+                      color: AppColors.instance.black300,
+                    ),
+                  ),
+                ],
+              ),
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 4),
+            Text(
+              'Sign in or register now.',
               style: TextStyle(
                 fontSize: AppSize.width(value: 16),
                 fontWeight: FontWeight.w400,
                 fontFamily: AppConst.fontFamily1,
                 color: AppColors.instance.black300,
               ),
-              children: [
-                TextSpan(
-                  text: 'Trkil',
-                  style: TextStyle(
-                    fontSize: AppSize.width(value: 16),
-                    fontWeight: FontWeight.w600,
-                    fontFamily: AppConst.fontFamily1,
-                    color: AppColors.instance.black300,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 24),
+
+            // Sign In Button (Outlined)
+            SizedBox(
+              width: double.infinity,
+              height: AppSize.width(value: 50),
+              child: OutlinedButton(
+                onPressed: () {
+                  Get.offAllNamed(AppRoutes.instance.signIn);
+                },
+                style: OutlinedButton.styleFrom(
+                  side: BorderSide(color: AppColors.instance.purple_500),
+                  foregroundColor: AppColors.instance.purple_500,
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(12), // Radius 12 px
                   ),
                 ),
-              ],
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 4),
-          Text(
-            'Sign in or register now.',
-            style: TextStyle(
-              fontSize: AppSize.width(value: 16),
-              fontWeight: FontWeight.w400,
-              fontFamily: AppConst.fontFamily1,
-              color: AppColors.instance.black300,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 24),
-
-          // Sign In Button (Outlined)
-          SizedBox(
-            width: double.infinity,
-            child: OutlinedButton(
-              onPressed: () {
-                Get.offAllNamed(AppRoutes.instance.signIn);
-              },
-              style: OutlinedButton.styleFrom(
-                side: BorderSide(color: AppColors.instance.purple_500),
-                foregroundColor: AppColors.instance.purple_500,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12), // Radius 12 px
+                child: AppText(
+                  data: "Sign In",
+                  fontSize: AppSize.width(value: 16),
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.instance.purple_500,
                 ),
               ),
-              child: AppText(
-                data: "Sign In",
-                fontSize: AppSize.width(value: 16),
-                fontWeight: FontWeight.w400,
-                color: AppColors.instance.purple_500,
-              ),
             ),
-          ),
 
-          const SizedBox(height: 12),
+            Gap(height: 20),
 
-          // Registration Button (Filled)
-          AppButton(
-            title: "Registration",
-            borderRadius: BorderRadius.circular(12),
-            height: AppSize.width(value: 43),
-            onTap: () {
-              Get.toNamed(AppRoutes.instance.signUp);
-            },
-          ),
-        ],
+            // Registration Button (Filled)
+            AppButton(
+              title: "Registration",
+              borderRadius: BorderRadius.circular(12),
+              onTap: () {
+                Get.toNamed(AppRoutes.instance.signUp);
+              },
+            ),
+          ],
+        ),
       ),
     ),
     isScrollControlled: true,

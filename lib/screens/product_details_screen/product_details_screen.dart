@@ -101,147 +101,85 @@ class ProductDetailsScreen extends StatelessWidget {
                 Container(
                   padding: EdgeInsets.all(16),
                   width: AppSize.width(value: double.infinity),
-                  height: AppSize.width(value: 357),
                   decoration: BoxDecoration(
                     color: AppColors.instance.white50,
                     borderRadius: BorderRadius.circular(16),
                   ),
-                  child: SingleChildScrollView(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      spacing: AppSize.width(value: 10),
-                      children: [
-                        AppText(
-                          data: "Trkil Tracker",
-                          fontSize: AppSize.width(value: 21),
-                          fontWeight: FontWeight.w600,
-                          color: AppColors.instance.black400,
-                        ),
-                        AppText(
-                          data: "Trkil",
-                          fontSize: AppSize.width(value: 14),
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.instance.black200,
-                        ),
-                        Row(
-                          children: [
-                            AppText(
-                              data: "\$${16.30.toStringAsFixed(2)}",
-                              fontSize: AppSize.width(value: 18),
-                              fontWeight: FontWeight.w500,
-                              color: AppColors.instance.black500,
-                            ),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    spacing: AppSize.width(value: 10),
+                    children: [
+                      AppText(
+                        data: "Trkil Tracker",
+                        fontSize: AppSize.width(value: 21),
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.instance.black400,
+                      ),
+                      AppText(
+                        data: "Trkil",
+                        fontSize: AppSize.width(value: 14),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.instance.black200,
+                      ),
+                      Row(
+                        children: [
+                          AppText(
+                            data: "\$${16.30.toStringAsFixed(2)}",
+                            fontSize: AppSize.width(value: 18),
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.instance.black500,
+                          ),
 
-                            Gap(width: AppSize.width(value: 6)),
-                            Text(
-                              '\$20.30',
-                              style: TextStyle(
-                                fontSize: AppSize.width(value: 14),
-                                color: AppColors.instance.red1,
-                                fontWeight: FontWeight.w400,
-                                fontFamily: AppConst.fontFamily1,
-                                decoration: TextDecoration.lineThrough,
-                                decorationColor: AppColors.instance.red1,
-                              ),
+                          Gap(width: AppSize.width(value: 6)),
+                          Text(
+                            '\$20.30',
+                            style: TextStyle(
+                              fontSize: AppSize.width(value: 14),
+                              color: AppColors.instance.red1,
+                              fontWeight: FontWeight.w400,
+                              fontFamily: AppConst.fontFamily1,
+                              decoration: TextDecoration.lineThrough,
+                              decorationColor: AppColors.instance.red1,
                             ),
-                          ],
-                        ),
-                        Row(
-                          children: [
-                            AppText(data: "Color:"),
-                            Gap(width: AppSize.width(value: 8)),
-                            Container(
-                              width: AppSize.width(value: 22),
-                              height: AppSize.width(value: 22),
-                              decoration: BoxDecoration(
-                                color: AppColors.instance.black900,
-                                shape: BoxShape.circle,
-                              ),
+                          ),
+                        ],
+                      ),
+                      Row(
+                        children: [
+                          AppText(data: "Color:"),
+                          Gap(width: AppSize.width(value: 8)),
+                          Container(
+                            width: AppSize.width(value: 22),
+                            height: AppSize.width(value: 22),
+                            decoration: BoxDecoration(
+                              color: AppColors.instance.black900,
+                              shape: BoxShape.circle,
                             ),
-                          ],
-                        ),
+                          ),
+                        ],
+                      ),
 
-                        TitledescriptionWidget(
-                          title: 'Overview:',
-                          descreption:
-                              """Protect the AirTag that’s keeping track of all your important things. The OtterBox Rugged Case for AirTag securely covers the AirTag that’s attached to your keys and your pack. It buffers AirTag from all that bouncing and banging around as you go about your day. Simply twist on the case and AirTag is locked into legendary OtterBox protection and ready for anything.
-""",
-                        ),
-                        TitledescriptionWidget(
-                          title: "Highlights:",
-                          descreption:
-                              """Secure, twist-top design\nDual-material, rugged protection\nIncludes two carabiners\nLimited lifetime warranty supported by hassle-free\ncustomer service""",
-                        ),
-                        TitledescriptionWidget(
-                          title: "Tech Specs:",
-                          descreption:
-                              """Form Factor: Hard Case\nMaterial: Hard Plastic, Silicone\nHeight: 2 in. / 5.1 cm\nLength: 1.6 in. / 4.1 cm\nWidth: .4 in. / 1 cm\nWeight: 0.2 oz. / 6.3 g""",
-                        ),
-                      ],
-                    ),
+                      TitledescriptionWidget(
+                        title: 'Overview:',
+                        descreption:
+                            """Protect the AirTag that’s keeping track of all your important things. The OtterBox Rugged Case for AirTag securely covers the AirTag that’s attached to your keys and your pack. It buffers AirTag from all that bouncing and banging around as you go about your day. Simply twist on the case and AirTag is locked into legendary OtterBox protection and ready for anything.
+                  """,
+                      ),
+                      TitledescriptionWidget(
+                        title: "Highlights:",
+                        descreption:
+                            """Secure, twist-top design\nDual-material, rugged protection\nIncludes two carabiners\nLimited lifetime warranty supported by hassle-free\ncustomer service""",
+                      ),
+                      TitledescriptionWidget(
+                        title: "Tech Specs:",
+                        descreption:
+                            """Form Factor: Hard Case\nMaterial: Hard Plastic, Silicone\nHeight: 2 in. / 5.1 cm\nLength: 1.6 in. / 4.1 cm\nWidth: .4 in. / 1 cm\nWeight: 0.2 oz. / 6.3 g""",
+                      ),
+                    ],
                   ),
                 ),
-                Gap(height: AppSize.width(value: 16)),
-                // Container(
-                //   padding: EdgeInsets.all(12),
-                //   width: AppSize.width(value: double.infinity),
-                //   decoration: BoxDecoration(
-                //     color: AppColors.instance.white50,
-                //     borderRadius: BorderRadius.circular(16),
-                //   ),
-                //   child: Row(
-                //     children: [
-                //       Expanded(
-                //         child: Container(
-                //           padding: EdgeInsets.symmetric(
-                //             vertical: AppSize.width(value: 10),
-                //             horizontal: AppSize.width(value: 6),
-                //           ),
-                //           decoration: BoxDecoration(
-                //             borderRadius: BorderRadius.circular(12),
-                //             border: Border.all(
-                //               color: AppColors.instance.purple_500,
-                //               width: 2,
-                //             ),
-                //           ),
-                //           child: Row(
-                //             mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                //             children: [
-                //               Icon(
-                //                 Icons.remove,
-                //                 size: AppSize.width(value: 22),
-                //                 color: AppColors.instance.purple_500,
-                //               ),
-                //               AppText(
-                //                 data: "0",
-                //                 fontSize: AppSize.width(value: 20),
-                //                 fontWeight: FontWeight.w400,
-                //                 color: AppColors.instance.purple_500,
-                //               ),
-                //               Icon(
-                //                 Icons.add,
-                //                 size: AppSize.width(value: 22),
-                //                 color: AppColors.instance.purple_500,
-                //               ),
-                //             ],
-                //           ),
-                //         ),
-                //       ),
-                //       Gap(width: AppSize.width(value: 8)),
-                //       Expanded(
-                //         child: AppButton(
-                //           title: "Buy Now",
-                //           onTap: () {
-                //             Get.toNamed(
-                //               AppRoutes.instance.deliveryDetainScreen,
-                //             );
-                //           },
-                //         ),
-                //       ),
-                //     ],
-                //   ),
-                // ),
-                Gap(height: AppSize.width(value: 26)),
+
+               
               ],
             ),
           );
