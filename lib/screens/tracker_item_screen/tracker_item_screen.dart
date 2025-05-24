@@ -23,7 +23,11 @@ class TrackerItemScreen extends StatelessWidget {
     final TrackerController controller = Get.put(TrackerController());
 
     return Scaffold(
-      appBar: CustomAppBar(title: "Track Item"),
+      appBar: CustomAppBar(
+        title: "Track Item",
+        showLeading: false,
+        autoShowLeading: false,
+      ),
       body: GestureDetector(
         onTap: () {
           Get.bottomSheet(
@@ -607,6 +611,7 @@ class TrackerItemScreen extends StatelessWidget {
     );
   }
 }
+
 class StartSoundActiveButton extends StatelessWidget {
   final TrackerController controller;
   final VoidCallback? onTap;
@@ -620,7 +625,8 @@ class StartSoundActiveButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: onTap,
-      child: Obx(  // ✅ Add Obx here to listen to observable changes
+      child: Obx(
+        // ✅ Add Obx here to listen to observable changes
         () => Container(
           padding: EdgeInsets.symmetric(
             vertical: AppSize.width(value: 26),
@@ -628,9 +634,10 @@ class StartSoundActiveButton extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color: controller.isActiveSound.value
-                ? AppColors.instance.purple_500
-                : AppColors.instance.white200,
+            color:
+                controller.isActiveSound.value
+                    ? AppColors.instance.purple_500
+                    : AppColors.instance.white200,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: .1),
@@ -644,9 +651,12 @@ class StartSoundActiveButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppImage(
-                path: controller.isActiveSound.value
-                    ? AssetsIconsPath.instance.soundActive  // ✅ Use different icons for active/inactive
-                    : AssetsIconsPath.instance.soundInActive,
+                path:
+                    controller.isActiveSound.value
+                        ? AssetsIconsPath
+                            .instance
+                            .soundActive // ✅ Use different icons for active/inactive
+                        : AssetsIconsPath.instance.soundInActive,
                 width: AppSize.width(value: 20),
                 height: AppSize.width(value: 20),
               ),
@@ -655,9 +665,10 @@ class StartSoundActiveButton extends StatelessWidget {
                 data: "Start Sound",
                 fontSize: AppSize.width(value: 14),
                 fontWeight: FontWeight.w500,
-                color: controller.isActiveSound.value
-                    ? AppColors.instance.white500
-                    : AppColors.instance.black700,
+                color:
+                    controller.isActiveSound.value
+                        ? AppColors.instance.white500
+                        : AppColors.instance.black700,
               ),
             ],
           ),
