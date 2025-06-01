@@ -6,7 +6,6 @@ import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/signin_screen/controller/sign_in_screen_controller.dart';
-import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -30,12 +29,11 @@ class SignInScreen extends StatelessWidget {
                 horizontal: AppSize.width(value: 16),
                 vertical: AppSize.height(value: 32),
               ),
-              child: Column(
+              child: Obx(() => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Gap(height: AppSize.height(value: 40)),
                   Column(
-                    spacing: AppSize.width(value: 8),
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       AppImage(
@@ -43,12 +41,14 @@ class SignInScreen extends StatelessWidget {
                         width: AppSize.width(value: 48),
                         height: AppSize.width(value: 48),
                       ),
+                      Gap(height: 8,),
                       AppText(
                         data: "Welcome Back !",
                         color: AppColors.instance.black900,
                         fontSize: AppSize.width(value: 24),
                         fontWeight: FontWeight.w600,
                       ),
+                      Gap(height: 8,),
                       AppText(
                         data: "Please Enter Your Email & Password",
                         color: AppColors.instance.white700,
@@ -59,7 +59,7 @@ class SignInScreen extends StatelessWidget {
                   ),
                   Gap(height: AppSize.height(value: 40)),
                   Form(
-                    // key: controller.signInFormKey,
+                    key: controller.signInFormKey,
                     child: Column(
                       children: [
                         AppInputWidgetTwo(
@@ -72,7 +72,6 @@ class SignInScreen extends StatelessWidget {
                         Gap(height: 30),
                         AppInputWidgetTwo(
                           hintText: "Password",
-
                           filled: true,
                           isPassWord: true,
                           maxLines: 1,
@@ -88,8 +87,7 @@ class SignInScreen extends StatelessWidget {
                               children: [
                                 Theme(
                                   data: ThemeData(
-                                    unselectedWidgetColor:
-                                        AppColors.instance.green1,
+                                    unselectedWidgetColor: AppColors.instance.green1,
                                   ),
                                   child: Checkbox(
                                     activeColor: AppColors.instance.white200,
@@ -97,32 +95,24 @@ class SignInScreen extends StatelessWidget {
                                       horizontal: -4,
                                       vertical: -4,
                                     ),
-                                    side: WidgetStateBorderSide.resolveWith((
-                                      states,
-                                    ) {
-                                      if (states.contains(
-                                        WidgetState.selected,
-                                      )) {
-                                        return BorderSide(
-                                          color: AppColors.instance.white600,
-                                        );
-                                      } else {
-                                        return BorderSide(
-                                          color: AppColors.instance.white600,
-                                        );
-                                      }
-                                    }),
-                                    value: true, // static value
+                                    side: MaterialStateBorderSide.resolveWith(
+                                          (states) {
+                                        if (states.contains(MaterialState.selected)) {
+                                          return BorderSide(color: AppColors.instance.white600);
+                                        } else {
+                                          return BorderSide(color: AppColors.instance.white600);
+                                        }
+                                      },
+                                    ),
+                                    value: controller.isRememberMe.value,
                                     checkColor: AppColors.instance.purple_500,
-                                    fillColor: WidgetStatePropertyAll(
-                                      AppColors.instance.white200,
-                                    ),
+                                    fillColor: MaterialStateProperty.all(AppColors.instance.white200),
                                     shape: RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.circular(
-                                        AppSize.width(value: 5.0),
-                                      ),
+                                      borderRadius: BorderRadius.circular(AppSize.width(value: 5.0)),
                                     ),
-                                    onChanged: null, // disables the checkbox
+                                    onChanged: (_) {
+                                      controller.onToggleRememberMe();
+                                    },
                                   ),
                                 ),
                                 AppText(
@@ -135,9 +125,7 @@ class SignInScreen extends StatelessWidget {
                             ),
                             GestureDetector(
                               onTap: () {
-                                Get.toNamed(
-                                  AppRoutes.instance.forgetPasswordScreen,
-                                );
+                                Get.toNamed(AppRoutes.instance.forgetPasswordScreen);
                               },
                               child: AppText(
                                 data: "Forgot Password?",
@@ -153,7 +141,7 @@ class SignInScreen extends StatelessWidget {
                           borderRadius: BorderRadius.circular(12),
                           isLoading: controller.isLoading.value,
                           onTap: () {
-                            Get.toNamed(AppRoutes.instance.navigationScreen);
+                            controller.clickSignIButton();
                           },
                           title: "Sign In",
                           titleSize: AppSize.width(value: 20),
@@ -162,15 +150,11 @@ class SignInScreen extends StatelessWidget {
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,
                           children: [
-                            Expanded(
-                              child: Divider(color: Colors.grey, thickness: 1),
-                            ),
+                            Expanded(child: Divider(color: Colors.grey, thickness: 1)),
                             Gap(width: AppSize.width(value: 8)),
                             AppText(data: "Or"),
                             Gap(width: AppSize.width(value: 8)),
-                            Expanded(
-                              child: Divider(color: Colors.grey, thickness: 1),
-                            ),
+                            Expanded(child: Divider(color: Colors.grey, thickness: 1)),
                           ],
                         ),
                         Gap(height: AppSize.width(value: 40)),
@@ -179,9 +163,7 @@ class SignInScreen extends StatelessWidget {
                             Expanded(
                               child: BtnIconText(
                                 onTap: () {
-                                  appLog(
-                                    "==============>>>>>Google BTN Clicked<<<<=================",
-                                  );
+                                controller.googleLogin();
                                 },
                                 paddingvert: AppSize.width(value: 16),
                                 text: "Google",
@@ -192,9 +174,7 @@ class SignInScreen extends StatelessWidget {
                             Expanded(
                               child: BtnIconText(
                                 onTap: () {
-                                  appLog(
-                                    "==============>>>>>Facebook BTN Clicked<<<<=================",
-                                  );
+                                  controller.facebookLogin();
                                 },
                                 paddingvert: AppSize.width(value: 16),
                                 text: "Facebook",
@@ -226,20 +206,17 @@ class SignInScreen extends StatelessWidget {
                               fontFamily: AppConst.fontFamily1,
                               fontWeight: FontWeight.w500,
                             ),
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    // Tap handle logic here
-                                    Get.offNamed(AppRoutes.instance.signUp);
-                                    // Navigator.push(...); // optionally navigate to another page
-                                  },
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                Get.offNamed(AppRoutes.instance.signUp);
+                              },
                           ),
                         ],
                       ),
                     ),
                   ),
                 ],
-              ),
+              )),
             ),
           ),
         );

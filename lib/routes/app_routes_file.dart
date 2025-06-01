@@ -1,5 +1,6 @@
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
@@ -156,7 +157,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.signUpWithPersonalData,
     page: () =>  SignupWithPersonalDataScreen(),
   ),
-  GetPage(name: AppRoutes.instance.accountScreen,binding: AppBinding(), page: () => AccountScreen()),
+  GetPage(name: AppRoutes.instance.accountScreen,    binding: AccountScreenBinding(), page: () => AccountScreen()),
   GetPage(
     name: AppRoutes.instance.wishListScreen,
     page: () => WishListScreen(),

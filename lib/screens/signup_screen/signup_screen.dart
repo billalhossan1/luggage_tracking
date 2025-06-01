@@ -5,8 +5,8 @@ import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/screens/signin_screen/controller/sign_in_screen_controller.dart';
-import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
+import 'package:luggage_tracking/screens/otp_verification_screen/controllers/otp_verification_screen_controller.dart';
+import 'package:luggage_tracking/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -15,13 +15,15 @@ import 'package:luggage_tracking/widgets/button/btn_icon_text.dart';
 import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
+import 'controller/sign_up_screen_controller.dart';
+
 class SignUpScreen extends StatelessWidget {
   const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<SignInScreenController>(
-      init: SignInScreenController(),
+    return GetBuilder<SignUpScreenController>(
+      init: SignUpScreenController(),
       builder: (controller) {
         return Scaffold(
           body: SafeArea(
@@ -58,26 +60,23 @@ class SignUpScreen extends StatelessWidget {
                   ),
                   Gap(height: AppSize.height(value: 20)),
                   Form(
-                    // key: controller.signInFormKey,
+                    key: controller.signUpFormKey,
                     child: Column(
                       children: [
                         AppInputWidgetTwo(
                           hintText: "Name",
                           filled: true,
-                          isEmail: true,
                           contentPadding: EdgeInsets.symmetric(),
-                          controller: controller.emailTextEditingController,
+                          controller: controller.nameTextEditingController,
                         ),
                         Gap(height: 30),
                         AppInputWidgetTwo(
                           hintText: "Contact No",
-
                           filled: true,
-                          isPassWord: true,
                           maxLines: 1,
                           textInputAction: TextInputAction.done,
                           contentPadding: EdgeInsets.symmetric(),
-                          controller: controller.passwordTextEditingController,
+                          controller: controller.contactTextEditingController,
                         ),
                         Gap(height: 16),
                         AppInputWidgetTwo(
@@ -90,7 +89,6 @@ class SignUpScreen extends StatelessWidget {
                         Gap(height: 30),
                         AppInputWidgetTwo(
                           hintText: "Password",
-
                           filled: true,
                           isPassWord: true,
                           maxLines: 1,
@@ -107,16 +105,18 @@ class SignUpScreen extends StatelessWidget {
                           maxLines: 1,
                           textInputAction: TextInputAction.done,
                           contentPadding: EdgeInsets.symmetric(),
-                          controller: controller.passwordTextEditingController,
+                          controller: controller.confirmPasswordTextEditingController,
                         ),
                         Gap(height: 24),
                         AppButton(
                           borderRadius: BorderRadius.circular(12),
                           isLoading: controller.isLoading.value,
                           onTap: () {
-                            Get.toNamed(AppRoutes.instance.signUpWithPersonalData);
+                            Get.find<OtpVerificationScreenController>().isEmailVerification.value = true;
+                            controller.onTapResister();
+                            // appLog("==============>>>>>Sign Up BTN Clicked<<<<=================");
                           },
-                          title: "Sign In",
+                          title: "Sign Up",
                           titleSize: AppSize.width(value: 20),
                         ),
                         Gap(height: AppSize.width(value: 30)),
@@ -140,9 +140,12 @@ class SignUpScreen extends StatelessWidget {
                             Expanded(
                               child: BtnIconText(
                                 onTap: () {
-                                  appLog(
-                                    "==============>>>>>Google BTN Clicked<<<<=================",
+                                  Get.toNamed(
+                                    AppRoutes.instance.signUpWithPersonalData,
                                   );
+                                  // appLog(
+                                  //   "==============>>>>>Google BTN Clicked<<<<=================",
+                                  // );
                                 },
                                 paddingvert: AppSize.width(value: 16),
                                 text: "Google",
@@ -153,9 +156,12 @@ class SignUpScreen extends StatelessWidget {
                             Expanded(
                               child: BtnIconText(
                                 onTap: () {
-                                  appLog(
-                                    "==============>>>>>Facebook BTN Clicked<<<<=================",
+                                  Get.toNamed(
+                                    AppRoutes.instance.signUpWithPersonalData,
                                   );
+                                  // appLog(
+                                  //   "==============>>>>>Facebook BTN Clicked<<<<=================",
+                                  // );
                                 },
                                 paddingvert: AppSize.width(value: 16),
                                 text: "Facebook",

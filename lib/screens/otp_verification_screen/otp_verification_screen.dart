@@ -10,9 +10,20 @@ import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
-class OtpVerificationScreen extends StatelessWidget {
+class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
 
+  @override
+  State<OtpVerificationScreen> createState() => _OtpVerificationScreenState();
+}
+
+class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
+
+  @override
+  void initState() {
+    Get.find<OtpVerificationScreenController>().onInit();
+    super.initState();
+  }
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -114,9 +125,21 @@ class OtpVerificationScreen extends StatelessWidget {
                         ),
                         const SizedBox(height: 10),
                         Obx(
-                          () => AppText(
-                            data:
-                                "This code will expire in  ${controller.formatTime(controller.seconds.value)}",
+                          () => Row(
+                            children: [
+                              AppText(
+                                data:
+                                    "This code will expire in ",
+                              ),
+                              Visibility(
+                                visible: controller.seconds.value > 0,
+                                  child: AppText(data: controller.formatTime(controller.seconds.value))),
+                              Visibility(
+                                visible: controller.seconds.value==0,
+                                  child: TextButton(onPressed: (){
+                                    controller.onTapResend();
+                                  }, child: Text('Resend')))
+                            ],
                           ),
                         ),
                         const SizedBox(height: 30),
@@ -124,10 +147,10 @@ class OtpVerificationScreen extends StatelessWidget {
                     ),
                   ),
                   AppButton(
-                    title: "Reset Password",
+                    title: !controller.isEmailVerification.value ? "Reset Password" : "Verify",
                     onTap: () {
                       try {
-                        Get.toNamed(AppRoutes.instance.cretaeNewPasswordScreen);
+                        controller.clickVerificationCodeButton();
                       } catch (e) {
                         debugPrint("Navigation error: $e");
                         Get.snackbar(
@@ -137,6 +160,7 @@ class OtpVerificationScreen extends StatelessWidget {
                       }
                     },
                   ),
+
                 ],
               ),
             ),

@@ -39,6 +39,11 @@ dependencies:
   flutter_svg: ^2.1.0
   mobile_scanner: ^7.0.0
   flutter_rating_bar: ^4.0.1
+  logger: ^2.5.0
+  http: ^1.4.0
+  shared_preferences: ^2.5.3
+  google_sign_in: ^6.3.0
+  flutter_facebook_auth: ^7.1.2
 
   
 

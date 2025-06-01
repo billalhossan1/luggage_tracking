@@ -16,7 +16,7 @@ class ProductCategoryScreen extends StatelessWidget {
           crossAxisCount: 2, // 2 items per row
           crossAxisSpacing: 10,
           mainAxisSpacing: 10,
-          childAspectRatio: 0.80,
+          childAspectRatio: 0.75,
         ),
         itemCount: 10,
         padding: EdgeInsets.all(8),

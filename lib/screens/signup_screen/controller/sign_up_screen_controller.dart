@@ -1,19 +1,33 @@
-
-
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/services/api/network_caller.dart';
+import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
+import '../../../services/api/network_response.dart';
+import '../../../utils/app_all_log/error_log.dart';
+
 
 class SignUpScreenController extends GetxController {
   //////////////  variable & object
+  bool _inProgress = false;
+  bool get inProgress => _inProgress;
+  String? errorMessage;
+  String? message;
   RxBool isLoading = RxBool(false);
   RxBool isRememberMe = RxBool(false);
-  // GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
+  GlobalKey<FormState> signUpFormKey = GlobalKey<FormState>();
   // final AuthRepository authRepository = AuthRepository();
 
   //////////  text controller
 
   TextEditingController emailTextEditingController = TextEditingController();
   TextEditingController passwordTextEditingController = TextEditingController();
+  TextEditingController nameTextEditingController = TextEditingController();
+  TextEditingController contactTextEditingController = TextEditingController();
+  TextEditingController confirmPasswordTextEditingController =
+      TextEditingController();
 
   // Future<void> signIn() async {
   //   try {
@@ -39,14 +53,57 @@ class SignUpScreenController extends GetxController {
     // }
   }
 
-  // appClose() {
-  //   try {
-  //     emailTextEditingController.dispose();
-  //     passwordTextEditingController.dispose();
-  //   } catch (e) {
-  //     errorLog("app close sign in page", e);
-  //   }
-  // }
+  Future<bool> onTapResister() async {
+    bool isSuccess = false;
+
+    try {
+      if (signUpFormKey.currentState!.validate()) {
+        _inProgress = true;
+        update();
+        Map<String, dynamic> body = {
+          "name": nameTextEditingController.text.trim(),
+          "email": emailTextEditingController.text.trim(),
+          "contact": contactTextEditingController.text.trim(),
+          "password": passwordTextEditingController.text,
+          "confirmPassword": confirmPasswordTextEditingController.text,
+        };
+        final NetworkResponse response = await Get.find<NetworkCaller>()
+            .postRequest(Urls.registerUrl, body: body);
+        _inProgress = false;
+        update();
+        if (response.isSuccess) {
+          errorMessage = null;
+          message = response.responseData["message"];
+          isSuccess = true;
+          AppSnackBar.success(message ?? 'Registration successful');
+          Get.toNamed(AppRoutes.instance.otpScreen, arguments: {
+            "email": emailTextEditingController.text.trim(),
+            "isEmailVerification": true,
+          },);
+        } else {
+          errorMessage = response.errorMessage;
+          isSuccess = false;
+          AppSnackBar.error(errorMessage ?? 'Registration failed');
+        }
+      }
+    } catch (e) {
+      errorLog("checkValidation", e);
+    }
+
+    return isSuccess;
+  }
+
+  appClose() {
+    try {
+      nameTextEditingController.dispose();
+      contactTextEditingController.dispose();
+      confirmPasswordTextEditingController.dispose();
+      emailTextEditingController.dispose();
+      passwordTextEditingController.dispose();
+    } catch (e) {
+      errorLog("app close sign in page", e);
+    }
+  }
 
   // @override
   // void onClose() {

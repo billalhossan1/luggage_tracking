@@ -120,6 +120,9 @@ class AccountScreen extends StatelessWidget {
                 },
               ),
               IcontextRow(
+                onTap: (){
+                  controller.onTapLogout();
+                },
                 iconPath: AssetsIconsPath.instance.logout,
                 text: "Log Out",
               ),
