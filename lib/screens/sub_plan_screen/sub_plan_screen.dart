@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/sub_plan_screen/controller/sub_plan_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -13,51 +13,63 @@ class SubPlanScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: SafeArea(
-        child: Column(
-          children: [
-            Padding(
-              padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 30)),
-              child: AppText(
-                data: "Unlock your Subscription Plan",
-                fontSize: AppSize.width(value: 24),
-                fontWeight: FontWeight.w500,
-                color: AppColors.instance.black400,
+    return GetBuilder<SubPlanScreenController>(
+      init: SubPlanScreenController(),
+      builder: (controller) {
+        return Scaffold(
+          body: Obx((){
+            return SafeArea(
+              child: controller.isLoading.value
+                  ? const Center(child: CircularProgressIndicator())
+                  : controller.subscriptionPlanList.isEmpty
+                  ? Center(
+                child: AppText(
+                  data: 'No subscription plans available',
+                  fontSize: AppSize.width(value: 16),
+                  fontWeight: FontWeight.w500,
+                  color: AppColors.instance.black400,
+                ),
+              )
+                  : Column(
+                children: [
+                  Padding(
+                    padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 30)),
+                    child: AppText(
+                      data: "Unlock your Subscription Plan",
+                      fontSize: AppSize.width(value: 24),
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.instance.black400,
+                    ),
+                  ),
+                  Expanded(
+                    child: ListView.builder(
+                      padding: EdgeInsets.zero,
+                      itemCount: controller.subscriptionPlanList.length,
+                      itemBuilder: (context, index) {
+                        final plan = controller.subscriptionPlanList[index];
+                        return PlanCard(
+                          onTap: () => controller.onTapSubscription(
+                            context,
+                            paymentUrl: plan.paymentLink ?? "",
+                          ),
+                          heading: plan.title,
+                          price: "${plan.price}",
+                          offer1: plan.description,
+                          isSelected: true,
+                        );
+                      },
+                    ),
+                  ),
+                ],
               ),
-            ),
-
-            PlanCard(
-              onTap: () {
-                Get.toNamed(AppRoutes.instance.locationScreen);
-              },
-              heading: "Annual plan",
-              price: "\$114.99/year",
-              offer1: "Permissions for Multiple Trackers",
-              offer2: "sync with Garmin or Apple",
-              offer3: "Personalized training plans",
-            ),
-            PlanCard(
-              heading: "Monthly plan",
-              price: "\$19.99/6month",
-              offer1: "Permissions for Multiple Trackers",
-              offer2: "sync with Garmin or Apple",
-              offer3: "Personalized training plans",
-            ),
-            PlanCard(
-              heading: "Free Trial",
-              price: "Free",
-              offer1: "Permissions for Multiple Trackers",
-              offer2: "sync with Garmin or Apple",
-              offer3: "Personalized training plans",
-              isSelected: false,
-            ),
-          ],
-        ),
-      ),
+            );
+          }),
+        );
+      },
     );
   }
 }
+
 
 class PlanCard extends StatelessWidget {
   final String? heading;
@@ -93,38 +105,35 @@ class PlanCard extends StatelessWidget {
         ),
         width: AppSize.width(value: double.infinity),
         decoration: BoxDecoration(
-          color:
-              isSelected
-                  ? AppColors.instance.purple_50
-                  : AppColors.instance.white100,
+          color: isSelected
+              ? AppColors.instance.purple_50
+              : AppColors.instance.white100,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color:
-                isSelected
-                    ? AppColors.instance.purple_500
-                    : AppColors.instance.black400,
+            color: isSelected
+                ? AppColors.instance.purple_500
+                : AppColors.instance.black400,
           ),
         ),
         child: Column(
-          spacing: AppSize.width(value: 16),
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             AppText(
-              data: heading ?? "Annual plan",
+              data: heading ?? "Plan",
               fontSize: AppSize.width(value: 18),
               fontWeight: FontWeight.w400,
               color: AppColors.instance.black400,
             ),
             AppText(
-              data: price ?? "\$114.99/year",
+              data: price ?? "",
               fontSize: AppSize.width(value: 14),
               fontWeight: FontWeight.w500,
               color: AppColors.instance.blue2,
             ),
-
-            PlanCardRow(text: offer1 ?? "Permissions for Multiple Trackers"),
-            PlanCardRow(text: offer2 ?? "sync with Garmin or Apple"),
-            PlanCardRow(text: offer3 ?? "Personalized training plans"),
+            SizedBox(height: AppSize.width(value: 10)),
+            if (offer1 != null) PlanCardRow(text: offer1),
+            if (offer2 != null) PlanCardRow(text: offer2),
+            if (offer3 != null) PlanCardRow(text: offer3),
           ],
         ),
       ),
@@ -146,11 +155,13 @@ class PlanCardRow extends StatelessWidget {
           height: AppSize.width(value: 22),
         ),
         Gap(width: AppSize.width(value: 16)),
-        AppText(
-          data: text ?? "Permissions for Multiple Trackers",
-          fontSize: AppSize.width(value: 14),
-          fontWeight: FontWeight.w400,
-          color: AppColors.instance.black200,
+        Expanded(
+          child: AppText(
+            data: text ?? "",
+            fontSize: AppSize.width(value: 14),
+            fontWeight: FontWeight.w400,
+            color: AppColors.instance.black200,
+          ),
         ),
       ],
     );

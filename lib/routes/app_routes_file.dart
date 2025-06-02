@@ -4,7 +4,9 @@ import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
+import 'package:luggage_tracking/routes/bindings/sign_up_with_personal_data_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
+import 'package:luggage_tracking/routes/bindings/sub_plan_screen_binding.dart';
 import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
@@ -81,6 +83,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.subPlanScreen,
+    binding: SubPlanScreenBinding(),
     page: () => const SubPlanScreen(),
   ),
   GetPage(
@@ -155,6 +158,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.signUpWithPersonalData,
+    binding: SignUpWithPersonalDataBinding(),
     page: () =>  SignupWithPersonalDataScreen(),
   ),
   GetPage(name: AppRoutes.instance.accountScreen,    binding: AccountScreenBinding(), page: () => AccountScreen()),

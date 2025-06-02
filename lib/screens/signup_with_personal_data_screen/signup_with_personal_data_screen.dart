@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
+import 'package:luggage_tracking/screens/signup_with_personal_data_screen/controller/signup_with_personal_data_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_drop_down/app_drop_down.dart';
@@ -21,38 +23,65 @@ class SignupWithPersonalDataScreen extends StatelessWidget {
       body: SingleChildScrollView(
         child: Padding(
           padding: const EdgeInsets.all(16.0),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            spacing: AppSize.width(value: 12),
-            children: [
-              Padding(
-                padding: EdgeInsets.symmetric(
-                  vertical: AppSize.width(value: 20),
-                ),
-                child: AppText(
-                  data: "Please Enter Your Personal Data",
-                  fontSize: AppSize.width(value: 16),
-                  fontWeight: FontWeight.w400,
-                  color: AppColors.instance.black300,
-                ),
-              ),
+          child: GetBuilder<SignupWithPersonalDataController>(
+            init: SignupWithPersonalDataController(),
+            builder: (controller) {
+              return Form(
+                key: controller.personalDataFormKey,
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  spacing: AppSize.width(value: 12),
+                  children: [
+                    Padding(
+                      padding: EdgeInsets.symmetric(
+                        vertical: AppSize.width(value: 20),
+                      ),
+                      child: AppText(
+                        data: "Please Enter Your Personal Data",
+                        fontSize: AppSize.width(value: 16),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.instance.black300,
+                      ),
+                    ),
 
-              CustomTextField.build(hintText: "Contact No"),
-              CustomTextField.build(hintText: "Date of Birth"),
-              CustomTextField.build(hintText: "Gender"),
-              CustomTextField.build(hintText: "Occupation"),
-              AppDropDown(hintText: "Country", items: countryList),
-              AppDropDown(hintText: "City", items: cityList),
-              CustomTextField.build(hintText: "Address"),
-              Gap(height: AppSize.width(value: 36)),
-              AppButton(
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.subPlanScreen);
-                },
-                title: "Continue",
-                titleSize: AppSize.width(value: 20),
-              ),
-            ],
+                    CustomTextField.build(hintText: "Contact No",controller: controller.contactNumberTextEditingController,),
+                    CustomTextField.build(hintText: "Date of Birth",controller: controller.dateOfBirthTextEditingController),
+                    CustomTextField.build(hintText: "Gender",controller: controller.genderTextEditingController),
+                    CustomTextField.build(hintText: "Occupation",controller: controller.occupationTextEditingController),
+                    Obx(()=>AppDropDown<String>(
+                      hintText: "Country",
+                      items: controller.countryList,
+                      value: controller.selectedCountry.value,
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.selectedCountry.value = value;
+                          // Logger().i("Selected Country: ${controller.selectedCountry.value}");
+                        }
+                      },
+                    ),
+                    ),
+                    AppDropDown(hintText: "City", items: cityList,value: controller.selectedCity.value,
+                      onChanged: (value) {
+                        if (value != null) {
+                          controller.selectedCity.value = value;
+                          // Logger().i("Selected City: ${controller.selectedCity.value}");
+                        }
+                      },
+                    ),
+                    CustomTextField.build(hintText: "Address"),
+                    Gap(height: AppSize.width(value: 36)),
+                    AppButton(
+                      onTap: () {
+                        controller.onTapNext();
+                        // Get.toNamed(AppRoutes.instance.subPlanScreen);
+                      },
+                      title: "Continue",
+                      titleSize: AppSize.width(value: 20),
+                    ),
+                  ],
+                ),
+              );
+            }
           ),
         ),
       ),

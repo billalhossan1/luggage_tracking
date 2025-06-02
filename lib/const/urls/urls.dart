@@ -8,5 +8,8 @@ class Urls{
   static final String resendOtpUrl = '$_baseUrl/auth/resend-otp';
   static final String verifyEmailUrl = '$_baseUrl/auth/verify-email';
   static final String socialUrl = '$_baseUrl/auth/social-login';
+  static final String updateProfileUrl = '$_baseUrl/user';
+  static final String getSubscriptionPlanListUrl = '$_baseUrl/plan';
+  static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }

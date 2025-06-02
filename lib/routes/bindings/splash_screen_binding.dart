@@ -6,7 +6,7 @@ class SplashScreenBinding extends Bindings {
   @override
   dependencies() {
     Get.lazyPut(() => SplashScreenController());
-    Get.put<SaveDataController>(SaveDataController());
+    Get.lazyPut<SaveDataController>(()=>SaveDataController());
     // Get.lazyPut(() => ErrorScreenController());
     // Get.lazyPut(() => NotFoundScreenController());
   }

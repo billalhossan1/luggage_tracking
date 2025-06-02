@@ -121,13 +121,88 @@ class AccountScreen extends StatelessWidget {
               ),
               IcontextRow(
                 onTap: (){
-                  controller.onTapLogout();
+                  Get.bottomSheet(
+                    LogoutBottomSheet(),
+                  );
                 },
                 iconPath: AssetsIconsPath.instance.logout,
                 text: "Log Out",
               ),
             ],
           ),
+        ),
+      ),
+    );
+  }
+}
+class LogoutBottomSheet extends StatelessWidget {
+  const LogoutBottomSheet({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: EdgeInsets.all(20),
+      decoration: BoxDecoration(
+        color: Colors.white,
+        borderRadius: BorderRadius.vertical(top: Radius.circular(20)),
+      ),
+      child: SafeArea(
+        child: Column(
+          mainAxisSize: MainAxisSize.min, // Dynamic height
+          crossAxisAlignment:
+          CrossAxisAlignment.start, // Left align all children
+          children: [
+            AppText(
+              data: "Are you sure ?",
+              fontSize: AppSize.width(value: 20),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.black500,
+            ),
+            Gap(height: AppSize.width(value: 20)),
+            AppText(
+              data: "Do you want to log out from your account ?",
+              fontSize: AppSize.width(value: 16),
+              fontWeight: FontWeight.w400,
+              color: AppColors.instance.black300,
+            ),
+            Gap(height: AppSize.width(value: 24)),
+            Row(
+              children: [
+                Expanded(flex: 1, child: SizedBox()),
+                Expanded(
+                  flex: 1,
+                  child: AppButton(
+                    height: 42,
+                    title: "No",
+                    onTap: () {
+                      Get.back();
+                    },
+                  ),
+                ),
+                Gap(width: AppSize.width(value: 8)),
+                Expanded(
+                  flex: 1,
+                  child: OutlinedButton(
+                    style: OutlinedButton.styleFrom(
+                      side: BorderSide(color: AppColors.instance.purple_500),
+                      shape: RoundedRectangleBorder(
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
+                    onPressed: () {
+                      // Add logout logic here
+                      Get.find<AccountController>().onTapLogout();
+                    },
+                    child: Text(
+                      'Yes',
+
+                      style: TextStyle(color: AppColors.instance.purple_500),
+                    ),
+                  ),
+                ),
+              ],
+            ),
+          ],
         ),
       ),
     );

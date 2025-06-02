@@ -70,10 +70,10 @@ class SignInScreenController extends GetxController {
               final accessToken = response.responseData["data"]["accessToken"];
               Logger().i("Access Token: $accessToken");
               // Remember Me checked - save persistently
-              await Get.find<SaveDataController>().saveUserData(accessToken);
+              // await Get.find<SaveDataController>().saveUserData(accessToken);
 
               AppSnackBar.success(message!);
-              Get.toNamed(AppRoutes.instance.navigationScreen,);
+              Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
             } else {
               errorMessage = response.errorMessage;
               AppSnackBar.error(errorMessage!);
@@ -87,22 +87,26 @@ class SignInScreenController extends GetxController {
       log("error form click SignIn button function : $e");
     }
   }
-  final _googleSignIn = GoogleSignIn();
+
 
 
   Future<void> googleLogin() async {
     try {
-      final GoogleSignInAccount? googleUser = await _googleSignIn.signIn();
+      final googleSignIn = GoogleSignIn();
+      googleSignIn.signOut();
+      final GoogleSignInAccount? googleUser = await googleSignIn.signIn();
+
       if (googleUser == null) {
         Get.snackbar('Login cancelled', 'User cancelled Google login');
         return;
       }
-      final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      // final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
+      //
+      // final appId = googleAuth.idToken ?? googleAuth.accessToken;
 
-      final appId = googleAuth.idToken ?? googleAuth.accessToken;
+      if (googleUser.id.isNotEmpty) {
+        await socialLogin(appId: googleUser.id,email: googleUser.email, name: googleUser.displayName ?? '');
 
-      if (appId != null) {
-        await socialLogin(appId, "google");
       }
     } catch (e) {
       AppSnackBar.error('Google login failed: $e');
@@ -115,12 +119,18 @@ class SignInScreenController extends GetxController {
       final LoginResult result = await FacebookAuth.instance.login();
 
       if (result.status == LoginStatus.success) {
-        final accessTokenMap = result.accessToken?.toJson();
-        final accessToken = accessTokenMap != null ? accessTokenMap['token'] as String? : null;
-        Logger().i("Facebook Access Token: $accessToken");
+        final accessToken = result.accessToken?.tokenString;
 
         if (accessToken != null) {
-          await socialLogin(accessToken, "facebook");
+          // Fetch Facebook user profile with email field
+          final userData = await FacebookAuth.instance.getUserData(fields: "email");
+          final email = userData['email'] ?? '';
+          final name = userData['name'] ?? '';
+
+          Logger().i("Facebook Access Token: $accessToken");
+          Logger().i("Facebook User Email: $email");
+
+          await socialLogin(appId: accessToken, email: email, name: name);
         } else {
           Get.snackbar('Error', 'Access token is null');
         }
@@ -137,40 +147,51 @@ class SignInScreenController extends GetxController {
 
 
 
-  Future<void> socialLogin(String appId, String provider) async {
-    final url = Uri.parse(Urls.socialUrl);
+
+  Future<void> socialLogin({required String appId,required String email,required String name}) async {
+    Map<String,dynamic> body = {
+      "appId": appId,
+    };
     try {
-      final response = await http.post(
-        url,
-        headers: {'Content-Type': 'application/json'},
-        body: jsonEncode({
-          "appId": appId,
-          "provider": provider,
-        }),
+      final response = await Get.find<NetworkCaller>().postRequest(
+        Urls.socialUrl,
+        body: body,
       );
 
+      // Check type and decode if needed
+      final data = response.responseData is String
+          ? jsonDecode(response.responseData)
+          : response.responseData as Map<String, dynamic>;
+
+      Logger().i('Social login response data: $data');
+
       if (response.statusCode == 200) {
-        final data = jsonDecode(response.body);
-        final accessToken = data["data"]["accessToken"];
-        // Remember Me checked - save persistently
-        await Get.find<SaveDataController>().saveUserData(accessToken);
-        AppSnackBar.success('Login successful: ${data['message']}');
-        Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData);
-      } else {
-        final data = jsonDecode(response.body);
-        if (data['message'] == 'Email already exist!') {
-          AppSnackBar.error('Email already registered. Please login with email & password.');
-          // Optionally navigate to your email/password login screen:
-          // Get.toNamed(AppRoutes.instance.signIn);
-        } else {
-          AppSnackBar.error('Login failed: ${data['message'] ?? response.body}');
+        final accessToken = data["data"]?["accessToken"];
+        bool isRegister = data["data"]?["isRegister"] ?? false;
+        if (accessToken == null) {
+          AppSnackBar.error('Access token missing in response');
+          return;
         }
-        log("Social login error: ${response.body}");
+        AppSnackBar.success('Login successful: ${data['message']}');
+       if(isRegister){
+
+         Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"token": accessToken,"email":email,"name":name});
+       }else{
+         //TODO:navigattionscreen
+         // await Get.find<SaveDataController>().saveUserData(accessToken);
+          Get.offAllNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":email,"name":name,"token":accessToken});
+       }
+      } else {
+          AppSnackBar.error('Login failed: ${data['message'] ?? response.responseData}');
+        // log("Social login error: ${response.responseData}");
       }
     } catch (e) {
       AppSnackBar.error('Error during social login: $e');
+      log("Social login exception: $e");
     }
   }
+
+
 
 
   // appClose() {

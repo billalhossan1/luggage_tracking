@@ -15,23 +15,27 @@ class NetworkCaller {
     try {
       Map<String, String> headers = {'content-type': 'application/json'};
       if (accessToken != null) {
-        headers['Authorization'] = accessToken;
-      }
-
-
-      if (queryParam != null) {
-        url += '?';
-        for (String param in queryParam.keys) {
-          url += "$param=${queryParam[param]}&";
-        }
-        url = url.substring(0, url.length - 1);
-        _logRequest(url);
+        headers['Authorization'] = 'Bearer $accessToken'; // Ensure token format
       }
 
       Uri uri = Uri.parse(url);
-      http.Response response = await http.get(uri, headers: headers);
+      if (queryParam != null) {
+        uri = uri.replace(queryParameters: queryParam);
+      }
 
-      _logResponse(url, response.statusCode, response.headers, response.body);
+      _logger.i("Making GET request to: $uri");
+      _logger.i("Headers: $headers");
+
+      final response = await http.get(uri, headers: headers).timeout(
+        const Duration(seconds: 30),
+        onTimeout: () {
+          _logger.e("Request timed out");
+          throw Exception("Request timed out");
+        },
+      );
+
+      _logger.i("Response status code: ${response.statusCode}");
+      _logger.i("Response body: ${response.body}");
 
       if (response.statusCode == 200) {
         return NetworkResponse(
@@ -40,26 +44,20 @@ class NetworkCaller {
           responseData: jsonDecode(response.body),
         );
       } else {
-        ErrorResponseModel errorResponseModel = ErrorResponseModel.fromJson(jsonDecode(response.body));
+        _logger.e("Error response: ${response.body}");
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: errorResponseModel.errorMessages?.isNotEmpty == true
-              ? errorResponseModel.errorMessages!.first.message ?? 'Unknown error occurred'
-              : errorResponseModel.message ?? 'Unknown error occurred',
-
+          responseData: jsonDecode(response.body),
+          errorMessage: "Failed to fetch data",
         );
       }
-    } on SocketException {
-      return NetworkResponse(
-        isSuccess: false,
-        statusCode: -1,
-        errorMessage: "No Internet Connection",
-      );
     } catch (e) {
+      _logger.e("Exception in getRequest: $e");
       return NetworkResponse(
         isSuccess: false,
-        statusCode: -1,
+        statusCode: 500,
+        responseData: null,
         errorMessage: e.toString(),
       );
     }

@@ -115,7 +115,8 @@ class OtpVerificationScreenController extends GetxController {
               errorMessage = null;
               message = response.responseData["message"];
               AppSnackBar.success(message!);
-              Get.toNamed(AppRoutes.instance.signIn,);
+              // Get.toNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"token":'', "email": argMail.value,"name":''});
+            Get.offAllNamed(AppRoutes.instance.signIn);
             } else {
               errorMessage = response.errorMessage;
               hasError.value = true;

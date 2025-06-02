@@ -9,7 +9,7 @@ class AccountController extends GetxController{
     rating.value = value;
   }
   void onTapLogout() {
-    Get.put(SaveDataController()).clearUserData();
+    Get.find<SaveDataController>().clearUserData();
     Get.offAllNamed(AppRoutes.instance.signIn);
   }
 }

@@ -1,11 +1,13 @@
 
 import 'package:get/get.dart';
 import 'package:luggage_tracking/screens/navigation_screen/controllers/navigation_screen_controller.dart';
+import 'package:luggage_tracking/services/save_data/save_data.dart';
 
 class NavigationScreenBinding extends Bindings {
   @override
   dependencies() {
     Get.lazyPut(() => NavigationScreenController());
+    Get.lazyPut(() => SaveDataController());
     // Get.lazyPut(() => TermsAndConditionsScreenController());
     // Get.lazyPut(() => PrivacyPolicyScreenController());
     // Get.lazyPut(() => AboutUsScreenController());

@@ -2,8 +2,12 @@ import 'package:flutter/material.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 
 class CustomTextField {
-  static Widget build({String? hintText, TextEditingController? controller}) {
-    return TextField(
+  static Widget build({
+    String? hintText,
+    TextEditingController? controller,
+    String? Function(String?)? validator,
+  }) {
+    return TextFormField(
       controller: controller ?? TextEditingController(),
       style: TextStyle(color: AppColors.instance.black400),
       decoration: InputDecoration(
@@ -17,6 +21,13 @@ class CustomTextField {
         ),
       ),
       cursorColor: AppColors.instance.white600,
+      validator: validator ??
+              (value) {
+            if (value == null || value.trim().isEmpty) {
+              return '$hintText is required';
+            }
+            return null;
+          },
     );
   }
 }
