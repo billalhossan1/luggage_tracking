@@ -87,7 +87,7 @@ class OtpVerificationScreenController extends GetxController {
             errorMessage = null;
             message = response.responseData["message"];
             AppSnackBar.success(message!);
-            reCallStatTimer();
+            startTimer();
           } else {
             errorMessage = response.errorMessage;
             hasError.value = true;
@@ -155,10 +155,16 @@ class OtpVerificationScreenController extends GetxController {
         : '$remainingSeconds';
   }
 
+  bool _isolateRunning = false;
+
   void startTimer() async {
+    if (_isolateRunning) return;  // Prevent multiple isolates
+    _isolateRunning = true;
+
     try {
       final receivePort = ReceivePort();
       _isolate = await Isolate.spawn(_isolateEntryPoint, receivePort.sendPort);
+
       receivePort.listen((data) {
         _seconds.value = data as int;
         if (_seconds.value <= 0) {
@@ -170,20 +176,17 @@ class OtpVerificationScreenController extends GetxController {
     }
   }
 
-  reCallStatTimer() {
-    if (seconds.value == 0) {
-      startTimer();
-    }
-  }
-
   void stopTimer() {
+    if (!_isolateRunning) return;
     try {
       _isolate.kill(priority: Isolate.immediate);
-      _seconds.value = 0;
     } catch (e) {
       log(e.toString());
     }
+    _seconds.value = 0;
+    _isolateRunning = false;
   }
+
 
   static void _isolateEntryPoint(SendPort sendPort) {
     int seconds = 120;

@@ -15,6 +15,7 @@ class HomeScreenController extends GetxController{
   RxString errorMessage = ''.obs;
   RxList<CategoryItem> categoryList = <CategoryItem>[].obs;
   RxList<ProductItem> productList = <ProductItem>[].obs;
+  String? _accessToken;
 
 
     @override
@@ -36,6 +37,7 @@ class HomeScreenController extends GetxController{
       final response = await categoryApicall();
       Logger().i("API response received");
       if (response.isSuccess) {
+        categoryList.clear();
         var data = response.responseData;
         CategoryListModel categoryListModel = CategoryListModel.fromJson(data);
         categoryList.addAll(categoryListModel.categoryList ?? []);
@@ -57,6 +59,7 @@ class HomeScreenController extends GetxController{
     try {
       final response = await productApicall();
       if (response.isSuccess) {
+        productList.clear();
         var data = response.responseData;
         ProductListModel productListModel = ProductListModel.fromJson(data);
         productList.addAll(productListModel.productList ?? []);
@@ -76,14 +79,19 @@ class HomeScreenController extends GetxController{
 
 
   Future<dynamic>categoryApicall()async {
+
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
+    _accessToken = accessToken;
     return networkCaller.getRequest(
         Urls.getCategoryListUrl, accessToken: accessToken);
   }
   Future<dynamic>productApicall()async {
+      Get.lazyPut(() => SaveDataController());
+      Get.lazyPut(() => NetworkCaller());
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
+    Logger().e("Product Access Token: $_accessToken");
     return networkCaller.getRequest(
         Urls.getProductListUrl, accessToken: accessToken);
   }

@@ -73,7 +73,7 @@ class SignInScreenController extends GetxController {
               final accessToken = response.responseData["data"]["accessToken"];
               bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
               Logger().i("isSubscribed: $isSubscribed");
-              if(!isSubscribed){
+              if(isSubscribed){
                 saveDataController.saveUserData(accessToken);
                 Get.offAllNamed(AppRoutes.instance.navigationScreen,);
                 Logger().i("Access Token: $accessToken");
