@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -18,119 +20,135 @@ class HomeScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: CustomScrollView(
-        slivers: [
-          // SliverAppBar with some basic properties
-          SliverAppBar(
-            automaticallyImplyLeading: false,
-            toolbarHeight: AppSize.width(value: 56),
-            pinned: true, // height when expanded
-            flexibleSpace: HomeScreenAppBar(
-              actions: [
-                AppImage(
-                  path: AssetsIconsPath.instance.search,
-                  width: AppSize.width(value: 24),
-                  height: AppSize.width(value: 24),
-                ),
-                Gap(width: AppSize.width(value: 16)),
-                GestureDetector(
-                  onTap: () {
-                    Get.toNamed(AppRoutes.instance.notificationScreen);
-                  },
-                  child: AppImage(
-                    path: AssetsIconsPath.instance.notification,
-                    width: AppSize.width(value: 24),
-                    height: AppSize.width(value: 24),
-                  ),
-                ),
-              ],
-              title: "Welcome to Trkil",
-              subtitle: "Every move matters",
-              leading: AppImage(
-                path: AssetsImagesPath.instance.homeLogo,
-                width: AppSize.width(value: 40),
-                height: AppSize.width(value: 40),
-              ),
-            ),
-          ),
-          SliverToBoxAdapter(
-            child: HomeBannerSection(
-              onTap: () {
-                appLog(
-                  "Home Page OnTap Clicked ====>>>>> Banner Section Home Page👍👍",
-                );
-              },
-            ),
-          ),
-
-          itemTitleOption(
-            name: "Categories",
-            onTapCall: () {
-              Get.toNamed(AppRoutes.instance.categoryScreen);
-            },
-          ),
-
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
-              child: SizedBox(
-                width: AppSize.width(value: 92),
-                height: AppSize.height(
-                  value: 92,
-                ), // ekta fixed height dite hobe
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal, // horizontal scroll
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSize.width(value: 12),
-                  ),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    // var item = controller.services[index];
-                    return ServiceCategoryBox();
-                  },
-                ),
-              ),
-            ),
-          ),
-          itemTitleOption(
-            name: "Vest Products",
-            onTapCall: () {
-              Get.toNamed(AppRoutes.instance.productCategoryScreen);
-            },
-          ),
-          SliverToBoxAdapter(
-            child: Padding(
-              padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
-              child: SizedBox(
-                height: AppSize.height(
-                  value: 240,
-                ), // ekta fixed height dite hobe
-                child: ListView.builder(
-                  scrollDirection: Axis.horizontal, // horizontal scroll
-                  padding: EdgeInsets.symmetric(
-                    horizontal: AppSize.width(value: 12),
-                  ),
-                  itemCount: 10,
-                  itemBuilder: (context, index) {
-                    // var item = controller.services[index];
-                    return Padding(
-                      padding: EdgeInsets.only(right: AppSize.width(value: 8)),
-                      child: ProductCard(
-                        isBookmark: false,
-                        isToggleable: true,
-                        onTap: () {
-                          Get.toNamed(AppRoutes.instance.productDetailsScreen);
-                        },
+    return GetBuilder(
+      init: HomeScreenController(),
+      builder: (controller) {
+        return Scaffold(
+          body: Obx(()=>CustomScrollView(
+            slivers: [
+              // SliverAppBar with some basic properties
+              SliverAppBar(
+                automaticallyImplyLeading: false,
+                toolbarHeight: AppSize.width(value: 56),
+                pinned: true, // height when expanded
+                flexibleSpace: HomeScreenAppBar(
+                  actions: [
+                    AppImage(
+                      path: AssetsIconsPath.instance.search,
+                      width: AppSize.width(value: 24),
+                      height: AppSize.width(value: 24),
+                    ),
+                    Gap(width: AppSize.width(value: 16)),
+                    GestureDetector(
+                      onTap: () {
+                        Get.toNamed(AppRoutes.instance.notificationScreen);
+                      },
+                      child: AppImage(
+                        path: AssetsIconsPath.instance.notification,
+                        width: AppSize.width(value: 24),
+                        height: AppSize.width(value: 24),
                       ),
+                    ),
+                  ],
+                  title: "Welcome to Trkil",
+                  subtitle: "Every move matters",
+                  leading: AppImage(
+                    path: AssetsImagesPath.instance.homeLogo,
+                    width: AppSize.width(value: 40),
+                    height: AppSize.width(value: 40),
+                  ),
+                ),
+              ),
+              SliverToBoxAdapter(
+                child: HomeBannerSection(
+                  onTap: () {
+                    appLog(
+                      "Home Page OnTap Clicked ====>>>>> Banner Section Home Page👍👍",
                     );
                   },
                 ),
               ),
-            ),
-          ),
-        ],
-      ),
+
+              itemTitleOption(
+                name: "Categories",
+                onTapCall: () {
+                  Get.toNamed(AppRoutes.instance.categoryScreen);
+                },
+              ),
+
+              Visibility(
+                visible: !controller.categoryIsLoading.value,
+                replacement: SliverToBoxAdapter(
+                  child: Center(
+                    child: CircularProgressIndicator(
+                      color: AppColors.instance.purple_500,
+                    ),
+                  ),
+                ),
+                child: SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
+                    child: SizedBox(
+                      width: AppSize.width(value: 92),
+                      height: AppSize.height(
+                        value: 92,
+                      ), // ekta fixed height dite hobe
+                      child: ListView.builder(
+
+                        scrollDirection: Axis.horizontal, // horizontal scroll
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSize.width(value: 12),
+                        ),
+                        itemCount: controller.categoryList.length,
+                        itemBuilder: (context, index) {
+                          // var item = controller.services[index];
+                          return ServiceCategoryBox(category: controller.categoryList[index],);
+                        },
+                      ),
+                    ),
+                  ),
+                ),
+              ),
+              itemTitleOption(
+                name: "Vest Products",
+                onTapCall: () {
+                  Get.toNamed(AppRoutes.instance.productCategoryScreen);
+                },
+              ),
+              SliverToBoxAdapter(
+                child: Padding(
+                  padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
+                  child: SizedBox(
+                    height: AppSize.height(
+                      value: 240,
+                    ), // ekta fixed height dite hobe
+                    child: ListView.builder(
+                      scrollDirection: Axis.horizontal, // horizontal scroll
+                      padding: EdgeInsets.symmetric(
+                        horizontal: AppSize.width(value: 12),
+                      ),
+                      itemCount: 10,
+                      itemBuilder: (context, index) {
+                        // var item = controller.services[index];
+                        return Padding(
+                          padding: EdgeInsets.only(right: AppSize.width(value: 8)),
+                          child: ProductCard(
+                            isBookmark: false,
+                            isToggleable: true,
+                            onTap: () {
+                              Get.toNamed(AppRoutes.instance.productDetailsScreen);
+                            },
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+                ),
+              ),
+            ],
+          ),)
+        );
+      }
     );
   }
 }

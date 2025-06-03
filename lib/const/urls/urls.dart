@@ -10,6 +10,8 @@ class Urls{
   static final String socialUrl = '$_baseUrl/auth/social-login';
   static final String updateProfileUrl = '$_baseUrl/user';
   static final String getSubscriptionPlanListUrl = '$_baseUrl/plan';
+  static final String getCategoryListUrl = '$_baseUrl/category';
+  static final String getProductListUrl = '$_baseUrl/product';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }

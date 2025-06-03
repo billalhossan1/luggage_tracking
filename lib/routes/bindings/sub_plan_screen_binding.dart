@@ -9,10 +9,11 @@ class SubPlanScreenBinding extends Bindings {
   @override
   void dependencies() {  // Add 'void' return type
     // Use Get.put() instead of Get.lazyPut() for critical services
-    Get.put(NetworkCaller(), permanent: true);
+    // Get.put(NetworkCaller(), permanent: true);
     Get.put(SaveDataController(), permanent: true);
 
     // Keep controller as lazyPut since it's screen-specific
     Get.lazyPut(() => SubPlanScreenController());
+    Get.lazyPut(() => NetworkCaller());
   }
 }

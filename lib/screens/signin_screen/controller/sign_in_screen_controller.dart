@@ -17,6 +17,7 @@ import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
 class SignInScreenController extends GetxController {
+
   //////////////  variable & object
   RxBool isLoading = RxBool(false);
   String? errorMessage;
@@ -58,6 +59,8 @@ class SignInScreenController extends GetxController {
   }
 
   Future<void> clickSignIButton() async {
+    Get.lazyPut(()=>SaveDataController());
+    SaveDataController saveDataController=Get.find<SaveDataController>();
     try {
       if (signInFormKey.currentState!.validate()) {
         isLoading.value = true;
@@ -68,12 +71,18 @@ class SignInScreenController extends GetxController {
               errorMessage = null;
               message = response.responseData["message"];
               final accessToken = response.responseData["data"]["accessToken"];
-              Logger().i("Access Token: $accessToken");
-              // Remember Me checked - save persistently
-              // await Get.find<SaveDataController>().saveUserData(accessToken);
+              bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
+              Logger().i("isSubscribed: $isSubscribed");
+              if(!isSubscribed){
+                saveDataController.saveUserData(accessToken);
+                Get.offAllNamed(AppRoutes.instance.navigationScreen,);
+                Logger().i("Access Token: $accessToken");
 
-              AppSnackBar.success(message!);
-              Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
+              }
+             else{
+                AppSnackBar.success(message!);
+                Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
+              }
             } else {
               errorMessage = response.errorMessage;
               AppSnackBar.error(errorMessage!);
@@ -173,13 +182,23 @@ class SignInScreenController extends GetxController {
           return;
         }
         AppSnackBar.success('Login successful: ${data['message']}');
-       if(isRegister){
-
-         Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"token": accessToken,"email":email,"name":name});
+       if(!isRegister){
+         bool isSubscribed = data["data"]["isSubscribed"] ?? false;
+         if(!isSubscribed){
+           Get.lazyPut(()=>SaveDataController());
+          Get.find<SaveDataController>().saveUserData(accessToken);
+           Get.offAllNamed(AppRoutes.instance.navigationScreen);
+           Logger().i("Navigation to Home Screen");
+         }
+        else{
+          Logger().i("Screen: SubPlanScreen");
+           Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"token": accessToken,"email":email,"name":name});
+         }
        }else{
+         Logger().i("Screen: SignUpWithPersonalDataScreen");
          //TODO:navigattionscreen
          // await Get.find<SaveDataController>().saveUserData(accessToken);
-          Get.offAllNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":email,"name":name,"token":accessToken});
+          Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"email":email,"name":name,"token":accessToken});
        }
       } else {
           AppSnackBar.error('Login failed: ${data['message'] ?? response.responseData}');

@@ -5,7 +5,9 @@ import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 
-void openSubscriptionWebView(BuildContext context, String email, String paymentUrl) {
+import '../../services/save_data/save_data.dart';
+
+void openSubscriptionWebView(BuildContext context, String email, String paymentUrl, String token) {
   final logger = Logger();
   String url = '$paymentUrl?prefilled_email=$email';
   logger.i("Opening subscription URL: $url");
@@ -27,6 +29,9 @@ void openSubscriptionWebView(BuildContext context, String email, String paymentU
                 actions: [
                   TextButton(
                     onPressed: () {
+                      Get.lazyPut(() => SaveDataController());
+                      Get.find<SaveDataController>().saveUserData(token);
+
                       Navigator.of(context).pop();
                       Get.offAllNamed(AppRoutes.instance.navigationScreen);
                     },

@@ -1,7 +1,10 @@
 import 'dart:convert';
 import 'dart:io'; // Added for SocketException
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/common/model/error_response_model.dart';
 
 import 'network_response.dart';
@@ -43,7 +46,16 @@ class NetworkCaller {
           statusCode: response.statusCode,
           responseData: jsonDecode(response.body),
         );
-      } else {
+      }
+      else if(response.statusCode == 401){
+        Get.offAllNamed(AppRoutes.instance.signIn);
+        return NetworkResponse(
+          isSuccess: false,
+          statusCode: response.statusCode,
+          errorMessage: "Unauthorized access. Please log in again.",
+        );
+      }
+      else {
         _logger.e("Error response: ${response.body}");
         return NetworkResponse(
           isSuccess: false,
