@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/faq_screen/controller/faq_controller.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 
 import '../../../const/urls/urls.dart';
@@ -21,6 +22,7 @@ class AccountController extends GetxController{
     Get.find<SaveDataController>().clearUserData();
     Get.offAllNamed(AppRoutes.instance.signIn);
   }
+
 
   Future<void>getProfileDetails() async {
     try {

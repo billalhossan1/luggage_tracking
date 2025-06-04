@@ -122,22 +122,20 @@ class HomeScreen extends StatelessWidget {
                     height: AppSize.height(
                       value: 240,
                     ), // ekta fixed height dite hobe
-                    child: ListView.builder(
+                    child: controller.productIsLoading.value?Center(
+                      child: CircularProgressIndicator()
+                    ):ListView.builder(
                       scrollDirection: Axis.horizontal, // horizontal scroll
                       padding: EdgeInsets.symmetric(
                         horizontal: AppSize.width(value: 12),
                       ),
-                      itemCount: 10,
+                      itemCount: controller.productList.length,
                       itemBuilder: (context, index) {
                         // var item = controller.services[index];
                         return Padding(
                           padding: EdgeInsets.only(right: AppSize.width(value: 8)),
                           child: ProductCard(
-                            isBookmark: false,
-                            isToggleable: true,
-                            onTap: () {
-                              Get.toNamed(AppRoutes.instance.productDetailsScreen);
-                            },
+                            productItem: controller.productList[index], isBookmarked: controller.productList[index].bookmark??false, onBookmarkToggle: () {  },
                           ),
                         );
                       },

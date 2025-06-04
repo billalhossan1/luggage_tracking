@@ -3,6 +3,7 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
+import 'package:luggage_tracking/routes/bindings/faq_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/sign_up_with_personal_data_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
@@ -205,6 +206,6 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.feedbackScreen,
     page: () => FeedbackScreen(),
   ),
-  GetPage(name: AppRoutes.instance.faqScreen, page: () => FaqScreen()),
+  GetPage(name: AppRoutes.instance.faqScreen,binding: FaqScreenBinding(), page: () => FaqScreen()),
   GetPage(name: AppRoutes.instance.notificationScreen, page: () => NotificationScreen()),
 ];

@@ -23,16 +23,16 @@ class OrderListModel {
 }
 
 class Data {
-  List<Orders>? orders;
+  List<Order>? orders;
   Pagination? pagination;
 
   Data({this.orders, this.pagination});
 
   Data.fromJson(Map<String, dynamic> json) {
     if (json['orders'] != null) {
-      orders = <Orders>[];
+      orders = <Order>[];
       json['orders'].forEach((v) {
-        orders!.add(Orders.fromJson(v));
+        orders!.add(Order.fromJson(v));
       });
     }
     pagination = json['pagination'] != null
@@ -52,7 +52,7 @@ class Data {
   }
 }
 
-class Orders {
+class Order {
   String? sId;
   String? email;
   String? contact;
@@ -67,7 +67,7 @@ class Orders {
   String? updatedAt;
   int? iV;
 
-  Orders(
+  Order(
       {this.sId,
         this.email,
         this.contact,
@@ -82,7 +82,7 @@ class Orders {
         this.updatedAt,
         this.iV});
 
-  Orders.fromJson(Map<String, dynamic> json) {
+  Order.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     email = json['email'];
     contact = json['contact'];

@@ -7,14 +7,12 @@ import 'package:luggage_tracking/screens/navigation_screen/controllers/navigatio
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 
-class NavigationScreenBinding extends Bindings {
+class FaqScreenBinding extends Bindings {
   @override
   dependencies() {
-    Get.lazyPut(() => NavigationScreenController());
     Get.lazyPut(() => SaveDataController());
-    Get.lazyPut(() => HomeScreenController());
     Get.lazyPut(() => NetworkCaller());
-    Get.put(() => AccountController());
+    Get.put(() => FaqController());
     // Get.lazyPut(() => TermsAndConditionsScreenController());
     // Get.lazyPut(() => PrivacyPolicyScreenController());
     // Get.lazyPut(() => AboutUsScreenController());

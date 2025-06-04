@@ -2,48 +2,31 @@ import 'package:flutter/material.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
-class ProductCard extends StatefulWidget {
-  final Function()? onTap;
-  final bool isBookmark;       // initial bookmark state
-  final bool isToggleable;     // controls if user can toggle
+class ProductCard extends StatelessWidget {
+  final ProductItem? productItem; // Optional product data
+  final bool isBookmarked; // Track the bookmark state
+  final Function() onBookmarkToggle; // Callback to toggle the bookmark state
 
   const ProductCard({
     super.key,
-    this.onTap,
-    required this.isBookmark,
-    this.isToggleable = true,  // default true (toggle enabled)
+    this.productItem,
+    required this.isBookmarked,
+    required this.onBookmarkToggle,
   });
-
-  @override
-  State<ProductCard> createState() => _ProductCardState();
-}
-
-class _ProductCardState extends State<ProductCard> {
-  late bool isBookmarked;
-
-  @override
-  void initState() {
-    super.initState();
-    isBookmarked = widget.isBookmark;
-  }
-
-  void toggleBookmark() {
-    if (widget.isToggleable) {
-      setState(() {
-        isBookmarked = !isBookmarked;
-      });
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
     return GestureDetector(
-      onTap: widget.onTap,
+      onTap: () {
+        // You can handle the tap event for the product card here
+      },
       child: Container(
         padding: EdgeInsets.all(12),
         width: AppSize.width(value: 163),
@@ -72,7 +55,7 @@ class _ProductCardState extends State<ProductCard> {
                       ),
                     ),
                     GestureDetector(
-                      onTap: toggleBookmark,
+                      onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
                       child: AppImage(
                         path: isBookmarked
                             ? AssetsIconsPath.instance.isFavorate
@@ -84,7 +67,7 @@ class _ProductCardState extends State<ProductCard> {
                   ],
                 ),
                 AppImage(
-                  path: AssetsImagesPath.instance.product2,
+                  url: Urls.imageBaseUrl + (productItem?.images?.first ?? ""),
                   fit: BoxFit.cover,
                   width: AppSize.width(value: 115),
                   height: AppSize.width(value: 115),
@@ -93,7 +76,7 @@ class _ProductCardState extends State<ProductCard> {
             ),
             Gap(height: AppSize.width(value: 16)),
             AppText(
-              data: "Luggage Tag",
+              data: productItem?.name ?? "Luggage Tag", // Replace with actual field
               fontSize: AppSize.width(value: 14),
               fontWeight: FontWeight.w400,
               color: AppColors.instance.black400,
@@ -106,14 +89,14 @@ class _ProductCardState extends State<ProductCard> {
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     AppText(
-                      data: "Trkil",
+                      data: productItem?.category?.name ?? "Brand", // Replace with actual field
                       fontSize: AppSize.width(value: 12),
                       fontWeight: FontWeight.w400,
                       color: AppColors.instance.black200,
                     ),
                     Gap(height: AppSize.width(value: 8)),
                     AppText(
-                      data: "\$${3.00}",
+                      data: "\$${productItem?.price ?? 0.0}",
                       fontSize: AppSize.width(value: 14),
                       fontWeight: FontWeight.w600,
                       color: AppColors.instance.black400,

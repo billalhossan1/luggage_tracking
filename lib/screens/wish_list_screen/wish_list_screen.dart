@@ -24,12 +24,7 @@ class WishListScreen extends StatelessWidget {
             itemCount: 10,
             padding: EdgeInsets.all(8),
             itemBuilder: (context, index) {
-              return ProductCard(
-                isBookmark: true,
-                isToggleable: true,
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.productDetailsScreen);
-                },
+              return ProductCard(isBookmarked:false, onBookmarkToggle: () {  },
               );
             },
           ),);

@@ -7,8 +7,8 @@ import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class FaqScreen extends StatelessWidget {
-  const FaqScreen({super.key});
-
+  FaqScreen({super.key});
+ var controller = Get.put(FaqController());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -16,18 +16,20 @@ class FaqScreen extends StatelessWidget {
       body: GetBuilder(
         init: FaqController(),
         builder: (controller) {
-          return ListView(
+          return Obx(()=> controller.isLoading.value
+              ? const Center(child: CircularProgressIndicator())
+              :ListView(
             padding: const EdgeInsets.all(16),
-            children: List.generate(7, (index) {
+            children: List.generate(controller.faqList.length, (index) {
               return ExpandableTile(
-                title: "Q: What is Westfert Basketball?",
+                title: "Q: ${controller.faqList[index].question}",
                 description:
-                    "This app is designed to help users manage their book reading habits, track progress, and discover new books tailored to their preferences.",
+                controller.faqList[index].answer ?? "No answer provided",
                 controller: controller,
                 index: index,
               );
             }),
-          );
+          ));
         },
       ),
     );

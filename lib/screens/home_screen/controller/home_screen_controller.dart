@@ -30,6 +30,18 @@ class HomeScreenController extends GetxController{
       Logger().i("Product list fetched: ${productList.length} items");
     super.onInit();
   }
+  Future<void>onBookMarkTogle(bool isBookMarked)async{
+      isBookMarked= !isBookMarked;
+
+  }
+  //TODO: Implement the API call to bookmark a product
+  Future<void>bookMarkApiCall(int productID)async{
+
+      Map<String, dynamic> body = {
+        "product": productID, // Replace with actual product ID
+      };
+      Get.find<NetworkCaller>().postRequest(Urls.bookMarkUrl,body: body);
+  }
 
 
 

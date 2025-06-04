@@ -16,6 +16,8 @@ class Urls{
   static final String getWishListUrl = '$_baseUrl/bookmark';
   static final String getOrderListUrl = '$_baseUrl/order';
   static final String getProfileDetailsUrl = '$_baseUrl/user/profile';
+  static final String getFAQListUrl = '$_baseUrl/faq';
+  static final String bookMarkUrl = '$_baseUrl/bookmark';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }

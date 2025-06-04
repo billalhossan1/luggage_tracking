@@ -12,7 +12,7 @@ class DealingHistoryScreenController extends GetxController{
 
 
   RxBool isLoading = true.obs; // Example variable to track loading state
-  RxList<Orders> dealingHistory = <Orders>[].obs; // Example list to hold dealing history items
+  RxList<Order> dealingHistory = <Order>[].obs; // Example list to hold dealing history items
   @override
   void onInit() {
     loadDealingHistory();

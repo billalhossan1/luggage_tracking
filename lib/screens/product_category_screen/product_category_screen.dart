@@ -21,12 +21,7 @@ class ProductCategoryScreen extends StatelessWidget {
         itemCount: 10,
         padding: EdgeInsets.all(8),
         itemBuilder: (context, index) {
-          return ProductCard(
-            isBookmark: false,
-            isToggleable: true,
-            onTap: () {
-              Get.toNamed(AppRoutes.instance.productDetailsScreen);
-            },
+          return ProductCard(isBookmarked: false, onBookmarkToggle: () {  },
           );
         },
       ),
