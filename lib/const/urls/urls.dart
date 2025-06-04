@@ -1,5 +1,6 @@
 class Urls{
   static final String _baseUrl = 'http://10.0.80.75:6003/api/v1';
+  static final String imageBaseUrl = 'http://10.0.80.75:6003';
   static final String registerUrl = '$_baseUrl/user';
   static final String loginUrl = '$_baseUrl/auth/login';
   static final String forgotPasswordUrl = '$_baseUrl/auth/forgot-password';
@@ -13,6 +14,8 @@ class Urls{
   static final String getCategoryListUrl = '$_baseUrl/category';
   static final String getProductListUrl = '$_baseUrl/product';
   static final String getWishListUrl = '$_baseUrl/bookmark';
+  static final String getOrderListUrl = '$_baseUrl/order';
+  static final String getProfileDetailsUrl = '$_baseUrl/user/profile';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }

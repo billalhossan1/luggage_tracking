@@ -24,114 +24,119 @@ class AccountScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: CustomAppBar(title: "Account", showLeading: false),
-      body: Padding(
-        padding: EdgeInsets.all(AppSize.width(value: 16)),
-        child: SingleChildScrollView(
-          child: Column(
-            spacing: AppSize.width(value: 12),
-            children: [
-              AppCard(
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.profileDetailsScreen);
-                },
-                child: Column(
-                  spacing: AppSize.width(value: 8),
-                  children: [
-                    AppImageCircular(
-                      path: AssetsImagesPath.instance.person,
-                      width: AppSize.width(value: 72),
-                      height: AppSize.width(value: 72),
-                      fit: BoxFit.cover,
+    return GetBuilder<AccountController>(
+      init: AccountController(),
+      builder: (controller) {
+        return Scaffold(
+          appBar: CustomAppBar(title: "Account", showLeading: false),
+          body: Obx(()=>Padding(
+            padding: EdgeInsets.all(AppSize.width(value: 16)),
+            child: SingleChildScrollView(
+              child: Column(
+                spacing: AppSize.width(value: 12),
+                children: [
+                  AppCard(
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.profileDetailsScreen);
+                    },
+                    child: Column(
+                      spacing: AppSize.width(value: 8),
+                      children: [
+                        AppImageCircular(
+                          url: controller.profileModel.value?.profile,
+                          width: AppSize.width(value: 72),
+                          height: AppSize.width(value: 72),
+                          fit: BoxFit.cover,
+                        ),
+                        AppText(
+                          data: controller.profileModel.value?.name ?? "no name",
+                          fontSize: AppSize.width(value: 18),
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.instance.black500,
+                        ),
+                        AppText(
+                          data: controller.profileModel.value?.email ?? "no email",
+                          fontSize: AppSize.width(value: 12),
+                          fontWeight: FontWeight.w400,
+                          color: AppColors.instance.purple_500,
+                        ),
+                      ],
                     ),
-                    AppText(
-                      data: "Mr. Spatch",
-                      fontSize: AppSize.width(value: 18),
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.instance.black500,
-                    ),
-                    AppText(
-                      data: "Spatch@gmail,com",
-                      fontSize: AppSize.width(value: 12),
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.instance.purple_500,
-                    ),
-                  ],
-                ),
-              ),
+                  ),
 
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.wishList,
-                text: "Wish list",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.wishListScreen);
-                },
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.wishList,
+                    text: "Wish list",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.wishListScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.dealCart,
+                    text: "Dealing History ",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.dealingHistoryScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.setting,
+                    text: "Account Setting",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.accountSettingScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.about,
+                    text: "About",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.acoutScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.workFunc,
+                    text: "Work Functionality",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.workFuncScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.terms,
+                    text: "Terms & Conditions",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.termsAndCondionScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.faq,
+                    text: "FAQ",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.faqScreen);
+                    },
+                  ),
+                  IcontextRow(
+                    iconPath: AssetsIconsPath.instance.feedback,
+                    text: "Feedback",
+                    onTap: () {
+                      Get.bottomSheet(
+                        FeedBackRattinigBottomSheet(controller: controller),
+                      );
+                    },
+                  ),
+                  IcontextRow(
+                    onTap: (){
+                      Get.bottomSheet(
+                        LogoutBottomSheet(),
+                      );
+                    },
+                    iconPath: AssetsIconsPath.instance.logout,
+                    text: "Log Out",
+                  ),
+                ],
               ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.dealCart,
-                text: "Dealing History ",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.dealingHistoryScreen);
-                },
-              ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.setting,
-                text: "Account Setting",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.accountSettingScreen);
-                },
-              ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.about,
-                text: "About",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.acoutScreen);
-                },
-              ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.workFunc,
-                text: "Work Functionality",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.workFuncScreen);
-                },
-              ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.terms,
-                text: "Terms & Conditions",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.termsAndCondionScreen);
-                },
-              ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.faq,
-                text: "FAQ",
-                onTap: () {
-                  Get.toNamed(AppRoutes.instance.faqScreen);
-                },
-              ),
-              IcontextRow(
-                iconPath: AssetsIconsPath.instance.feedback,
-                text: "Feedback",
-                onTap: () {
-                  Get.bottomSheet(
-                    FeedBackRattinigBottomSheet(controller: controller),
-                  );
-                },
-              ),
-              IcontextRow(
-                onTap: (){
-                  Get.bottomSheet(
-                    LogoutBottomSheet(),
-                  );
-                },
-                iconPath: AssetsIconsPath.instance.logout,
-                text: "Log Out",
-              ),
-            ],
-          ),
-        ),
-      ),
+            ),
+          ),)
+        );
+      }
     );
   }
 }

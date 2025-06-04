@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
+import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -40,7 +41,7 @@ class ServiceCategoryBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppImage(
-                url: category.image ?? "",
+                url: Urls.imageBaseUrl+category.image! ?? "",
                 height: AppSize.height(value: 47),
                 width: AppSize.width(value: 51),
               ),

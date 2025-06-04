@@ -26,9 +26,9 @@ class SaveDataController extends GetxController {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
     rememberMe = sharedPreferences.getBool(_rememberMeKey) ?? false;
 
-    if (rememberMe == true) {
+    // if (rememberMe == true) {
       tempToken = sharedPreferences.getString(_accessTokenKey);
-    }
+    // }
 
     return tempToken;
   }

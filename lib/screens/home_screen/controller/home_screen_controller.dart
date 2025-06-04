@@ -1,5 +1,7 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
+import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
+import 'package:luggage_tracking/screens/account_screen/model/profile_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/category_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
@@ -23,6 +25,7 @@ class HomeScreenController extends GetxController{
       Logger().i("HomeScreenController initialized");
       getCategoryList();
       getProductList();
+      Get.find<AccountController>().getProfileDetails();
       Logger().i("Category list fetched: ${categoryList.length} items");
       Logger().i("Product list fetched: ${productList.length} items");
     super.onInit();
@@ -31,6 +34,7 @@ class HomeScreenController extends GetxController{
 
 
   Future<void> getCategoryList() async {
+
     Logger().i("getCategoryList called");
     categoryIsLoading.value = true;
     try {
@@ -55,6 +59,7 @@ class HomeScreenController extends GetxController{
     }
   }
   Future<void> getProductList() async {
+
     productIsLoading.value = true;
     try {
       final response = await productApicall();
@@ -79,7 +84,10 @@ class HomeScreenController extends GetxController{
 
 
   Future<dynamic>categoryApicall()async {
-
+    if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
+      Get.lazyPut(()=> SaveDataController());
+      Get.lazyPut(()=> NetworkCaller());
+    }
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
     _accessToken = accessToken;
@@ -87,12 +95,17 @@ class HomeScreenController extends GetxController{
         Urls.getCategoryListUrl, accessToken: accessToken);
   }
   Future<dynamic>productApicall()async {
-      Get.lazyPut(() => SaveDataController());
-      Get.lazyPut(() => NetworkCaller());
+    if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
+      Get.lazyPut(()=> SaveDataController());
+      Get.lazyPut(()=> NetworkCaller());
+    }
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
     Logger().e("Product Access Token: $_accessToken");
     return networkCaller.getRequest(
         Urls.getProductListUrl, accessToken: accessToken);
   }
+
+
+
 }
