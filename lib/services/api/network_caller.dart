@@ -75,23 +75,42 @@ class NetworkCaller {
     }
   }
 
-  Future<NetworkResponse> postRequest(String url, {Map<String, dynamic>? body, String? accessToken,String? tempToken}) async {
+  Future<NetworkResponse> postRequest(
+      String url, {
+        Map<String, dynamic>? body,
+        String? accessToken,
+        String? tempToken,
+      }) async {
     try {
       Uri uri = Uri.parse(url);
       Map<String, String> headers = {'content-type': 'application/json'};
+
+      // Only add accessToken to headers if it exists
       if (accessToken != null) {
-        headers['Authorization'] = accessToken;
+        headers['Authorization'] = 'Bearer $accessToken'; // Ensure you add the Bearer prefix
       }
-      _logger.i("Token: $accessToken");
-      // if( tempToken != null) {
-      //   headers['Authorization'] = tempToken;
-      // }
+
+      // Logging token safely
+      if (accessToken != null ) {
+        _logger.i("Token: [Redacted for Debugging]");  // Avoid logging token in production
+      }
+
+      // Uncomment and manage tempToken if needed
+      if (tempToken != null) {
+        headers['Authorization'] = 'Bearer $tempToken';
+      }
+
       _logRequest(url, headers, body);
 
-      http.Response response = await http.post(uri, headers: headers, body: jsonEncode(body));
+      http.Response response = await http.post(
+        uri,
+        headers: headers,
+        body: jsonEncode(body),
+      );
 
       _logResponse(url, response.statusCode, response.headers, response.body);
 
+      // Handle successful responses
       if (response.statusCode == 200 || response.statusCode == 201) {
         return NetworkResponse(
           isSuccess: true,
@@ -99,14 +118,23 @@ class NetworkCaller {
           responseData: jsonDecode(response.body),
         );
       } else {
-        ErrorResponseModel errorResponseModel = ErrorResponseModel.fromJson(jsonDecode(response.body));
+        // Parse error response if status code is not successful
+        String errorMessage = 'Unknown error occurred';
+        try {
+          ErrorResponseModel errorResponseModel =
+          ErrorResponseModel.fromJson(jsonDecode(response.body));
+          errorMessage = errorResponseModel.errorMessages?.isNotEmpty == true
+              ? errorResponseModel.errorMessages!.first.message ?? errorMessage
+              : errorResponseModel.message ?? errorMessage;
+        } catch (e) {
+          // If the error response is not valid JSON, log it
+          _logger.e('Failed to parse error response: ${response.body}');
+        }
+
         return NetworkResponse(
           isSuccess: false,
           statusCode: response.statusCode,
-          errorMessage: errorResponseModel.errorMessages?.isNotEmpty == true
-              ? errorResponseModel.errorMessages!.first.message ?? 'Unknown error occurred'
-              : errorResponseModel.message ?? 'Unknown error occurred',
-
+          errorMessage: errorMessage,
         );
       }
     } on SocketException {
@@ -115,7 +143,8 @@ class NetworkCaller {
         statusCode: -1,
         errorMessage: "No Internet Connection",
       );
-    } catch (e) {
+    }
+    catch (e) {
       return NetworkResponse(
         isSuccess: false,
         statusCode: -1,

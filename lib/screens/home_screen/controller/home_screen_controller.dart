@@ -6,6 +6,7 @@ import 'package:luggage_tracking/screens/home_screen/model/category_list_model.d
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
+import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
 
@@ -18,35 +19,79 @@ class HomeScreenController extends GetxController{
   RxList<CategoryItem> categoryList = <CategoryItem>[].obs;
   RxList<ProductItem> productList = <ProductItem>[].obs;
   String? _accessToken;
+  RxBool? isBookMarked;
 
-
-    @override
+  @override
   void onInit() {
-      Logger().i("HomeScreenController initialized");
-      getCategoryList();
-      getProductList();
-      Get.find<AccountController>().getProfileDetails();
-      Logger().i("Category list fetched: ${categoryList.length} items");
-      Logger().i("Product list fetched: ${productList.length} items");
+    Logger().i("HomeScreenController initialized");
+    getCategoryList();
+    getProductList();
+    Get.find<AccountController>().getProfileDetails();
+    // Logger().i("Category list fetched: ${categoryList.length} items");
+    // Logger().i("Product list fetched: ${productList.length} items");
     super.onInit();
   }
-  Future<void>onBookMarkTogle(bool isBookMarked)async{
-      isBookMarked= !isBookMarked;
+
+  Future<void> onBookMarkTogle(ProductItem product) async {
+    // bookMarkApiCall(product.sId!);
+    // Toggle the bookmark locally
+    // Logger().i("onBookMarkTogle called for product: ${product.sId}, isBookMarked: ${product.bookmark}");
+    final NetworkResponse response =await bookMarkApiCall(product.sId!);
+    if(response.isSuccess){
+      if(product.bookmark==true){
+        product.bookmark = false;
+      }else{
+        product.bookmark = true;
+      }
+    }
+ //  Toggle the bookmark status locally
+    update();  // Update the UI with the new state
+
+    // Trigger the API call to update the bookmark status
 
   }
-  //TODO: Implement the API call to bookmark a product
-  Future<void>bookMarkApiCall(int productID)async{
 
-      Map<String, dynamic> body = {
-        "product": productID, // Replace with actual product ID
-      };
-      Get.find<NetworkCaller>().postRequest(Urls.bookMarkUrl,body: body);
+  Future<dynamic> bookMarkApiCall(String productID) async {
+    Logger().i("bookMarkApiCall triggered for product: $productID");
+    Map<String, dynamic> body = {
+      "product": productID,
+    };
+
+    if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
+      Get.lazyPut(() => SaveDataController());
+      Get.lazyPut(() => NetworkCaller());
+    }
+
+    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    Logger().i("Access token: $accessToken");
+
+    if (accessToken == null) {
+      Logger().e("Access Token is null");
+      return;
+    }
+
+    final response = await Get.find<NetworkCaller>().postRequest(
+      Urls.bookMarkUrl,
+      body: body,
+      accessToken: accessToken,
+    );
+
+    // Logger().i("Bookmark API Response: Status Code - ${response.statusCode}");
+    // Logger().i("Bookmark API Response Body: ${response.responseData}");
+
+    if (response.isSuccess) {
+      AppSnackBar.message(response.responseData['message'] ?? "Bookmark toggled successfully");
+    } else {
+      AppSnackBar.error(response.errorMessage ?? "Failed to toggle bookmark");
+      // Revert the bookmark status locally if API fails
+      final product = productList.firstWhere((p) => p.sId == productID);
+      product.bookmark = product.bookmark;  // Revert
+      update();  // Update the UI with the reverted state
+    }
+    return response;
   }
-
-
 
   Future<void> getCategoryList() async {
-
     Logger().i("getCategoryList called");
     categoryIsLoading.value = true;
     try {
@@ -70,8 +115,8 @@ class HomeScreenController extends GetxController{
       categoryIsLoading.value = false;
     }
   }
-  Future<void> getProductList() async {
 
+  Future<void> getProductList() async {
     productIsLoading.value = true;
     try {
       final response = await productApicall();
@@ -94,11 +139,10 @@ class HomeScreenController extends GetxController{
     }
   }
 
-
-  Future<dynamic>categoryApicall()async {
+  Future<dynamic> categoryApicall() async {
     if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
-      Get.lazyPut(()=> SaveDataController());
-      Get.lazyPut(()=> NetworkCaller());
+      Get.lazyPut(() => SaveDataController());
+      Get.lazyPut(() => NetworkCaller());
     }
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
@@ -106,10 +150,11 @@ class HomeScreenController extends GetxController{
     return networkCaller.getRequest(
         Urls.getCategoryListUrl, accessToken: accessToken);
   }
-  Future<dynamic>productApicall()async {
+
+  Future<dynamic> productApicall() async {
     if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
-      Get.lazyPut(()=> SaveDataController());
-      Get.lazyPut(()=> NetworkCaller());
+      Get.lazyPut(() => SaveDataController());
+      Get.lazyPut(() => NetworkCaller());
     }
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
@@ -117,7 +162,4 @@ class HomeScreenController extends GetxController{
     return networkCaller.getRequest(
         Urls.getProductListUrl, accessToken: accessToken);
   }
-
-
-
 }

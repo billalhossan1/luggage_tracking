@@ -13,7 +13,7 @@ class ProductCard extends StatelessWidget {
   final ProductItem? productItem; // Optional product data
   final bool isBookmarked; // Track the bookmark state
   final Function() onBookmarkToggle; // Callback to toggle the bookmark state
-
+  // VoidCallback onBookmarkToggle; // Callback to toggle the bookmark state
   const ProductCard({
     super.key,
     this.productItem,
@@ -23,102 +23,98 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // You can handle the tap event for the product card here
-      },
-      child: Container(
-        padding: EdgeInsets.all(12),
-        width: AppSize.width(value: 163),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: AppColors.instance.white500,
-            width: .5,
+    return Container(
+      padding: EdgeInsets.all(12),
+      width: AppSize.width(value: 163),
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: AppColors.instance.white500,
+          width: .5,
+        ),
+        color: AppColors.instance.white50,
+        borderRadius: BorderRadius.circular(AppSize.width(value: 12)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Stack(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: AppSize.width(value: 18),
+                    height: AppSize.width(value: 18),
+                    decoration: BoxDecoration(
+                      color: AppColors.instance.white200,
+                      shape: BoxShape.circle,
+                    ),
+                  ),
+                  GestureDetector(
+                    onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
+                    child: isBookmarked ? Icon(Icons.favorite,color: Color(0xff8F00FF),): Icon(Icons.favorite_border_outlined,color: Color(0xff8F00FF),),
+                    // child: AppImage(
+                    //   path: isBookmarked
+                    //       ? AssetsIconsPath.instance.isFavorate
+                    //       : AssetsIconsPath.instance.favorate,
+                    //   width: AppSize.width(value: 18),
+                    //   height: AppSize.width(value: 18),
+                    // ),
+                  ),
+                ],
+              ),
+              AppImage(
+                url: Urls.imageBaseUrl + (productItem?.images?.first ?? ""),
+                fit: BoxFit.cover,
+                width: AppSize.width(value: 115),
+                height: AppSize.width(value: 115),
+              ),
+            ],
           ),
-          color: AppColors.instance.white50,
-          borderRadius: BorderRadius.circular(AppSize.width(value: 12)),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Stack(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      width: AppSize.width(value: 18),
-                      height: AppSize.width(value: 18),
-                      decoration: BoxDecoration(
-                        color: AppColors.instance.white200,
-                        shape: BoxShape.circle,
-                      ),
-                    ),
-                    GestureDetector(
-                      onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
-                      child: AppImage(
-                        path: isBookmarked
-                            ? AssetsIconsPath.instance.isFavorate
-                            : AssetsIconsPath.instance.favorate,
-                        width: AppSize.width(value: 18),
-                        height: AppSize.width(value: 18),
-                      ),
-                    ),
-                  ],
-                ),
-                AppImage(
-                  url: Urls.imageBaseUrl + (productItem?.images?.first ?? ""),
-                  fit: BoxFit.cover,
-                  width: AppSize.width(value: 115),
-                  height: AppSize.width(value: 115),
-                ),
-              ],
-            ),
-            Gap(height: AppSize.width(value: 16)),
-            AppText(
-              data: productItem?.name ?? "Luggage Tag", // Replace with actual field
-              fontSize: AppSize.width(value: 14),
-              fontWeight: FontWeight.w400,
-              color: AppColors.instance.black400,
-            ),
-            Gap(height: AppSize.width(value: 8)),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    AppText(
-                      data: productItem?.category?.name ?? "Brand", // Replace with actual field
-                      fontSize: AppSize.width(value: 12),
-                      fontWeight: FontWeight.w400,
-                      color: AppColors.instance.black200,
-                    ),
-                    Gap(height: AppSize.width(value: 8)),
-                    AppText(
-                      data: "\$${productItem?.price ?? 0.0}",
-                      fontSize: AppSize.width(value: 14),
-                      fontWeight: FontWeight.w600,
-                      color: AppColors.instance.black400,
-                    ),
-                  ],
-                ),
-                Container(
-                  padding: EdgeInsets.all(6),
-                  decoration: BoxDecoration(
-                    color: AppColors.instance.white500,
-                    borderRadius: BorderRadius.circular(8),
+          Gap(height: AppSize.width(value: 16)),
+          AppText(
+            data: productItem?.name ?? "Luggage Tag", // Replace with actual field
+            fontSize: AppSize.width(value: 14),
+            fontWeight: FontWeight.w400,
+            color: AppColors.instance.black400,
+          ),
+          Gap(height: AppSize.width(value: 8)),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  AppText(
+                    data: productItem?.category?.name ?? "Brand", // Replace with actual field
+                    fontSize: AppSize.width(value: 12),
+                    fontWeight: FontWeight.w400,
+                    color: AppColors.instance.black200,
                   ),
-                  child: Icon(
-                    Icons.add,
-                    size: AppSize.width(value: 18),
-                    color: AppColors.instance.purple_500,
+                  Gap(height: AppSize.width(value: 8)),
+                  AppText(
+                    data: "\$${productItem?.price ?? 0.0}",
+                    fontSize: AppSize.width(value: 14),
+                    fontWeight: FontWeight.w600,
+                    color: AppColors.instance.black400,
                   ),
+                ],
+              ),
+              Container(
+                padding: EdgeInsets.all(6),
+                decoration: BoxDecoration(
+                  color: AppColors.instance.white500,
+                  borderRadius: BorderRadius.circular(8),
                 ),
-              ],
-            ),
-          ],
-        ),
+                child: Icon(
+                  Icons.add,
+                  size: AppSize.width(value: 18),
+                  color: AppColors.instance.purple_500,
+                ),
+              ),
+            ],
+          ),
+        ],
       ),
     );
   }

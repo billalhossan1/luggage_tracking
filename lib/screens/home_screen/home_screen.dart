@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:get/route_manager.dart';
+import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
@@ -102,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                         itemCount: controller.categoryList.length,
                         itemBuilder: (context, index) {
                           // var item = controller.services[index];
-                          return ServiceCategoryBox(category: controller.categoryList[index],);
+                          // return ServiceCategoryBox(category: controller.categoryList[index],);
                         },
                       ),
                     ),
@@ -135,7 +136,15 @@ class HomeScreen extends StatelessWidget {
                         return Padding(
                           padding: EdgeInsets.only(right: AppSize.width(value: 8)),
                           child: ProductCard(
-                            productItem: controller.productList[index], isBookmarked: controller.productList[index].bookmark??false, onBookmarkToggle: () {  },
+                            productItem: controller.productList[index], isBookmarked: controller.productList[index].bookmark??false,
+                            onBookmarkToggle: () {
+                              // Logger().e("Bookmark Toggled: ${controller.productList[index].sId}");
+                              controller.onBookMarkTogle(controller.productList[index]);
+
+                              // controller.onBookMarkTogle(controller.productList[index].bookmark??false);
+                              // controller.getProductList();
+
+                            },
                           ),
                         );
                       },

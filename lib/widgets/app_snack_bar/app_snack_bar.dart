@@ -43,7 +43,7 @@ class AppSnackBar {
       GetSnackBar(
         backgroundColor: AppColors.instance.black500,
         animationDuration: const Duration(seconds: 2),
-        duration: const Duration(seconds: 3),
+        duration: const Duration(seconds: 2),
         messageText: Column(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.start,
