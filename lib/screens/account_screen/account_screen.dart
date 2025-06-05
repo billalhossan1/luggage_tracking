@@ -243,25 +243,26 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
             Gap(height: AppSize.width(value: 16)),
             Center(
               child: Obx(
-                () => RatingBar.builder(
+                    () => RatingBar.builder(
                   initialRating: controller.rating.value,
                   minRating: 1,
                   direction: Axis.horizontal,
                   allowHalfRating: true,
                   itemCount: 5,
-
                   itemSize: 40,
                   itemPadding: const EdgeInsets.symmetric(horizontal: 4.0),
                   itemBuilder:
                       (context, _) =>
-                          const Icon(Icons.star, color: Colors.amber),
+                  const Icon(Icons.star, color: Colors.amber),
                   onRatingUpdate: controller.updateRatting,
                 ),
               ),
             ),
 
             AddDescripsion(
+
               boxSize: 120,
+              controller: controller.feedbackMessageTEController,
               fillColor: AppColors.instance.white50,
               title: "",
               hintText: "Review",
@@ -285,8 +286,19 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
                 title: "Confirm",
                 borderRadius: BorderRadius.circular(16),
                 onTap: () {
+
+                  double ratingValue = controller.rating.value;
+
+                  String feedbackMessage = controller.feedbackMessageTEController.text;
+                  controller.feedbackSubmit();
+                  // For example, you could call a function like:
+                  // controller.submitFeedback(ratingValue, feedbackMessage);
+                  controller.feedbackMessageTEController.clear();
+                  // Show a snack bar with the rating value
                   Get.back(); // Close bottom sheet
-                  AppSnackBar.message("You rated: ${controller.rating.value}");
+
+                  // You can also call a function to handle the feedback submission
+                  // controller.submitFeedback(ratingValue, feedbackMessage);
                 },
               ),
             ),
@@ -296,3 +308,4 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
     );
   }
 }
+

@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
-import 'package:luggage_tracking/widgets/cards/product_card.dart';
-
+import 'package:luggage_tracking/widgets/wish_list_card/wish_card.dart';
 import 'controller/wish_list_controller.dart';
 
 class WishListScreen extends StatelessWidget {
@@ -14,21 +12,78 @@ class WishListScreen extends StatelessWidget {
     return GetBuilder(
       init: Get.find<WishListController>(),
       builder: (controller) {
-        return Scaffold(appBar: CustomAppBar(title: "Wish List"),body: GridView.builder(
-            gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: 2, // 2 items per row
-              crossAxisSpacing: 10,
-              mainAxisSpacing: 10,
-              childAspectRatio: 0.80,
+        return Scaffold(
+          appBar: CustomAppBar(title: "Wish List"),
+          body: Obx(
+                () => controller.isLoading.value
+                ? Center(child: CircularProgressIndicator())
+                : controller.wishListItems.isEmpty
+                ? _buildEmptyState() // Show empty state if no items in the list
+                : LayoutBuilder(
+              builder: (context, constraints) {
+                double width = constraints.maxWidth;
+                int crossAxisCount = 2; // Default for small screens
+
+                if (width > 600 && width <= 900) {
+                  crossAxisCount = 3; // Medium screen
+                } else if (width > 900) {
+                  crossAxisCount = 4; // Large screen
+                }
+
+                // Ensure the list has enough items before accessing them
+                if (controller.wishListItems.isNotEmpty) {
+                  print(
+                      "===========================================================${controller.wishListItems[0].product?.name}");
+                }
+
+                return GridView.builder(
+                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                    crossAxisCount: crossAxisCount,
+                    crossAxisSpacing: 10,
+                    mainAxisSpacing: 10,
+                    childAspectRatio: 0.75, // Aspect ratio of the grid items
+                  ),
+                  itemCount: controller.wishListItems.length,
+                  padding: EdgeInsets.all(8),
+                  itemBuilder: (context, index) {
+                    var product = controller.wishListItems[index];
+                    return WishCard(
+                      onBookmarkToggle: () {
+                        controller.onBookMarkTogle(product);
+                      },
+                      name: product.product?.name ?? 'no name',
+                      imageUrl: product.product?.images?[0] ?? '',
+                      description: product.product?.description ?? 'no description',
+                      price: product.product?.price ?? 0,
+                    );
+                  },
+                );
+              },
             ),
-            itemCount: 10,
-            padding: EdgeInsets.all(8),
-            itemBuilder: (context, index) {
-              return ProductCard(isBookmarked:false, onBookmarkToggle: () {  },
-              );
-            },
-          ),);
-      }
+          ),
+        );
+      },
+    );
+  }
+
+  Widget _buildEmptyState() {
+    return Center(
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [
+          Icon(Icons.favorite_border, size: 50, color: Colors.grey),
+          SizedBox(height: 16),
+          Text(
+            "No items in your wishlist",
+            style: TextStyle(fontSize: 18, color: Colors.grey),
+          ),
+          SizedBox(height: 8),
+          Text(
+            "Start adding items to your wishlist!",
+            style: TextStyle(fontSize: 16, color: Colors.grey),
+          ),
+        ],
+      ),
     );
   }
 }

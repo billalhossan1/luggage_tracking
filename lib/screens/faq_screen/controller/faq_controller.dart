@@ -35,7 +35,7 @@ class FaqController extends GetxController {
       Get.lazyPut(() => NetworkCaller());
       Get.lazyPut(() => SaveDataController());
     }
-    String accessToken = "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4M2Q3NjJkZDhhYTBmMjQ0NzI0ZTViNyIsInJvbGUiOiJTVVBFUl9BRE1JTiIsImVtYWlsIjoic3VwZXJhZG1pbkBnbWFpbC5jb20iLCJpYXQiOjE3NDkwNDg5OTAsImV4cCI6MTc1MDc3Njk5MH0.OxK8Zms6Y9h4b1zMDZU6-fJEekMzGMdMDRYxrvFnxM0" ;// String? accessToken = await Get.find<SaveDataController>().getUserData();
+    String? accessToken = await Get.find<SaveDataController>().getUserData();
    final NetworkResponse response = await Get.find<NetworkCaller>().getRequest(Urls.getFAQListUrl,accessToken: accessToken );
    return response;
   }

@@ -1,8 +1,11 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/faq_screen/controller/faq_controller.dart';
+import 'package:luggage_tracking/screens/feedback_screen/controller/feedback_screen_controller.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
+import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
@@ -14,6 +17,7 @@ class AccountController extends GetxController{
   var rating = 3.0.obs;
   RxString errorMessage = ''.obs;
   RxBool isLoading = false.obs;
+  TextEditingController feedbackMessageTEController = TextEditingController();
 
   void updateRatting(double value) {
     rating.value = value;
@@ -57,5 +61,9 @@ class AccountController extends GetxController{
 
     return networkCaller.getRequest(
         Urls.getProfileDetailsUrl, accessToken: accessToken);
+  }
+  Future<void> feedbackSubmit() async {
+    Get.lazyPut(()=>FeedbackScreenController());
+    Get.find<FeedbackScreenController>().makeFeedBack(feedbackMessageTEController.text.trim(), rating.value);
   }
 }

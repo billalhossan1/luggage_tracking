@@ -10,22 +10,22 @@ class WishListModel {
     success = json['success'];
     message = json['message'];
     pagination = json['pagination'] != null
-        ? Pagination.fromJson(json['pagination'])
+        ? new Pagination.fromJson(json['pagination'])
         : null;
     if (json['data'] != null) {
       wishList = <WishItem>[];
       json['data'].forEach((v) {
-        wishList!.add(WishItem.fromJson(v));
+        wishList!.add(new WishItem.fromJson(v));
       });
     }
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['success'] = success;
-    data['message'] = message;
-    if (pagination != null) {
-      data['pagination'] = pagination!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['success'] = this.success;
+    data['message'] = this.message;
+    if (this.pagination != null) {
+      data['pagination'] = this.pagination!.toJson();
     }
     if (this.wishList != null) {
       data['data'] = this.wishList!.map((v) => v.toJson()).toList();
@@ -50,38 +50,38 @@ class Pagination {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['total'] = total;
-    data['totalPage'] = totalPage;
-    data['page'] = page;
-    data['limit'] = limit;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['total'] = this.total;
+    data['totalPage'] = this.totalPage;
+    data['page'] = this.page;
+    data['limit'] = this.limit;
     return data;
   }
 }
 
 class WishItem {
   String? sId;
-  Product? product;
+  WishProduct? product;
 
   WishItem({this.sId, this.product});
 
   WishItem.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     product =
-    json['product'] != null ? Product.fromJson(json['product']) : null;
+    json['product'] != null ? new WishProduct.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    if (product != null) {
-      data['product'] = product!.toJson();
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    if (this.product != null) {
+      data['product'] = this.product!.toJson();
     }
     return data;
   }
 }
 
-class Product {
+class WishProduct {
   String? sId;
   String? name;
   String? description;
@@ -94,7 +94,7 @@ class Product {
   String? updatedAt;
   int? iV;
 
-  Product(
+  WishProduct(
       {this.sId,
         this.name,
         this.description,
@@ -107,7 +107,7 @@ class Product {
         this.updatedAt,
         this.iV});
 
-  Product.fromJson(Map<String, dynamic> json) {
+  WishProduct.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     description = json['description'];
@@ -122,18 +122,18 @@ class Product {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['name'] = name;
-    data['description'] = description;
-    data['images'] = images;
-    data['category'] = category;
-    data['price'] = price;
-    data['status'] = status;
-    data['color'] = color;
-    data['createdAt'] = createdAt;
-    data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
+    final Map<String, dynamic> data = new Map<String, dynamic>();
+    data['_id'] = this.sId;
+    data['name'] = this.name;
+    data['description'] = this.description;
+    data['images'] = this.images;
+    data['category'] = this.category;
+    data['price'] = this.price;
+    data['status'] = this.status;
+    data['color'] = this.color;
+    data['createdAt'] = this.createdAt;
+    data['updatedAt'] = this.updatedAt;
+    data['__v'] = this.iV;
     return data;
   }
 }

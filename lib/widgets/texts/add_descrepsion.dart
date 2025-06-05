@@ -52,14 +52,16 @@ class AddDescripsion extends StatelessWidget {
         SizedBox(
           height: AppSize.width(value: boxSize ?? 162),
           child: TextFormField(
+
             controller: controller,
-            keyboardType: TextInputType.multiline,
+            keyboardType: TextInputType.text,
             expands: true,
             maxLines: null,
             textAlignVertical: TextAlignVertical.top,
             style: TextStyle(color: AppColors.instance.black700),
 
             decoration: InputDecoration(
+
               hintText: hintText,
               hintStyle:
                   hintStyle ?? TextStyle(color: AppColors.instance.white200),

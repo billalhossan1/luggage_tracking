@@ -103,7 +103,7 @@ class HomeScreen extends StatelessWidget {
                         itemCount: controller.categoryList.length,
                         itemBuilder: (context, index) {
                           // var item = controller.services[index];
-                          // return ServiceCategoryBox(category: controller.categoryList[index],);
+                          return ServiceCategoryBox(category: controller.categoryList[index],);
                         },
                       ),
                     ),

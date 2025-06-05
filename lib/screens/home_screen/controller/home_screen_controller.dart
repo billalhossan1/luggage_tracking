@@ -18,8 +18,6 @@ class HomeScreenController extends GetxController{
   RxString errorMessage = ''.obs;
   RxList<CategoryItem> categoryList = <CategoryItem>[].obs;
   RxList<ProductItem> productList = <ProductItem>[].obs;
-  String? _accessToken;
-  RxBool? isBookMarked;
 
   @override
   void onInit() {
@@ -146,7 +144,7 @@ class HomeScreenController extends GetxController{
     }
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
-    _accessToken = accessToken;
+    // _accessToken = accessToken;
     return networkCaller.getRequest(
         Urls.getCategoryListUrl, accessToken: accessToken);
   }
@@ -158,7 +156,7 @@ class HomeScreenController extends GetxController{
     }
     final networkCaller = Get.find<NetworkCaller>();
     String? accessToken = await Get.find<SaveDataController>().getUserData();
-    Logger().e("Product Access Token: $_accessToken");
+    // Logger().e("Product Access Token: $_accessToken");
     return networkCaller.getRequest(
         Urls.getProductListUrl, accessToken: accessToken);
   }

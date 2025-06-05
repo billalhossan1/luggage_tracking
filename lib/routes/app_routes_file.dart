@@ -48,6 +48,8 @@ import 'package:luggage_tracking/screens/tracker_item_screen/tracker_item_screen
 import 'package:luggage_tracking/screens/wish_list_screen/wish_list_screen.dart';
 import 'package:luggage_tracking/screens/work_func_screen/work_func_screen.dart';
 
+import 'bindings/feedback_screen_binding.dart';
+
 List<GetPage> appRootRoutesFile = <GetPage>[
   //   /////////////////  splash screen start
   GetPage(
@@ -204,6 +206,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.feedbackScreen,
+    binding: FeedbackScreenBinding(),
     page: () => FeedbackScreen(),
   ),
   GetPage(name: AppRoutes.instance.faqScreen,binding: FaqScreenBinding(), page: () => FaqScreen()),
