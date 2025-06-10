@@ -246,7 +246,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
               const SizedBox(height: 24),
 
               // Category Dropdown
-              AppDropDown(hintText: "Category", items: _categories),
+              // AppDropDown(hintText: "Category", items: _categories),
 
               const SizedBox(height: 24),
 

@@ -20,6 +20,7 @@ class Urls{
   static final String bookMarkUrl = '$_baseUrl/bookmark';
   static final String feedbackUrl = '$_baseUrl/review';
   static final String deleteAccountUrl = '$_baseUrl/auth/delete-account';
+  static final String profileUpdateUrl = '$_baseUrl/user';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }

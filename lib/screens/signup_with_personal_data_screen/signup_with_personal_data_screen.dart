@@ -48,26 +48,26 @@ class SignupWithPersonalDataScreen extends StatelessWidget {
                     CustomTextField.build(hintText: "Date of Birth",controller: controller.dateOfBirthTextEditingController),
                     CustomTextField.build(hintText: "Gender",controller: controller.genderTextEditingController),
                     CustomTextField.build(hintText: "Occupation",controller: controller.occupationTextEditingController),
-                    Obx(()=>AppDropDown<String>(
-                      hintText: "Country",
-                      items: controller.countryList,
-                      value: controller.selectedCountry.value,
-                      onChanged: (value) {
-                        if (value != null) {
-                          controller.selectedCountry.value = value;
-                          // Logger().i("Selected Country: ${controller.selectedCountry.value}");
-                        }
-                      },
-                    ),
-                    ),
-                    AppDropDown(hintText: "City", items: cityList,value: controller.selectedCity.value,
-                      onChanged: (value) {
-                        if (value != null) {
-                          controller.selectedCity.value = value;
-                          // Logger().i("Selected City: ${controller.selectedCity.value}");
-                        }
-                      },
-                    ),
+                    // Obx(()=>AppDropDown<String>(
+                    //   hintText: "Country",
+                    //   items: controller.countryList,
+                    //   value: controller.selectedCountry.value,
+                    //   onChanged: (value) {
+                    //     if (value != null) {
+                    //       controller.selectedCountry.value = value;
+                    //       // Logger().i("Selected Country: ${controller.selectedCountry.value}");
+                    //     }
+                    //   }, selectedValue: '',
+                    // ),
+                    // ),
+                    // AppDropDown(hintText: "City", items: cityList,value: controller.selectedCity.value,
+                    //   onChanged: (value) {
+                    //     if (value != null) {
+                    //       controller.selectedCity.value = value;
+                    //       // Logger().i("Selected City: ${controller.selectedCity.value}");
+                    //     }
+                    //   },
+                    // ),
                     CustomTextField.build(hintText: "Address"),
                     Gap(height: AppSize.width(value: 36)),
                     AppButton(

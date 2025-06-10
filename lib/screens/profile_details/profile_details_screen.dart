@@ -40,7 +40,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                     children: [
                       BtnIconText(
                         onTap: (){
-                          Get.toNamed(AppRoutes.instance.profileEditScreen);
+                          Get.toNamed(AppRoutes.instance.profileEditScreen,arguments: {"profile-model":controller.profileModel});
                         },
                         text: "Edit",
                         iconPath: AssetsIconsPath.instance.edit,

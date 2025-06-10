@@ -1,11 +1,14 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
+import 'package:luggage_tracking/screens/edit_profile_screen/controler/edit_profile_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 
 class CheckBoxWithText extends StatelessWidget {
-  const CheckBoxWithText({super.key});
+  final EditProfileController controller;
+  const CheckBoxWithText({super.key, required this.controller});
 
   @override
   Widget build(BuildContext context) {
@@ -15,7 +18,7 @@ class CheckBoxWithText extends StatelessWidget {
       children: [
         Theme(
           data: ThemeData(unselectedWidgetColor: AppColors.instance.green1),
-          child: Checkbox(
+          child: Obx(()=>Checkbox(
             activeColor: AppColors.instance.white200,
             visualDensity: const VisualDensity(horizontal: -4, vertical: -4),
             side: WidgetStateBorderSide.resolveWith((states) {
@@ -25,14 +28,14 @@ class CheckBoxWithText extends StatelessWidget {
                 return BorderSide(color: AppColors.instance.white600);
               }
             }),
-            value: true, // static value
+            value: controller.isRememberMe.value, // static value
             checkColor: AppColors.instance.purple_500,
             fillColor: WidgetStatePropertyAll(AppColors.instance.white200),
             shape: RoundedRectangleBorder(
               borderRadius: BorderRadius.circular(AppSize.width(value: 5.0)),
             ),
-            onChanged: null, // disables the checkbox
-          ),
+            onChanged: (value) => controller.onToggleIsRemember(),// disables the checkbox
+          ),)
         ),
         Gap(width: AppSize.width(value: 8)),
         RichText(

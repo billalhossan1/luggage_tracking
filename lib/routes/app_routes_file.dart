@@ -3,6 +3,7 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
+import 'package:luggage_tracking/routes/bindings/edit_profile_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/faq_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/sign_up_with_personal_data_binding.dart';
@@ -21,6 +22,7 @@ import 'package:luggage_tracking/screens/delete_account_screen/detele_account_sc
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_show/delivery_details_show_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
+import 'package:luggage_tracking/screens/edit_profile_screen/controler/edit_profile_controller.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
 import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
 import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
@@ -182,6 +184,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.profileEditScreen,
+    binding: EditProfileScreenBinding(),
     page: () => ProfileEditScreen(),
   ),
   GetPage(
