@@ -170,4 +170,13 @@ class HomeScreenController extends GetxController{
     return networkCaller.getRequest(
         Urls.getProductListUrl, accessToken: accessToken);
   }
+
+  Future<void> makeOrder()async{
+    if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
+      Get.lazyPut(() => SaveDataController());
+      Get.lazyPut(() => NetworkCaller());
+    }
+    //TODO:makeorder
+    // final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.makeOrderListUrl,)
+  }
 }
