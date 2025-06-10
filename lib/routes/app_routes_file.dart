@@ -198,6 +198,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.deleteAccountScreen,
+    binding: AccountScreenBinding(),
     page: () => DeteleAccountScreen(),
   ),
   GetPage(

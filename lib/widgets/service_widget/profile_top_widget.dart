@@ -6,13 +6,13 @@ import 'package:luggage_tracking/widgets/app_image/app_image_circular.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class ProfileTopWidget extends StatelessWidget {
-  final String imgPath;
+  final String imgUrl;
   final String name;
   final String email;
 
   const ProfileTopWidget({
     super.key,
-    required this.imgPath,
+    required this.imgUrl,
     required this.name,
     required this.email,
   });
@@ -22,7 +22,7 @@ class ProfileTopWidget extends StatelessWidget {
     return Row(
       children: [
         AppImageCircular(
-          path: imgPath,
+          url: imgUrl,
           width: AppSize.width(value: 64),
           height: AppSize.width(value: 64),
           fit: BoxFit.cover,

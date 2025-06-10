@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/wish_list_card/wish_card.dart';
 import 'controller/wish_list_controller.dart';
@@ -41,13 +42,20 @@ class WishListScreen extends StatelessWidget {
                     crossAxisCount: crossAxisCount,
                     crossAxisSpacing: 10,
                     mainAxisSpacing: 10,
-                    childAspectRatio: 0.75, // Aspect ratio of the grid items
+                    childAspectRatio:
+                    AppSize.size.width *
+                        0.40 /
+                        (AppSize.size.width *
+                            0.40 *
+                            1.4), // Adjust aspect ratio as needed
+                   // Aspect ratio of the grid items
                   ),
                   itemCount: controller.wishListItems.length,
                   padding: EdgeInsets.all(8),
                   itemBuilder: (context, index) {
                     var product = controller.wishListItems[index];
                     return WishCard(
+                      bookMarkLoading: controller.bookmarkLoading,
                       onBookmarkToggle: () {
                         controller.onBookMarkTogle(product);
                       },

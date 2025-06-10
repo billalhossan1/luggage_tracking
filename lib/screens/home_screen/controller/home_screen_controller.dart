@@ -16,6 +16,7 @@ class HomeScreenController extends GetxController{
   RxBool productIsLoading = false.obs;
   RxString message = ''.obs;
   RxString errorMessage = ''.obs;
+  RxBool bookMarkLoading = false.obs;
   RxList<CategoryItem> categoryList = <CategoryItem>[].obs;
   RxList<ProductItem> productList = <ProductItem>[].obs;
 
@@ -34,16 +35,19 @@ class HomeScreenController extends GetxController{
     // bookMarkApiCall(product.sId!);
     // Toggle the bookmark locally
     // Logger().i("onBookMarkTogle called for product: ${product.sId}, isBookMarked: ${product.bookmark}");
-    final NetworkResponse response =await bookMarkApiCall(product.sId!);
-    if(response.isSuccess){
-      if(product.bookmark==true){
-        product.bookmark = false;
-      }else{
-        product.bookmark = true;
-      }
+    if(product.bookmark==true){
+      product.bookmark = false;
+    }else{
+      product.bookmark = true;
     }
+    update();
+    final NetworkResponse response =await bookMarkApiCall(product.sId!);
+
+    // if(response.isSuccess){
+    //
+    // }
  //  Toggle the bookmark status locally
-    update();  // Update the UI with the new state
+// Update the UI with the new state
 
     // Trigger the API call to update the bookmark status
 
@@ -67,12 +71,13 @@ class HomeScreenController extends GetxController{
       Logger().e("Access Token is null");
       return;
     }
-
+    bookMarkLoading.value=true;
     final response = await Get.find<NetworkCaller>().postRequest(
       Urls.bookMarkUrl,
       body: body,
       accessToken: accessToken,
     );
+    bookMarkLoading.value=false;
 
     // Logger().i("Bookmark API Response: Status Code - ${response.statusCode}");
     // Logger().i("Bookmark API Response Body: ${response.responseData}");
@@ -147,6 +152,11 @@ class HomeScreenController extends GetxController{
     // _accessToken = accessToken;
     return networkCaller.getRequest(
         Urls.getCategoryListUrl, accessToken: accessToken);
+  }
+  Future<void> onRefresh()async{
+    getCategoryList();
+    getProductList();
+
   }
 
   Future<dynamic> productApicall() async {

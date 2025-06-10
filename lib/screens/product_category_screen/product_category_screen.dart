@@ -21,8 +21,9 @@ class ProductCategoryScreen extends StatelessWidget {
         itemCount: 10,
         padding: EdgeInsets.all(8),
         itemBuilder: (context, index) {
-          return ProductCard(isBookmarked: false, onBookmarkToggle: () {  },
-          );
+          //TODO:
+          // return ProductCard(isBookmarked: false, onBookmarkToggle: () {  }, controller: ,
+          // );
         },
       ),
     );

@@ -32,7 +32,7 @@ class ShareItemUserScreen extends StatelessWidget {
         child: Column(
           children: [
             ProfileTopWidget(
-              imgPath: AssetsImagesPath.instance.person,
+              imgUrl: AssetsImagesPath.instance.person,
               name: "Suporna Talukdar",
               email: "Asadujjaman101@gmail,com",
             ),
@@ -174,7 +174,7 @@ class SendPasswordBottomSheet extends StatelessWidget {
           children: [
             Gap(height: AppSize.width(value: 20)),
             ProfileTopWidget(
-              imgPath: AssetsImagesPath.instance.person,
+              imgUrl: AssetsImagesPath.instance.person,
               name: "Mr. Spatch",
               email: "Spatch@gmail,com",
             ),
@@ -253,7 +253,7 @@ class RequastAcseptBottomSheet extends StatelessWidget {
           children: [
             Gap(height: AppSize.width(value: 20)),
             ProfileTopWidget(
-              imgPath: AssetsImagesPath.instance.person,
+              imgUrl: AssetsImagesPath.instance.person,
               name: "Mr. Spatch",
               email: "Spatch@gmail,com",
             ),

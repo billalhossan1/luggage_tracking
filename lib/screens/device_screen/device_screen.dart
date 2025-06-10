@@ -164,7 +164,7 @@ class DeviceScreen extends StatelessWidget {
                                                                   ),
                                                             ),
                                                             ProfileTopWidget(
-                                                              imgPath:
+                                                              imgUrl:
                                                                   AssetsImagesPath
                                                                       .instance
                                                                       .person,

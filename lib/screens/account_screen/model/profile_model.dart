@@ -8,7 +8,7 @@ class ProfileModel {
   ProfileModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? Data.fromJson(json['data']) : null;
+    data = json['data'] != null ? new Data.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -34,6 +34,12 @@ class Data {
   String? createdAt;
   String? updatedAt;
   int? iV;
+  String? address;
+  String? city;
+  String? country;
+  String? dateOfBirth;
+  String? gender;
+  String? occupation;
 
   Data(
       {this.sId,
@@ -46,7 +52,13 @@ class Data {
         this.verified,
         this.createdAt,
         this.updatedAt,
-        this.iV});
+        this.iV,
+        this.address,
+        this.city,
+        this.country,
+        this.dateOfBirth,
+        this.gender,
+        this.occupation});
 
   Data.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
@@ -60,6 +72,12 @@ class Data {
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
+    address = json['address'];
+    city = json['city'];
+    country = json['country'];
+    dateOfBirth = json['dateOfBirth'];
+    gender = json['gender'];
+    occupation = json['occupation'];
   }
 
   Map<String, dynamic> toJson() {
@@ -75,6 +93,12 @@ class Data {
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
     data['__v'] = iV;
+    data['address'] = address;
+    data['city'] = city;
+    data['country'] = country;
+    data['dateOfBirth'] = dateOfBirth;
+    data['gender'] = gender;
+    data['occupation'] = occupation;
     return data;
   }
 }

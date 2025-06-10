@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
@@ -11,6 +12,7 @@ import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class WishCard extends StatelessWidget {
+  final RxBool bookMarkLoading;
   final String name;
   final String imageUrl;
   final String description;
@@ -20,7 +22,7 @@ class WishCard extends StatelessWidget {
   const WishCard({
     super.key,
 
-    required this.onBookmarkToggle, required this.name, required this.imageUrl, required this.description, required this.price,
+    required this.onBookmarkToggle, required this.name, required this.imageUrl, required this.description, required this.price,required this.bookMarkLoading
   });
 
   @override
@@ -54,7 +56,7 @@ class WishCard extends StatelessWidget {
                   ),
                   GestureDetector(
                     onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
-                    child:Icon(Icons.favorite,color: Color(0xff8F00FF),)
+                    child:Visibility(visible:!bookMarkLoading.value,replacement:Center(child: CircularProgressIndicator(),),child: Icon(Icons.favorite,color: Color(0xff8F00FF),))
                     // child: AppImage(
                     //   path: isBookmarked
                     //       ? AssetsIconsPath.instance.isFavorate
@@ -75,33 +77,41 @@ class WishCard extends StatelessWidget {
           ),
           Gap(height: AppSize.width(value: 16)),
           AppText(
-            data: name ?? "Luggage Tag", // Replace with actual field
+            data: name,
             fontSize: AppSize.width(value: 14),
             fontWeight: FontWeight.w400,
             color: AppColors.instance.black400,
+            maxLines: 1,
+            overflow: TextOverflow.ellipsis,
           ),
           Gap(height: AppSize.width(value: 8)),
           Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    data: description ?? "Brand", // Replace with actual field
-                    fontSize: AppSize.width(value: 12),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.instance.black200,
-                  ),
-                  Gap(height: AppSize.width(value: 8)),
-                  AppText(
-                    data: "\$${price ?? 0.0}",
-                    fontSize: AppSize.width(value: 14),
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.instance.black400,
-                  ),
-                ],
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      data: description,
+                      fontSize: AppSize.width(value: 12),
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.instance.black200,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                    ),
+                    Gap(height: AppSize.width(value: 8)),
+                    AppText(
+                      data: "\$$price",
+                      fontSize: AppSize.width(value: 14),
+                      fontWeight: FontWeight.w600,
+                      color: AppColors.instance.black400,
+                    ),
+                  ],
+                ),
               ),
+              Gap(width: 8),
               Container(
                 padding: EdgeInsets.all(6),
                 decoration: BoxDecoration(

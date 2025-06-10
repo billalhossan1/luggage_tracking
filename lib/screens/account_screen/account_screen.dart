@@ -35,33 +35,35 @@ class AccountScreen extends StatelessWidget {
               child: Column(
                 spacing: AppSize.width(value: 12),
                 children: [
-                  AppCard(
-                    onTap: () {
-                      Get.toNamed(AppRoutes.instance.profileDetailsScreen);
-                    },
-                    child: Column(
-                      spacing: AppSize.width(value: 8),
-                      children: [
-                        AppImageCircular(
+                  Column(
+                    spacing: AppSize.width(value: 8),
+                    children: [
+                      GestureDetector(
+                        onTap: (){
+                          Get.toNamed(AppRoutes.instance.profileDetailsScreen,arguments: {
+                            "profile-model":controller.profileModel
+                          });
+                        },
+                        child: AppImageCircular(
                           url: controller.profileModel.value?.profile,
                           width: AppSize.width(value: 72),
                           height: AppSize.width(value: 72),
                           fit: BoxFit.cover,
                         ),
-                        AppText(
-                          data: controller.profileModel.value?.name ?? "no name",
-                          fontSize: AppSize.width(value: 18),
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.instance.black500,
-                        ),
-                        AppText(
-                          data: controller.profileModel.value?.email ?? "no email",
-                          fontSize: AppSize.width(value: 12),
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.instance.purple_500,
-                        ),
-                      ],
-                    ),
+                      ),
+                      AppText(
+                        data: controller.profileModel.value?.name ?? "no name",
+                        fontSize: AppSize.width(value: 18),
+                        fontWeight: FontWeight.w500,
+                        color: AppColors.instance.black500,
+                      ),
+                      AppText(
+                        data: controller.profileModel.value?.email ?? "no email",
+                        fontSize: AppSize.width(value: 12),
+                        fontWeight: FontWeight.w400,
+                        color: AppColors.instance.purple_500,
+                      ),
+                    ],
                   ),
 
                   IcontextRow(

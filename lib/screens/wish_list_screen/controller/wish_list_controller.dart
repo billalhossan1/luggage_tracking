@@ -13,6 +13,7 @@ import '../../../services/save_data/save_data.dart' show SaveDataController;
 class WishListController extends GetxController {
   RxList<WishItem> wishListItems = <WishItem>[].obs;
   RxBool isLoading = false.obs;
+  RxBool bookmarkLoading = false.obs;
 
   late final SaveDataController _saveDataController;
   late final NetworkCaller _networkCaller;
@@ -38,10 +39,16 @@ class WishListController extends GetxController {
     // bookMarkApiCall(product.sId!);
     // Toggle the bookmark locally
     // Logger().i("onBookMarkTogle called for product: ${product.sId}, isBookMarked: ${product.bookmark}");
+    bookmarkLoading.value =true;
     final NetworkResponse response =await bookMarkApiCall(product.product!.sId!);
+    bookmarkLoading.value =false;
+    if (!Get.isRegistered<HomeScreenController>()) {
+      Get.lazyPut(() => HomeScreenController());
+    }
 
     if (response.isSuccess) {
       loadWishListItems();
+      Get.find<HomeScreenController>().getProductList();
       AppSnackBar.message(response.responseData['message'] ?? "Bookmark removed successfully");
     } else {
       AppSnackBar.error(response.errorMessage ?? "Failed to toggle bookmark");
@@ -61,10 +68,7 @@ class WishListController extends GetxController {
       "product": productID,
     };
 
-    if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
-      Get.lazyPut(() => SaveDataController());
-      Get.lazyPut(() => NetworkCaller());
-    }
+
 
     String? accessToken = await Get.find<SaveDataController>().getUserData();
     Logger().i("Access token: $accessToken");
