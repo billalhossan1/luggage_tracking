@@ -14,6 +14,7 @@ class WishListController extends GetxController {
   RxList<WishItem> wishListItems = <WishItem>[].obs;
   RxBool isLoading = false.obs;
   RxBool bookmarkLoading = false.obs;
+  RxBool isWishList = true.obs;
 
   late final SaveDataController _saveDataController;
   late final NetworkCaller _networkCaller;
@@ -39,9 +40,8 @@ class WishListController extends GetxController {
     // bookMarkApiCall(product.sId!);
     // Toggle the bookmark locally
     // Logger().i("onBookMarkTogle called for product: ${product.sId}, isBookMarked: ${product.bookmark}");
-    bookmarkLoading.value =true;
+
     final NetworkResponse response =await bookMarkApiCall(product.product!.sId!);
-    bookmarkLoading.value =false;
     if (!Get.isRegistered<HomeScreenController>()) {
       Get.lazyPut(() => HomeScreenController());
     }

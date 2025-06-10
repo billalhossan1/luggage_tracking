@@ -4,6 +4,7 @@ import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -77,16 +78,21 @@ class ProductCard extends StatelessWidget {
                       ),
                     ],
                   ),
-                  Container(
-                    padding: EdgeInsets.all(6),
-                    decoration: BoxDecoration(
-                      color: AppColors.instance.white500,
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    child: Icon(
-                      Icons.add,
-                      size: AppSize.width(value: 18),
-                      color: AppColors.instance.purple_500,
+                  GestureDetector(
+                    onTap: (){
+                      Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"product-id":productItem?.sId});
+                    },
+                    child: Container(
+                      padding: EdgeInsets.all(6),
+                      decoration: BoxDecoration(
+                        color: AppColors.instance.white500,
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      child: Icon(
+                        Icons.add,
+                        size: AppSize.width(value: 18),
+                        color: AppColors.instance.purple_500,
+                      ),
                     ),
                   ),
                 ],
