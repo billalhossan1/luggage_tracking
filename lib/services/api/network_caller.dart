@@ -157,7 +157,7 @@ class NetworkCaller {
     try {
       Map<String, String> headers = {'content-type': 'application/json'};
       if (accessToken != null) {
-        headers['Authorization'] = accessToken;
+        headers['Authorization'] = 'Bearer $accessToken';
       }
 
       _logRequest(url);
@@ -202,7 +202,7 @@ class NetworkCaller {
     try {
       Map<String, String> headers = {'content-type': 'application/json'};
       if (accessToken != null) {
-        headers['Authorization'] = accessToken;
+        headers['Authorization'] = 'Bearer $accessToken';
       }
 
       _logRequest(url, headers, body);

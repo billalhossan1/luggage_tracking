@@ -26,80 +26,82 @@ class ProfileDetailsScreen extends StatelessWidget {
           body: Padding(
             padding: EdgeInsets.all(AppSize.width(value: 20)),
             child: SingleChildScrollView(
-              child: Obx(()=>Column(
-                spacing: AppSize.width(value: 16),
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  ProfileTopWidget(
-                    imgUrl: controller.profileModel.value?.profile ?? '',
-                    name: controller.profileModel.value?.name??'no Name',
-                    email: controller.profileModel.value?.email??'email not exist',
-                  ),
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      BtnIconText(
-                        onTap: (){
-                          Get.toNamed(AppRoutes.instance.profileEditScreen,arguments: {"profile-model":controller.profileModel});
-                        },
-                        text: "Edit",
-                        iconPath: AssetsIconsPath.instance.edit,
-                      ),
-                      Gap(width: AppSize.width(value: 16)),
+              child: Obx(()=>Form(
+                child: Column(
+                  spacing: AppSize.width(value: 16),
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    ProfileTopWidget(
+                      imgUrl: controller.profileModel.value?.profile ?? '',
+                      name: controller.profileModel.value?.name??'no Name',
+                      email: controller.profileModel.value?.email??'email not exist',
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        BtnIconText(
+                          onTap: (){
+                            Get.toNamed(AppRoutes.instance.profileEditScreen,arguments: {"profile-model":controller.profileModel});
+                          },
+                          text: "Edit",
+                          iconPath: AssetsIconsPath.instance.edit,
+                        ),
+                        Gap(width: AppSize.width(value: 16)),
 
-                      GestureDetector(
-                        onTap: () {
-                          //   Get.toNamed(AppRoutes.instance.profileEditScreen);
-                        },
-                        child: Container(
-                          decoration: BoxDecoration(
-                            color: AppColors.instance.purple_500,
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppSize.width(value: 10),
-                            vertical: AppSize.width(value: 8),
-                          ),
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.add,
-                                color: AppColors.instance.white50,
-                                size: AppSize.width(value: 14),
-                              ),
-                              Gap(width: AppSize.width(value: 8)),
-                              AppText(
-                                data: "Add Item",
-                                color: AppColors.instance.white50,
-                              ),
-                            ],
+                        GestureDetector(
+                          onTap: () {
+                            //   Get.toNamed(AppRoutes.instance.profileEditScreen);
+                          },
+                          child: Container(
+                            decoration: BoxDecoration(
+                              color: AppColors.instance.purple_500,
+                              borderRadius: BorderRadius.circular(16),
+                            ),
+                            padding: EdgeInsets.symmetric(
+                              horizontal: AppSize.width(value: 10),
+                              vertical: AppSize.width(value: 8),
+                            ),
+                            child: Row(
+                              children: [
+                                Icon(
+                                  Icons.add,
+                                  color: AppColors.instance.white50,
+                                  size: AppSize.width(value: 14),
+                                ),
+                                Gap(width: AppSize.width(value: 8)),
+                                AppText(
+                                  data: "Add Item",
+                                  color: AppColors.instance.white50,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
-                  AppDivider(),
-                  ProfileTitleSubtitle(
-                    title: "Registration no",
-                    subTitle: "#${controller.profileModel.value?.sId}" ?? '',
-                  ),
-                  ProfileTitleSubtitle(title: "Name", subTitle: controller.profileModel.value?.name ?? 'no name'),
-                  ProfileTitleSubtitle(title: "Contact No", subTitle: controller.profileModel.value?.contact ??'no number added'),
-                  ProfileTitleSubtitle(
-                    title: "Email",
-                    subTitle:controller.profileModel.value?.email??"email doesn't exist",
-                  ),
-                  ProfileTitleSubtitle(
-                    title: "Date of birth",
-                    subTitle: controller.profileModel.value?.dateOfBirth??'not added',
-                  ),
-                  ProfileTitleSubtitle(title: "Gender", subTitle: controller.profileModel.value?.gender??'not added'),
-                  ProfileTitleSubtitle(title: "Occupation", subTitle: controller.profileModel.value?.occupation??'not added'),
-                  ProfileTitleSubtitle(
-                    title: "Address",
-                    subTitle: controller.profileModel.value?.address??'not added',
-                  ),
-                ],
+                      ],
+                    ),
+                    AppDivider(),
+                    ProfileTitleSubtitle(
+                      title: "Registration no",
+                      subTitle: "#${controller.profileModel.value?.sId}" ?? '',
+                    ),
+                    ProfileTitleSubtitle(title: "Name", subTitle: controller.profileModel.value?.name ?? 'no name'),
+                    ProfileTitleSubtitle(title: "Contact No", subTitle: controller.profileModel.value?.contact ??'no number added'),
+                    ProfileTitleSubtitle(
+                      title: "Email",
+                      subTitle:controller.profileModel.value?.email??"email doesn't exist",
+                    ),
+                    ProfileTitleSubtitle(
+                      title: "Date of birth",
+                      subTitle: controller.profileModel.value?.dateOfBirth??'not added',
+                    ),
+                    ProfileTitleSubtitle(title: "Gender", subTitle: controller.profileModel.value?.gender??'not added'),
+                    ProfileTitleSubtitle(title: "Occupation", subTitle: controller.profileModel.value?.occupation??'not added'),
+                    ProfileTitleSubtitle(
+                      title: "Address",
+                      subTitle: controller.profileModel.value?.address??'not added',
+                    ),
+                  ],
+                ),
               ),)
             ),
           ),

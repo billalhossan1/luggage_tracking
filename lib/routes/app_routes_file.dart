@@ -35,6 +35,7 @@ import 'package:luggage_tracking/screens/notification_screen/notification_screen
 import 'package:luggage_tracking/screens/onboarding_screen/onboarding_screen.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:luggage_tracking/screens/payment_screen/payment_screen.dart';
+import 'package:luggage_tracking/screens/privacy_policy_screen/privacy_policy_screen.dart';
 import 'package:luggage_tracking/screens/product_category_screen/product_category_screen.dart';
 import 'package:luggage_tracking/screens/product_details_screen/product_details_screen.dart';
 import 'package:luggage_tracking/screens/profile_details/profile_details_screen.dart';
@@ -212,6 +213,10 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.feedbackScreen,
     binding: FeedbackScreenBinding(),
     page: () => FeedbackScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.privacyAndPolicyScreen,
+    page: () => PrivacyAndPolicyScreen(),
   ),
   GetPage(name: AppRoutes.instance.faqScreen,binding: FaqScreenBinding(), page: () => FaqScreen()),
   GetPage(name: AppRoutes.instance.notificationScreen, page: () => NotificationScreen()),

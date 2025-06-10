@@ -1,7 +1,9 @@
+import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/controler/edit_profile_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -64,6 +66,10 @@ class CheckBoxWithText extends StatelessWidget {
                   fontFamily: AppConst.fontFamily1,
                   color: AppColors.instance.blue1,
                 ),
+                recognizer: TapGestureRecognizer()..onTap = () {
+                  // Handle tap event here
+                  Get.toNamed(AppRoutes.instance.termsAndCondionScreen);
+                },
               ),
               TextSpan(
                 text: ' and ',
@@ -82,6 +88,10 @@ class CheckBoxWithText extends StatelessWidget {
                   fontFamily: AppConst.fontFamily1,
                   color: AppColors.instance.blue1,
                 ),
+                recognizer: TapGestureRecognizer()..onTap = () {
+                  // Handle tap event here
+                  Get.toNamed(AppRoutes.instance.privacyAndPolicyScreen);
+                },
               ),
             ],
           ),

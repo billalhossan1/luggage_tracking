@@ -34,7 +34,7 @@ class AppDropDown extends StatelessWidget {
       items: items.map((item) {
         return DropdownMenuItem<String>(
           value: item,
-          child: Text(item),
+          child: Text(item,style: TextStyle(fontWeight: FontWeight.normal),),
         );
       }).toList(),
       onChanged: (value) {
