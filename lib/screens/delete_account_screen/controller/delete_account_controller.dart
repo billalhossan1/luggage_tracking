@@ -26,9 +26,10 @@ class DeleteAccountController extends GetxController{
       inProgress.value = false;
       if(response.isSuccess){
         AppSnackBar.message(response.responseData["message"]??"Account Deleted Successfully");
+        Get.find<SaveDataController>().clearUserData();
         Get.offAllNamed(AppRoutes.instance.signIn);
       }else{
-        AppSnackBar.message(response.responseData["message"]??"Something Went Wrong");
+        AppSnackBar.message(response.responseData["errorMessages"]["message"]??"Something Went Wrong");
       }
     }catch(e)
     {

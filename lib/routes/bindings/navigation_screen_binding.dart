@@ -1,6 +1,7 @@
 
 import 'package:get/get.dart';
 import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
+import 'package:luggage_tracking/screens/device_screen/controller/device_screen_controller.dart';
 import 'package:luggage_tracking/screens/faq_screen/controller/faq_controller.dart';
 import 'package:luggage_tracking/screens/feedback_screen/controller/feedback_screen_controller.dart';
 import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
@@ -15,7 +16,8 @@ class NavigationScreenBinding extends Bindings {
     Get.lazyPut(() => SaveDataController());
     Get.lazyPut(() => HomeScreenController());
     Get.lazyPut(() => NetworkCaller());
-    Get.put(() => AccountController());
+    Get.lazyPut(() => AccountController());
+    Get.lazyPut(() => DeviceScreenController());
     // Get.lazyPut(() => TermsAndConditionsScreenController());
     // Get.lazyPut(() => PrivacyPolicyScreenController());
     // Get.lazyPut(() => AboutUsScreenController());

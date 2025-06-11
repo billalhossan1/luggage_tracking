@@ -20,7 +20,7 @@ class Urls{
   static final String getFAQListUrl = '$_baseUrl/faq';
   static final String bookMarkUrl = '$_baseUrl/bookmark';
   static final String feedbackUrl = '$_baseUrl/review';
-  static final String deleteAccountUrl = '$_baseUrl/auth/delete-account';
+  static final String deleteAccountUrl = '$_baseUrl/user/delete-account';
   static final String profileUpdateUrl = '$_baseUrl/user';
   static final String getDevicesUrl = '$_baseUrl/device';
   static final String paymentCancelUrl = 'http://10.0.80.75:5000/order/cancel';

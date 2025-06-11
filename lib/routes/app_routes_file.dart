@@ -138,6 +138,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.addDeviceScanner,
+    binding: NavigationScreenBinding(),
     page: () => const AddTrkilDeviceScreen(),
   ),
   GetPage(

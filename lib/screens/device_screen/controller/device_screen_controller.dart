@@ -1,22 +1,101 @@
+import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/screens/device_screen/model/device_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
+import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 
 class DeviceScreenController extends GetxController {
-  RxInt selectedItem = 1.obs;
+  RxBool isLoading = false.obs; // Track loading state
+  RxBool isPaginationLoading = false.obs; // Track loading state for pagination
+  RxInt selectedItem = 1.obs; // For item selection, as before
+  List<Devices> devices = []; // List of devices
 
+  int currentPage = 1;
+  int totalPage = 1;
+
+  ScrollController scrollController = ScrollController();
+
+  @override
+  void onInit() {
+    super.onInit();
+    getDevices(); // Load initial devices
+    scrollController.addListener(_scrollListener);
+  }
+
+  // Fetch initial devices
+  Future<void> getDevices() async {
+    isLoading.value = true;
+    try {
+      final NetworkResponse response = await apiCall(page: currentPage);
+      if (response.isSuccess) {
+        DeviceModel deviceModel = DeviceModel.fromJson(response.responseData);
+        devices.addAll(deviceModel.data?.devices ?? []);
+        totalPage = deviceModel.data?.pagination?.totalPage ?? 1;
+
+        print("Devices loaded successfully: ${devices.length} items");
+      } else {
+        String errorMessage = response.errorMessage ?? "Failed to load devices";
+        print("Error: $errorMessage");
+      }
+    } catch (e) {
+      print("Error loading devices: $e");
+    } finally {
+      isLoading.value = false;
+    }
+  }
+
+  // Fetch more devices for pagination
+  Future<void> loadMoreDevices() async {
+    if (currentPage == totalPage || isPaginationLoading.value) return; // Prevent further loading if no more pages or already loading
+
+    isPaginationLoading.value = true;
+    currentPage++;
+
+    try {
+      final NetworkResponse response = await apiCall(page: currentPage);
+      if (response.isSuccess) {
+        DeviceModel deviceModel = DeviceModel.fromJson(response.responseData);
+        devices.addAll(deviceModel.data?.devices ?? []);
+        print("Loaded more devices: ${devices.length} items");
+      } else {
+        String errorMessage = response.errorMessage ?? "Failed to load more devices";
+        print("Error: $errorMessage");
+      }
+    } catch (e) {
+      print("Error loading more devices: $e");
+    } finally {
+      isPaginationLoading.value = false;
+    }
+  }
+
+  // API call method with pagination support
+  Future<dynamic> apiCall({int page = 1}) async {
+    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    final response = await Get.find<NetworkCaller>().getRequest(
+      Urls.getDevicesUrl,
+      queryParam: {'page': page.toString()},
+      accessToken: accessToken,
+    );
+    return response;
+  }
+
+  // Scroll listener to detect when to load more data
+  void _scrollListener() {
+    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+      loadMoreDevices(); // Trigger loading more devices when scrolled to the bottom
+    }
+  }
+
+  @override
+  void onClose() {
+    scrollController.dispose();
+    super.onClose();
+  }
+
+  // Select item logic as before
   void selectItem(int? value) {
     selectedItem.value = value ?? 1;
-  }
-
-  Future<void>getDevices ()async{
-
-  }
-
-  Future<dynamic>apiCall()async{
-    String? accessToken = await Get.find<SaveDataController>().getUserData();
-    final response = Get.find<NetworkCaller>().getRequest(Urls.getDevicesUrl,accessToken: accessToken);
-    return response;
   }
 }
