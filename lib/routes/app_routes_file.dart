@@ -3,6 +3,7 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
+import 'package:luggage_tracking/routes/bindings/dealing_history_binding.dart';
 import 'package:luggage_tracking/routes/bindings/delivery_details_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/delivery_details_show_binding.dart';
 import 'package:luggage_tracking/routes/bindings/edit_profile_screen_binding.dart';
@@ -194,6 +195,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.dealingHistoryScreen,
+    binding: DealingHistoryBinding(),
     page: () => DealingHistoryScreen(),
   ),
   GetPage(

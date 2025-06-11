@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/screens/dealing_history/controller/dealing_history_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -34,8 +33,23 @@ class DealingHistoryScreen extends StatelessWidget {
                   // Display the dealing history data in a ListView
                     Expanded(
                       child: ListView.builder(
-                        itemCount: controller.dealingHistory.length,
+                        controller: controller.scrollController,
+                        itemCount: controller.dealingHistory.length + 1, // Add 1 for the loading indicator
                         itemBuilder: (context, index) {
+                          // If the index is the last item, check if we need to show the loading indicator
+                          if (index == controller.dealingHistory.length) {
+                            // If pagination is loading, show the circular indicator
+                            if (controller.isPaginationLoading.value) {
+                              return Padding(
+                                padding: const EdgeInsets.symmetric(vertical: 16.0),
+                                child: Center(
+                                ),
+                              );
+                            } else {
+                              return SizedBox.shrink(); // Empty container when no loading
+                            }
+                          }
+
                           final order = controller.dealingHistory[index];
 
                           // Determine status color
@@ -58,7 +72,7 @@ class DealingHistoryScreen extends StatelessWidget {
                                   flex: 1,
                                   child: Center(
                                     child: AppImage(
-                                      url: Urls.imageBaseUrl+order.product!.images![0],
+                                      url: Urls.imageBaseUrl + order.product!.images![0],
                                       width: AppSize.width(value: 72),
                                       height: AppSize.width(value: 72),
                                     ),
@@ -160,6 +174,12 @@ class DealingHistoryScreen extends StatelessWidget {
                           );
                         },
                       ),
+                    ),
+                  // Pagination Loading Indicator
+                  if (controller.isPaginationLoading.value)
+                    Padding(
+                      padding: const EdgeInsets.symmetric(vertical: 16.0),
+                      child: const Center(child: LinearProgressIndicator()),
                     ),
                 ],
               ),

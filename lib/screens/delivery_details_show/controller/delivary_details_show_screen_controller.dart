@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
@@ -7,9 +8,11 @@ import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
+import 'package:luggage_tracking/widgets/payment_web_view_widget/payment_webview_widget.dart';
+import 'package:luggage_tracking/widgets/subscription_web_view/subscription_web_view.dart';
 
 class DeliveryDetailsShowScreenController extends GetxController{
-
+  String? responseUrl;
    ProductItem? product;
    String? email;
    String? contact;
@@ -45,6 +48,7 @@ class DeliveryDetailsShowScreenController extends GetxController{
       "address": address,
       "quantity": quantity,
       "product": product?.sId??'',
+      "delivery_charge":4.30
     };
     // if (!Get.isRegistered<SaveDataController>()) {
     //   Get.lazyPut(() => SaveDataController());
@@ -61,13 +65,16 @@ class DeliveryDetailsShowScreenController extends GetxController{
     return response;
   }
 
-  Future<void>onTapContinue()async{
+  Future<void>onTapContinue(BuildContext context)async{
     final NetworkResponse response = await apiCall();
     if(response.isSuccess){
       AppSnackBar.message(response.responseData["message"]??"Order Created Successfully");
+      responseUrl = response.responseData["data"];
+      paymentWebView(context, responseUrl!);
       Get.back();
     }else{
       AppSnackBar.error(response.responseData["message"]??"Something went Wrong");
     }
   }
+
 }

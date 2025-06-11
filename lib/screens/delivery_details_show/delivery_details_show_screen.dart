@@ -157,8 +157,7 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                   title: "Continue",
                   titleSize: 20,
                   onTap: () {
-                    controller.onTapContinue();
-                    Get.toNamed(AppRoutes.instance.paymentScreen);
+                    controller.onTapContinue(context);
                   },
                 ),
               ],

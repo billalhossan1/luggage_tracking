@@ -115,7 +115,6 @@ class SignInScreenController extends GetxController {
 
       if (googleUser.id.isNotEmpty) {
         await socialLogin(appId: googleUser.id,email: googleUser.email, name: googleUser.displayName ?? '');
-
       }
     } catch (e) {
       AppSnackBar.error('Google login failed: $e');

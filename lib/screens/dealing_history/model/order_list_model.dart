@@ -60,7 +60,7 @@ class Order {
   String? user;
   Product? product;
   int? quantity;
-  int? price;
+  dynamic price;
   String? txid;
   String? status;
   String? createdAt;
