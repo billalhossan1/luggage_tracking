@@ -13,7 +13,7 @@ import '../../../services/api/network_response.dart';
 import '../model/profile_model.dart';
 
 class AccountController extends GetxController{
-  Rx<Data?> profileModel = Rx<Data?>(null);
+  Rx<ProfileDetailsModel?> profileModel = Rx<ProfileDetailsModel?>(null);
   var rating = 3.0.obs;
   RxString errorMessage = ''.obs;
   RxBool isLoading = false.obs;

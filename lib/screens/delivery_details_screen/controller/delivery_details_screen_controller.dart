@@ -1,14 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:luggage_tracking/const/urls/urls.dart';
-import 'package:luggage_tracking/services/api/network_caller.dart';
-import 'package:luggage_tracking/services/api/network_response.dart';
-import 'package:luggage_tracking/services/save_data/save_data.dart';
-import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
+import 'package:logger/logger.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
+
 
 class DeliveryDetailsScreenController extends GetxController {
   RxBool isLoading = false.obs;
-  RxString productId = ''.obs;
+  ProductItem? product;
   TextEditingController emailTEController = TextEditingController();
   TextEditingController contactTEController = TextEditingController();
   TextEditingController addressTEController = TextEditingController();
@@ -16,41 +15,22 @@ class DeliveryDetailsScreenController extends GetxController {
   RxInt quantity = 1.obs;
   @override
   void onInit() {
-    productId.value = Get.arguments["product-id"];
+    product = Get.arguments["product"];
+    // Logger().e("product-name: ${product!.name}");
     super.onInit();
   }
-  //TODO:eta delivary details show screen a call hobe
-  Future<dynamic> apiCall() async {
-    Map<String, dynamic> body = {
-      "email": emailTEController.text.trim(),
-      "contact": contactTEController.text.trim(),
-      "note": noteTEController.text.trim(),
-      "address": addressTEController.text.trim(),
-      "quantity": quantity.value,
-      "product": productId.value,
-    };
-    // if (!Get.isRegistered<SaveDataController>()) {
-    //   Get.lazyPut(() => SaveDataController());
-    // }
-    // if (!Get.isRegistered<NetworkCaller>()) {
-    //   Get.lazyPut(() => NetworkCaller());
-    // }
-    String? accessToken = await Get.find<SaveDataController>().getUserData();
-    final response = await Get.find<NetworkCaller>().postRequest(
-      Urls.makeOrderListUrl,
-      body: body,
-      accessToken: accessToken,
-    );
-    return response;
-  }
 
-  Future<void>onTapContinue()async{
-    final NetworkResponse response = await apiCall();
-    if(response.isSuccess){
-      AppSnackBar.message(response.responseData["message"]??"Order Created Successfully");
-      Get.back();
-    }else{
-      AppSnackBar.error(response.responseData["message"]??"Something went Wrong");
-    }
+  void onTapContinue() {
+    Get.toNamed(
+      AppRoutes.instance.deliveryDetainShowScreen,
+      arguments: {
+        "email": emailTEController.text.trim(),
+        "contact": contactTEController.text.trim(),
+        "address": addressTEController.text.trim(),
+        "note": noteTEController.text.trim(),
+        "quantity": 1,
+        "product":product
+      },
+    );
   }
 }

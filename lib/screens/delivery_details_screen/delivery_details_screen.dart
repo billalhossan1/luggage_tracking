@@ -13,7 +13,6 @@ import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class DeliveryDetailsScreen extends StatelessWidget {
   const DeliveryDetailsScreen({super.key});
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DeliveryDetailsScreenController>(
@@ -74,7 +73,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                 title: "Continue",
                 titleSize: 20,
                 onTap: () {
-                  Get.toNamed(AppRoutes.instance.deliveryDetainShowScreen);
+                 controller.onTapContinue();
                 },
               ),
             ),

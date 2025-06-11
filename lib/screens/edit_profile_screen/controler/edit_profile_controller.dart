@@ -15,7 +15,7 @@ class EditProfileController extends GetxController{
   RxString selectedCity = ''.obs;
   RxString selectedGender = ''.obs;
   RxString selectedCountry = ''.obs;
-  Rx<Data?> profileModelData= Rx<Data>(Data());
+  Rx<ProfileDetailsModel?> profileModelData= Rx<ProfileDetailsModel>(ProfileDetailsModel());
   TextEditingController userNameTEController = TextEditingController();
   TextEditingController emailTEController = TextEditingController();
   TextEditingController contactTEController = TextEditingController();
@@ -80,7 +80,7 @@ class EditProfileController extends GetxController{
         if (response.isSuccess) {
 
 
-          profileModelData.value = Data(
+          profileModelData.value = ProfileDetailsModel(
             name: userNameTEController.text,
             email: emailTEController.text,
             contact: contactTEController.text,
