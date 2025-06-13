@@ -1,26 +1,56 @@
-
-
 import 'package:get/get.dart';
-import 'package:luggage_tracking/const/assets_images_path.dart';
+import 'package:logger/logger.dart';
+import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 
 class ProductDetailsController extends GetxController {
-  // final images = [
-  //   'https://picsum.photos/id/1015/400/300',
-  //   'https://picsum.photos/id/1016/400/300',
-  //   'https://picsum.photos/id/1018/400/300',
-  //   'https://cdn.pixabay.com/photo/2025/03/31/21/30/italy-9505446_960_720.jpg',
-  // ];
-  final images = [
-    AssetsImagesPath.instance.product1,
-    AssetsImagesPath.instance.product2,
-    AssetsImagesPath.instance.product1,
-    AssetsImagesPath.instance.product2,
-  ];
+  List<String> images = [];
+  ProductItem? productItem;
+  RxString selectedImage = ''.obs;
+  RxInt quantity = 0.obs;
 
-  String selectedImage = AssetsImagesPath.instance.product1;
+
+  onInitialDataLoadFunction(){
+    try{
+      productItem = Get.arguments["product"];
+      if (productItem != null) {
+        images.addAll(productItem?.images ?? []);
+        if (images.isNotEmpty) {
+          selectedImage.value =  images[0];
+        }
+      }
+      Logger().i("images in product details: $images");
+      Logger().i("selected image: ${selectedImage.value}");
+    }catch (e){
+
+    }
+  }
+  @override
+  void onInit() {
+    onInitialDataLoadFunction();
+    super.onInit();
+
+  }
 
   void selectImage(String img) {
-    selectedImage = img;
-    update(); // 🔴 important
+
+   try{
+     selectedImage.value = img;
+     Logger().i('Selecting image: $img');
+     // Logger().i('Old selected image: ${selectedImage.value}');
+   }catch(e){
+     Logger().i('error: $e');
+   }
+
+  }
+
+  void incrementQuantity() {
+    quantity.value++;
+  }
+
+  void decrementQuantity() {
+    if (quantity.value > 0) {
+      quantity.value--;
+    }
   }
 }

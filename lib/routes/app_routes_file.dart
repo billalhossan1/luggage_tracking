@@ -9,6 +9,7 @@ import 'package:luggage_tracking/routes/bindings/delivery_details_show_binding.d
 import 'package:luggage_tracking/routes/bindings/edit_profile_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/faq_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
+import 'package:luggage_tracking/routes/bindings/product_details_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/sign_up_with_personal_data_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/sub_plan_screen_binding.dart';
@@ -147,7 +148,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.productDetailsScreen,
-    binding: AppBinding(),
+    binding: ProductDetailsScreenBinding(),
     page: () => const ProductDetailsScreen(),
   ),
   GetPage(

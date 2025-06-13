@@ -7,6 +7,7 @@ import 'package:luggage_tracking/widgets/cards/product_card.dart';
 class ProductCategoryScreen extends StatelessWidget {
   const ProductCategoryScreen({super.key});
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

@@ -23,6 +23,11 @@ class DeviceScreenController extends GetxController {
     getDevices(); // Load initial devices
     scrollController.addListener(_scrollListener);
   }
+  Future<void> onRefresh()async{
+    devices.clear();
+    update();
+    getDevices();
+  }
 
   // Fetch initial devices
   Future<void> getDevices() async {
@@ -33,6 +38,7 @@ class DeviceScreenController extends GetxController {
         DeviceModel deviceModel = DeviceModel.fromJson(response.responseData);
         devices.addAll(deviceModel.data?.devices ?? []);
         totalPage = deviceModel.data?.pagination?.totalPage ?? 1;
+        update();
 
         print("Devices loaded successfully: ${devices.length} items");
       } else {

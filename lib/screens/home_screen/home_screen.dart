@@ -36,15 +36,10 @@ class HomeScreen extends StatelessWidget {
                   pinned: true, // height when expanded
                   flexibleSpace: HomeScreenAppBar(
                     actions: [
-                      AppImage(
-                        path: AssetsIconsPath.instance.search,
-                        width: AppSize.width(value: 24),
-                        height: AppSize.width(value: 24),
-                      ),
                       Gap(width: AppSize.width(value: 16)),
                       GestureDetector(
                         onTap: () {
-                          Get.toNamed(AppRoutes.instance.notificationScreen);
+                          // Get.toNamed(AppRoutes.instance.notificationScreen);
                         },
                         child: AppImage(
                           path: AssetsIconsPath.instance.notification,

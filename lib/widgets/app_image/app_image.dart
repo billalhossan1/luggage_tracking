@@ -2,6 +2,7 @@ import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
+import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
 import 'package:luggage_tracking/utils/app_all_log/error_log.dart';
 
@@ -29,6 +30,7 @@ class AppImage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+
     // >>>>>>>>>>>>>>>>>>>>>> file image is first <<<<<<<<<<<<<<<<<<<<<<
     if (filePath != null) {
       return Image.file(
@@ -56,6 +58,7 @@ class AppImage extends StatelessWidget {
           color: color,
         );
       }
+      appLog("url");
       return NetworkImageWithRetry(
         imageUrl: url!,
         width: width,
@@ -123,10 +126,25 @@ class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> {
   late String _image;
 
   @override
+  void didUpdateWidget(covariant NetworkImageWithRetry oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.imageUrl.hashCode != widget.key.hashCode) {
+      _retryCount = 0;
+      _setImage();
+      WidgetsBinding.instance.addPostFrameCallback(
+            (timeStamp) {
+          setState(() {});
+        },
+      );
+    }
+  }
+  @override
   void initState() {
     super.initState();
     _setImage();
+
   }
+
 
   void _setImage() {
     try {
@@ -136,7 +154,7 @@ class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> {
       } else if (widget.imageUrl.runtimeType == Null) {
         _image = "";
       } else {
-        // _image = "${AppApiUrl.domain}${widget.imageUrl}";
+        _image = "${Urls.imageBaseUrl}${widget.imageUrl}";
       }
     } catch (e) {
       _image = widget.imageUrl;
