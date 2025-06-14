@@ -14,7 +14,7 @@ class TermsAndConditionScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return GetBuilder<TermsAndConditionController>(
       builder: (controller) {
-        return Obx(()=>Scaffold(
+        return Obx(()=>controller.inProgress?Center(child: CircularProgressIndicator(),):Scaffold(
           appBar: CustomAppBar(title: "Terms & Condition"),
           body: SingleChildScrollView(
             child: Padding(

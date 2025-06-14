@@ -20,11 +20,16 @@ class NetworkCaller {
       if (accessToken != null) {
         headers['Authorization'] = 'Bearer $accessToken'; // Ensure token format
       }
-
-      Uri uri = Uri.parse(url);
       if (queryParam != null) {
-        uri = uri.replace(queryParameters: queryParam);
+        url += '?';
+        for (String param in queryParam.keys) {
+          url += "$param=${queryParam[param]}&";
+        }
+        url = url.substring(0, url.length - 1);
+        _logRequest(url);
       }
+      Uri uri = Uri.parse(url);
+
 
       _logger.i("Making GET request to: $uri");
       _logger.i("Headers: $headers");

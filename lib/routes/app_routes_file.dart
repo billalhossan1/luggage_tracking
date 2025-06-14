@@ -3,6 +3,7 @@ import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
+import 'package:luggage_tracking/routes/bindings/change_password_binding.dart';
 import 'package:luggage_tracking/routes/bindings/dealing_history_binding.dart';
 import 'package:luggage_tracking/routes/bindings/delivery_details_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/delivery_details_show_binding.dart';
@@ -15,6 +16,7 @@ import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/sub_plan_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/termsAndConditionBinding.dart';
 import 'package:luggage_tracking/routes/bindings/wish_list_screen_binding.dart';
+import 'package:luggage_tracking/routes/bindings/work_func_binding.dart';
 import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
@@ -65,7 +67,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     binding: SplashScreenBinding(),
     page: () => const SplashScreen(),
     transitionDuration: Duration(milliseconds: 800),
-    opaque: false 
+    opaque: false,
   ),
 
   //////////=======================Auth screen===================
@@ -132,7 +134,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.shareUserItemScreen,
     binding: AppBinding(),
-    page: () =>  ShareItemUserScreen(),
+    page: () => ShareItemUserScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.trackItemScreen,
@@ -143,10 +145,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     binding: NavigationScreenBinding(),
     page: () => const AddTrkilDeviceScreen(),
   ),
-  GetPage(
-    name: AppRoutes.instance.findNearby,
-    page: () => const FindNearby(),
-  ),
+  GetPage(name: AppRoutes.instance.findNearby, page: () => const FindNearby()),
   GetPage(
     name: AppRoutes.instance.productDetailsScreen,
     binding: ProductDetailsScreenBinding(),
@@ -169,20 +168,28 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(
     name: AppRoutes.instance.deviceScreen,
     binding: AppBinding(),
-    page: () =>  DeviceScreen(),
+    page: () => DeviceScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.signUpWithPersonalData,
     binding: SignUpWithPersonalDataBinding(),
-    page: () =>  SignupWithPersonalDataScreen(),
+    page: () => SignupWithPersonalDataScreen(),
   ),
-  GetPage(name: AppRoutes.instance.accountScreen,    binding: AccountScreenBinding(), page: () => AccountScreen()),
+  GetPage(
+    name: AppRoutes.instance.accountScreen,
+    binding: AccountScreenBinding(),
+    page: () => AccountScreen(),
+  ),
   GetPage(
     name: AppRoutes.instance.wishListScreen,
     binding: WishListScreenBinding(),
     page: () => WishListScreen(),
   ),
-  GetPage(name: AppRoutes.instance.acoutScreen, page: () => AboutScreen()),
+  GetPage(
+    name: AppRoutes.instance.acoutScreen,
+    binding: AccountScreenBinding(),
+    page: () => AboutScreen(),
+  ),
   GetPage(
     name: AppRoutes.instance.termsAndCondionScreen,
     binding: TermsAndConditionBinding(),
@@ -208,7 +215,8 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.changePasswordScreen,
-    page: () => ChnagePasswordScreen(),
+    binding: ChangePasswordBinding(),
+    page: () => ChangePasswordScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.deleteAccountScreen,
@@ -217,6 +225,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   ),
   GetPage(
     name: AppRoutes.instance.workFuncScreen,
+    binding: WorkFuncBinding(),
     page: () => WorkFuncScreen(),
   ),
   GetPage(
@@ -228,6 +237,13 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.privacyAndPolicyScreen,
     page: () => PrivacyAndPolicyScreen(),
   ),
-  GetPage(name: AppRoutes.instance.faqScreen,binding: FaqScreenBinding(), page: () => FaqScreen()),
-  GetPage(name: AppRoutes.instance.notificationScreen, page: () => NotificationScreen()),
+  GetPage(
+    name: AppRoutes.instance.faqScreen,
+    binding: FaqScreenBinding(),
+    page: () => FaqScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.notificationScreen,
+    page: () => NotificationScreen(),
+  ),
 ];

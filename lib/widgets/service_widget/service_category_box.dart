@@ -19,7 +19,7 @@ class ServiceCategoryBox extends StatelessWidget {
     return GestureDetector(
       onTap: () {
         Get.toNamed(
-          AppRoutes.instance.productCategoryScreen,
+          AppRoutes.instance.productCategoryScreen,arguments: {"category-id":category.sId}
         );
       },
       child: Container(

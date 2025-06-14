@@ -9,8 +9,8 @@ class TermsAndConditionController extends GetxController{
   final RxString _errorMessage = ''.obs;
   bool get inProgress => _inProgress.value;
   String get errorMessage => _errorMessage.value;
-  final RxString _aboutTextHtml = ''.obs;
-  String get termsAndConditionTextHtml => _aboutTextHtml.value;
+  final RxString _termsAndConditionTextHtml = ''.obs;
+  String get termsAndConditionTextHtml => _termsAndConditionTextHtml.value;
 
   @override
   onInit() {
@@ -40,7 +40,7 @@ class TermsAndConditionController extends GetxController{
         final json = response.responseData;
         final termAndConditionModel = TermsAndConditionModel.fromJson(json);
 
-        _aboutTextHtml.value = termAndConditionModel.data?.content ?? '';
+        _termsAndConditionTextHtml.value = termAndConditionModel.data?.content ?? '';
 
 
         _inProgress.value = false;

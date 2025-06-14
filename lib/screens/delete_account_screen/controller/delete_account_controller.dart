@@ -25,11 +25,11 @@ class DeleteAccountController extends GetxController{
       final response = await Get.find<NetworkCaller>().delRequest(Urls.deleteAccountUrl, body: body,accessToken: accessToken);
       inProgress.value = false;
       if(response.isSuccess){
-        AppSnackBar.message(response.responseData["message"]??"Account Deleted Successfully");
+        AppSnackBar.message("Account Deleted Successfully");
         Get.find<SaveDataController>().clearUserData();
         Get.offAllNamed(AppRoutes.instance.signIn);
       }else{
-        AppSnackBar.message(response.responseData["errorMessages"]["message"]??"Something Went Wrong");
+        AppSnackBar.message(response.errorMessage);
       }
     }catch(e)
     {

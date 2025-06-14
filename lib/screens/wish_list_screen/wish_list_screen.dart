@@ -31,40 +31,39 @@ class WishListScreen extends StatelessWidget {
                   crossAxisCount = 4; // Large screen
                 }
 
-                // Ensure the list has enough items before accessing them
-                if (controller.wishListItems.isNotEmpty) {
-                  print(
-                      "===========================================================${controller.wishListItems[0].product?.name}");
-                }
-
-                return GridView.builder(
-                  gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                    crossAxisCount: crossAxisCount,
-                    crossAxisSpacing: 10,
-                    mainAxisSpacing: 10,
-                    childAspectRatio:
-                    AppSize.size.width *
-                        0.40 /
-                        (AppSize.size.width *
-                            0.40 *
-                            1.4), // Adjust aspect ratio as needed
-                   // Aspect ratio of the grid items
-                  ),
-                  itemCount: controller.wishListItems.length,
-                  padding: EdgeInsets.all(8),
-                  itemBuilder: (context, index) {
-                    var product = controller.wishListItems[index];
-                    return WishCard(
-                      bookMarkLoading: controller.bookmarkLoading,
-                      onBookmarkToggle: () {
-                        controller.onBookMarkTogle(product);
-                      },
-                      name: product.product?.name ?? 'no name',
-                      imageUrl: product.product?.images?[0] ?? '',
-                      description: product.product?.description ?? 'no description',
-                      price: product.product?.price ?? 0,
-                    );
-                  },
+                return Column(
+                  children: [
+                    Expanded(
+                      child: GridView.builder(
+                        controller: controller.scrollController,
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: crossAxisCount,
+                          crossAxisSpacing: 10,
+                          mainAxisSpacing: 10,
+                          childAspectRatio:
+                          AppSize.size.width * 0.40 / (AppSize.size.width * 0.40 * 1.4), // Adjust aspect ratio
+                        ),
+                        itemCount: controller.wishListItems.length,
+                        padding: EdgeInsets.all(8),
+                        itemBuilder: (context, index) {
+                          var product = controller.wishListItems[index];
+                          return WishCard(
+                            bookMarkLoading: controller.bookmarkLoading,
+                            onBookmarkToggle: () {
+                              controller.onBookMarkTogle(product);
+                            },
+                            name: product.product?.name ?? 'no name',
+                            imageUrl: product.product?.images?[0] ?? '',
+                            description: product.product?.description ?? 'no description',
+                            price: product.product?.price ?? 0,
+                          );
+                        },
+                      ),
+                    ),
+                    // Show pagination progress bar at the bottom
+                    if (controller.isPaginationLoading.value)
+                      LinearProgressIndicator(),
+                  ],
                 );
               },
             ),

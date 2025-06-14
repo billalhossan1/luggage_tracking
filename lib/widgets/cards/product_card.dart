@@ -17,13 +17,12 @@ class ProductCard extends StatelessWidget {
   final ProductItem? productItem; // Optional product data
   final bool isBookmarked; // Track the bookmark state
   final Function() onBookmarkToggle; // Callback to toggle the bookmark state
-  final HomeScreenController controller;
   // VoidCallback onBookmarkToggle; // Callback to toggle the bookmark state
   const ProductCard({
     super.key,
     this.productItem,
     required this.isBookmarked,
-    required this.onBookmarkToggle, required this.controller,
+    required this.onBookmarkToggle,
   });
 
   @override
@@ -110,21 +109,17 @@ class ProductCard extends StatelessWidget {
           Positioned(
               top: 10,
               right: 10,
-              child:     Obx(()=>Visibility(
-                visible: !controller.bookMarkLoading.value,
-                replacement: Center(child: CircularProgressIndicator(),),
-                child: GestureDetector(
-                  onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
-                  child: isBookmarked ? Icon(Icons.favorite,color: Color(0xff8F00FF),): Icon(Icons.favorite_border_outlined,color: Color(0xff8F00FF),),
-                  // child: AppImage(
-                  //   path: isBookmarked
-                  //       ? AssetsIconsPath.instance.isFavorate
-                  //       : AssetsIconsPath.instance.favorate,
-                  //   width: AppSize.width(value: 18),
-                  //   height: AppSize.width(value: 18),
-                  // ),
-                ),
-              ),))
+              child:     GestureDetector(
+                onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
+                child: isBookmarked ? Icon(Icons.favorite,color: Color(0xff8F00FF),): Icon(Icons.favorite_border_outlined,color: Color(0xff8F00FF),),
+                // child: AppImage(
+                //   path: isBookmarked
+                //       ? AssetsIconsPath.instance.isFavorate
+                //       : AssetsIconsPath.instance.favorate,
+                //   width: AppSize.width(value: 18),
+                //   height: AppSize.width(value: 18),
+                // ),
+              ))
         ],
       ),
     );

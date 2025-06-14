@@ -131,7 +131,7 @@ class HomeScreen extends StatelessWidget {
                           return Padding(
                             padding: EdgeInsets.only(right: AppSize.width(value: 8)),
                             child: ProductCard(
-                              controller: HomeScreenController(),
+
                               productItem: controller.productList[index], isBookmarked: controller.productList[index].bookmark??false,
                               onBookmarkToggle: () {
                                 // Logger().e("Bookmark Toggled: ${controller.productList[index].sId}");

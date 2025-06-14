@@ -23,6 +23,8 @@ class Urls{
   static final String deleteAccountUrl = '$_baseUrl/user/delete-account';
   static final String profileUpdateUrl = '$_baseUrl/user';
   static final String getDevicesUrl = '$_baseUrl/device';
+  static final String aboutUrl = '$_baseUrl/rule/about';
+  static final String workFuncUrl = '$_baseUrl/rule/work';
   static final String termsAndConditionUrl = '$_baseUrl/rule/terms-and-conditions';
   static final String paymentCancelUrl = 'http://10.0.80.75:5000/order/cancel';
   static final String paymentSuccessUrl = 'http://10.0.80.75:5000/order/success';
