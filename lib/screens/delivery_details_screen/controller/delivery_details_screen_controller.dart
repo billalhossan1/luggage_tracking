@@ -7,6 +7,8 @@ import 'package:luggage_tracking/screens/home_screen/model/product_list_model.da
 
 class DeliveryDetailsScreenController extends GetxController {
   RxBool isLoading = false.obs;
+  GlobalKey<FormState> formKey = GlobalKey<FormState>();
+
   ProductItem? product;
   TextEditingController emailTEController = TextEditingController();
   TextEditingController contactTEController = TextEditingController();
@@ -16,21 +18,29 @@ class DeliveryDetailsScreenController extends GetxController {
   @override
   void onInit() {
     product = Get.arguments["product"];
-    // Logger().e("product-name: ${product!.name}");
+    quantity.value = Get.arguments["quantity"];
+    // Logger().e("quantity: ${quantity.value}");
     super.onInit();
   }
 
   void onTapContinue() {
-    Get.toNamed(
-      AppRoutes.instance.deliveryDetainShowScreen,
-      arguments: {
-        "email": emailTEController.text.trim(),
-        "contact": contactTEController.text.trim(),
-        "address": addressTEController.text.trim(),
-        "note": noteTEController.text.trim(),
-        "quantity": 1,
-        "product":product
-      },
-    );
+    if (formKey.currentState?.validate() ?? false) {
+      // Form is valid, proceed to the next screen
+      Get.toNamed(
+        AppRoutes.instance.deliveryDetainShowScreen,
+        arguments: {
+          "email": emailTEController.text.trim(),
+          "contact": contactTEController.text.trim(),
+          "address": addressTEController.text.trim(),
+          "note": noteTEController.text.trim(),
+          "quantity": quantity.value,
+          "product": product
+        },
+      );
+    } else {
+      // Form is not valid, show an error or feedback (optional)
+      Logger().e("Form is not valid.");
+    }
   }
+
 }

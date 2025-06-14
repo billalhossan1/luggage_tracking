@@ -46,7 +46,7 @@ dependencies:
   flutter_facebook_auth: ^7.1.2
   url_launcher: ^6.3.1
   webview_flutter: ^4.0.0
-
+  flutter_widget_from_html: ^0.16.0
 
   
 

@@ -18,63 +18,67 @@ class DeliveryDetailsScreen extends StatelessWidget {
     return GetBuilder<DeliveryDetailsScreenController>(
       init: DeliveryDetailsScreenController(),
       builder: (controller) {
-        return Scaffold(
-          appBar: CustomAppBar(title: "Delivery Details"),
-          body: Padding(
-            padding: const EdgeInsets.all(12),
-            child: SingleChildScrollView(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Gap(height: AppSize.width(value: 25)),
-                  AppText(
-                    data: "Contact Details",
-                    fontSize: AppSize.width(value: 18),
-                    fontWeight: FontWeight.w500,
-                    color: AppColors.instance.purple_500,
-                  ),
-                  Gap(height: AppSize.width(value: 12)),
-                  AppText(
-                    data:
-                        "The products will be delivered to the following address.",
-                    fontSize: AppSize.width(value: 14),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.instance.black200,
-                  ),
-                  Gap(height: AppSize.width(value: 12)),
+        return Form(
+          key: controller.formKey,
+          child: Scaffold(
+            appBar: CustomAppBar(title: "Delivery Details"),
+            body: Padding(
+              padding: const EdgeInsets.all(12),
+              child: SingleChildScrollView(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Gap(height: AppSize.width(value: 25)),
+                    AppText(
+                      data: "Contact Details",
+                      fontSize: AppSize.width(value: 18),
+                      fontWeight: FontWeight.w500,
+                      color: AppColors.instance.purple_500,
+                    ),
+                    Gap(height: AppSize.width(value: 12)),
+                    AppText(
+                      data:
+                          "The products will be delivered to the following address.",
+                      fontSize: AppSize.width(value: 14),
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.instance.black200,
+                    ),
+                    Gap(height: AppSize.width(value: 12)),
 
-                  AppInputWidget(
-                    title: "Contact No",
-                    hintText: "+963 xxx xxx xxx",
-                    controller: controller.contactTEController,
-                  ),
-                  AppInputWidget(
-                    title: "Email",
-                    hintText: "example@gmail.com",
-                    controller: controller.emailTEController,
-                  ),
-                  AppInputWidget(
-                    title: "Address (this content well show in Card)",
-                    hintText: "P. O. Box 50332, Damasc...",
-                    controller: controller.addressTEController,
-                  ),
-                  AddDescripsion(title: "Note (Optional)",controller: controller.noteTEController,),
-                ],
+                    AppInputWidget(
+                      title: "Contact No",
+                      hintText: "+963 xxx xxx xxx",
+                      controller: controller.contactTEController,
+                    ),
+                    AppInputWidget(
+                      isEmail: true,
+                      title: "Email",
+                      hintText: "example@gmail.com",
+                      controller: controller.emailTEController,
+                    ),
+                    AppInputWidget(
+                      title: "Address (this content well show in Card)",
+                      hintText: "P. O. Box 50332, Damasc...",
+                      controller: controller.addressTEController,
+                    ),
+                    AddDescripsion(title: "Note (Optional)",controller: controller.noteTEController,),
+                  ],
+                ),
               ),
             ),
-          ),
-          bottomNavigationBar: SafeArea(
-            child: Padding(
-              padding: EdgeInsets.symmetric(
-                horizontal: AppSize.width(value: 10),
-                vertical: AppSize.width(value: 20),
-              ),
-              child: AppButton(
-                title: "Continue",
-                titleSize: 20,
-                onTap: () {
-                 controller.onTapContinue();
-                },
+            bottomNavigationBar: SafeArea(
+              child: Padding(
+                padding: EdgeInsets.symmetric(
+                  horizontal: AppSize.width(value: 10),
+                  vertical: AppSize.width(value: 20),
+                ),
+                child: AppButton(
+                  title: "Continue",
+                  titleSize: 20,
+                  onTap: () {
+                   controller.onTapContinue();
+                  },
+                ),
               ),
             ),
           ),

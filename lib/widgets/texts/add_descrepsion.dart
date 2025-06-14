@@ -55,11 +55,12 @@ class AddDescripsion extends StatelessWidget {
 
             controller: controller,
             keyboardType: TextInputType.text,
+
             expands: true,
             maxLines: null,
             textAlignVertical: TextAlignVertical.top,
             style: TextStyle(color: AppColors.instance.black700),
-
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             decoration: InputDecoration(
 
               hintText: hintText,

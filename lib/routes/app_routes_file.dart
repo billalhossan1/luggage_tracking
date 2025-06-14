@@ -13,6 +13,7 @@ import 'package:luggage_tracking/routes/bindings/product_details_screen_binding.
 import 'package:luggage_tracking/routes/bindings/sign_up_with_personal_data_binding.dart';
 import 'package:luggage_tracking/routes/bindings/splash_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/sub_plan_screen_binding.dart';
+import 'package:luggage_tracking/routes/bindings/termsAndConditionBinding.dart';
 import 'package:luggage_tracking/routes/bindings/wish_list_screen_binding.dart';
 import 'package:luggage_tracking/screens/about_screen/about_screen.dart';
 import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
@@ -184,6 +185,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(name: AppRoutes.instance.acoutScreen, page: () => AboutScreen()),
   GetPage(
     name: AppRoutes.instance.termsAndCondionScreen,
+    binding: TermsAndConditionBinding(),
     page: () => TermsAndConditionScreen(),
   ),
   GetPage(

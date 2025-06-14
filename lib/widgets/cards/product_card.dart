@@ -87,7 +87,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"product":productItem});
+                        Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"product":productItem,"quantity":1});
                       },
                       child: Container(
                         padding: EdgeInsets.all(6),

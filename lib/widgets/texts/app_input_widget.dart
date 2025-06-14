@@ -294,6 +294,7 @@ class _AppInputWidgetState extends State<AppInputWidget> {
           borderRadius: BorderRadius.circular(12),
           color: Colors.transparent,
           child: TextFormField(
+            autovalidateMode: AutovalidateMode.onUserInteraction,
             onTap: widget.onTap,
             readOnly: widget.readOnly,
             controller: widget.controller,

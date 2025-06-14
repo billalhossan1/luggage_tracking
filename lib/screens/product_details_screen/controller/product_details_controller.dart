@@ -7,7 +7,7 @@ class ProductDetailsController extends GetxController {
   List<String> images = [];
   ProductItem? productItem;
   RxString selectedImage = ''.obs;
-  RxInt quantity = 0.obs;
+  RxInt quantity = 1.obs;
 
 
   onInitialDataLoadFunction(){
@@ -45,11 +45,14 @@ class ProductDetailsController extends GetxController {
   }
 
   void incrementQuantity() {
-    quantity.value++;
+    if(quantity.value<20){
+      quantity.value++;
+    }
+
   }
 
   void decrementQuantity() {
-    if (quantity.value > 0) {
+    if (quantity.value > 1) {
       quantity.value--;
     }
   }

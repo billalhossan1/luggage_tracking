@@ -122,13 +122,13 @@ class ProductDetailsScreen extends StatelessWidget {
                     spacing: AppSize.width(value: 10),
                     children: [
                       AppText(
-                        data: "Trkil Tracker",
+                        data: controller.productItem?.name??'',
                         fontSize: AppSize.width(value: 21),
                         fontWeight: FontWeight.w600,
                         color: AppColors.instance.black400,
                       ),
                       AppText(
-                        data: "Trkil",
+                        data: controller.productItem?.category?.name??'',
                         fontSize: AppSize.width(value: 14),
                         fontWeight: FontWeight.w400,
                         color: AppColors.instance.black200,
@@ -136,7 +136,7 @@ class ProductDetailsScreen extends StatelessWidget {
                       Row(
                         children: [
                           AppText(
-                            data: "\$${16.30.toStringAsFixed(2)}",
+                            data: "\$${controller.productItem?.price?.toStringAsFixed(2)}",
                             fontSize: AppSize.width(value: 18),
                             fontWeight: FontWeight.w500,
                             color: AppColors.instance.black500,
@@ -144,7 +144,7 @@ class ProductDetailsScreen extends StatelessWidget {
 
                           Gap(width: AppSize.width(value: 6)),
                           Text(
-                            '\$20.30',
+                            '\$2000.30',
                             style: TextStyle(
                               fontSize: AppSize.width(value: 14),
                               color: AppColors.instance.red1,
@@ -160,22 +160,21 @@ class ProductDetailsScreen extends StatelessWidget {
                         children: [
                           AppText(data: "Color:"),
                           Gap(width: AppSize.width(value: 8)),
-                          Container(
-                            width: AppSize.width(value: 22),
-                            height: AppSize.width(value: 22),
-                            decoration: BoxDecoration(
-                              color: AppColors.instance.black900,
-                              shape: BoxShape.circle,
-                            ),
-                          ),
+                          // Container(
+                          //   width: AppSize.width(value: 22),
+                          //   height: AppSize.width(value: 22),
+                          //   decoration: BoxDecoration(
+                          //     color: AppColors.instance.black900,
+                          //     shape: BoxShape.circle,
+                          //   ),
+                          // ),
+                          AppText(data: controller.productItem?.color??'none'),
                         ],
                       ),
 
                       TitledescriptionWidget(
                         title: 'Overview:',
-                        descreption:
-                        """Protect the AirTag that’s keeping track of all your important things. The OtterBox Rugged Case for AirTag securely covers the AirTag that’s attached to your keys and your pack. It buffers AirTag from all that bouncing and banging around as you go about your day. Simply twist on the case and AirTag is locked into legendary OtterBox protection and ready for anything.
-                  """,
+                        descreption:controller.productItem?.description??''
                       ),
                       TitledescriptionWidget(
                         title: "Highlights:",
@@ -197,70 +196,81 @@ class ProductDetailsScreen extends StatelessWidget {
           );
         },
       ),
-      bottomNavigationBar: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Gap(height: AppSize.width(value: 8)),
-          Container(
-            padding: EdgeInsets.all(12),
-            width: AppSize.width(value: double.infinity),
-            decoration: BoxDecoration(
-              color: AppColors.instance.white50,
-              borderRadius: BorderRadius.circular(16),
-            ),
-            child: Row(
-              children: [
-                Expanded(
-                  child: Container(
-                    padding: EdgeInsets.symmetric(
-                      vertical: AppSize.width(value: 10),
-                      horizontal: AppSize.width(value: 6),
-                    ),
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(12),
-                      border: Border.all(
-                        color: AppColors.instance.purple_500,
-                        width: 2,
+      bottomNavigationBar: GetBuilder<ProductDetailsController>(
+        builder: (controller) {
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              Gap(height: AppSize.width(value: 8)),
+              Container(
+                padding: EdgeInsets.all(12),
+                width: AppSize.width(value: double.infinity),
+                decoration: BoxDecoration(
+                  color: AppColors.instance.white50,
+                  borderRadius: BorderRadius.circular(16),
+                ),
+                child: Row(
+                  children: [
+                    Expanded(
+                      child: Container(
+                        padding: EdgeInsets.symmetric(
+                          vertical: AppSize.width(value: 10),
+                          horizontal: AppSize.width(value: 6),
+                        ),
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(12),
+                          border: Border.all(
+                            color: AppColors.instance.purple_500,
+                            width: 2,
+                          ),
+                        ),
+                        child: Obx(() => Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            GestureDetector(
+                              onTap: controller.decrementQuantity,
+                              child: Icon(
+                                Icons.remove,
+                                size: AppSize.width(value: 22),
+                                color: AppColors.instance.purple_500,
+                              ),
+                            ),
+                            AppText(
+                              data: controller.quantity.value.toString(),
+                              fontSize: AppSize.width(value: 20),
+                              fontWeight: FontWeight.w400,
+                              color: AppColors.instance.purple_500,
+                            ),
+                            GestureDetector(
+                              onTap: controller.incrementQuantity,
+                              child: Icon(
+                                Icons.add,
+                                size: AppSize.width(value: 22),
+                                color: AppColors.instance.purple_500,
+                              ),
+                            ),
+                          ],
+                        )),
                       ),
                     ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Icon(
-                          Icons.remove,
-                          size: AppSize.width(value: 22),
-                          color: AppColors.instance.purple_500,
-                        ),
-                        AppText(
-                          data: "0",
-                          fontSize: AppSize.width(value: 20),
-                          fontWeight: FontWeight.w400,
-                          color: AppColors.instance.purple_500,
-                        ),
-                        Icon(
-                          Icons.add,
-                          size: AppSize.width(value: 22),
-                          color: AppColors.instance.purple_500,
-                        ),
-                      ],
+                    Gap(width: AppSize.width(value: 8)),
+                    Expanded(
+                      child: AppButton(
+                        title: "Buy Now",
+                        onTap: () {
+                          Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"product":controller.productItem,"quantity":controller.quantity.value});
+                        },
+                      ),
                     ),
-                  ),
+                  ],
                 ),
-                Gap(width: AppSize.width(value: 8)),
-                Expanded(
-                  child: AppButton(
-                    title: "Buy Now",
-                    onTap: () {
-                      Get.toNamed(AppRoutes.instance.deliveryDetainScreen);
-                    },
-                  ),
-                ),
-              ],
-            ),
-          ),
-          Gap(height: AppSize.width(value: AppSize.width(value: 26))),
-        ],
+              ),
+              Gap(height: AppSize.width(value: AppSize.width(value: 26))),
+            ],
+          );
+        }
       ),
+
     );
   }
 }
