@@ -110,7 +110,7 @@ class HomeScreen extends StatelessWidget {
                 itemTitleOption(
                   name: "Vest Products",
                   onTapCall: () {
-                    Get.toNamed(AppRoutes.instance.productCategoryScreen);
+                    Get.toNamed(AppRoutes.instance.allProductScreen);
                   },
                 ),
                 SliverToBoxAdapter(
