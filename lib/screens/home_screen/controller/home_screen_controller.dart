@@ -127,6 +127,7 @@ class HomeScreenController extends GetxController{
         productList.clear();
         var data = response.responseData;
         ProductListModel productListModel = ProductListModel.fromJson(data);
+        productList.clear();
         productList.addAll(productListModel.productList ?? []);
         Logger().i("Product list updated: ${productList.length} items");
         message.value = "Product list fetched successfully";

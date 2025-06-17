@@ -15,6 +15,7 @@ class AllProductScreenBinding extends Bindings {
     Get.lazyPut(() => SaveDataController());
     Get.lazyPut(() => NetworkCaller());
     Get.lazyPut(() => AllProductPaginationController());
+    Get.lazyPut(() => HomeScreenController());
 
   }
 }

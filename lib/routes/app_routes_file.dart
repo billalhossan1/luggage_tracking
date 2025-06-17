@@ -4,6 +4,7 @@ import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/all_product_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
+import 'package:luggage_tracking/routes/bindings/category_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/change_password_binding.dart';
 import 'package:luggage_tracking/routes/bindings/dealing_history_binding.dart';
 import 'package:luggage_tracking/routes/bindings/delivery_details_screen_binding.dart';
@@ -24,6 +25,7 @@ import 'package:luggage_tracking/screens/account_setting_screen/account_setting_
 import 'package:luggage_tracking/screens/add_Device_scanner/add_device_scanner.dart';
 import 'package:luggage_tracking/screens/all_product_screen/screen/all_product_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
+import 'package:luggage_tracking/screens/category_screnn/controller/all_category_controller.dart';
 import 'package:luggage_tracking/screens/change_password_screen/chnage_password_screen.dart';
 import 'package:luggage_tracking/screens/create_new_password_screen/create_new_password_screen.dart';
 import 'package:luggage_tracking/screens/dealing_history/dealing_history.dart';
@@ -123,6 +125,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(name: AppRoutes.instance.homeScreen, page: () => const HomeScreen()),
   GetPage(
     name: AppRoutes.instance.categoryScreen,
+    binding:CategoryScreenBinding(),
     page: () => const CategoryScreen(),
   ),
   GetPage(

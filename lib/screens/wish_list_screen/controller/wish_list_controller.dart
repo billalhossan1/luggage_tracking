@@ -40,25 +40,28 @@ class WishListController extends GetxController {
     _saveDataController = Get.find<SaveDataController>();
     _networkCaller = Get.find<NetworkCaller>();
 
-    loadWishListItems(); // Load initial data
+    getWishListItems(); // Load initial data
     scrollController.addListener(_scrollListener);
   }
+
   void _scrollListener() {
-    if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {
+    if (scrollController.position.pixels ==
+        scrollController.position.maxScrollExtent) {
       loadMoreWishItem();
     }
   }
 
-  Future<void> loadWishListItems() async {
+  Future<void> getWishListItems() async {
     if (isLoading.value || currentPage > totalPage) return;
 
-    isLoading.value = true;
-
     try {
+      isLoading.value = true;
       final response = await apiCall();
 
       if (response.isSuccess) {
-        WishListModel wishListModel = WishListModel.fromJson(response.responseData);
+        WishListModel wishListModel = WishListModel.fromJson(
+          response.responseData,
+        );
 
         // Handle pagination
         totalPage = wishListModel.pagination?.totalPage ?? 1;
@@ -66,10 +69,12 @@ class WishListController extends GetxController {
 
         // Append new items
         if (wishListModel.wishList != null) {
+          wishListItems.clear();
           wishListItems.addAll(wishListModel.wishList!);
         }
       } else {
-        String errorMessage = response.errorMessage ?? "Failed to load wish list items";
+        String errorMessage =
+            response.errorMessage ?? "Failed to load wish list items";
         AppSnackBar.error(errorMessage);
       }
     } catch (e, stackTrace) {
@@ -81,7 +86,7 @@ class WishListController extends GetxController {
     }
   }
 
-  Future<NetworkResponse> apiCall({ int page=1}) async {
+  Future<NetworkResponse> apiCall({int page = 1}) async {
     final String? accessToken = await _saveDataController.getUserData();
 
     final Map<String, dynamic> queryParams = {
@@ -106,11 +111,14 @@ class WishListController extends GetxController {
     try {
       final response = await apiCall(page: currentPage);
       if (response.isSuccess) {
-        WishListModel wishListModel = WishListModel.fromJson(response.responseData);
+        WishListModel wishListModel = WishListModel.fromJson(
+          response.responseData,
+        );
         wishListItems.addAll(wishListModel.wishList ?? []);
         // Logger().i("Loaded more dealing history: ${dealingHistory.length} items");
       } else {
-        String errorMessage = response.errorMessage ?? "Failed to load more dealing history";
+        String errorMessage =
+            response.errorMessage ?? "Failed to load more dealing history";
         print("Error: $errorMessage");
       }
     } catch (e) {
@@ -121,15 +129,19 @@ class WishListController extends GetxController {
   }
 
   Future<void> onBookMarkTogle(WishItem product) async {
-    final NetworkResponse response = await bookMarkApiCall(product.product!.sId!);
+    final NetworkResponse response = await bookMarkApiCall(
+      product.product!.sId!,
+    );
     if (!Get.isRegistered<HomeScreenController>()) {
       Get.lazyPut(() => HomeScreenController());
     }
 
     if (response.isSuccess) {
-      loadWishListItems(); // Refresh the list after toggling bookmark
+      getWishListItems(); // Refresh the list after toggling bookmark
       Get.find<HomeScreenController>().getProductList();
-      AppSnackBar.message(response.responseData['message'] ?? "Bookmark removed successfully");
+      AppSnackBar.message(
+        response.responseData['message'] ?? "Bookmark removed successfully",
+      );
     } else {
       AppSnackBar.error(response.errorMessage ?? "Failed to toggle bookmark");
     }
@@ -137,9 +149,7 @@ class WishListController extends GetxController {
 
   Future<dynamic> bookMarkApiCall(String productID) async {
     Logger().i("bookMarkApiCall triggered for product: $productID");
-    Map<String, dynamic> body = {
-      "product": productID,
-    };
+    Map<String, dynamic> body = {"product": productID};
 
     String? accessToken = await Get.find<SaveDataController>().getUserData();
     Logger().i("Access token: $accessToken");
@@ -158,5 +168,3 @@ class WishListController extends GetxController {
     return response;
   }
 }
-
-

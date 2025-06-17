@@ -70,7 +70,7 @@ class HomeScreen extends StatelessWidget {
                 itemTitleOption(
                   name: "Categories",
                   onTapCall: () {
-                    Get.toNamed(AppRoutes.instance.categoryScreen);
+                    Get.toNamed(AppRoutes.instance.categoryScreen,arguments: {"category-list": controller.categoryList});
                   },
                 ),
 

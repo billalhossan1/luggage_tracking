@@ -14,11 +14,12 @@ class AllProductScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AllProductPaginationController>(
+      init: AllProductPaginationController(),
       builder: (controller) {
         return Scaffold(
           appBar: CustomAppBar(title: 'All Products'),
           body: Obx(
-                () => controller.isPaginationLoading.value
+                () => controller.isLoading.value
                 ? Center(child: CircularProgressIndicator())
                 : controller.productListItems.isEmpty
                 ? _buildEmptyState() // Show empty state if no items in the list
@@ -33,32 +34,34 @@ class AllProductScreen extends StatelessWidget {
                   crossAxisCount = 4; // Large screen
                 }
 
-                return Column(
-                  children: [
-                    Expanded(
-                      child: GridView.builder(
-                        controller: controller.scrollController,
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                          crossAxisCount: crossAxisCount,
-                          crossAxisSpacing: 10,
-                          mainAxisSpacing: 10,
-                          childAspectRatio:
-                          AppSize.size.width * 0.40 / (AppSize.size.width * 0.40 * 1.4), // Adjust aspect ratio
+                return RefreshIndicator(
+                  onRefresh: () {return controller.onRefresh(); },
+                  child: Column(
+                    children: [
+                      Expanded(
+                        child: GridView.builder(
+                          controller: controller.scrollController,
+                          gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                            crossAxisCount: crossAxisCount,
+                            crossAxisSpacing: 10,
+                            mainAxisSpacing: 10,
+                            childAspectRatio:
+                            AppSize.size.width * 0.40 / (AppSize.size.width * 0.40 * 1.4), // Adjust aspect ratio
+                          ),
+                          itemCount: controller.productListItems.length,
+                          padding: EdgeInsets.all(8),
+                          itemBuilder: (context, index) {
+                            var product = controller.productListItems[index];
+                            return ProductCard(isBookmarked:product.bookmark??false , onBookmarkToggle: (){
+                              controller.onBookMarkTogle(product);
+                            },productItem: product,);
+                          },
                         ),
-                        itemCount: controller.productListItems.length,
-                        padding: EdgeInsets.all(8),
-                        itemBuilder: (context, index) {
-                          var product = controller.productListItems[index];
-                          return ProductCard(isBookmarked:product.bookmark??false , onBookmarkToggle: (){
-                            controller.onBookMarkToggle(product);
-                          },productItem: product,);
-                        },
                       ),
-                    ),
-                    // Show pagination progress bar at the bottom
-                    if (controller.isPaginationLoading.value)
-                      LinearProgressIndicator(),
-                  ],
+                      if (controller.isPaginationLoading.value)
+                        LinearProgressIndicator(),
+                    ],
+                  ),
                 );
               },
             ),
