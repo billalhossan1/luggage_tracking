@@ -1,3 +1,5 @@
+import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
+
 class OrderListModel {
   bool? success;
   String? message;
@@ -58,7 +60,7 @@ class Order {
   String? contact;
   String? address;
   String? user;
-  Product? product;
+  ProductItem? product;
   int? quantity;
   dynamic price;
   String? txid;
@@ -89,7 +91,7 @@ class Order {
     address = json['address'];
     user = json['user'];
     product =
-    json['product'] != null ? Product.fromJson(json['product']) : null;
+    json['product'] != null ? ProductItem.fromJson(json['product']) : null;
     quantity = json['quantity'];
     price = json['price'];
     txid = json['txid'];
@@ -120,27 +122,7 @@ class Order {
   }
 }
 
-class Product {
-  String? sId;
-  String? name;
-  List<String>? images;
 
-  Product({this.sId, this.name, this.images});
-
-  Product.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    name = json['name'];
-    images = json['images'].cast<String>();
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = <String, dynamic>{};
-    data['_id'] = sId;
-    data['name'] = name;
-    data['images'] = images;
-    return data;
-  }
-}
 
 class Pagination {
   int? total;

@@ -2,6 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import '../../../services/save_data/save_data.dart';
@@ -92,9 +94,15 @@ class DealingHistoryScreenController extends GetxController {
     }
   }
 
+  void onTapBuyAgain(ProductItem product){
+    Get.toNamed(AppRoutes.instance.productDetailsScreen,arguments: { "product": product});
+  }
+
   @override
   void onClose() {
     scrollController.dispose();
     super.onClose();
   }
+
+
 }

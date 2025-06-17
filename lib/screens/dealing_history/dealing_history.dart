@@ -149,20 +149,25 @@ class DealingHistoryScreen extends StatelessWidget {
                                           fontWeight: FontWeight.w400,
                                           color: statusColor, // Apply dynamic color here
                                         ),
-                                        Container(
-                                          padding: EdgeInsets.symmetric(
-                                            horizontal: AppSize.width(value: 10),
-                                            vertical: AppSize.width(value: 9),
-                                          ),
-                                          decoration: BoxDecoration(
-                                            color: AppColors.instance.white500,
-                                            borderRadius: BorderRadius.circular(12),
-                                          ),
-                                          child: AppText(
-                                            data: "Buy Again",
-                                            fontSize: AppSize.width(value: 13),
-                                            fontWeight: FontWeight.w400,
-                                            color: AppColors.instance.purple_500,
+                                        GestureDetector(
+                                          onTap: (){
+                                            controller.onTapBuyAgain(order.product!);
+                                          },
+                                          child: Container(
+                                            padding: EdgeInsets.symmetric(
+                                              horizontal: AppSize.width(value: 10),
+                                              vertical: AppSize.width(value: 9),
+                                            ),
+                                            decoration: BoxDecoration(
+                                              color: AppColors.instance.white500,
+                                              borderRadius: BorderRadius.circular(12),
+                                            ),
+                                            child: AppText(
+                                              data: "Buy Again",
+                                              fontSize: AppSize.width(value: 13),
+                                              fontWeight: FontWeight.w400,
+                                              color: AppColors.instance.purple_500,
+                                            ),
                                           ),
                                         ),
                                       ],

@@ -28,6 +28,7 @@ class Urls{
   static final String termsAndConditionUrl = '$_baseUrl/rule/terms-and-conditions';
   static final String paymentCancelUrl = 'http://10.0.80.75:5000/order/cancel';
   static final String paymentSuccessUrl = 'http://10.0.80.75:5000/order/success';
+  static  String productDetailsUrl(String productId) =>'$_baseUrl/product/$productId';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }
