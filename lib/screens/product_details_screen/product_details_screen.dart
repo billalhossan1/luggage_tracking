@@ -173,24 +173,13 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       TitledescriptionWidget(
-                        title: 'Overview:',
+                        title: 'Description:',
                         descreption:controller.productItem?.description??''
                       ),
-                      TitledescriptionWidget(
-                        title: "Highlights:",
-                        descreption:
-                        """Secure, twist-top design\nDual-material, rugged protection\nIncludes two carabiners\nLimited lifetime warranty supported by hassle-free\ncustomer service""",
-                      ),
-                      TitledescriptionWidget(
-                        title: "Tech Specs:",
-                        descreption:
-                        """Form Factor: Hard Case\nMaterial: Hard Plastic, Silicone\nHeight: 2 in. / 5.1 cm\nLength: 1.6 in. / 4.1 cm\nWidth: .4 in. / 1 cm\nWeight: 0.2 oz. / 6.3 g""",
-                      ),
+
                     ],
                   ),
                 ),
-
-
               ],
             ),
           );

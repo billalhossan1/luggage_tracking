@@ -5,16 +5,13 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image_circular.dart';
-import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
-import 'package:luggage_tracking/widgets/cards/app_card/app_card.dart';
 import 'package:luggage_tracking/widgets/texts/add_descrepsion.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 import 'package:luggage_tracking/widgets/texts/icon_text_row.dart';
@@ -297,10 +294,6 @@ class FeedBackRattinigBottomSheet extends StatelessWidget {
                 title: "Confirm",
                 borderRadius: BorderRadius.circular(16),
                 onTap: () {
-
-                  double ratingValue = controller.rating.value;
-
-                  String feedbackMessage = controller.feedbackMessageTEController.text;
                   controller.feedbackSubmit();
                   // For example, you could call a function like:
                   // controller.submitFeedback(ratingValue, feedbackMessage);
