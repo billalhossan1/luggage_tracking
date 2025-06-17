@@ -63,7 +63,7 @@ class ProductItem {
   String? sId;
   String? name;
   String? description;
-  List<String>? images;
+  List<String>? images; // images list can be null
   Category? category;
   int? price;
   String? status;
@@ -73,28 +73,33 @@ class ProductItem {
   int? iV;
   bool? bookmark;
 
-  ProductItem(
-      {this.sId,
-        this.name,
-        this.description,
-        this.images,
-        this.category,
-        this.price,
-        this.status,
-        this.color,
-        this.createdAt,
-        this.updatedAt,
-        this.iV,
-        this.bookmark});
+  ProductItem({
+    this.sId,
+    this.name,
+    this.description,
+    this.images,
+    this.category,
+    this.price,
+    this.status,
+    this.color,
+    this.createdAt,
+    this.updatedAt,
+    this.iV,
+    this.bookmark,
+  });
 
   ProductItem.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
     description = json['description'];
-    images = json['images'].cast<String>();
+
+    // Add null check for images
+    images = json['images'] != null ? List<String>.from(json['images']) : null;
+
     category = json['category'] != null
         ? Category.fromJson(json['category'])
         : null;
+
     price = json['price'];
     status = json['status'];
     color = json['color'];
@@ -123,6 +128,7 @@ class ProductItem {
     return data;
   }
 }
+
 
 class Category {
   String? sId;

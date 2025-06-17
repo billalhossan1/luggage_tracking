@@ -8,6 +8,7 @@ import 'package:luggage_tracking/screens/wish_list_screen/model/wish_list_model.
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
+import '../../../routes/app_routes.dart';
 import '../../../services/api/network_caller.dart';
 import '../../../services/save_data/save_data.dart' show SaveDataController;
 
@@ -30,17 +31,27 @@ class WishListController extends GetxController {
   @override
   void onInit() {
     super.onInit();
-    if (!Get.isRegistered<SaveDataController>()) {
-      Get.lazyPut(() => SaveDataController());
-    }
-    if (!Get.isRegistered<NetworkCaller>()) {
-      Get.lazyPut(() => NetworkCaller());
-    }
+    // if (!Get.isRegistered<SaveDataController>()) {
+    //   Get.lazyPut(() => SaveDataController());
+    // }
+    // if (!Get.isRegistered<NetworkCaller>()) {
+    //   Get.lazyPut(() => NetworkCaller());
+    // }
 
     _saveDataController = Get.find<SaveDataController>();
     _networkCaller = Get.find<NetworkCaller>();
 
     getWishListItems(); // Load initial data
+
+    // Ensure that wishListItems is not empty before accessing the first item
+    ever(wishListItems, (_) {
+      if (wishListItems.isNotEmpty) {
+        Logger().i("First item in wishlist: ${wishListItems[0].product?.name}");
+      } else {
+        Logger().i("WishList is empty.");
+      }
+    });
+
     scrollController.addListener(_scrollListener);
   }
 
@@ -128,9 +139,9 @@ class WishListController extends GetxController {
     }
   }
 
-  Future<void> onBookMarkTogle(WishItem product) async {
+  Future<void> onBookMarkTogle(ProductItem product) async {
     final NetworkResponse response = await bookMarkApiCall(
-      product.product!.sId!,
+      product.sId!,
     );
     if (!Get.isRegistered<HomeScreenController>()) {
       Get.lazyPut(() => HomeScreenController());
@@ -167,4 +178,6 @@ class WishListController extends GetxController {
 
     return response;
   }
+
+
 }

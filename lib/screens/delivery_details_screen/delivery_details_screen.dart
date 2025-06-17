@@ -61,7 +61,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       hintText: "P. O. Box 50332, Damasc...",
                       controller: controller.addressTEController,
                     ),
-                    AddDescripsion(title: "Note (Optional)",controller: controller.noteTEController,),
+                    AddDescripsion(title: "Note (Optional)",controller: controller.noteTEController,validatior: false,),
                   ],
                 ),
               ),

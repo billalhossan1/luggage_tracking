@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
+import 'package:luggage_tracking/widgets/cards/product_card.dart';
 import 'package:luggage_tracking/widgets/wish_list_card/wish_card.dart';
 import 'controller/wish_list_controller.dart';
 
@@ -47,15 +48,16 @@ class WishListScreen extends StatelessWidget {
                         padding: EdgeInsets.all(8),
                         itemBuilder: (context, index) {
                           var product = controller.wishListItems[index];
-                          return WishCard(
-                            bookMarkLoading: controller.bookmarkLoading,
+                          return ProductCard(
+                            productItem: controller.wishListItems[index].product, isBookmarked: true,
                             onBookmarkToggle: () {
-                              controller.onBookMarkTogle(product);
+                              // Logger().e("Bookmark Toggled: ${controller.productList[index].sId}");
+                              controller.onBookMarkTogle(controller.wishListItems[index].product!);
+
+                              // controller.onBookMarkTogle(controller.productList[index].bookmark??false);
+                              // controller.getProductList();
+
                             },
-                            name: product.product?.name ?? 'no name',
-                            imageUrl: product.product?.images?[0] ?? '',
-                            description: product.product?.description ?? 'no description',
-                            price: product.product?.price ?? 0,
                           );
                         },
                       ),

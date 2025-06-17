@@ -101,16 +101,16 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                           ),
                           Row(
                             children: [
-                              AppText(data: "Color:"),
+                              AppText(data: "Color:  ${controller.product?.color??''}"),
                               Gap(width: AppSize.width(value: 10)),
-                              Container(
-                                width: AppSize.width(value: 20),
-                                height: AppSize.width(value: 20),
-                                decoration: BoxDecoration(
-                                  color: AppColors.instance.black900,
-                                  shape: BoxShape.circle,
-                                ),
-                              ),
+                              // Container(
+                              //   width: AppSize.width(value: 20),
+                              //   height: AppSize.width(value: 20),
+                              //   decoration: BoxDecoration(
+                              //     color: AppColors.instance.black900,
+                              //     shape: BoxShape.circle,
+                              //   ),
+                              // ),
                             ],
                           ),
                         ],

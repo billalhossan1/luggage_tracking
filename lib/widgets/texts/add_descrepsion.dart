@@ -14,6 +14,7 @@ class AddDescripsion extends StatelessWidget {
     this.errBorder,
     required this.title,
     this.hintStyle, this.boxSize,
+    this.validatior = true,
     
   });
 
@@ -25,6 +26,7 @@ class AddDescripsion extends StatelessWidget {
   final InputBorder? errBorder;
   final TextStyle? hintStyle;
   final double? boxSize;
+  final bool validatior;
 
   @override
   Widget build(BuildContext context) {
@@ -52,7 +54,6 @@ class AddDescripsion extends StatelessWidget {
         SizedBox(
           height: AppSize.width(value: boxSize ?? 162),
           child: TextFormField(
-
             controller: controller,
             keyboardType: TextInputType.text,
 
@@ -74,12 +75,12 @@ class AddDescripsion extends StatelessWidget {
               errorBorder: errBorder ?? errorOutlineBorder,
               focusedErrorBorder: errBorder ?? errorOutlineBorder,
             ),
-            validator: (value) {
+            validator: validatior?(value) {
               if (value == null || value.isEmpty) {
                 return 'This field is required';
               }
               return null;
-            },
+            }:null,
           ),
         ),
       ],

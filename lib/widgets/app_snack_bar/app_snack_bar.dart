@@ -6,12 +6,13 @@ import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class AppSnackBar {
-  // >>>>>>>>>>>>>>>>>>>>>> when show message bottom  <<<<<<<<<<<<<<<<<<<<<<
+  // >>>>>>>>>>>>>>>>>>>>>> when show message  <<<<<<<<<<<<<<<<<<<<<<
 
   // >>>>>>>>>>>>>>>>>>>>>> error message snackbar  <<<<<<<<<<<<<<<<<<<<<<
   static error(String parameterValue) {
     Get.showSnackbar(
       GetSnackBar(
+
         backgroundColor: AppColors.instance.red2,
         animationDuration: const Duration(seconds: 2),
         duration: const Duration(seconds: 3),

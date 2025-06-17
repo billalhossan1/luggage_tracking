@@ -33,7 +33,9 @@ class CategoryScreen extends StatelessWidget {
             itemBuilder: (context, index) {
               return CategoryCard(
                 onTap: () {
-                  Get.toNamed(AppRoutes.instance.productCategoryScreen);
+                  Get.toNamed(
+                      AppRoutes.instance.productCategoryScreen,arguments: {"category-id":controller.categoryList[index].sId,"category-name":controller.categoryList[index].name}
+                  );
                 }, categoryItem: controller.categoryList[index],
               );
             },

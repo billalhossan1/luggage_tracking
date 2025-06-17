@@ -19,7 +19,6 @@ class DeliveryDetailsScreenController extends GetxController {
   void onInit() {
     product = Get.arguments["product"];
     quantity.value = Get.arguments["quantity"];
-    // Logger().e("quantity: ${quantity.value}");
     super.onInit();
   }
 
@@ -39,7 +38,6 @@ class DeliveryDetailsScreenController extends GetxController {
       );
     } else {
       // Form is not valid, show an error or feedback (optional)
-      Logger().e("Form is not valid.");
     }
   }
 

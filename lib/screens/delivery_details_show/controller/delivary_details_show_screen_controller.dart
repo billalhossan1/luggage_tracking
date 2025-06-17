@@ -32,11 +32,11 @@ class DeliveryDetailsShowScreenController extends GetxController{
     }
     address = Get.arguments["address"];
     quantity = Get.arguments["quantity"];
-    Logger().i("productName :${product!.name}");
-    Logger().i("email :$email");
-    Logger().i("contact :$contact");
-    Logger().i("address :$address");
-    Logger().i("quantity :$quantity");
+    // Logger().i("productName :${product!.name}");
+    // Logger().i("email :$email");
+    // Logger().i("contact :$contact");
+    // Logger().i("address :$address");
+    // Logger().i("quantity :$quantity");
 
     super.onInit();
   }

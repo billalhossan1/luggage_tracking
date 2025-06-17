@@ -1,3 +1,5 @@
+import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
+
 class WishListModel {
   bool? success;
   String? message;
@@ -15,7 +17,7 @@ class WishListModel {
     if (json['data'] != null) {
       wishList = <WishItem>[];
       json['data'].forEach((v) {
-        wishList!.add(new WishItem.fromJson(v));
+        wishList!.add(WishItem.fromJson(v));
       });
     }
   }
@@ -61,14 +63,14 @@ class Pagination {
 
 class WishItem {
   String? sId;
-  WishProduct? product;
+  ProductItem? product;
 
   WishItem({this.sId, this.product});
 
   WishItem.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     product =
-    json['product'] != null ? new WishProduct.fromJson(json['product']) : null;
+    json['product'] != null ? new ProductItem.fromJson(json['product']) : null;
   }
 
   Map<String, dynamic> toJson() {
@@ -81,59 +83,62 @@ class WishItem {
   }
 }
 
-class WishProduct {
-  String? sId;
-  String? name;
-  String? description;
-  List<String>? images;
-  String? category;
-  int? price;
-  String? status;
-  String? color;
-  String? createdAt;
-  String? updatedAt;
-  int? iV;
+// class WishProduct {
+//   String? sId;
+//   String? name;
+//   String? description;
+//   List<String>? images;
+//   String? category;
+//   int? price;
+//   String? status;
+//   String? color;
+//   String? createdAt;
+//   String? updatedAt;
+//   int? iV;
+//
+//
+//   WishProduct(
+//       {this.sId,
+//         this.name,
+//         this.description,
+//         this.images,
+//         this.category,
+//         this.price,
+//         this.status,
+//         this.color,
+//         this.createdAt,
+//         this.updatedAt,
+//         this.iV});
+//
+//   WishProduct.fromJson(Map<String, dynamic> json) {
+//     sId = json['_id'];
+//     name = json['name'];
+//     description = json['description'];
+//     images = json['images'].cast<String>();
+//     category = json['category'];
+//     price = json['price'];
+//     status = json['status'];
+//     color = json['color'];
+//     createdAt = json['createdAt'];
+//     updatedAt = json['updatedAt'];
+//     iV = json['__v'];
+//   }
+//
+//   Map<String, dynamic> toJson() {
+//     final Map<String, dynamic> data = new Map<String, dynamic>();
+//     data['_id'] = this.sId;
+//     data['name'] = this.name;
+//     data['description'] = this.description;
+//     data['images'] = this.images;
+//     data['category'] = this.category;
+//     data['price'] = this.price;
+//     data['status'] = this.status;
+//     data['color'] = this.color;
+//     data['createdAt'] = this.createdAt;
+//     data['updatedAt'] = this.updatedAt;
+//     data['__v'] = this.iV;
+//     return data;
+//   }
+// }
 
-  WishProduct(
-      {this.sId,
-        this.name,
-        this.description,
-        this.images,
-        this.category,
-        this.price,
-        this.status,
-        this.color,
-        this.createdAt,
-        this.updatedAt,
-        this.iV});
 
-  WishProduct.fromJson(Map<String, dynamic> json) {
-    sId = json['_id'];
-    name = json['name'];
-    description = json['description'];
-    images = json['images'].cast<String>();
-    category = json['category'];
-    price = json['price'];
-    status = json['status'];
-    color = json['color'];
-    createdAt = json['createdAt'];
-    updatedAt = json['updatedAt'];
-    iV = json['__v'];
-  }
-
-  Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['name'] = this.name;
-    data['description'] = this.description;
-    data['images'] = this.images;
-    data['category'] = this.category;
-    data['price'] = this.price;
-    data['status'] = this.status;
-    data['color'] = this.color;
-    data['createdAt'] = this.createdAt;
-    data['updatedAt'] = this.updatedAt;
-    data['__v'] = this.iV;
-    return data;
-  }
-}
