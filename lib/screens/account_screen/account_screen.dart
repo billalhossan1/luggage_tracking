@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_rating_bar/flutter_rating_bar.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
@@ -65,6 +66,13 @@ class AccountScreen extends StatelessWidget {
                       ),
                     ],
                   ),
+                  IcontextRow(
+                    icon: Icon(FontAwesomeIcons.crown,color: Colors.black38,),
+                    text: "My Plan",
+                    onTap: () {
+                      Get.toNamed(AppRoutes.instance.myPlanScreen);
+                    },
+                  ),
 
                   IcontextRow(
                     iconPath: AssetsIconsPath.instance.wishList,
@@ -80,6 +88,7 @@ class AccountScreen extends StatelessWidget {
                       Get.toNamed(AppRoutes.instance.dealingHistoryScreen);
                     },
                   ),
+
                   IcontextRow(
                     iconPath: AssetsIconsPath.instance.setting,
                     text: "Account Setting",

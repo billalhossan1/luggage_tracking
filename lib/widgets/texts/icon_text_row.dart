@@ -7,9 +7,11 @@ import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class IcontextRow extends StatelessWidget {
   final String? iconPath;
+  final Icon? icon; // New parameter to pass an Icon
   final String? text;
   final Function()? onTap;
-  const IcontextRow({super.key, this.iconPath, this.text, this.onTap});
+
+  const IcontextRow({super.key, this.iconPath, this.icon, this.text, this.onTap});
 
   @override
   Widget build(BuildContext context) {
@@ -26,13 +28,17 @@ class IcontextRow extends StatelessWidget {
           borderRadius: BorderRadius.circular(18),
         ),
         child: Row(
-          spacing: AppSize.width(value: 16),
+          mainAxisAlignment: MainAxisAlignment.start,
           children: [
-            AppImage(
+            // Check if `icon` is passed, use that, otherwise fall back to `iconPath`
+            icon != null
+                ? icon!
+                : AppImage(
               path: iconPath ?? AssetsIconsPath.instance.wishList,
               width: AppSize.width(value: 20),
               height: AppSize.width(value: 20),
             ),
+            SizedBox(width: AppSize.width(value: 16)),
             AppText(
               data: text ?? "Wish list",
               fontSize: AppSize.width(value: 18),

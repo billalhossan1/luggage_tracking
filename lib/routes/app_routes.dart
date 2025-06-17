@@ -45,4 +45,5 @@ class AppRoutes {
   final String shareUserItemScreen = "/share-item-user-screen";
   final String signUpWithPersonalData = "/signup-with-personal-data-screen";
   final String allProductScreen = "/all-product-screen";
+  final String myPlanScreen = "/my-plan-screen";
 }

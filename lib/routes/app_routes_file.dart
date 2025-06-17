@@ -11,6 +11,7 @@ import 'package:luggage_tracking/routes/bindings/delivery_details_screen_binding
 import 'package:luggage_tracking/routes/bindings/delivery_details_show_binding.dart';
 import 'package:luggage_tracking/routes/bindings/edit_profile_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/faq_screen_binding.dart';
+import 'package:luggage_tracking/routes/bindings/my_plan_screen_bingding.dart';
 import 'package:luggage_tracking/routes/bindings/navigation_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/product_category_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/product_details_screen_binding.dart';
@@ -42,6 +43,7 @@ import 'package:luggage_tracking/screens/find_nearby/find_nearby.dart';
 import 'package:luggage_tracking/screens/forget_password_screen/forget_password_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/location_screen/location_screen.dart';
+import 'package:luggage_tracking/screens/my_plan/screen/my_plan_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/navigation_screen.dart';
 import 'package:luggage_tracking/screens/notification_screen/notification_screen.dart';
 import 'package:luggage_tracking/screens/onboarding_screen/onboarding_screen.dart';
@@ -181,6 +183,11 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.deviceScreen,
     binding: AppBinding(),
     page: () => DeviceScreen(),
+  ),
+  GetPage(
+    name: AppRoutes.instance.myPlanScreen,
+    binding: MyPlanScreenBinding(),
+    page: () => MyPlanScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.signUpWithPersonalData,
