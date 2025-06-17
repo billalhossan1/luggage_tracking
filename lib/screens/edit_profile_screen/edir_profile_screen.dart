@@ -8,9 +8,11 @@ import 'package:luggage_tracking/widgets/app_validation_button/app_validation_bu
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/box/check_box_with_text.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
+import 'package:luggage_tracking/widgets/date_picker_text_filed/date_picker.dart';
 import 'package:luggage_tracking/widgets/texts/custom_text_field.dart';
 
 class ProfileEditScreen extends StatelessWidget {
+
   const ProfileEditScreen({super.key});
 
   @override
@@ -61,22 +63,15 @@ class ProfileEditScreen extends StatelessWidget {
                             return null;
                           },
                         ),
-                        CustomTextField.build(
-                          hintText: "Date of Birth",
-                          controller: controller.dateOfBirthTEController,
-                          validator: (value) {
-                            if (value == null || value.isEmpty) {
-                              return 'Date of Birth is required';
-                            }
-                            return null;
-                          },
-                        ),
+                        Gap(height: 10,),
+                        DatePickerTextField(controller: controller),
                         AppDropDown(
                           hintText: "Gender",
                           items: gender,
                           selectedValue: controller.selectedGender.value,
                           onChanged: controller.onSelectGender,
                         ),
+                        Gap(height: 8,),
                         CustomTextField.build(
                           hintText: "Occupation",
                           controller: controller.occupationTEController,
