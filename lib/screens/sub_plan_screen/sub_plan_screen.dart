@@ -53,7 +53,7 @@ class SubPlanScreen extends StatelessWidget {
                             paymentUrl: plan.paymentLink ?? "",
                           ),
                           heading: plan.title,
-                          price: "${plan.price}",
+                          price: "\$${plan.price?.toStringAsFixed(2)}/${plan.paymentType}",
                           offer1: plan.description,
                           isSelected: true,
                         );
@@ -124,6 +124,7 @@ class PlanCard extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: AppColors.instance.black400,
             ),
+            Gap(height: AppSize.height(value: 10),),
             AppText(
               data: price ?? "",
               fontSize: AppSize.width(value: 14),
