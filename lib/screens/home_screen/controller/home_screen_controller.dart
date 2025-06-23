@@ -1,4 +1,6 @@
+import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/screens/account_screen/model/profile_model.dart';
@@ -9,6 +11,7 @@ import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
+import '../../../widgets/snackbar_message/snackBar_widget.dart';
 
 
 class HomeScreenController extends GetxController{
@@ -21,7 +24,7 @@ class HomeScreenController extends GetxController{
   RxList<ProductItem> productList = <ProductItem>[].obs;
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     Logger().i("HomeScreenController initialized");
     getCategoryList();
     getProductList();
@@ -172,12 +175,16 @@ class HomeScreenController extends GetxController{
         Urls.getProductListUrl, accessToken: accessToken);
   }
 
-  Future<void> makeOrder()async{
-    if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
-      Get.lazyPut(() => SaveDataController());
-      Get.lazyPut(() => NetworkCaller());
-    }
-    //TODO:makeorder
-    // final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.makeOrderListUrl,)
-  }
+  // Future<void> makeOrder()async{
+  //   if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
+  //     Get.lazyPut(() => SaveDataController());
+  //     Get.lazyPut(() => NetworkCaller());
+  //   }
+  //   //TODO:makeorder
+  //   // final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.makeOrderListUrl,)
+  // }
+
+
+
+
 }

@@ -4,6 +4,7 @@ import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/device_screen/controller/device_screen_controller.dart';
+import 'package:luggage_tracking/screens/navigation_screen/controllers/navigation_screen_controller.dart';
 import 'package:luggage_tracking/screens/share_item_screen/share_item_screen.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/widgets/item_tracker_widget.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -15,6 +16,7 @@ import 'package:luggage_tracking/widgets/cards/app_card/app_card.dart';
 import 'package:luggage_tracking/widgets/device_custom_tab_button/device_custom_tab_button.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/service_widget/profile_top_widget.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class DeviceScreen extends StatelessWidget {
@@ -85,426 +87,204 @@ class DeviceScreen extends StatelessWidget {
                           if (controller.selectedItem.value == 1) {
                             return Expanded(
                               child: RefreshIndicator(
-                                onRefresh: () {
-                                  return controller.onRefresh();
-                                },
-                                child: Column(
-                                  children: [
-                                    // List of items
-                                    Expanded(
-                                      child: ListView.builder(
-                                        itemCount: controller.devices.length,
-                                        itemBuilder: (context, index) {
-                                          return ItemTrackerWidget(
-                                            showLocationRow: false,
-                                            name: controller.devices[index].name,
-                                            child: GestureDetector(
-                                              onTap: () {
+                                onRefresh: controller.onRefresh,
+                                child: ListView.builder(
+                                  itemCount: controller.devices.length,
+                                  itemBuilder: (context, index) {
+                                    return ItemTrackerWidget(
+                                      showLocationRow: false,
+                                      name: controller.devices[index].name,
+                                      child: GestureDetector(
+                                        onTap: () {
+                                          Get.bottomSheet(
+                                            ShowCustomBottomSheet(
+                                              text1: "Edit",
+                                              text1IconPath: const Icon(Icons.edit),
+                                              text2: "Delete",
+                                              text2IconPath: const Icon(Icons.delete),
+                                              text1OnTap: () {
                                                 Get.bottomSheet(
-                                                  ShowCustomBottomSheet(
-                                                    text1: "Edit",
-                                                    text1IconPath: Icon(
-                                                      Icons.edit,
-                                                    ),
-                                                    text2: "Delete",
-                                                    text2IconPath: Icon(
-                                                      Icons.delete,
-                                                    ),
-                                                    text1OnTap: () {
-                                                      Get.bottomSheet(
-                                                        Wrap(
-                                                          // 👈 This makes the bottom sheet wrap its content height
+                                                  Wrap(
+                                                    children: [
+                                                      Container(
+                                                        padding: const EdgeInsets.all(16),
+                                                        width: double.infinity,
+                                                        decoration: BoxDecoration(
+                                                          color: AppColors.instance.white50,
+                                                          borderRadius: const BorderRadius.only(
+                                                            topLeft: Radius.circular(12),
+                                                            topRight: Radius.circular(12),
+                                                          ),
+                                                        ),
+                                                        child: Column(
+                                                          crossAxisAlignment: CrossAxisAlignment.start,
                                                           children: [
-                                                            Container(
-                                                              padding:
-                                                              const EdgeInsets.all(
-                                                                16,
-                                                              ),
-                                                              width:
-                                                              double.infinity,
-                                                              decoration: BoxDecoration(
-                                                                color:
-                                                                AppColors
-                                                                    .instance
-                                                                    .white50,
-                                                                borderRadius:
-                                                                const BorderRadius.only(
-                                                                  topLeft:
-                                                                  Radius.circular(
-                                                                    12,
-                                                                  ),
-                                                                  topRight:
-                                                                  Radius.circular(
-                                                                    12,
+                                                            Gap(height: AppSize.width(value: 16)),
+                                                            ProfileTopWidget(
+                                                              imgUrl: controller.profile.profileModel.value?.profile??'',
+                                                              name: controller.profile.profileModel.value?.name??'',
+                                                              email: controller.profile.profileModel.value?.email??'',
+                                                            ),
+                                                            Gap(height: AppSize.width(value: 16)),
+                                                            Row(
+                                                              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                              children: [
+                                                                const Expanded(child: SizedBox()),
+                                                                Expanded(
+                                                                  child: AppButton(
+                                                                    onTap: (){
+                                                                      Get.find<NavigationScreenController>().changeIndex(2);
+                                                                      Navigator.pop(context);
+                                                                      Navigator.pop(context);
+                                                                    },
+                                                                    height: 24,
+                                                                    circularHeight: 8,
+                                                                    filColor: AppColors.instance.white500,
+                                                                    title: "Track",
+                                                                    titleColor: AppColors.instance.black500,
                                                                   ),
                                                                 ),
-                                                              ),
-                                                              child: Column(
-                                                                crossAxisAlignment:
-                                                                CrossAxisAlignment
-                                                                    .start,
-                                                                children: [
-                                                                  Gap(
-                                                                    height:
-                                                                    AppSize.width(
-                                                                      value:
-                                                                      16,
-                                                                    ),
+                                                                Expanded(
+                                                                  child: AppButton(
+                                                                    height: 24,
+                                                                    circularHeight: 8,
+                                                                    filColor: AppColors.instance.black500,
+                                                                    title: "Detach",
+                                                                    titleColor: AppColors.instance.white500,
                                                                   ),
-                                                                  ProfileTopWidget(
-                                                                    imgUrl:
-                                                                    AssetsImagesPath
-                                                                        .instance
-                                                                        .person,
-                                                                    name:
-                                                                    "Suporna Talukdar",
-                                                                    email:
-                                                                    "Asadujjaman101@gmail,com",
-                                                                  ),
-                                                                  Gap(
-                                                                    height:
-                                                                    AppSize.width(
-                                                                      value:
-                                                                      16,
-                                                                    ),
-                                                                  ),
-                                                                  Row(
-                                                                    spacing: 8,
-                                                                    mainAxisAlignment:
-                                                                    MainAxisAlignment
-                                                                        .spaceBetween,
-                                                                    children: [
-                                                                      Expanded(
-                                                                        child:
-                                                                        SizedBox(),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child: AppButton(
-                                                                          height:
-                                                                          24,
-                                                                          circularHeight:
-                                                                          8,
-                                                                          filColor:
-                                                                          AppColors.instance.white500,
-                                                                          title:
-                                                                          "Track",
-                                                                          titleColor:
-                                                                          AppColors.instance.black500,
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child: AppButton(
-                                                                          height:
-                                                                          24,
-                                                                          circularHeight:
-                                                                          8,
-                                                                          filColor:
-                                                                          AppColors.instance.black500,
-                                                                          title:
-                                                                          "Detach",
-                                                                          titleColor:
-                                                                          AppColors.instance.white500,
-                                                                        ),
-                                                                      ),
-                                                                      Expanded(
-                                                                        child:
-                                                                        SizedBox(),
-                                                                      ),
-                                                                    ],
-                                                                  ),
-
-                                                                  AppDivider(),
-                                                                  ItemTrackerWidget(),
-                                                                  Gap(
-                                                                    height:
-                                                                    AppSize.width(
-                                                                      value:
-                                                                      16,
-                                                                    ),
-                                                                  ),
-                                                                  AppText(
-                                                                    data:
-                                                                    "CONGRATULATION , Suporna accept your request",
-                                                                    fontSize:
-                                                                    AppSize.width(
-                                                                      value:
-                                                                      12,
-                                                                    ),
-                                                                    fontWeight:
-                                                                    FontWeight
-                                                                        .w400,
-                                                                    color:
-                                                                    AppColors
-                                                                        .instance
-                                                                        .green1,
-                                                                  ),
-                                                                  Gap(
-                                                                    height:
-                                                                    AppSize.width(
-                                                                      value:
-                                                                      20,
-                                                                    ),
-                                                                  ),
-                                                                  // AppButton(
-                                                                  //   onTap: () {
-                                                                  //     Get.offAllNamed(
-                                                                  //       AppRoutes
-                                                                  //           .instance
-                                                                  //           .navigationScreen,
-                                                                  //     );
-                                                                  //     Future.delayed(
-                                                                  //       Duration(
-                                                                  //         milliseconds:
-                                                                  //             100,
-                                                                  //       ),
-                                                                  //       () {
-                                                                  //         Get.toNamed(
-                                                                  //           AppRoutes
-                                                                  //               .instance
-                                                                  //               .trackItemScreen,
-                                                                  //         );
-                                                                  //       },
-                                                                  //     );
-                                                                  //   },
-                                                                  //   title:
-                                                                  //       "Go Track Item",
-                                                                  // ),
-                                                                ],
-                                                              ),
+                                                                ),
+                                                                const Expanded(child: SizedBox()),
+                                                              ],
                                                             ),
+                                                            AppDivider(),
+                                                             ItemTrackerWidget(name: controller.devices[index].name,showLocationRow:true,serial: controller.devices[index].serial,status: controller.devices[index].status ,),
+                                                            Gap(height: AppSize.width(value: 16)),
+                                                            AppText(
+                                                              data: "CONGRATULATION , Suporna accept your request",
+                                                              fontSize: AppSize.width(value: 12),
+                                                              fontWeight: FontWeight.w400,
+                                                              color: AppColors.instance.green1,
+                                                            ),
+                                                            Gap(height: AppSize.width(value: 20)),
                                                           ],
                                                         ),
-                                                      );
-                                                    },
+                                                      ),
+                                                    ],
                                                   ),
-                                                  isScrollControlled: true,
                                                 );
                                               },
-                                              child: Icon(
-                                                Icons.more_vert,
-                                                size: AppSize.width(value: 14),
-                                              ),
                                             ),
+                                            isScrollControlled: true,
                                           );
                                         },
+                                        child: Icon(Icons.more_vert, size: AppSize.width(value: 14)),
                                       ),
-                                    ),
-
-                                    // Bottom password section
-                                  ],
+                                    );
+                                  },
                                 ),
                               ),
                             );
                           } else {
+                            if (!controller.isSubscribe) {
+                              WidgetsBinding.instance.addPostFrameCallback((_) {
+                                showCustomSnackBar(title: "Failed", message: "You need to purchase premium subscription for access these item",isError: true);
+                              });
+                              return const SizedBox();
+                            }
+
                             return Expanded(
-                              child: Column(
-                                children: [
-                                  // List of items
-                                  Expanded(
-                                    child: ListView.builder(
-                                      itemCount: 2,
-                                      itemBuilder: (context, index) {
-                                        return ItemTrackerWidget(
-                                          showLocationRow: false,
-
-                                          child: GestureDetector(
-                                            onTap: () {
+                              child: ListView.builder(
+                                itemCount: 3,
+                                itemBuilder: (context, index) {
+                                  return ItemTrackerWidget(
+                                    showLocationRow: false,
+                                    child: GestureDetector(
+                                      onTap: () {
+                                        Get.bottomSheet(
+                                          ShowCustomBottomSheet(
+                                            text1: "User Details",
+                                            text1IconPath: const Icon(Icons.person),
+                                            text2: "Detach",
+                                            text2IconPath: const Icon(Icons.bookmark_remove),
+                                            text1OnTap: () {
                                               Get.bottomSheet(
-                                                ShowCustomBottomSheet(
-                                                  text1: "User Details",
-                                                  text1IconPath: Icon(
-                                                    Icons.person,
-                                                  ),
-                                                  text2: "Detach",
-                                                  text2IconPath: Icon(
-                                                    Icons.bookmark_remove,
-                                                  ),
-                                                  text1OnTap: () {
-                                                    Get.bottomSheet(
-                                                      Wrap(
-                                                        // 👈 This makes the bottom sheet wrap its content height
+                                                Wrap(
+                                                  children: [
+                                                    Container(
+                                                      padding: const EdgeInsets.all(16),
+                                                      width: double.infinity,
+                                                      decoration: BoxDecoration(
+                                                        color: AppColors.instance.white50,
+                                                        borderRadius: const BorderRadius.only(
+                                                          topLeft: Radius.circular(12),
+                                                          topRight: Radius.circular(12),
+                                                        ),
+                                                      ),
+                                                      child: Column(
+                                                        crossAxisAlignment: CrossAxisAlignment.start,
                                                         children: [
-                                                          Container(
-                                                            padding:
-                                                                const EdgeInsets.all(
-                                                                  16,
-                                                                ),
-                                                            width:
-                                                                double.infinity,
-                                                            decoration: BoxDecoration(
-                                                              color:
-                                                                  AppColors
-                                                                      .instance
-                                                                      .white50,
-                                                              borderRadius:
-                                                                  const BorderRadius.only(
-                                                                    topLeft:
-                                                                        Radius.circular(
-                                                                          12,
-                                                                        ),
-                                                                    topRight:
-                                                                        Radius.circular(
-                                                                          12,
-                                                                        ),
-                                                                  ),
-                                                            ),
-                                                            child: Column(
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            16,
-                                                                      ),
-                                                                ),
-                                                                ProfileTopWidget(
-                                                                  imgUrl:
-                                                                      AssetsImagesPath
-                                                                          .instance
-                                                                          .person,
-                                                                  name:
-                                                                      "Suporna Talukdar",
-                                                                  email:
-                                                                      "Asadujjaman101@gmail,com",
-                                                                ),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            16,
-                                                                      ),
-                                                                ),
-                                                                Row(
-                                                                  spacing: 8,
-                                                                  mainAxisAlignment:
-                                                                      MainAxisAlignment
-                                                                          .spaceBetween,
-                                                                  children: [
-                                                                    Expanded(
-                                                                      child:
-                                                                          SizedBox(),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: AppButton(
-                                                                        height:
-                                                                            24,
-                                                                        circularHeight:
-                                                                            8,
-                                                                        filColor:
-                                                                            AppColors.instance.white500,
-                                                                        title:
-                                                                            "Track",
-                                                                        titleColor:
-                                                                            AppColors.instance.black500,
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child: AppButton(
-                                                                        height:
-                                                                            24,
-                                                                        circularHeight:
-                                                                            8,
-                                                                        filColor:
-                                                                            AppColors.instance.black500,
-                                                                        title:
-                                                                            "Detach",
-                                                                        titleColor:
-                                                                            AppColors.instance.white500,
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      child:
-                                                                          SizedBox(),
-                                                                    ),
-                                                                  ],
-                                                                ),
-
-                                                                AppDivider(),
-                                                                ItemTrackerWidget(),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            16,
-                                                                      ),
-                                                                ),
-                                                                AppText(
-                                                                  data:
-                                                                      "CONGRATULATION , Suporna accept your request",
-                                                                  fontSize:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            12,
-                                                                      ),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      AppColors
-                                                                          .instance
-                                                                          .green1,
-                                                                ),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                ),
-                                                                // AppButton(
-                                                                //   onTap: () {
-                                                                //     Get.offAllNamed(
-                                                                //       AppRoutes
-                                                                //           .instance
-                                                                //           .navigationScreen,
-                                                                //     );
-                                                                //     Future.delayed(
-                                                                //       Duration(
-                                                                //         milliseconds:
-                                                                //             100,
-                                                                //       ),
-                                                                //       () {
-                                                                //         Get.toNamed(
-                                                                //           AppRoutes
-                                                                //               .instance
-                                                                //               .trackItemScreen,
-                                                                //         );
-                                                                //       },
-                                                                //     );
-                                                                //   },
-                                                                //   title:
-                                                                //       "Go Track Item",
-                                                                // ),
-                                                              ],
-                                                            ),
+                                                          Gap(height: AppSize.width(value: 16)),
+                                                          ProfileTopWidget(
+                                                            imgUrl: AssetsImagesPath.instance.person,
+                                                            name: "Suporna Talukdar",
+                                                            email: "Asadujjaman101@gmail.com",
                                                           ),
+                                                          Gap(height: AppSize.width(value: 16)),
+                                                          Row(
+                                                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                                            children: [
+                                                              const Expanded(child: SizedBox()),
+                                                              Expanded(
+                                                                child: AppButton(
+                                                                  height: 24,
+                                                                  circularHeight: 8,
+                                                                  filColor: AppColors.instance.white500,
+                                                                  title: "Track",
+                                                                  titleColor: AppColors.instance.black500,
+                                                                ),
+                                                              ),
+                                                              Expanded(
+                                                                child: AppButton(
+                                                                  height: 24,
+                                                                  circularHeight: 8,
+                                                                  filColor: AppColors.instance.black500,
+                                                                  title: "Detach",
+                                                                  titleColor: AppColors.instance.white500,
+                                                                ),
+                                                              ),
+                                                              const Expanded(child: SizedBox()),
+                                                            ],
+                                                          ),
+                                                          AppDivider(),
+                                                           ItemTrackerWidget(),
+                                                          Gap(height: AppSize.width(value: 16)),
+                                                          AppText(
+                                                            data: "CONGRATULATION , Suporna accept your request",
+                                                            fontSize: AppSize.width(value: 12),
+                                                            fontWeight: FontWeight.w400,
+                                                            color: AppColors.instance.green1,
+                                                          ),
+                                                          Gap(height: AppSize.width(value: 20)),
                                                         ],
                                                       ),
-                                                    );
-                                                  },
+                                                    ),
+                                                  ],
                                                 ),
-                                                isScrollControlled: true,
                                               );
                                             },
-                                            child: Icon(
-                                              Icons.more_vert,
-                                              size: AppSize.width(value: 14),
-                                            ),
                                           ),
+                                          isScrollControlled: true,
                                         );
                                       },
+                                      child: Icon(Icons.more_vert, size: AppSize.width(value: 14)),
                                     ),
-                                  ),
-
-                                  // Bottom password section
-                                ],
+                                  );
+                                },
                               ),
                             );
                           }
                         }),
+
                       ],
                     ),
                   ),

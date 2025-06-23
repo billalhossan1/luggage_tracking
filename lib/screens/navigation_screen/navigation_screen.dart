@@ -58,7 +58,7 @@ class NavigationScreen extends StatelessWidget {
                         final isSelected =
                             controller.selectedIndex.value == index;
                         final iconPaths = [
-                          AssetsIconsPath.instance.homeNav,
+                          "assets/icons/home_nav.png",
                           AssetsIconsPath.instance.deviceNav,
                           AssetsIconsPath.instance.trackerNav,
                           AssetsIconsPath.instance.accountNav,

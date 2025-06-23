@@ -57,6 +57,7 @@ class Devices {
   String? user;
   String? name;
   Category? category;
+  String? status;
   String? serial;
   String? createdAt;
   String? updatedAt;
@@ -68,8 +69,10 @@ class Devices {
         this.name,
         this.category,
         this.serial,
+        this.status,
         this.createdAt,
         this.updatedAt,
+
         this.iV});
 
   Devices.fromJson(Map<String, dynamic> json) {
@@ -80,6 +83,7 @@ class Devices {
         ? new Category.fromJson(json['category'])
         : null;
     serial = json['serial'];
+    status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
     iV = json['__v'];
@@ -90,6 +94,7 @@ class Devices {
     data['_id'] = this.sId;
     data['user'] = this.user;
     data['name'] = this.name;
+    data['status'] = this.status;
     if (this.category != null) {
       data['category'] = this.category!.toJson();
     }

@@ -14,11 +14,12 @@ class ItemTrackerWidget extends StatelessWidget {
   String? name;
   String? location;
   String? serial;
+  String? status;
    ItemTrackerWidget({
     super.key,
     this.onTap,
     this.child,
-    this.showLocationRow = true,  this.name,
+    this.showLocationRow = true,  this.name,this.location,this.serial,this.status
   });
 
   @override
@@ -58,7 +59,7 @@ class ItemTrackerWidget extends StatelessWidget {
                           Row(
                             children: [
                               AppText(
-                                data: location??'not given',
+                                data: serial??'not given',
                                 fontSize: AppSize.width(value: 12),
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.instance.black200,
@@ -71,7 +72,7 @@ class ItemTrackerWidget extends StatelessWidget {
                               ),
                               Gap(width: AppSize.width(value: 8)),
                               AppText(
-                                data: "Now",
+                                data: status??"Now",
                                 fontSize: AppSize.width(value: 12),
                                 fontWeight: FontWeight.w400,
                                 color: AppColors.instance.black200,

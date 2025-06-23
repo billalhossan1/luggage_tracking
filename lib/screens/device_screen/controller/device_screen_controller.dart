@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/screens/device_screen/model/device_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
 
 class DeviceScreenController extends GetxController {
   RxBool isLoading = false.obs; // Track loading state
@@ -14,14 +17,18 @@ class DeviceScreenController extends GetxController {
 
   int currentPage = 1;
   int totalPage = 1;
+  bool isSubscribe=false;
 
   ScrollController scrollController = ScrollController();
 
   @override
-  void onInit() {
+  Future<void> onInit() async {
     super.onInit();
     getDevices(); // Load initial devices
     scrollController.addListener(_scrollListener);
+    Get.lazyPut(()=>SaveDataController());
+    isSubscribe =await Get.find<SaveDataController>().getIsSubscribe();
+    Logger().e("===============================$isSubscribe");
   }
   Future<void> onRefresh()async{
     devices.clear();
@@ -36,6 +43,7 @@ class DeviceScreenController extends GetxController {
       final NetworkResponse response = await apiCall(page: currentPage);
       if (response.isSuccess) {
         DeviceModel deviceModel = DeviceModel.fromJson(response.responseData);
+        devices.clear();
         devices.addAll(deviceModel.data?.devices ?? []);
         totalPage = deviceModel.data?.pagination?.totalPage ?? 1;
         update();
@@ -64,13 +72,10 @@ class DeviceScreenController extends GetxController {
       if (response.isSuccess) {
         DeviceModel deviceModel = DeviceModel.fromJson(response.responseData);
         devices.addAll(deviceModel.data?.devices ?? []);
-        print("Loaded more devices: ${devices.length} items");
       } else {
-        String errorMessage = response.errorMessage ?? "Failed to load more devices";
-        print("Error: $errorMessage");
+        showCustomSnackBar(title: "Failed", message: response.errorMessage);
       }
     } catch (e) {
-      print("Error loading more devices: $e");
     } finally {
       isPaginationLoading.value = false;
     }
@@ -99,6 +104,7 @@ class DeviceScreenController extends GetxController {
     scrollController.dispose();
     super.onClose();
   }
+  var profile = Get.find<AccountController>();
 
   // Select item logic as before
   void selectItem(int? value) {

@@ -5,6 +5,7 @@ class SaveDataController extends GetxController {
   final String _accessTokenKey = 'accessToken';
   final String _rememberMeKey = 'rememberMe';
   final String _seenOnboardingKey = 'seenOnboarding';
+  final String _isSubscribeKey = 'isSubscribe';
 
   String? tempToken;
   bool? rememberMe;
@@ -15,6 +16,16 @@ class SaveDataController extends GetxController {
     await sharedPreferences.setBool(_rememberMeKey, true);
     tempToken = token;
     rememberMe = true;
+  }
+  Future<void>isSubscribe(bool isSubscribe)async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setBool(_isSubscribeKey, isSubscribe);
+
+  }
+  Future<bool>getIsSubscribe()async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getBool(_isSubscribeKey) ?? false;
+
   }
 
   void saveTempData(String token) {

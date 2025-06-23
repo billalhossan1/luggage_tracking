@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
@@ -15,602 +16,86 @@ import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
-class TrackerItemScreen extends StatelessWidget {
+class TrackerItemScreen extends StatefulWidget {
   const TrackerItemScreen({super.key});
 
   @override
+  State<TrackerItemScreen> createState() => _TrackerItemScreenState();
+}
+
+class _TrackerItemScreenState extends State<TrackerItemScreen> {
+  late GoogleMapController _mapController;
+
+  @override
+  void dispose() {
+    _mapController.dispose();
+    super.dispose();
+  }
+
+
+  void _goToCurrentLocation() {
+    final controller = Get.find<TrackerController>();
+    controller.goToCurrentLocation(_mapController);
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final TrackerController controller = Get.put(TrackerController());
+    return GetBuilder<TrackerController>(
+      init: TrackerController(),
+      builder: (controller) {
+        return Scaffold(
+          appBar: AppBar(
+            title: const Text("Tracker Item"),
+          ),
+          body: Stack(
+            children: [
+              Obx(() {
+                final currentPos = controller.currentPosition.value ??
+                    controller.initialCameraPosition;
 
-    return Scaffold(
-      appBar: CustomAppBar(
-        title: "Track Item",
-        showLeading: false,
-        autoShowLeading: false,
-      ),
-      body: GestureDetector(
-        onTap: () {
-          Get.bottomSheet(
-            FractionallySizedBox(
-              heightFactor: 0.45, // Use up to 90% of the screen height
-              child: Container(
-                width: double.infinity,
-                padding: const EdgeInsets.all(16),
-                decoration: BoxDecoration(
-                  color: AppColors.instance.white50,
-                  borderRadius: const BorderRadius.vertical(
-                    top: Radius.circular(24),
+                return GoogleMap(
+                  zoomGesturesEnabled: true,
+                  zoomControlsEnabled: false,
+                  mapToolbarEnabled: false,
+                  myLocationEnabled: true,
+                  myLocationButtonEnabled: true,
+                  initialCameraPosition: CameraPosition(
+                    target: currentPos,
+                    zoom: controller.isCurrentLocation.value ? 15 : 9,
                   ),
-                ),
-                child: SingleChildScrollView(
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Gap(height: AppSize.width(value: 16)),
-                      AppText(
-                        data: "Items List",
-                        fontSize: AppSize.width(value: 18),
-                        fontWeight: FontWeight.w600,
-                        color: AppColors.instance.black700,
-                      ),
-                      AppDivider(),
-                      AppText(
-                        data: "My Items",
-                        fontSize: AppSize.width(value: 14),
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.instance.black200,
-                      ),
-                      Gap(height: AppSize.width(value: 16)),
-
-                      /// Items
-                      Column(
-                        children: List.generate(1, (index) {
-                          return Column(
-                            children: [
-                              ItemTrackerWidget(
-                                onTap: () {
-                                  controller.toggleExpanded();
-                                },
-                              ),
-                              Obx(
-                                () =>
-                                    controller.isExpanded.value
-                                        ? AnimatedContainer(
-                                          duration: Duration(milliseconds: 300),
-                                          child: Column(
-                                            children: [
-                                              AppDivider(),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: StartSoundActiveButton(
-                                                      onTap:
-                                                          () =>
-                                                              controller
-                                                                  .soundActive(),
-                                                      controller: controller,
-                                                    ),
-                                                  ),
-                                                  Gap(
-                                                    width: AppSize.width(
-                                                      value: 8,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: IconTextColumn(
-                                                      onTap: () {
-                                                        Get.toNamed(
-                                                          AppRoutes
-                                                              .instance
-                                                              .findNearby,
-                                                        );
-                                                      },
-                                                      text: "Find Nearby",
-                                                      iconPath:
-                                                          AssetsIconsPath
-                                                              .instance
-                                                              .arrowGreen,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Gap(
-                                                height: AppSize.width(value: 8),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: IconTextColumn(
-                                                      onTap: () {
-                                                        Get.toNamed(
-                                                          AppRoutes
-                                                              .instance
-                                                              .shareItem,
-                                                        );
-                                                      },
-                                                      text: "Share Item",
-                                                      iconPath:
-                                                          AssetsIconsPath
-                                                              .instance
-                                                              .addUser,
-                                                    ),
-                                                  ),
-                                                  Gap(
-                                                    width: AppSize.width(
-                                                      value: 8,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: IconTextColumn(
-                                                      onTap: () {
-                                                        Get.bottomSheet(
-                                                          Container(
-                                                            padding: EdgeInsets.only(
-                                                              top:
-                                                                  AppSize.width(
-                                                                    value: 36,
-                                                                  ),
-                                                              left:
-                                                                  AppSize.width(
-                                                                    value: 20,
-                                                                  ),
-                                                              right:
-                                                                  AppSize.width(
-                                                                    value: 20,
-                                                                  ),
-                                                              bottom: AppSize.width(
-                                                                value: 100,
-                                                              ), // Add bottom padding for spacing
-                                                            ),
-                                                            decoration: BoxDecoration(
-                                                              color:
-                                                                  AppColors
-                                                                      .instance
-                                                                      .white200,
-                                                              borderRadius:
-                                                                  BorderRadius.only(
-                                                                    topLeft:
-                                                                        Radius.circular(
-                                                                          12,
-                                                                        ),
-                                                                    topRight:
-                                                                        Radius.circular(
-                                                                          12,
-                                                                        ),
-                                                                  ),
-                                                            ),
-                                                            // ✅ Remove width or use full screen width
-                                                            width:
-                                                                double.infinity,
-
-                                                            // ✅ Wrap Column with IntrinsicHeight or not needed if Column fits naturally
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min, // ✅ Makes the height dynamic!
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                AppText(
-                                                                  data:
-                                                                      "Are you sure ?",
-                                                                  fontSize:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      AppColors
-                                                                          .instance
-                                                                          .black900,
-                                                                ),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                ),
-                                                                AppText(
-                                                                  data:
-                                                                      "Do you want to turn on tracking notification option",
-                                                                  fontSize:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            12,
-                                                                      ),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      AppColors
-                                                                          .instance
-                                                                          .black300,
-                                                                ),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            16,
-                                                                      ),
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Expanded(
-                                                                      flex: 1,
-                                                                      child:
-                                                                          SizedBox(),
-                                                                    ),
-                                                                    Expanded(
-                                                                      flex: 2,
-                                                                      child: AppButton(
-                                                                        title:
-                                                                            "No",
-                                                                        height: AppSize.width(
-                                                                          value:
-                                                                              38,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Gap(
-                                                                      width: AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      flex: 2,
-                                                                      child: OutlinedButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                              // Add your logic here
-                                                                            },
-                                                                        style: OutlinedButton.styleFrom(
-                                                                          side: BorderSide(
-                                                                            color:
-                                                                                AppColors.instance.purple_500,
-                                                                          ),
-                                                                          foregroundColor:
-                                                                              AppColors.instance.purple_500,
-                                                                          shape: RoundedRectangleBorder(
-                                                                            borderRadius: BorderRadius.circular(
-                                                                              8,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        child: AppText(
-                                                                          data:
-                                                                              "Yes",
-                                                                          fontSize: AppSize.width(
-                                                                            value:
-                                                                                16,
-                                                                          ),
-                                                                          fontWeight:
-                                                                              FontWeight.w400,
-                                                                          color:
-                                                                              AppColors.instance.purple_500,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      text: "Notification",
-                                                      iconPath:
-                                                          AssetsIconsPath
-                                                              .instance
-                                                              .bellRed,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                        : SizedBox.shrink(),
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
-                      Gap(height: AppSize.width(value: 16)),
-                      AppText(
-                        data: "Others Items",
-                        fontSize: AppSize.width(value: 14),
-                        fontWeight: FontWeight.w400,
-                        color: AppColors.instance.black200,
-                      ),
-                      Gap(height: AppSize.width(value: 16)),
-                      Column(
-                        children: List.generate(1, (index) {
-                          return Column(
-                            children: [
-                              ItemTrackerWidget(
-                                onTap: () {
-                                  controller.toggleExpanded();
-                                },
-                              ),
-                              Obx(
-                                () =>
-                                    controller.isExpanded.value
-                                        ? AnimatedContainer(
-                                          duration: Duration(milliseconds: 300),
-                                          child: Column(
-                                            children: [
-                                              AppDivider(),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: StartSoundActiveButton(
-                                                      onTap:
-                                                          () =>
-                                                              controller
-                                                                  .soundActive(),
-                                                      controller: controller,
-                                                    ),
-                                                  ),
-                                                  Gap(
-                                                    width: AppSize.width(
-                                                      value: 8,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: IconTextColumn(
-                                                      onTap: () {
-                                                        Get.toNamed(
-                                                          AppRoutes
-                                                              .instance
-                                                              .findNearby,
-                                                        );
-                                                      },
-                                                      text: "Find Nearby",
-                                                      iconPath:
-                                                          AssetsIconsPath
-                                                              .instance
-                                                              .arrowGreen,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                              Gap(
-                                                height: AppSize.width(value: 8),
-                                              ),
-                                              Row(
-                                                children: [
-                                                  Expanded(
-                                                    child: IconTextColumn(
-                                                      onTap: () {
-                                                        Get.toNamed(
-                                                          AppRoutes
-                                                              .instance
-                                                              .shareItem,
-                                                        );
-                                                      },
-                                                      text: "Share Item",
-                                                      iconPath:
-                                                          AssetsIconsPath
-                                                              .instance
-                                                              .addUser,
-                                                    ),
-                                                  ),
-                                                  Gap(
-                                                    width: AppSize.width(
-                                                      value: 8,
-                                                    ),
-                                                  ),
-                                                  Expanded(
-                                                    child: IconTextColumn(
-                                                      onTap: () {
-                                                        Get.bottomSheet(
-                                                          Container(
-                                                            padding: EdgeInsets.only(
-                                                              top:
-                                                                  AppSize.width(
-                                                                    value: 36,
-                                                                  ),
-                                                              left:
-                                                                  AppSize.width(
-                                                                    value: 20,
-                                                                  ),
-                                                              right:
-                                                                  AppSize.width(
-                                                                    value: 20,
-                                                                  ),
-                                                              bottom: AppSize.width(
-                                                                value: 100,
-                                                              ), // Add bottom padding for spacing
-                                                            ),
-                                                            decoration: BoxDecoration(
-                                                              color:
-                                                                  AppColors
-                                                                      .instance
-                                                                      .white200,
-                                                              borderRadius:
-                                                                  BorderRadius.only(
-                                                                    topLeft:
-                                                                        Radius.circular(
-                                                                          12,
-                                                                        ),
-                                                                    topRight:
-                                                                        Radius.circular(
-                                                                          12,
-                                                                        ),
-                                                                  ),
-                                                            ),
-                                                            // ✅ Remove width or use full screen width
-                                                            width:
-                                                                double.infinity,
-
-                                                            // ✅ Wrap Column with IntrinsicHeight or not needed if Column fits naturally
-                                                            child: Column(
-                                                              mainAxisSize:
-                                                                  MainAxisSize
-                                                                      .min, // ✅ Makes the height dynamic!
-                                                              crossAxisAlignment:
-                                                                  CrossAxisAlignment
-                                                                      .start,
-                                                              children: [
-                                                                AppText(
-                                                                  data:
-                                                                      "Are you sure ?",
-                                                                  fontSize:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w400,
-                                                                  color:
-                                                                      AppColors
-                                                                          .instance
-                                                                          .black900,
-                                                                ),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                ),
-                                                                AppText(
-                                                                  data:
-                                                                      "Do you want to turn on tracking notification option",
-                                                                  fontSize:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            12,
-                                                                      ),
-                                                                  fontWeight:
-                                                                      FontWeight
-                                                                          .w500,
-                                                                  color:
-                                                                      AppColors
-                                                                          .instance
-                                                                          .black300,
-                                                                ),
-                                                                Gap(
-                                                                  height:
-                                                                      AppSize.width(
-                                                                        value:
-                                                                            16,
-                                                                      ),
-                                                                ),
-                                                                Row(
-                                                                  children: [
-                                                                    Expanded(
-                                                                      flex: 1,
-                                                                      child:
-                                                                          SizedBox(),
-                                                                    ),
-                                                                    Expanded(
-                                                                      flex: 2,
-                                                                      child: AppButton(
-                                                                        title:
-                                                                            "No",
-                                                                        height: AppSize.width(
-                                                                          value:
-                                                                              38,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                    Gap(
-                                                                      width: AppSize.width(
-                                                                        value:
-                                                                            20,
-                                                                      ),
-                                                                    ),
-                                                                    Expanded(
-                                                                      flex: 2,
-                                                                      child: OutlinedButton(
-                                                                        onPressed:
-                                                                            () {
-                                                                              // Add your logic here
-                                                                            },
-                                                                        style: OutlinedButton.styleFrom(
-                                                                          side: BorderSide(
-                                                                            color:
-                                                                                AppColors.instance.purple_500,
-                                                                          ),
-                                                                          foregroundColor:
-                                                                              AppColors.instance.purple_500,
-                                                                          shape: RoundedRectangleBorder(
-                                                                            borderRadius: BorderRadius.circular(
-                                                                              8,
-                                                                            ),
-                                                                          ),
-                                                                        ),
-                                                                        child: AppText(
-                                                                          data:
-                                                                              "Yes",
-                                                                          fontSize: AppSize.width(
-                                                                            value:
-                                                                                16,
-                                                                          ),
-                                                                          fontWeight:
-                                                                              FontWeight.w400,
-                                                                          color:
-                                                                              AppColors.instance.purple_500,
-                                                                        ),
-                                                                      ),
-                                                                    ),
-                                                                  ],
-                                                                ),
-                                                              ],
-                                                            ),
-                                                          ),
-                                                        );
-                                                      },
-                                                      text: "Notification",
-                                                      iconPath:
-                                                          AssetsIconsPath
-                                                              .instance
-                                                              .bellRed,
-                                                    ),
-                                                  ),
-                                                ],
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                        : SizedBox.shrink(),
-                              ),
-                            ],
-                          );
-                        }),
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-            ),
-            isScrollControlled: true,
-          );
-        },
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            // Background Image
-            Image.asset(
-              AssetsImagesPath
-                  .instance
-                  .mapImg, // Make sure this image path is correct
-              fit: BoxFit.cover,
-            ),
-          ],
-        ),
-      ),
+                  onMapCreated: (mapCtrl) {
+                    _mapController = mapCtrl;
+                  },
+                  circles: controller.isCurrentLocation.value
+                      ? {
+                    Circle(
+                      circleId: const CircleId('current_location_circle'),
+                      center: currentPos,
+                      radius: 100,
+                      fillColor: Colors.blue.withAlpha(60),
+                      strokeColor: Colors.blue,
+                      strokeWidth: 2,
+                    ),
+                  }
+                      : {},
+                );
+              }),
+            ],
+          ),
+          // Floating Action Button to navigate to the current location
+          // floatingActionButton: FloatingActionButton(
+          //   onPressed: _goToCurrentLocation, // Trigger action
+          //   child: const Icon(Icons.my_location), // Icon for location
+          //   backgroundColor: Colors.blue, // FAB background color
+          // ),
+        );
+      },
     );
   }
 }
+
+
+
 
 class StartSoundActiveButton extends StatelessWidget {
   final TrackerController controller;

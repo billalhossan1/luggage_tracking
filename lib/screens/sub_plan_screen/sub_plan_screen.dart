@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/sub_plan_screen/controller/sub_plan_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -17,7 +18,7 @@ class SubPlanScreen extends StatelessWidget {
       init: SubPlanScreenController(),
       builder: (controller) {
         return Scaffold(
-          body: Obx((){
+          body: Obx(() {
             return SafeArea(
               child: controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
@@ -33,7 +34,8 @@ class SubPlanScreen extends StatelessWidget {
                   : Column(
                 children: [
                   Padding(
-                    padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 30)),
+                    padding: EdgeInsets.symmetric(
+                        vertical: AppSize.width(value: 30)),
                     child: AppText(
                       data: "Unlock your Subscription Plan",
                       fontSize: AppSize.width(value: 24),
@@ -44,8 +46,22 @@ class SubPlanScreen extends StatelessWidget {
                   Expanded(
                     child: ListView.builder(
                       padding: EdgeInsets.zero,
-                      itemCount: controller.subscriptionPlanList.length,
+                      itemCount: controller.subscriptionPlanList.length + 1, // Adding 1 for the static card
                       itemBuilder: (context, index) {
+                        // If index is equal to the length of the dynamic plans, display the free trial card
+                        if (index == controller.subscriptionPlanList.length) {
+                          return PlanCard(
+                            onTap: () {
+                              controller.onTapFree();
+                            },
+                            heading: "Free Trial",
+                            price: "\$0.00/Trial",
+                            offer1: "Enjoy 7 days of free access.",
+                            isSelected: false, // Static plan, no selection state
+                          );
+                        }
+
+                        // Otherwise, display dynamic subscription plans
                         final plan = controller.subscriptionPlanList[index];
                         return PlanCard(
                           onTap: () => controller.onTapSubscription(
@@ -69,6 +85,7 @@ class SubPlanScreen extends StatelessWidget {
     );
   }
 }
+
 
 
 class PlanCard extends StatelessWidget {

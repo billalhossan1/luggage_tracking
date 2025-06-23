@@ -143,13 +143,15 @@ class WishListController extends GetxController {
     final NetworkResponse response = await bookMarkApiCall(
       product.sId!,
     );
-    if (!Get.isRegistered<HomeScreenController>()) {
-      Get.lazyPut(() => HomeScreenController());
-    }
+
 
     if (response.isSuccess) {
       getWishListItems(); // Refresh the list after toggling bookmark
-      Get.find<HomeScreenController>().getProductList();
+      if (!Get.isRegistered<HomeScreenController>()) {
+        Get.lazyPut(() => HomeScreenController());
+      }
+     await Get.find<HomeScreenController>().getProductList();
+     update();
       AppSnackBar.message(
         response.responseData['message'] ?? "Bookmark removed successfully",
       );

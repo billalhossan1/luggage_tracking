@@ -17,12 +17,6 @@ class AddTrkilDeviceScreen extends StatefulWidget {
 }
 
 class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
-
-  // String? _selectedCategory;
-
-
-
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<AddDeviceController>(
@@ -72,7 +66,9 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                                                 MainAxisAlignment.center,
                                             children: [
                                               Container(
-                                                padding: const EdgeInsets.all(16),
+                                                padding: const EdgeInsets.all(
+                                                  16,
+                                                ),
                                                 decoration: const BoxDecoration(
                                                   color: Colors.black54,
                                                   shape: BoxShape.circle,
@@ -97,14 +93,18 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                                           alignment: Alignment.center,
                                           children: [
                                             MobileScanner(
-                                              controller: controller.scannerController,
+                                              controller:
+                                                  controller.scannerController,
                                               onDetect: (capture) {
                                                 final List<Barcode> barcodes =
                                                     capture.barcodes;
-                                                for (final barcode in barcodes) {
-                                                  if (barcode.rawValue != null) {
+                                                for (final barcode
+                                                    in barcodes) {
+                                                  if (barcode.rawValue !=
+                                                      null) {
                                                     setState(() {
-                                                      controller.scannedDeviceId =
+                                                      controller
+                                                              .scannedDeviceId =
                                                           barcode.rawValue;
                                                     });
                                                     break;
@@ -201,7 +201,8 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                               ),
                               const SizedBox(height: 4),
                               Row(
-                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment:
+                                    MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'D. ID: ${controller.scannedDeviceId ?? '1313646321321'}',
@@ -231,14 +232,22 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   const SizedBox(height: 24),
 
                   // Item Name Field
-                  CustomTextField.build(hintText: "Item Name"),
+                  CustomTextField.build(controller: controller.itemNameController,hintText: "Item Name"),
 
                   const SizedBox(height: 24),
 
-
-                  AppDropDown(hintText: "Category", items: controller.categories, selectedValue: '', onChanged: (String ) {
-
-                  },),
+                  Obx(
+                    () => AppDropDown(
+                      hintText: "Category",
+                      items: controller.categories,
+                      selectedValue: controller.selectedCatName.value,
+                      onChanged: (String) {
+                        controller.selectedCatName.value = String;
+                        controller.selectedCatId.value = controller
+                            .getCatIdFromName(controller.selectedCatName.value);
+                      },
+                    ),
+                  ),
 
                   const SizedBox(height: 24),
 
@@ -276,7 +285,10 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                           style: TextStyle(color: Colors.blue),
                         ),
                       ),
-                      Text(' and ', style: TextStyle(color: Colors.grey.shade600)),
+                      Text(
+                        ' and ',
+                        style: TextStyle(color: Colors.grey.shade600),
+                      ),
                       GestureDetector(
                         onTap: () {
                           // Navigate to privacy policy
@@ -292,13 +304,18 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   const SizedBox(height: 32),
 
                   // Connect Button
-                  AppButton(title: "Connect Device"),
+                  Obx(
+                    () =>
+                        controller.isLoading.value
+                            ? Center(child: CircularProgressIndicator())
+                            : AppButton(onTap: (){controller.onTapConnectDevice();},title: "Connect Device"),
+                  ),
                 ],
               ),
             ),
           ),
         );
-      }
+      },
     );
   }
 }

@@ -49,6 +49,8 @@ dependencies:
   flutter_widget_from_html: ^0.16.0
   intl: ^0.20.2
   font_awesome_flutter: ^10.8.0
+  geolocator: ^14.0.1
+  google_maps_flutter: ^2.12.3
 
   
 

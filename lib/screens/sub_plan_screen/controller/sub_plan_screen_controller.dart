@@ -6,10 +6,15 @@ import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/screens/sub_plan_screen/model/subscription_plan_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
+import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import 'package:luggage_tracking/widgets/subscription_web_view/subscription_web_view.dart';
 
+import '../../../routes/app_routes.dart';
+
 class SubPlanScreenController extends GetxController {
+
+  String? tempRole;
   RxString argEmail = ''.obs;
   RxString argName = ''.obs;
   RxString argToken = ''.obs;
@@ -24,7 +29,9 @@ class SubPlanScreenController extends GetxController {
     argToken.value = Get.arguments['token'] ?? '';
 
     if (!Get.isRegistered<NetworkCaller>()) {
-      Get.put(NetworkCaller(), permanent: true);
+      Get.put(NetworkCaller(), );
+    }if (!Get.isRegistered<SaveDataController>()) {
+      Get.put(SaveDataController(), );
     }
 
     getSubscriptionPlan();
@@ -77,5 +84,11 @@ class SubPlanScreenController extends GetxController {
 
   void onTapSubscription(BuildContext context, {required String paymentUrl}) {
     openSubscriptionWebView(context, argEmail.value, paymentUrl,argToken.value);
+  }
+
+  void onTapFree(){
+
+    Get.find<SaveDataController>().saveUserData(argToken.value);
+    Get.offAllNamed(AppRoutes.instance.navigationScreen,);
   }
 }

@@ -23,6 +23,7 @@ class Urls{
   static final String deleteAccountUrl = '$_baseUrl/user/delete-account';
   static final String profileUpdateUrl = '$_baseUrl/user';
   static final String getDevicesUrl = '$_baseUrl/device';
+  static  String diActivateDevice(String deviceId) => '$_baseUrl/device/$deviceId';
   static final String aboutUrl = '$_baseUrl/rule/about';
   static final String workFuncUrl = '$_baseUrl/rule/work';
   static final String myPlanUrl = '$_baseUrl/subscription/my-plan';
