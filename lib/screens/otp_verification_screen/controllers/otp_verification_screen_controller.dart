@@ -15,6 +15,7 @@ class OtpVerificationScreenController extends GetxController {
   RxString argMail = "".obs;
   RxBool isEmailVerification = false.obs;
   RxBool hasError = false.obs;
+  RxBool otpIsLoading = false.obs;
   bool _inProgress = false;
   bool get inProgress => _inProgress;
   String? errorMessage;
@@ -54,9 +55,10 @@ class OtpVerificationScreenController extends GetxController {
   Future<dynamic> otpVerification() async {
     Map<String, dynamic> body = {"email":argMail.value,"oneTimeCode": otpController.text,};
     // print("email:${email.value}");
+    otpIsLoading.value =true;
     final NetworkResponse response =
     await Get.find<NetworkCaller>().postRequest(Urls.verifyEmailUrl, body: body);
-
+    otpIsLoading.value = false;
     return response;
     // Simulate network response or connect to AuthRepository
     // return await authRepository.verifyEmail(email: argMail.value, otp: otpController.text.trim());

@@ -1,6 +1,6 @@
 class Urls{
-  static final String _baseUrl = 'http://10.0.80.75:6003/api/v1';
-  static final String imageBaseUrl = 'http://10.0.80.75:6003';
+  static final String _baseUrl = 'https://nadir3000.binarybards.online/api/v1';
+  static final String imageBaseUrl = 'https://nadir3000.binarybards.online/api/v1';
   static final String registerUrl = '$_baseUrl/user';
   static final String loginUrl = '$_baseUrl/auth/login';
   static final String forgotPasswordUrl = '$_baseUrl/auth/forgot-password';
@@ -28,8 +28,8 @@ class Urls{
   static final String workFuncUrl = '$_baseUrl/rule/work';
   static final String myPlanUrl = '$_baseUrl/subscription/my-plan';
   static final String termsAndConditionUrl = '$_baseUrl/rule/terms-and-conditions';
-  static final String paymentCancelUrl = 'http://10.0.80.75:5000/order/cancel';
-  static final String paymentSuccessUrl = 'http://10.0.80.75:5000/order/success';
+  static final String paymentCancelUrl = 'https://nadir3000.binarybards.online/order/cancel';
+  static final String paymentSuccessUrl = 'https://nadir3000.binarybards.online/order/success';
   static  String productDetailsUrl(String productId) =>'$_baseUrl/product/$productId';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 

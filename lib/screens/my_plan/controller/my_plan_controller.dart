@@ -1,6 +1,7 @@
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:logger/logger.dart';
 import 'package:luggage_tracking/screens/my_plan/model/my_plan_model.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
@@ -30,6 +31,7 @@ class MyPlanController extends GetxController {
 
   Future<dynamic> apiCall() async {
     final String? accessToken = await Get.find<SaveDataController>().getUserData();
+    Logger().i("accessToken : ${accessToken}");
     final response = await Get.find<NetworkCaller>().getRequest(Urls.myPlanUrl, accessToken: accessToken);
     return response;
   }
@@ -46,6 +48,7 @@ class MyPlanController extends GetxController {
         myPlan = myPlanModel.myPlan;
         planName = myPlan?.plan?.title;
         price = myPlan?.price;
+        // Logger().i("${myPlan?.plan?.title}");
         if(myPlan!.currentPeriodStart != null)
         {
           String planStartDate = formatDate(DateTime.parse(myPlan?.currentPeriodStart ?? ''));

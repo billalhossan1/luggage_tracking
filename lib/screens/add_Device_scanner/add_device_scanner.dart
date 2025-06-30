@@ -254,21 +254,23 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   // Terms of Service
                   Row(
                     children: [
-                      SizedBox(
-                        width: 24,
-                        height: 24,
-                        child: Checkbox(
-                          value: controller.termsAgreed,
-                          onChanged: (bool? value) {
-                            setState(() {
-                              controller.termsAgreed = value ?? false;
-                            });
-                          },
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(4),
+                      Expanded(
+                        child: SizedBox(
+                          width: 24,
+                          height: 24,
+                          child: Checkbox(
+                            value: controller.termsAgreed,
+                            onChanged: (bool? value) {
+                              setState(() {
+                                controller.termsAgreed = value ?? false;
+                              });
+                            },
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(4),
+                            ),
+                            side: BorderSide(color: Colors.grey.shade400),
+                            activeColor: Colors.purple,
                           ),
-                          side: BorderSide(color: Colors.grey.shade400),
-                          activeColor: Colors.purple,
                         ),
                       ),
                       const SizedBox(width: 8),

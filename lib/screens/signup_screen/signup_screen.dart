@@ -108,7 +108,7 @@ class SignUpScreen extends StatelessWidget {
                           controller: controller.confirmPasswordTextEditingController,
                         ),
                         Gap(height: 24),
-                        AppButton(
+                        Obx(()=>AppButton(
                           borderRadius: BorderRadius.circular(12),
                           isLoading: controller.isLoading.value,
                           onTap: () {
@@ -118,7 +118,7 @@ class SignUpScreen extends StatelessWidget {
                           },
                           title: "Sign Up",
                           titleSize: AppSize.width(value: 20),
-                        ),
+                        ),),
                         Gap(height: AppSize.width(value: 30)),
                         Row(
                           mainAxisAlignment: MainAxisAlignment.center,

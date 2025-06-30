@@ -18,12 +18,12 @@ class OtpVerificationScreen extends StatefulWidget {
 }
 
 class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
-
   @override
   void initState() {
     Get.find<OtpVerificationScreenController>().onInit();
     super.initState();
   }
+
   @override
   Widget build(BuildContext context) {
     final screenWidth = MediaQuery.of(context).size.width;
@@ -127,18 +127,24 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                         Obx(
                           () => Row(
                             children: [
-                              AppText(
-                                data:
-                                    "This code will expire in ",
-                              ),
+                              AppText(data: "This code will expire in "),
                               Visibility(
                                 visible: controller.seconds.value > 0,
-                                  child: AppText(data: controller.formatTime(controller.seconds.value))),
+                                child: AppText(
+                                  data: controller.formatTime(
+                                    controller.seconds.value,
+                                  ),
+                                ),
+                              ),
                               Visibility(
-                                visible: controller.seconds.value==0,
-                                  child: TextButton(onPressed: (){
+                                visible: controller.seconds.value == 0,
+                                child: TextButton(
+                                  onPressed: () {
                                     controller.onTapResend();
-                                  }, child: Text('Resend')))
+                                  },
+                                  child: Text('Resend'),
+                                ),
+                              ),
                             ],
                           ),
                         ),
@@ -146,21 +152,28 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                       ],
                     ),
                   ),
-                  AppButton(
-                    title: !controller.isEmailVerification.value ? "Reset Password" : "Verify",
-                    onTap: () {
-                      try {
-                        controller.clickVerificationCodeButton();
-                      } catch (e) {
-                        debugPrint("Navigation error: $e");
-                        Get.snackbar(
-                          "Error",
-                          "Could not navigate to next screen",
-                        );
-                      }
-                    },
+                  Obx(
+                    () =>
+                        controller.otpIsLoading.value
+                            ? Center(child: CircularProgressIndicator())
+                            : AppButton(
+                              title:
+                                  !controller.isEmailVerification.value
+                                      ? "Reset Password"
+                                      : "Verify",
+                              onTap: () {
+                                try {
+                                  controller.clickVerificationCodeButton();
+                                } catch (e) {
+                                  debugPrint("Navigation error: $e");
+                                  Get.snackbar(
+                                    "Error",
+                                    "Could not navigate to next screen",
+                                  );
+                                }
+                              },
+                            ),
                   ),
-
                 ],
               ),
             ),
