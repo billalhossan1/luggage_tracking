@@ -24,7 +24,7 @@ class MyPlanScreen extends StatelessWidget {
                   children: [
 
                     Spacer(),
-                    Center(child: Text("No Plan Available")),
+                    Center(child: Text("Now Your are using Free Plan",style: TextStyle(fontSize: 20,),)),
                     Spacer(),
 
                   ],

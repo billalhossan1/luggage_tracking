@@ -1,6 +1,7 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+import 'package:luggage_tracking/services/save_data/save_data.dart';
 
 import '../../../widgets/snackbar_message/snackBar_widget.dart';
 
@@ -10,6 +11,16 @@ class TrackerController extends GetxController {
   var currentPosition = Rx<LatLng?>(null);
   final initialCameraPosition = LatLng(54.613072699163325, 15.22438119481026);
   RxBool isCurrentLocation = false.obs;
+  bool isSubscribed = false;
+
+
+
+  Future<void> isSubscribe()async{
+    final bool isSubscribe = await SaveDataController().getIsSubscribe();
+    isSubscribed = isSubscribe;
+    print("isSubscribed: $isSubscribed");
+  }
+
 
   @override
   Future<void> onInit() async {
@@ -21,6 +32,7 @@ class TrackerController extends GetxController {
     } else {
       print("Failed to get location");
     }
+    await isSubscribe();
   }
 
   void toggleExpanded() {
