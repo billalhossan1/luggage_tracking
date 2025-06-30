@@ -1,6 +1,6 @@
 class Urls{
   static final String _baseUrl = 'https://nadir3000.binarybards.online/api/v1';
-  static final String imageBaseUrl = 'https://nadir3000.binarybards.online/api/v1';
+  static final String imageBaseUrl = 'https://nadir3000.binarybards.online';
   static final String registerUrl = '$_baseUrl/user';
   static final String loginUrl = '$_baseUrl/auth/login';
   static final String forgotPasswordUrl = '$_baseUrl/auth/forgot-password';
