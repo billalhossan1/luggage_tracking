@@ -15,6 +15,7 @@ class DeliveryDetailsShowScreenController extends GetxController{
   String? responseUrl;
    ProductItem? product;
    String? email;
+   RxBool isLoading = false.obs;
    String? contact;
    String? note;
    String? address;
@@ -66,7 +67,9 @@ class DeliveryDetailsShowScreenController extends GetxController{
   }
 
   Future<void>onTapContinue(BuildContext context)async{
+    isLoading.value = true;
     final NetworkResponse response = await apiCall();
+    isLoading.value = false;
     if(response.isSuccess){
       AppSnackBar.message(response.responseData["message"]??"Order Created Successfully");
       responseUrl = response.responseData["data"];
