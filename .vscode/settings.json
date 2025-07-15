@@ -1,3 +1,4 @@
 {
-    "cmake.sourceDirectory": "D:/Irfan_flutter_dev/shift/tdinh78_thach_luggage_tracking/windows/flutter"
+  "cmake.sourceDirectory": "D:/Irfan_flutter_dev/shift/tdinh78_thach_luggage_tracking/windows/flutter",
+  "dart.flutterSdkPath": ".fvm/versions/3.32.0"
 }

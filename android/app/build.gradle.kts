@@ -28,6 +28,12 @@ android {
         targetSdk = 33
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+
+        manifestPlaceholders = [
+            facebookAppId: "4074625486141450",
+        facebookClientToken: "79e75a84a9a1aa39427e4788f5d4d44f"
+        ]
+
     }
 
     buildTypes {
@@ -38,8 +44,11 @@ android {
         }
     }
 }
+
+
 dependencies {
     implementation("com.google.android.gms:play-services-auth:20.6.0")
+    implementation("com.facebook.android:facebook-android-sdk:16.0.0")
 }
 
 

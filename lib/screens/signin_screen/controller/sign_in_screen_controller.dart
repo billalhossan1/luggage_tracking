@@ -113,13 +113,18 @@ class SignInScreenController extends GetxController {
       // final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       //
       // final appId = googleAuth.idToken ?? googleAuth.accessToken;
+      print('=================================${googleUser.id}');
+      final googleAuth = await googleUser.authentication;
+      final idToken = googleAuth.idToken;
 
-      if (googleUser.id.isNotEmpty) {
-        await socialLogin(appId: googleUser.id,email: googleUser.email, name: googleUser.displayName ?? '');
+      if (idToken != null) {
+        await socialLogin(appId: idToken, email: googleUser.email, name: googleUser.displayName ?? '');
       }
+
+
     } catch (e) {
       AppSnackBar.error('Google login failed: $e');
-      log("Google login error: $e");
+      print("Google login error: $e");
     }
   }
 
