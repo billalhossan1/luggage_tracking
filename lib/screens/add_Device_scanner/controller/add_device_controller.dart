@@ -10,6 +10,7 @@ import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:permission_handler/permission_handler.dart';
 
 class AddDeviceController extends GetxController {
   final TextEditingController itemNameController = TextEditingController();
@@ -29,6 +30,7 @@ class AddDeviceController extends GetxController {
     for (var cat in categoryList) {
       categories.add(cat.name!);
     }
+    _checkCameraPermission();  // Check camera permission when the controller is initialized
     super.onInit();
   }
 
@@ -39,7 +41,6 @@ class AddDeviceController extends GetxController {
     super.onClose();
   }
 
-  // Method to get category ID from category name
   String getCatIdFromName(String catName) {
     final category = categoryList.firstWhere(
           (cat) => cat.name == catName,
@@ -94,6 +95,24 @@ class AddDeviceController extends GetxController {
       update();
     } else {
       showCustomSnackBar(title: "Failed", message: response.errorMessage);
+    }
+  }
+
+  // Method to check camera permission
+  Future<void> _checkCameraPermission() async {
+    PermissionStatus permission = await Permission.camera.status;
+
+    if (permission.isDenied) {
+      PermissionStatus status = await Permission.camera.request();
+      if (status.isGranted) {
+ return;
+      } else {
+        showCustomSnackBar(title: 'Permission Denied', message: 'Camera permission is required for scanning QR codes.');
+      }
+    } else if (permission.isPermanentlyDenied) {
+      openAppSettings();
+    } else {
+      print('Camera permission already granted');
     }
   }
 }
