@@ -50,7 +50,7 @@ class SignInScreen extends StatelessWidget {
                       ),
                       Gap(height: 8,),
                       AppText(
-                        data: "Please Enter Your Email & Password",
+                        data: "Please Enter Your Email & Password",
                         color: AppColors.instance.white700,
                         fontSize: AppSize.width(value: 16),
                         fontWeight: FontWeight.w400,
@@ -158,32 +158,13 @@ class SignInScreen extends StatelessWidget {
                           ],
                         ),
                         Gap(height: AppSize.width(value: 40)),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: BtnIconText(
-                                onTap: () {
-                                controller.googleLogin();
-                                },
-                                paddingvert: AppSize.width(value: 16),
-                                text: "Google",
-                                iconPath: AssetsIconsPath.instance.google,
-                              ),
-                            ),
-                            Gap(width: AppSize.width(value: 12)),
-                            Expanded(
-                              child: BtnIconText(
-                                onTap: () {
-                                  controller.facebookLogin();
-                                },
-                                paddingvert: AppSize.width(value: 16),
-                                text: "Facebook",
-                                iconPath: AssetsIconsPath.instance.fb,
-                                filColor: AppColors.instance.blue1,
-                                textColor: AppColors.instance.white50,
-                              ),
-                            ),
-                          ],
+                        BtnIconText(
+                          onTap: () {
+                          controller.googleLogin();
+                          },
+                          paddingvert: AppSize.width(value: 16),
+                          text: "Google",
+                          iconPath: AssetsIconsPath.instance.google,
                         ),
                       ],
                     ),
