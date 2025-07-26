@@ -120,58 +120,58 @@ class SignUpScreen extends StatelessWidget {
                           titleSize: AppSize.width(value: 20),
                         ),),
                         Gap(height: AppSize.width(value: 30)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(
-                              child: Divider(color: Colors.grey, thickness: 1),
-                            ),
-                            Gap(width: AppSize.width(value: 8)),
-                            AppText(data: "Or"),
-                            Gap(width: AppSize.width(value: 8)),
-                            Expanded(
-                              child: Divider(color: Colors.grey, thickness: 1),
-                            ),
-                          ],
-                        ),
-                        Gap(height: AppSize.width(value: 30)),
-                        Row(
-                          children: [
-                            Expanded(
-                              child: BtnIconText(
-                                onTap: () {
-                                  Get.toNamed(
-                                    AppRoutes.instance.signUpWithPersonalData,
-                                  );
-                                  // appLog(
-                                  //   "==============>>>>>Google BTN Clicked<<<<=================",
-                                  // );
-                                },
-                                paddingvert: AppSize.width(value: 16),
-                                text: "Google",
-                                iconPath: AssetsIconsPath.instance.google,
-                              ),
-                            ),
-                            Gap(width: AppSize.width(value: 12)),
-                            Expanded(
-                              child: BtnIconText(
-                                onTap: () {
-                                  Get.toNamed(
-                                    AppRoutes.instance.signUpWithPersonalData,
-                                  );
-                                  // appLog(
-                                  //   "==============>>>>>Facebook BTN Clicked<<<<=================",
-                                  // );
-                                },
-                                paddingvert: AppSize.width(value: 16),
-                                text: "Facebook",
-                                iconPath: AssetsIconsPath.instance.fb,
-                                filColor: AppColors.instance.blue1,
-                                textColor: AppColors.instance.white50,
-                              ),
-                            ),
-                          ],
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Expanded(
+                        //       child: Divider(color: Colors.grey, thickness: 1),
+                        //     ),
+                        //     Gap(width: AppSize.width(value: 8)),
+                        //     AppText(data: "Or"),
+                        //     Gap(width: AppSize.width(value: 8)),
+                        //     Expanded(
+                        //       child: Divider(color: Colors.grey, thickness: 1),
+                        //     ),
+                        //   ],
+                        // ),
+                        // Gap(height: AppSize.width(value: 30)),
+                        // Row(
+                        //   children: [
+                        //     Expanded(
+                        //       child: BtnIconText(
+                        //         onTap: () {
+                        //           Get.toNamed(
+                        //             AppRoutes.instance.signUpWithPersonalData,
+                        //           );
+                        //           // appLog(
+                        //           //   "==============>>>>>Google BTN Clicked<<<<=================",
+                        //           // );
+                        //         },
+                        //         paddingvert: AppSize.width(value: 16),
+                        //         text: "Google",
+                        //         iconPath: AssetsIconsPath.instance.google,
+                        //       ),
+                        //     ),
+                        //     Gap(width: AppSize.width(value: 12)),
+                        //     Expanded(
+                        //       child: BtnIconText(
+                        //         onTap: () {
+                        //           Get.toNamed(
+                        //             AppRoutes.instance.signUpWithPersonalData,
+                        //           );
+                        //           // appLog(
+                        //           //   "==============>>>>>Facebook BTN Clicked<<<<=================",
+                        //           // );
+                        //         },
+                        //         paddingvert: AppSize.width(value: 16),
+                        //         text: "Facebook",
+                        //         iconPath: AssetsIconsPath.instance.fb,
+                        //         filColor: AppColors.instance.blue1,
+                        //         textColor: AppColors.instance.white50,
+                        //       ),
+                        //     ),
+                        //   ],
+                        // ),
                       ],
                     ),
                   ),

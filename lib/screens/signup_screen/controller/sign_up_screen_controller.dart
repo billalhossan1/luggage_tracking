@@ -11,8 +11,6 @@ import '../../../utils/app_all_log/error_log.dart';
 
 class SignUpScreenController extends GetxController {
   //////////////  variable & object
-  bool _inProgress = false;
-  bool get inProgress => _inProgress;
   String? errorMessage;
   String? message;
   RxBool isLoading = RxBool(false);
@@ -58,7 +56,7 @@ class SignUpScreenController extends GetxController {
 
     try {
       if (signUpFormKey.currentState!.validate()) {
-        _inProgress = true;
+        isLoading.value= true;
         update();
         Map<String, dynamic> body = {
           "name": nameTextEditingController.text.trim(),
@@ -69,7 +67,7 @@ class SignUpScreenController extends GetxController {
         };
         final NetworkResponse response = await Get.find<NetworkCaller>()
             .postRequest(Urls.registerUrl, body: body);
-        _inProgress = false;
+        isLoading.value = false;
         update();
         if (response.isSuccess) {
           errorMessage = null;
