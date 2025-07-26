@@ -27,7 +27,6 @@ import 'package:luggage_tracking/screens/account_setting_screen/account_setting_
 import 'package:luggage_tracking/screens/add_Device_scanner/add_device_scanner.dart';
 import 'package:luggage_tracking/screens/all_product_screen/screen/all_product_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
-import 'package:luggage_tracking/screens/category_screnn/controller/all_category_controller.dart';
 import 'package:luggage_tracking/screens/change_password_screen/chnage_password_screen.dart';
 import 'package:luggage_tracking/screens/create_new_password_screen/create_new_password_screen.dart';
 import 'package:luggage_tracking/screens/dealing_history/dealing_history.dart';
@@ -35,7 +34,6 @@ import 'package:luggage_tracking/screens/delete_account_screen/detele_account_sc
 import 'package:luggage_tracking/screens/delivery_details_screen/delivery_details_screen.dart';
 import 'package:luggage_tracking/screens/delivery_details_show/delivery_details_show_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
-import 'package:luggage_tracking/screens/edit_profile_screen/controler/edit_profile_controller.dart';
 import 'package:luggage_tracking/screens/edit_profile_screen/edir_profile_screen.dart';
 import 'package:luggage_tracking/screens/faq_screen/faq_screen.dart';
 import 'package:luggage_tracking/screens/feedback_screen/feedback_screen.dart';
@@ -128,7 +126,7 @@ List<GetPage> appRootRoutesFile = <GetPage>[
   GetPage(name: AppRoutes.instance.homeScreen, page: () => const HomeScreen()),
   GetPage(
     name: AppRoutes.instance.categoryScreen,
-    binding:CategoryScreenBinding(),
+    binding: CategoryScreenBinding(),
     page: () => const CategoryScreen(),
   ),
   GetPage(
