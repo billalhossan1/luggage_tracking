@@ -147,25 +147,25 @@ class SignInScreen extends StatelessWidget {
                           titleSize: AppSize.width(value: 20),
                         ),
                         Gap(height: AppSize.width(value: 40)),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.center,
-                          children: [
-                            Expanded(child: Divider(color: Colors.grey, thickness: 1)),
-                            Gap(width: AppSize.width(value: 8)),
-                            AppText(data: "Or"),
-                            Gap(width: AppSize.width(value: 8)),
-                            Expanded(child: Divider(color: Colors.grey, thickness: 1)),
-                          ],
-                        ),
-                        Gap(height: AppSize.width(value: 40)),
-                        BtnIconText(
-                          onTap: () {
-                          controller.googleLogin();
-                          },
-                          paddingvert: AppSize.width(value: 16),
-                          text: "Google",
-                          iconPath: AssetsIconsPath.instance.google,
-                        ),
+                        // Row(
+                        //   mainAxisAlignment: MainAxisAlignment.center,
+                        //   children: [
+                        //     Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                        //     Gap(width: AppSize.width(value: 8)),
+                        //     AppText(data: "Or"),
+                        //     Gap(width: AppSize.width(value: 8)),
+                        //     Expanded(child: Divider(color: Colors.grey, thickness: 1)),
+                        //   ],
+                        // ),
+                        // Gap(height: AppSize.width(value: 40)),
+                        // BtnIconText(
+                        //   onTap: () {
+                        //   controller.googleLogin();
+                        //   },
+                        //   paddingvert: AppSize.width(value: 16),
+                        //   text: "Google",
+                        //   iconPath: AssetsIconsPath.instance.google,
+                        // ),
                       ],
                     ),
                   ),
