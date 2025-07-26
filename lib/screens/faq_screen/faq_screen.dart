@@ -6,9 +6,16 @@ import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
-class FaqScreen extends StatelessWidget {
-  FaqScreen({super.key});
+class FaqScreen extends StatefulWidget {
+  const FaqScreen({super.key});
+
+  @override
+  State<FaqScreen> createState() => _FaqScreenState();
+}
+
+class _FaqScreenState extends State<FaqScreen> {
  var controller = Get.put(FaqController());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(

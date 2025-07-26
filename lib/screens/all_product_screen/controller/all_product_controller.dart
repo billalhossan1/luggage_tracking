@@ -8,7 +8,6 @@ import 'package:luggage_tracking/services/save_data/save_data.dart';
 import '../../../services/api/network_response.dart';
 import '../../../widgets/app_snack_bar/app_snack_bar.dart';
 import '../../home_screen/model/product_list_model.dart';
-import '../../wish_list_screen/model/wish_list_model.dart';
 
 class AllProductPaginationController extends GetxController {
   RxList<ProductItem> productListItems = <ProductItem>[].obs;
@@ -74,12 +73,10 @@ class AllProductPaginationController extends GetxController {
         }
       } else {
         String errorMessage =
-            response.errorMessage ?? "Failed to load wish list items";
+            response.errorMessage ;
         AppSnackBar.error(errorMessage);
       }
-    } catch (e, stackTrace) {
-      Logger().e("Error loading wish list: $e");
-      Logger().e("Stack trace: $stackTrace");
+    } catch (e) {
       AppSnackBar.error("Error loading wish list: $e");
     } finally {
       isLoading.value = false;
@@ -115,14 +112,9 @@ class AllProductPaginationController extends GetxController {
           response.responseData,
         );
         productListItems.addAll(productListModel.productList ?? []);
-        // Logger().i("Loaded more dealing history: ${dealingHistory.length} items");
-      } else {
-        String errorMessage =
-            response.errorMessage ?? "Failed to load more dealing history";
-        print("Error: $errorMessage");
       }
     } catch (e) {
-      print("Error loading more dealing history: $e");
+      debugPrint(e.toString());
     } finally {
       isPaginationLoading.value = false;
     }

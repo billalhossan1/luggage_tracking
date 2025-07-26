@@ -6,14 +6,14 @@ class MyPlanModel {
 
   MyPlanModel.fromJson(Map<String, dynamic> json) {
 
-    myPlan = json['data'] != null ? new MyPlan.fromJson(json['data']) : null;
+    myPlan = json['data'] != null ? MyPlan.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
+    final Map<String, dynamic> data = <String, dynamic>{};
 
-    if (this.myPlan != null) {
-      data['data'] = this.myPlan!.toJson();
+    if (myPlan != null) {
+      data['data'] = myPlan!.toJson();
     }
     return data;
   }
@@ -50,7 +50,7 @@ class MyPlan {
     customerId = json['customerId'];
     price = json['price'];
     user = json['user'];
-    plan = json['plan'] != null ? new Plan.fromJson(json['plan']) : null;
+    plan = json['plan'] != null ? Plan.fromJson(json['plan']) : null;
     trxId = json['trxId'];
     subscriptionId = json['subscriptionId'];
     currentPeriodStart = json['currentPeriodStart'];
@@ -60,19 +60,19 @@ class MyPlan {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['customerId'] = this.customerId;
-    data['price'] = this.price;
-    data['user'] = this.user;
-    if (this.plan != null) {
-      data['plan'] = this.plan!.toJson();
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['customerId'] = customerId;
+    data['price'] = price;
+    data['user'] = user;
+    if (plan != null) {
+      data['plan'] = plan!.toJson();
     }
-    data['trxId'] = this.trxId;
-    data['subscriptionId'] = this.subscriptionId;
-    data['currentPeriodStart'] = this.currentPeriodStart;
-    data['currentPeriodEnd'] = this.currentPeriodEnd;
-    data['status'] = this.status;
+    data['trxId'] = trxId;
+    data['subscriptionId'] = subscriptionId;
+    data['currentPeriodStart'] = currentPeriodStart;
+    data['currentPeriodEnd'] = currentPeriodEnd;
+    data['status'] = status;
 
     return data;
   }
@@ -94,11 +94,11 @@ class Plan {
   }
 
   Map<String, dynamic> toJson() {
-    final Map<String, dynamic> data = new Map<String, dynamic>();
-    data['_id'] = this.sId;
-    data['title'] = this.title;
-    data['price'] = this.price;
-    data['duration'] = this.duration;
+    final Map<String, dynamic> data = <String, dynamic>{};
+    data['_id'] = sId;
+    data['title'] = title;
+    data['price'] = price;
+    data['duration'] = duration;
     return data;
   }
 }

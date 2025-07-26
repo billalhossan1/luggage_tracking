@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/route_manager.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/screens/delivery_details_screen/controller/delivery_details_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';

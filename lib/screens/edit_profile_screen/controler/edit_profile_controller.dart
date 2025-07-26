@@ -1,12 +1,9 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
-import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/screens/account_screen/model/profile_model.dart';
-import 'package:luggage_tracking/screens/profile_details/controller/profile_details_controller.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';

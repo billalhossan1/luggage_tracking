@@ -1,15 +1,12 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
-import 'package:luggage_tracking/screens/account_screen/model/profile_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import 'package:luggage_tracking/widgets/payment_web_view_widget/payment_webview_widget.dart';
-import 'package:luggage_tracking/widgets/subscription_web_view/subscription_web_view.dart';
 
 class DeliveryDetailsShowScreenController extends GetxController{
   String? responseUrl;
@@ -73,7 +70,9 @@ class DeliveryDetailsShowScreenController extends GetxController{
     if(response.isSuccess){
       AppSnackBar.message(response.responseData["message"]??"Order Created Successfully");
       responseUrl = response.responseData["data"];
-      paymentWebView(context, responseUrl!);
+      if(context.mounted){
+        paymentWebView(context, responseUrl!);
+      }
       Get.back();
     }else{
       AppSnackBar.error(response.responseData["message"]??"Something went Wrong");

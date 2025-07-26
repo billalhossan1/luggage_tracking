@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/profile_details/controller/profile_details_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -82,7 +81,7 @@ class ProfileDetailsScreen extends StatelessWidget {
                     AppDivider(),
                     ProfileTitleSubtitle(
                       title: "Registration no",
-                      subTitle: "#${controller.profileModel.value?.sId}" ?? '',
+                      subTitle: "#${controller.profileModel.value?.sId}",
                     ),
                     ProfileTitleSubtitle(title: "Name", subTitle: controller.profileModel.value?.name ?? 'no name'),
                     ProfileTitleSubtitle(title: "Contact No", subTitle: controller.profileModel.value?.contact ??'no number added'),

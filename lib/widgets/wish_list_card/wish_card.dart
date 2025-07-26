@@ -1,11 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/const/assets_images_path.dart';
+
 import 'package:luggage_tracking/const/urls/urls.dart';
-import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
-import 'package:luggage_tracking/screens/wish_list_screen/model/wish_list_model.dart';
+
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';

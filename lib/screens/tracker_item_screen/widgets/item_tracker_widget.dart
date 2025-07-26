@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/screens/device_screen/controller/device_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -11,11 +10,11 @@ class ItemTrackerWidget extends StatelessWidget {
   final Function()? onTap;
   final Widget? child;
   final bool showLocationRow;
-  String? name;
-  String? location;
-  String? serial;
-  String? status;
-   ItemTrackerWidget({
+  final String? name;
+  final String? location;
+  final String? serial;
+  final String? status;
+   const ItemTrackerWidget({
     super.key,
     this.onTap,
     this.child,

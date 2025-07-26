@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/screens/about_screen/controller/about_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
-import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class AboutScreen extends StatelessWidget {
   const AboutScreen({super.key});

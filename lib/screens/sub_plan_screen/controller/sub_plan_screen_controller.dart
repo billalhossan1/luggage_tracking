@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/screens/sub_plan_screen/model/subscription_plan_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';

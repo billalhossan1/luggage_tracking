@@ -4,10 +4,7 @@ import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
-import 'package:flutter/material.dart';
-import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/utils/app_size.dart';
-import 'package:luggage_tracking/widgets/texts/app_text.dart';
+
 
 class TextRowItem extends StatelessWidget {
   final String text1;

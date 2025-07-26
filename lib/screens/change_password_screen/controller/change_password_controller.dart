@@ -1,13 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
 import '../../../services/api/network_response.dart';
 import '../../../services/save_data/save_data.dart';
 import '../../../utils/app_all_log/error_log.dart';
-import '../../../widgets/snackbar_message/snackBar_widget.dart';
+import '../../../widgets/snackbar_message/snack_bar_widget.dart';
 
 class ChangePasswordController extends GetxController {
   bool _inProgress = false;

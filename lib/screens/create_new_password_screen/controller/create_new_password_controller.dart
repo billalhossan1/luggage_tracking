@@ -9,7 +9,6 @@ import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
-import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
 class CreateNewPasswordScreenController extends GetxController {

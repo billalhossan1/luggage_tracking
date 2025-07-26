@@ -41,7 +41,7 @@ class ServiceCategoryBox extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               AppImage(
-                url: Urls.imageBaseUrl+category.image! ?? "",
+                url: Urls.imageBaseUrl+category.image!,
                 height: AppSize.height(value: 47),
                 width: AppSize.width(value: 51),
               ),

@@ -10,7 +10,6 @@ import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
-import 'package:luggage_tracking/widgets/button/btn_icon_text.dart';
 import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
@@ -95,9 +94,9 @@ class SignInScreen extends StatelessWidget {
                                       horizontal: -4,
                                       vertical: -4,
                                     ),
-                                    side: MaterialStateBorderSide.resolveWith(
+                                    side: WidgetStateBorderSide.resolveWith(
                                           (states) {
-                                        if (states.contains(MaterialState.selected)) {
+                                        if (states.contains(WidgetState.selected)) {
                                           return BorderSide(color: AppColors.instance.white600);
                                         } else {
                                           return BorderSide(color: AppColors.instance.white600);
@@ -106,7 +105,7 @@ class SignInScreen extends StatelessWidget {
                                     ),
                                     value: controller.isRememberMe.value,
                                     checkColor: AppColors.instance.purple_500,
-                                    fillColor: MaterialStateProperty.all(AppColors.instance.white200),
+                                    fillColor: WidgetStateProperty.all(AppColors.instance.white200),
                                     shape: RoundedRectangleBorder(
                                       borderRadius: BorderRadius.circular(AppSize.width(value: 5.0)),
                                     ),

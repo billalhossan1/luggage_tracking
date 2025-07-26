@@ -4,7 +4,6 @@ import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
-import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
 import '../../../services/api/network_response.dart';
 import '../../../utils/app_all_log/error_log.dart';
 

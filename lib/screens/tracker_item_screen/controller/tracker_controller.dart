@@ -3,7 +3,7 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 
-import '../../../widgets/snackbar_message/snackBar_widget.dart';
+import '../../../widgets/snackbar_message/snack_bar_widget.dart';
 
 class TrackerController extends GetxController {
   RxBool isExpanded = false.obs;
@@ -18,7 +18,6 @@ class TrackerController extends GetxController {
   Future<void> isSubscribe()async{
     final bool isSubscribe = await SaveDataController().getIsSubscribe();
     isSubscribed = isSubscribe;
-    print("isSubscribed: $isSubscribed");
   }
 
 
@@ -28,9 +27,7 @@ class TrackerController extends GetxController {
     currentPosition.value = await _getCurrentLocationOnce();
     if (currentPosition.value != null) {
       isCurrentLocation.value = true;
-      print("===============================${currentPosition.value}");
     } else {
-      print("Failed to get location");
     }
     await isSubscribe();
   }
@@ -63,7 +60,6 @@ class TrackerController extends GetxController {
       final position = await Geolocator.getCurrentPosition(
         locationSettings: LocationSettings(accuracy: LocationAccuracy.high),
       );
-      print("Location: ${position.latitude}, ${position.longitude}");
       return LatLng(position.latitude, position.longitude);
     } catch (e) {
       showCustomSnackBar(
@@ -71,28 +67,24 @@ class TrackerController extends GetxController {
         message: 'Failed to get location: $e',
         isError: true,
       );
-      print("Error getting location: $e");
       return null;
     }
   }
 
   Future<bool> _isLocationPermissionGranted() async {
     LocationPermission permission = await Geolocator.checkPermission();
-    print("Permission status: $permission");
     return permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse;
   }
 
   Future<bool> _requestPermission() async {
     LocationPermission permission = await Geolocator.requestPermission();
-    print("Requested Permission: $permission");
     return permission == LocationPermission.always ||
         permission == LocationPermission.whileInUse;
   }
 
   Future<bool> _checkGpsServiceEnable() async {
     bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
-    print("GPS Service Enabled: $isServiceEnabled");
     return isServiceEnabled;
   }
 

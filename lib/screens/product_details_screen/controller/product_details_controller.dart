@@ -1,10 +1,8 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 
-import '../../../services/api/network_caller.dart';
-import '../../../services/save_data/save_data.dart';
 
 class ProductDetailsController extends GetxController {
   List<String> images = [];
@@ -26,7 +24,7 @@ class ProductDetailsController extends GetxController {
       Logger().i("images in product details: $images");
       Logger().i("selected image: ${selectedImage.value}");
     }catch (e){
-
+      debugPrint(e.toString());
     }
   }
   @override

@@ -16,7 +16,7 @@ import 'package:luggage_tracking/widgets/cards/app_card/app_card.dart';
 import 'package:luggage_tracking/widgets/device_custom_tab_button/device_custom_tab_button.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
 import 'package:luggage_tracking/widgets/service_widget/profile_top_widget.dart';
-import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class DeviceScreen extends StatelessWidget {

@@ -80,13 +80,9 @@ class ProductCategoryScreenController extends GetxController{
         );
         productList.addAll(productListModel.productList ?? []);
         // Logger().i("Loaded more dealing history: ${dealingHistory.length} items");
-      } else {
-        String errorMessage =
-            response.errorMessage ?? "Failed to load more dealing history";
-        print("Error: $errorMessage");
       }
     } catch (e) {
-      print("Error loading more dealing history: $e");
+      debugPrint(e.toString());
     } finally {
       isPaginationLoading.value = false;
     }

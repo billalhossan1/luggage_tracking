@@ -8,7 +8,6 @@ import 'package:luggage_tracking/screens/wish_list_screen/model/wish_list_model.
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
-import '../../../routes/app_routes.dart';
 import '../../../services/api/network_caller.dart';
 import '../../../services/save_data/save_data.dart' show SaveDataController;
 
@@ -85,7 +84,7 @@ class WishListController extends GetxController {
         }
       } else {
         String errorMessage =
-            response.errorMessage ?? "Failed to load wish list items";
+            response.errorMessage ;
         AppSnackBar.error(errorMessage);
       }
     } catch (e, stackTrace) {
@@ -126,14 +125,9 @@ class WishListController extends GetxController {
           response.responseData,
         );
         wishListItems.addAll(wishListModel.wishList ?? []);
-        // Logger().i("Loaded more dealing history: ${dealingHistory.length} items");
-      } else {
-        String errorMessage =
-            response.errorMessage ?? "Failed to load more dealing history";
-        print("Error: $errorMessage");
       }
     } catch (e) {
-      print("Error loading more dealing history: $e");
+      debugPrint(e.toString());
     } finally {
       isPaginationLoading.value = false;
     }
@@ -156,7 +150,7 @@ class WishListController extends GetxController {
         response.responseData['message'] ?? "Bookmark removed successfully",
       );
     } else {
-      AppSnackBar.error(response.errorMessage ?? "Failed to toggle bookmark");
+      AppSnackBar.error(response.errorMessage );
     }
   }
 

@@ -7,7 +7,7 @@ import 'package:luggage_tracking/screens/device_screen/model/device_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
-import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 
 class DeviceScreenController extends GetxController {
   RxBool isLoading = false.obs; // Track loading state
@@ -48,13 +48,9 @@ class DeviceScreenController extends GetxController {
         totalPage = deviceModel.data?.pagination?.totalPage ?? 1;
         update();
 
-        print("Devices loaded successfully: ${devices.length} items");
-      } else {
-        String errorMessage = response.errorMessage ?? "Failed to load devices";
-        print("Error: $errorMessage");
       }
     } catch (e) {
-      print("Error loading devices: $e");
+      debugPrint(e.toString());
     } finally {
       isLoading.value = false;
     }
@@ -76,6 +72,7 @@ class DeviceScreenController extends GetxController {
         showCustomSnackBar(title: "Failed", message: response.errorMessage);
       }
     } catch (e) {
+      debugPrint(e.toString());
     } finally {
       isPaginationLoading.value = false;
     }

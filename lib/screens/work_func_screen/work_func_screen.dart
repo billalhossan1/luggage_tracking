@@ -4,7 +4,6 @@ import 'package:get/get.dart';
 import 'package:luggage_tracking/screens/work_func_screen/controller/work_func_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
-import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class WorkFuncScreen extends StatelessWidget {
   const WorkFuncScreen({super.key});

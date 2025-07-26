@@ -1,7 +1,6 @@
 import 'dart:convert';
 import 'dart:io'; // Added for SocketException
 import 'package:get/get.dart';
-import 'package:get/get_core/src/get_main.dart';
 import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';

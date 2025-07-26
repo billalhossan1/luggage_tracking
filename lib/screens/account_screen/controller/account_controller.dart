@@ -2,10 +2,8 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/screens/faq_screen/controller/faq_controller.dart';
 import 'package:luggage_tracking/screens/feedback_screen/controller/feedback_screen_controller.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
-import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
@@ -42,7 +40,7 @@ class AccountController extends GetxController{
 
 
       } else {
-        errorMessage.value = response.errorMessage ?? "Failed to fetch profile details";
+        errorMessage.value = response.errorMessage;
         Logger().e("Error message: ${errorMessage.value}");
       }
     } catch (e) {

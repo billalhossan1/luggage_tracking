@@ -123,10 +123,10 @@ class SignupWithPersonalDataController extends GetxController {
     'Mumbai',
   ];
   void onCountrySelected(String country) {
-    selectedCountry!.value = country;
+    selectedCountry.value = country;
   }
 
   void onCitySelected(String city) {
-    selectedCity!.value = city;
+    selectedCity.value = city;
   }
 }

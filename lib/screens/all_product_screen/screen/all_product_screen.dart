@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/all_product_screen/controller/all_product_controller.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/cards/product_card.dart';

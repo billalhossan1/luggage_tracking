@@ -3,7 +3,6 @@ import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/controller/tracker_controller.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/widgets/icon_text_column.dart';
@@ -11,10 +10,9 @@ import 'package:luggage_tracking/screens/tracker_item_screen/widgets/item_tracke
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
-import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/divider/app_divider.dart';
-import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class TrackerItemScreen extends StatefulWidget {
@@ -674,9 +672,9 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                 ),
                 isScrollControlled: true,
               );
-            }, // Trigger action
-            child: const Icon(Icons.my_location), // Icon for location
-            backgroundColor: Colors.blue, // FAB background color
+            }, // Icon for location
+            backgroundColor: Colors.blue, // Trigger action
+            child: const Icon(Icons.my_location), // FAB background color
           ),
         );
       },

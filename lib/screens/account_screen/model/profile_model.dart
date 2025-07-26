@@ -8,7 +8,7 @@ class ProfileModel {
   ProfileModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
-    data = json['data'] != null ? new ProfileDetailsModel.fromJson(json['data']) : null;
+    data = json['data'] != null ? ProfileDetailsModel.fromJson(json['data']) : null;
   }
 
   Map<String, dynamic> toJson() {

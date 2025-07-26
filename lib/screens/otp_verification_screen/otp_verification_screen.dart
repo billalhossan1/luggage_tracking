@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/controllers/otp_verification_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';

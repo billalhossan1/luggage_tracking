@@ -1,17 +1,17 @@
 class FAQModel {
   bool? success;
   String? message;
-  List<FAQItem>? FAQList;
+  List<FAQItem>? fAQList;
 
-  FAQModel({this.success, this.message, this.FAQList});
+  FAQModel({this.success, this.message, this.fAQList});
 
   FAQModel.fromJson(Map<String, dynamic> json) {
     success = json['success'];
     message = json['message'];
     if (json['data'] != null) {
-      FAQList = <FAQItem>[];
+      fAQList = <FAQItem>[];
       json['data'].forEach((v) {
-        FAQList!.add(FAQItem.fromJson(v));
+        fAQList!.add(FAQItem.fromJson(v));
       });
     }
   }
@@ -20,8 +20,8 @@ class FAQModel {
     final Map<String, dynamic> data = <String, dynamic>{};
     data['success'] = success;
     data['message'] = message;
-    if (this.FAQList != null) {
-      data['data'] = this.FAQList!.map((v) => v.toJson()).toList();
+    if (fAQList != null) {
+      data['data'] = fAQList!.map((v) => v.toJson()).toList();
     }
     return data;
   }

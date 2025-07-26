@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
@@ -8,7 +7,7 @@ import 'package:luggage_tracking/screens/home_screen/model/category_list_model.d
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
-import 'package:luggage_tracking/widgets/snackbar_message/snackBar_widget.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:permission_handler/permission_handler.dart';
 
@@ -111,8 +110,6 @@ class AddDeviceController extends GetxController {
       }
     } else if (permission.isPermanentlyDenied) {
       openAppSettings();
-    } else {
-      print('Camera permission already granted');
     }
   }
 }

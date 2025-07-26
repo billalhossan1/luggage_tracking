@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
-import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:webview_flutter/webview_flutter.dart';
 

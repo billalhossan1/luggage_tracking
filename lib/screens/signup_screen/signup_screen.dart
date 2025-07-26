@@ -6,12 +6,10 @@ import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/controllers/otp_verification_screen_controller.dart';
-import 'package:luggage_tracking/screens/otp_verification_screen/otp_verification_screen.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
-import 'package:luggage_tracking/widgets/button/btn_icon_text.dart';
 import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 

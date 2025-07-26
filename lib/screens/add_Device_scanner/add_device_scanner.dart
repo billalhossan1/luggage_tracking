@@ -241,8 +241,8 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                       hintText: "Category",
                       items: controller.categories,
                       selectedValue: controller.selectedCatName.value,
-                      onChanged: (String) {
-                        controller.selectedCatName.value = String;
+                      onChanged: (value) {
+                        controller.selectedCatName.value = value;
                         controller.selectedCatId.value = controller
                             .getCatIdFromName(controller.selectedCatName.value);
                       },

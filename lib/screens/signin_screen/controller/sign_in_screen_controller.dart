@@ -7,7 +7,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_facebook_auth/flutter_facebook_auth.dart';
 import 'package:get/get.dart';
 import 'package:google_sign_in/google_sign_in.dart';
-import 'package:http/http.dart' as http;
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
@@ -113,7 +112,6 @@ class SignInScreenController extends GetxController {
       // final GoogleSignInAuthentication googleAuth = await googleUser.authentication;
       //
       // final appId = googleAuth.idToken ?? googleAuth.accessToken;
-      print('=================================${googleUser.id}');
       final googleAuth = await googleUser.authentication;
       final idToken = googleAuth.idToken;
 
@@ -124,7 +122,6 @@ class SignInScreenController extends GetxController {
 
     } catch (e) {
       AppSnackBar.error('Google login failed: $e');
-      print("Google login error: $e");
     }
   }
 
@@ -201,7 +198,6 @@ class SignInScreenController extends GetxController {
          }
        }else{
          Logger().i("Screen: SignUpWithPersonalDataScreen");
-         //TODO:navigattionscreen
          // await Get.find<SaveDataController>().saveUserData(accessToken);
           Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"email":email,"name":name,"token":accessToken});
        }

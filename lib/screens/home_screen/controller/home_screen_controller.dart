@@ -1,17 +1,12 @@
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
-import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
-import 'package:luggage_tracking/screens/account_screen/model/profile_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/category_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
-import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
-import '../../../widgets/snackbar_message/snackBar_widget.dart';
 
 
 class HomeScreenController extends GetxController{
@@ -44,7 +39,7 @@ class HomeScreenController extends GetxController{
       product.bookmark = true;
     }
     update();
-    final NetworkResponse response =await bookMarkApiCall(product.sId!);
+    // final NetworkResponse response =await bookMarkApiCall(product.sId!);
 
     // if(response.isSuccess){
     //
@@ -88,7 +83,7 @@ class HomeScreenController extends GetxController{
     if (response.isSuccess) {
       AppSnackBar.message(response.responseData['message'] ?? "Bookmark toggled successfully");
     } else {
-      AppSnackBar.error(response.errorMessage ?? "Failed to toggle bookmark");
+      AppSnackBar.error(response.errorMessage);
       // Revert the bookmark status locally if API fails
       final product = productList.firstWhere((p) => p.sId == productID);
       product.bookmark = product.bookmark;  // Revert

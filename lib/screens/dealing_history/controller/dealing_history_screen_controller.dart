@@ -1,12 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import '../../../services/save_data/save_data.dart';
+import '../../../widgets/app_snack_bar/app_snack_bar.dart';
 import '../model/order_list_model.dart';
 
 class DealingHistoryScreenController extends GetxController {
@@ -26,8 +26,6 @@ class DealingHistoryScreenController extends GetxController {
   }
 
   Future<void> loadDealingHistory() async {
-    // if (isLoading.value || isPaginationLoading.value) return;
-
     isLoading.value = true;
 
     try {
@@ -37,16 +35,9 @@ class DealingHistoryScreenController extends GetxController {
         OrderListModel orderListModel = OrderListModel.fromJson(response.responseData);
         dealingHistory.addAll(orderListModel.data?.orders ?? []);
         totalPage = orderListModel.data?.pagination?.totalPage ?? 1;
-
-        Logger().i("Dealing history loaded successfully: ${dealingHistory.length} items");
-        Logger().i("Image URL: ${Urls.imageBaseUrl + dealingHistory[0].product!.images![0]}");
-      } else {
-        String errorMessage = response.errorMessage ?? "Failed to load dealing history";
-        print("Error: $errorMessage");
       }
     } catch (e) {
       // Handle errors
-      print("Error loading dealing history: $e");
     } finally {
       isLoading.value = false;
     }
@@ -63,13 +54,12 @@ class DealingHistoryScreenController extends GetxController {
       if (response.isSuccess) {
         OrderListModel orderListModel = OrderListModel.fromJson(response.responseData);
         dealingHistory.addAll(orderListModel.data?.orders ?? []);
-        Logger().i("Loaded more dealing history: ${dealingHistory.length} items");
       } else {
         String errorMessage = response.errorMessage ?? "Failed to load more dealing history";
-        print("Error: $errorMessage");
+        AppSnackBar.error(errorMessage);
       }
     } catch (e) {
-      print("Error loading more dealing history: $e");
+      debugPrint(e.toString());
     } finally {
       isPaginationLoading.value = false;
     }

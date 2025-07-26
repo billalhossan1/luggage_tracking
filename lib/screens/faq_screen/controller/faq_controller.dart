@@ -1,6 +1,5 @@
+import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
-import 'package:http/http.dart';
-import 'package:logger/logger.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/screens/faq_screen/model/faq_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
@@ -13,19 +12,17 @@ class FaqController extends GetxController {
   RxList<FAQItem> faqList = <FAQItem>[].obs;
   RxBool isLoading = false.obs;
 
-  // Toggle expanded state for a specific tile
   void toggleExpanded(int index) {
     if (expandedIndex.value == index) {
-      expandedIndex.value = -1; // If the same tile is clicked, collapse it.
+      expandedIndex.value = -1;
     } else {
-      expandedIndex.value = index; // Otherwise, expand the clicked tile.
+      expandedIndex.value = index;
     }
     update();
   }
   @override
   onInit() {
     super.onInit();
-    Logger().i("FaqController initialized");
     getFaqList();
   }
   
@@ -50,14 +47,12 @@ class FaqController extends GetxController {
         faqList.clear();
         var data = response.responseData;
         FAQModel faqModel = FAQModel.fromJson(data);
-        faqList.addAll(faqModel.FAQList ?? []);
-        Logger().i("FAQ list fetched successfully: ${faqList.length} items");
+        faqList.addAll(faqModel.fAQList ?? []);
       } else {
         // Handle error case
-        print("Error fetching FAQ list: ${response.errorMessage}");
       }
     } catch (e) {
-      print("An error occurred while fetching FAQ list: $e");
+      debugPrint(e.toString());
     } finally {
       isLoading.value = false;
     }
