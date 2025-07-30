@@ -29,7 +29,7 @@ class DeleteAccountController extends GetxController{
         Get.find<SaveDataController>().clearUserData();
         Get.offAllNamed(AppRoutes.instance.signIn);
       }else{
-        AppSnackBar.message(response.errorMessage);
+        AppSnackBar.error(response.errorMessage);
       }
     }catch(e)
     {

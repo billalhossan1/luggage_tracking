@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/screens/change_password_screen/controller/change_password_controller.dart';
@@ -14,46 +15,46 @@ class ChangePasswordScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GetBuilder<ChangePasswordController>(
-      builder: (controller) {
-        return Scaffold(
-          resizeToAvoidBottomInset: false,
-          appBar: CustomAppBar(title: "Change Password"),
-          body: Padding(
-            padding: EdgeInsets.all(AppSize.width(value: 16)),
-            child: Form(
-              key: controller.formKey,
-              child: Column(
-                children: [
-                  Gap(height: AppSize.width(value: 12)),
-                  AppText(
-                    fontSize: AppSize.width(value: 14),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.instance.black200,
-                    data:
-                        "Your new password must be different from previous passwords.",
-                  ),
-                  AppInputWidget(
-                    hintText: "",
-                    title: 'Old Password',
-                    controller: controller.oldPasswordTextEditingController,
-                    inImpotant: false,
-                  ),
-                  AppInputWidget(
-                    hintText: "",
-                    title: 'New Password',
-                    controller: controller.newPasswordTextEditingController,
-                    inImpotant: false,
-                  ),
-                  AppInputWidget(
-                    controller: controller.confirmPasswordTextEditingController,
-                    hintText: "",
-                    title: 'Confirm Password',
-                    inImpotant: false,
-                  ),
-                  Gap(height: AppSize.width(value: 30)),
-                  AppButton(
-                    onTap: (){
+    return GetBuilder<ChangePasswordController>(builder: (controller) {
+      return Scaffold(
+        resizeToAvoidBottomInset: false,
+        appBar: CustomAppBar(title: "Change Password"),
+        body: Padding(
+          padding: EdgeInsets.all(AppSize.width(value: 16)),
+          child: Form(
+            key: controller.formKey,
+            child: Column(
+              children: [
+                Gap(height: AppSize.width(value: 12)),
+                AppText(
+                  fontSize: AppSize.width(value: 14),
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.instance.black200,
+                  data:
+                      "Your new password must be different from previous passwords.",
+                ),
+                AppInputWidget(
+                  hintText: "",
+                  title: 'Old Password',
+                  controller: controller.oldPasswordTextEditingController,
+                  inImpotant: false,
+                ),
+                AppInputWidget(
+                  hintText: "",
+                  title: 'New Password',
+                  controller: controller.newPasswordTextEditingController,
+                  inImpotant: false,
+                ),
+                AppInputWidget(
+                  controller: controller.confirmPasswordTextEditingController,
+                  hintText: "",
+                  title: 'Confirm Password',
+                  inImpotant: false,
+                ),
+                Gap(height: AppSize.width(value: 30)),
+                Obx(
+                  () => controller.inProgress.value?Center(child: CircularProgressIndicator(),):AppButton(
+                    onTap: () {
                       controller.changePassword();
                     },
                     title: "Confirm",
@@ -61,12 +62,12 @@ class ChangePasswordScreen extends StatelessWidget {
                     titleSize: AppSize.width(value: 18),
                     borderRadius: BorderRadius.circular(16),
                   ),
-                ],
-              ),
+                )
+              ],
             ),
           ),
-        );
-      }
-    );
+        ),
+      );
+    });
   }
 }
