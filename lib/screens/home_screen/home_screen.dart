@@ -11,7 +11,9 @@ import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/appbar/home_screen_appbar.dart';
 import 'package:luggage_tracking/widgets/cards/product_card.dart';
+import 'package:luggage_tracking/widgets/home_slider/home_slider.dart';
 import 'package:luggage_tracking/widgets/service_widget/service_category_box.dart';
+import 'package:luggage_tracking/widgets/shimmer/home_slider_shimmer.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
 class HomeScreen extends StatelessWidget {
@@ -56,12 +58,9 @@ class HomeScreen extends StatelessWidget {
                   ),
                 ),
                 SliverToBoxAdapter(
-                  child: HomeBannerSection(
-                    onTap: () {
-                      appLog(
-                        "Home Page OnTap Clicked ====>>>>> Banner Section Home Page👍👍",
-                      );
-                    },
+                  child: controller.bannerIsLoading.value?HomeSliderShimmer():controller.bannerList.isEmpty?AppText(data: "No Banner Available"):Padding(
+                    padding: const EdgeInsets.only(bottom: 8.0),
+                    child: HomeSlider(controller: controller),
                   ),
                 ),
 
@@ -72,35 +71,25 @@ class HomeScreen extends StatelessWidget {
                   },
                 ),
 
-                Visibility(
-                  visible: !controller.categoryIsLoading.value,
-                  replacement: SliverToBoxAdapter(
-                    child: Center(
-                      child: CircularProgressIndicator(
-                        color: AppColors.instance.purple_500,
-                      ),
-                    ),
-                  ),
-                  child: SliverToBoxAdapter(
-                    child: Padding(
-                      padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
-                      child: SizedBox(
-                        width: AppSize.width(value: 92),
-                        height: AppSize.height(
-                          value: 92,
-                        ), // ekta fixed height dite hobe
-                        child: ListView.builder(
+                controller.categoryIsLoading.value?SliverToBoxAdapter(child: Center(child: CircularProgressIndicator(),)):controller.categoryList.isEmpty?SliverToBoxAdapter(child: Center(child: AppText(data: "No category Available"),)):SliverToBoxAdapter(
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
+                    child: SizedBox(
+                      width: AppSize.width(value: 92),
+                      height: AppSize.height(
+                        value: 92,
+                      ), // ekta fixed height dite hobe
+                      child: ListView.builder(
 
-                          scrollDirection: Axis.horizontal, // horizontal scroll
-                          padding: EdgeInsets.symmetric(
-                            horizontal: AppSize.width(value: 12),
-                          ),
-                          itemCount: controller.categoryList.length,
-                          itemBuilder: (context, index) {
-                            // var item = controller.services[index];
-                            return ServiceCategoryBox(category: controller.categoryList[index],);
-                          },
+                        scrollDirection: Axis.horizontal, // horizontal scroll
+                        padding: EdgeInsets.symmetric(
+                          horizontal: AppSize.width(value: 12),
                         ),
+                        itemCount: controller.categoryList.length,
+                        itemBuilder: (context, index) {
+                          // var item = controller.services[index];
+                          return ServiceCategoryBox(category: controller.categoryList[index],);
+                        },
                       ),
                     ),
                   ),
@@ -118,7 +107,7 @@ class HomeScreen extends StatelessWidget {
                       height:  AppSize.size.width * 0.60, // ekta fixed height dite hobe
                       child: controller.productIsLoading.value?Center(
                         child: CircularProgressIndicator()
-                      ):ListView.builder(
+                      ):controller.productList.isEmpty?Center(child: AppText(data: "No product Available",color: Colors.grey,fontWeight: FontWeight.w400,),):ListView.builder(
                         scrollDirection: Axis.horizontal, // horizontal scroll
                         padding: EdgeInsets.symmetric(
                           horizontal: AppSize.width(value: 12),

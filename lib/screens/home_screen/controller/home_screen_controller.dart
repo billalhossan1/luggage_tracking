@@ -1,28 +1,34 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
+import 'package:luggage_tracking/screens/home_screen/model/banner_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/category_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
+import '../../../services/api/network_response.dart';
 
 
 class HomeScreenController extends GetxController{
   RxBool categoryIsLoading = false.obs;
   RxBool productIsLoading = false.obs;
+  RxBool bannerIsLoading = false.obs;
   RxString message = ''.obs;
   RxString errorMessage = ''.obs;
   RxBool bookMarkLoading = false.obs;
   RxList<CategoryItem> categoryList = <CategoryItem>[].obs;
   RxList<ProductItem> productList = <ProductItem>[].obs;
+  RxList<BannerItem> bannerList = <BannerItem>[].obs;
 
   @override
   Future<void> onInit() async {
     Logger().i("HomeScreenController initialized");
     getCategoryList();
     getProductList();
+    getBannerList();
     Get.find<AccountController>().getProfileDetails();
     // Logger().i("Category list fetched: ${categoryList.length} items");
     // Logger().i("Product list fetched: ${productList.length} items");
@@ -39,11 +45,11 @@ class HomeScreenController extends GetxController{
       product.bookmark = true;
     }
     update();
-    // final NetworkResponse response =await bookMarkApiCall(product.sId!);
+    final NetworkResponse response =await bookMarkApiCall(product.sId!);
 
-    // if(response.isSuccess){
-    //
-    // }
+    if(!response.isSuccess){
+      showCustomSnackBar( title: 'Error', message: response.errorMessage);
+    }
  //  Toggle the bookmark status locally
 // Update the UI with the new state
 
@@ -141,6 +147,30 @@ class HomeScreenController extends GetxController{
     }
   }
 
+  Future<void> getBannerList() async {
+    bannerIsLoading.value = true;
+    try {
+      final response = await bannerApiCall();
+      if (response.isSuccess) {
+        bannerList.clear();
+        var data = response.responseData;
+        BannerListModel productListModel = BannerListModel.fromJson(data);
+        bannerList.clear();
+        bannerList.addAll(productListModel.bannerList ?? []);
+        Logger().i("Banner list updated: ${bannerList.length} items");
+        message.value = "Banner list fetched successfully";
+      } else {
+        errorMessage.value = response.errorMessage ?? "Failed to fetch product list";
+        Logger().e("Error message: ${errorMessage.value}");
+      }
+    } catch (e) {
+      errorMessage.value = "An error occurred: $e";
+      Logger().e(errorMessage.value);
+    } finally {
+      bannerIsLoading.value = false;
+    }
+  }
+
   Future<dynamic> categoryApicall() async {
     if (!Get.isRegistered<SaveDataController>() && !Get.isRegistered<NetworkCaller>()) {
       Get.lazyPut(() => SaveDataController());
@@ -155,6 +185,16 @@ class HomeScreenController extends GetxController{
   Future<void> onRefresh()async{
     getCategoryList();
     getProductList();
+
+  }
+
+  Future<dynamic>bannerApiCall()async{
+    if (!Get.isRegistered<SaveDataController>()) {
+      Get.lazyPut(() => SaveDataController());
+    }
+    final networkCaller = NetworkCaller();
+    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    return networkCaller.getRequest(Urls.bannerUrl,accessToken: accessToken);
 
   }
 

@@ -89,6 +89,32 @@ class DeviceScreenController extends GetxController {
     return response;
   }
 
+  RxBool isDeleteLoading =  false.obs;
+
+  Future<void>deleteDevice(String deviceId)async{
+    isDeleteLoading.value = true;
+    final NetworkResponse response = await _deleteDeviceApi(deviceId);
+    isDeleteLoading.value = false;
+    if(response.isSuccess){
+      showCustomSnackBar(title: "success", message: "Device deactivate successfully");
+      update();
+    }else{
+      showCustomSnackBar(title: "Failed", message: response.errorMessage);
+    }
+  }
+
+  Future<dynamic> _deleteDeviceApi(String deviceId) async {
+    if(!Get.isRegistered<SaveDataController>()){
+      Get.lazyPut(()=>SaveDataController());
+    }
+    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    final response = NetworkCaller().delRequest(
+      Urls.deleteDeviceUrl(deviceId),
+      accessToken: accessToken, body: {},
+    );
+    return response;
+  }
+
   // Scroll listener to detect when to load more data
   void _scrollListener() {
     if (scrollController.position.pixels == scrollController.position.maxScrollExtent) {

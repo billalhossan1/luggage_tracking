@@ -100,7 +100,7 @@ class DeviceScreen extends StatelessWidget {
                                             ShowCustomBottomSheet(
                                               text1: "Edit",
                                               text1IconPath: const Icon(Icons.edit),
-                                              text2: "Delete",
+                                              text2: "Deactivate",
                                               text2IconPath: const Icon(Icons.delete),
                                               text1OnTap: () {
                                                 Get.bottomSheet(
@@ -172,6 +172,10 @@ class DeviceScreen extends StatelessWidget {
                                                     ],
                                                   ),
                                                 );
+                                              },
+                                              text2OnTap: (){
+                                                controller.deleteDevice(controller.devices[index].sId!);
+                                                Navigator.pop(context);
                                               },
                                             ),
                                             isScrollControlled: true,
@@ -375,12 +379,14 @@ class ShowCustomBottomSheet extends StatelessWidget {
   final String? text2;
   final Widget? text2IconPath;
   final Function()? text1OnTap;
+  final Function()? text2OnTap;
   const ShowCustomBottomSheet({
     super.key,
     this.text1,
     this.text1IconPath,
     this.text2,
     this.text2IconPath,
+    this.text2OnTap,
     this.text1OnTap,
   });
 
@@ -412,6 +418,7 @@ class ShowCustomBottomSheet extends StatelessWidget {
             title: AppText(data: text1 ?? "Edit"),
           ),
           ListTile(
+            onTap: text2OnTap,
             leading: text2IconPath ?? Icon(Icons.bookmark_remove),
             title: AppText(data: text2 ?? "deactive"),
           ),
