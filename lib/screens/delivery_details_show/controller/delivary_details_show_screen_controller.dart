@@ -7,6 +7,7 @@ import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import 'package:luggage_tracking/widgets/payment_web_view_widget/payment_webview_widget.dart';
+import 'package:luggage_tracking/widgets/payment_web_view_widget/product_payment_web_view.dart';
 
 class DeliveryDetailsShowScreenController extends GetxController{
   String? responseUrl;
@@ -71,7 +72,7 @@ class DeliveryDetailsShowScreenController extends GetxController{
       AppSnackBar.message(response.responseData["message"]??"Order Created Successfully");
       responseUrl = response.responseData["data"];
       if(context.mounted){
-        paymentWebView(context, responseUrl!);
+        productWebView(context, responseUrl!);
       }
       Get.back();
     }else{

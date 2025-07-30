@@ -29,6 +29,8 @@ class Urls{
   static final String workFuncUrl = '$_baseUrl/rule/work';
   static final String myPlanUrl = '$_baseUrl/subscription/my-plan';
   static final String termsAndConditionUrl = '$_baseUrl/rule/terms-and-conditions';
+  static final String productSuccessUrl = 'http://10.0.80.75:5000/order/success';
+  static final String productCancelUrl = 'http://10.0.80.75:5000/order/cancel';
   static final String paymentCancelUrl = 'https://nadir3000.binarybards.online/order/cancel';
   static final String paymentSuccessUrl = 'https://nadir3000.binarybards.online/order/success';
   static  String productDetailsUrl(String productId) =>'$_baseUrl/product/$productId';
