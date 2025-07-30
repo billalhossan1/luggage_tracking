@@ -5,7 +5,6 @@ import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
-import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -22,125 +21,147 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder(
-      init: HomeScreenController(),
-      builder: (controller) {
-        return Scaffold(
-          body: Obx(()=>RefreshIndicator(
-            onRefresh: () { return controller.onRefresh(); },
-            child: CustomScrollView(
-              slivers: [
-                // SliverAppBar with some basic properties
-                SliverAppBar(
-                  automaticallyImplyLeading: false,
-                  toolbarHeight: AppSize.width(value: 56),
-                  pinned: true, // height when expanded
-                  flexibleSpace: HomeScreenAppBar(
-                    actions: [
-                      Gap(width: AppSize.width(value: 16)),
-                      GestureDetector(
-                        onTap: () {
-                          // Get.toNamed(AppRoutes.instance.notificationScreen);
-                        },
-                        child: AppImage(
-                          path: AssetsIconsPath.instance.notification,
-                          width: AppSize.width(value: 24),
-                          height: AppSize.width(value: 24),
+        init: HomeScreenController(),
+        builder: (controller) {
+          return Scaffold(
+              body: Obx(
+            () => RefreshIndicator(
+              onRefresh: () {
+                return controller.onRefresh();
+              },
+              child: CustomScrollView(
+                slivers: [
+                  // SliverAppBar with some basic properties
+                  SliverAppBar(
+                    automaticallyImplyLeading: false,
+                    toolbarHeight: AppSize.width(value: 56),
+                    pinned: true, // height when expanded
+                    flexibleSpace: HomeScreenAppBar(
+                      actions: [
+                        Gap(width: AppSize.width(value: 16)),
+                        GestureDetector(
+                          onTap: () {
+                            // Get.toNamed(AppRoutes.instance.notificationScreen);
+                          },
+                          child: AppImage(
+                            path: AssetsIconsPath.instance.notification,
+                            width: AppSize.width(value: 24),
+                            height: AppSize.width(value: 24),
+                          ),
                         ),
-                      ),
-                    ],
-                    title: "Welcome to Trkil",
-                    subtitle: "Every move matters",
-                    leading: AppImage(
-                      path: AssetsImagesPath.instance.homeLogo,
-                      width: AppSize.width(value: 40),
-                      height: AppSize.width(value: 40),
-                    ),
-                  ),
-                ),
-                SliverToBoxAdapter(
-                  child: controller.bannerIsLoading.value?HomeSliderShimmer():controller.bannerList.isEmpty?AppText(data: "No Banner Available"):Padding(
-                    padding: const EdgeInsets.only(bottom: 8.0),
-                    child: HomeSlider(controller: controller),
-                  ),
-                ),
-
-                itemTitleOption(
-                  name: "Categories",
-                  onTapCall: () {
-                    Get.toNamed(AppRoutes.instance.categoryScreen,arguments: {"category-list": controller.categoryList});
-                  },
-                ),
-
-                controller.categoryIsLoading.value?SliverToBoxAdapter(child: Center(child: CircularProgressIndicator(),)):controller.categoryList.isEmpty?SliverToBoxAdapter(child: Center(child: AppText(data: "No category Available"),)):SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
-                    child: SizedBox(
-                      width: AppSize.width(value: 92),
-                      height: AppSize.height(
-                        value: 92,
-                      ), // ekta fixed height dite hobe
-                      child: ListView.builder(
-
-                        scrollDirection: Axis.horizontal, // horizontal scroll
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSize.width(value: 12),
-                        ),
-                        itemCount: controller.categoryList.length,
-                        itemBuilder: (context, index) {
-                          // var item = controller.services[index];
-                          return ServiceCategoryBox(category: controller.categoryList[index],);
-                        },
+                      ],
+                      title: "Welcome to Trkil",
+                      subtitle: "Every move matters",
+                      leading: AppImage(
+                        path: AssetsImagesPath.instance.homeLogo,
+                        width: AppSize.width(value: 40),
+                        height: AppSize.width(value: 40),
                       ),
                     ),
                   ),
-                ),
-                itemTitleOption(
-                  name: "Vest Products",
-                  onTapCall: () {
-                    Get.toNamed(AppRoutes.instance.allProductScreen);
-                  },
-                ),
-                SliverToBoxAdapter(
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
-                    child: SizedBox(
-                      height:  AppSize.size.width * 0.60, // ekta fixed height dite hobe
-                      child: controller.productIsLoading.value?Center(
-                        child: CircularProgressIndicator()
-                      ):controller.productList.isEmpty?Center(child: AppText(data: "No product Available",color: Colors.grey,fontWeight: FontWeight.w400,),):ListView.builder(
-                        scrollDirection: Axis.horizontal, // horizontal scroll
-                        padding: EdgeInsets.symmetric(
-                          horizontal: AppSize.width(value: 12),
-                        ),
-                        itemCount: controller.productList.length,
-                        itemBuilder: (context, index) {
-                          // var item = controller.services[index];
-                          return Padding(
-                            padding: EdgeInsets.only(right: AppSize.width(value: 8)),
-                            child: ProductCard(
+                  SliverToBoxAdapter(
+                    child: controller.bannerIsLoading.value
+                        ? HomeSliderShimmer()
+                        : controller.bannerList.isEmpty
+                            ? AppText(data: "No Banner Available")
+                            : Padding(
+                                padding: const EdgeInsets.only(bottom: 8.0),
+                                child: HomeSlider(controller: controller),
+                              ),
+                  ),
 
-                              productItem: controller.productList[index], isBookmarked: controller.productList[index].bookmark??false,
-                              onBookmarkToggle: () {
-                                // Logger().e("Bookmark Toggled: ${controller.productList[index].sId}");
-                                controller.onBookMarkTogle(controller.productList[index]);
+                  itemTitleOption(
+                    name: "Categories",
+                    onTapCall: () {
+                      Get.toNamed(AppRoutes.instance.categoryScreen, arguments: {"category-list": controller.categoryList});
+                    },
+                  ),
 
-                                // controller.onBookMarkTogle(controller.productList[index].bookmark??false);
-                                // controller.getProductList();
-
-                              },
+                  controller.categoryIsLoading.value
+                      ? SliverToBoxAdapter(
+                          child: Center(
+                          child: CircularProgressIndicator(),
+                        ))
+                      : controller.categoryList.isEmpty
+                          ? SliverToBoxAdapter(
+                              child: Center(
+                              child: AppText(data: "No category Available"),
+                            ))
+                          : SliverToBoxAdapter(
+                              child: Padding(
+                                padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
+                                child: SizedBox(
+                                  width: AppSize.size.width,
+                                  height: AppSize.height(value: 100), // ekta fixed height dite hobe
+                                  child: ListView.builder(
+                                    scrollDirection: Axis.horizontal, // horizontal scroll
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: AppSize.width(value: 12),
+                                    ),
+                                    itemCount: controller.categoryList.length,
+                                    itemBuilder: (context, index) {
+                                      // var item = controller.services[index];
+                                      return ServiceCategoryBox(
+                                        category: controller.categoryList[index],
+                                      );
+                                    },
+                                  ),
+                                ),
+                              ),
                             ),
-                          );
-                        },
+                  itemTitleOption(
+                    name: "Vest Products",
+                    onTapCall: () {
+                      Get.toNamed(AppRoutes.instance.allProductScreen);
+                    },
+                  ),
+                  SliverToBoxAdapter(
+                    child: Padding(
+                      padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
+                      child: SizedBox(
+                        height: AppSize.size.width * 0.60, // ekta fixed height dite hobe
+                        child: controller.productIsLoading.value
+                            ? Center(child: CircularProgressIndicator())
+                            : controller.productList.isEmpty
+                                ? Center(
+                                    child: AppText(
+                                      data: "No product Available",
+                                      color: Colors.grey,
+                                      fontWeight: FontWeight.w400,
+                                    ),
+                                  )
+                                : ListView.builder(
+                                    scrollDirection: Axis.horizontal, // horizontal scroll
+                                    padding: EdgeInsets.symmetric(
+                                      horizontal: AppSize.width(value: 12),
+                                    ),
+                                    itemCount: controller.productList.length,
+                                    itemBuilder: (context, index) {
+                                      // var item = controller.services[index];
+                                      return Padding(
+                                        padding: EdgeInsets.only(right: AppSize.width(value: 8)),
+                                        child: ProductCard(
+                                          productItem: controller.productList[index],
+                                          isBookmarked: controller.productList[index].bookmark ?? false,
+                                          onBookmarkToggle: () {
+                                            // Logger().e("Bookmark Toggled: ${controller.productList[index].sId}");
+                                            controller.onBookMarkTogle(controller.productList[index]);
+
+                                            // controller.onBookMarkTogle(controller.productList[index].bookmark??false);
+                                            // controller.getProductList();
+                                          },
+                                        ),
+                                      );
+                                    },
+                                  ),
                       ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
-          ),)
-        );
-      }
-    );
+          ));
+        });
   }
 }
 

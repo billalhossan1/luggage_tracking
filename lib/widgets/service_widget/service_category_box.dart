@@ -18,9 +18,7 @@ class ServiceCategoryBox extends StatelessWidget {
   Widget build(BuildContext context) {
     return GestureDetector(
       onTap: () {
-        Get.toNamed(
-          AppRoutes.instance.productCategoryScreen,arguments: {"category-id":category.sId,"category-name":category.name}
-        );
+        Get.toNamed(AppRoutes.instance.productCategoryScreen, arguments: {"category-id": category.sId, "category-name": category.name});
       },
       child: Container(
         alignment: Alignment.center,
@@ -36,23 +34,27 @@ class ServiceCategoryBox extends StatelessWidget {
         ),
         // Wrap Column in fixed height SizedBox to constrain height
         child: SizedBox(
-          height: AppSize.height(value: 92), // same fixed height as your ListView item height
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              AppImage(
-                url: Urls.imageBaseUrl+category.image!,
-                height: AppSize.height(value: 47),
-                width: AppSize.width(value: 51),
-              ),
-              const Gap(height: 10),
-              AppText(
-                data: category.name ?? "",
-                fontSize: 12,
-                fontWeight: FontWeight.w400,
-                color: AppColors.instance.black200,
-              ),
-            ],
+          height: AppSize.height(value: 100), // same fixed height as your ListView item height
+          width: AppSize.height(value: 100),
+          child: FittedBox(
+            fit: BoxFit.scaleDown,
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                AppImage(
+                  url: Urls.imageBaseUrl + category.image!,
+                  height: AppSize.height(value: 47),
+                  width: AppSize.width(value: 51),
+                ),
+                const Gap(height: 10),
+                AppText(
+                  data: category.name ?? "",
+                  fontSize: 12,
+                  fontWeight: FontWeight.w400,
+                  color: AppColors.instance.black200,
+                ),
+              ],
+            ),
           ),
         ),
       ),
