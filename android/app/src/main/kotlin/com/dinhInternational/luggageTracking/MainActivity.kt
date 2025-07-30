@@ -1,4 +1,4 @@
-package com.dinh_international.luggage_tracking
+package com.dinhInternational.luggageTracking
 
 import io.flutter.embedding.android.FlutterActivity
 
