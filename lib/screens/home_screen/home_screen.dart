@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
@@ -50,10 +51,10 @@ class HomeScreen extends StatelessWidget {
                           ),
                         ),
                       ],
-                      title: "Welcome to Trkil",
+                      title: "Welcome to Trkli",
                       subtitle: "Every move matters",
-                      leading: AppImage(
-                        path: AssetsImagesPath.instance.homeLogo,
+                      leading: SvgPicture.asset(
+                         AssetsImagesPath.instance.homeLogo,
                         width: AppSize.width(value: 40),
                         height: AppSize.width(value: 40),
                       ),
@@ -119,7 +120,7 @@ class HomeScreen extends StatelessWidget {
                     child: Padding(
                       padding: const EdgeInsets.only(left: 4, right: 16, bottom: 16),
                       child: SizedBox(
-                        height: AppSize.size.width * 0.60, // ekta fixed height dite hobe
+                        height: AppSize.size.width * 0.60,
                         child: controller.productIsLoading.value
                             ? Center(child: CircularProgressIndicator())
                             : controller.productList.isEmpty

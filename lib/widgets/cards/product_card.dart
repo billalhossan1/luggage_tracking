@@ -106,7 +106,7 @@ class ProductCard extends StatelessWidget {
           ),
           Positioned(
               top: 10,
-              right: 10,
+              right: 30,
               child:     GestureDetector(
                 onTap: onBookmarkToggle, // Call the parent callback to toggle bookmark
                 child: isBookmarked ? Icon(Icons.favorite,color: Color(0xff8F00FF),): Icon(Icons.favorite_border_outlined,color: Color(0xff8F00FF),),
