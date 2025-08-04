@@ -62,9 +62,17 @@
 	</dict>
 	<key>NSLocationWhenInUseUsageDescription</key>
 	<string>Your app needs access to your location for XYZ purpose</string>
+	<key>NSMicrophoneUsageDescription</key>
+	<string>Your app needs access to your location for XYZ purpose</string>
+	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
+	<string>Your app needs access to your location for XYZ purpose</string>
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>Your app needs access to your location for XYZ purpose</string>
 	<key>NSCameraUsageDescription</key>
 	<string>Your app needs camera access for XYZ purpose</string>
+	<key>NSPhotoLibraryAddUsageDescription</key>
+	<string>We need permission to save images to your gallery.</string>
+	<key>NSPhotoLibraryUsageDescription</key>
+	<string>We need access to your photo library to select images for your profile.</string>
 </dict>
 </plist>
