@@ -92,25 +92,29 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                                         : Stack(
                                           alignment: Alignment.center,
                                           children: [
-                                            MobileScanner(
-                                              controller:
-                                                  controller.scannerController,
-                                              onDetect: (capture) {
-                                                final List<Barcode> barcodes =
-                                                    capture.barcodes;
-                                                for (final barcode
-                                                    in barcodes) {
-                                                  if (barcode.rawValue !=
-                                                      null) {
-                                                    setState(() {
-                                                      controller
-                                                              .scannedDeviceId =
-                                                          barcode.rawValue;
-                                                    });
-                                                    break;
-                                                  }
-                                                }
-                                              },
+                                            GetBuilder<AddDeviceController>(
+                                              builder: (context) {
+                                                return MobileScanner(
+                                                  controller:
+                                                      controller.scannerController,
+                                                  onDetect: (capture) {
+                                                    final List<Barcode> barcodes =
+                                                        capture.barcodes;
+                                                    for (final barcode
+                                                        in barcodes) {
+                                                      if (barcode.rawValue !=
+                                                          null) {
+                                                        setState(() {
+                                                          controller
+                                                                  .scannedDeviceId =
+                                                              barcode.rawValue;
+                                                        });
+                                                        break;
+                                                      }
+                                                    }
+                                                  },
+                                                );
+                                              }
                                             ),
                                           ],
                                         ),

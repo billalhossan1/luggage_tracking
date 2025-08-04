@@ -98,18 +98,27 @@ class AddDeviceController extends GetxController {
   }
 
   // Method to check camera permission
+  // Add this to your AddDeviceController
+
+// Method to check camera permission
   Future<void> _checkCameraPermission() async {
     PermissionStatus permission = await Permission.camera.status;
 
     if (permission.isDenied) {
       PermissionStatus status = await Permission.camera.request();
       if (status.isGranted) {
- return;
+        scannerController.start();
+
+        update();
       } else {
         showCustomSnackBar(title: 'Permission Denied', message: 'Camera permission is required for scanning QR codes.');
       }
     } else if (permission.isPermanentlyDenied) {
       openAppSettings();
+    } else {
+      scannerController.start();
+      update();
     }
   }
+
 }

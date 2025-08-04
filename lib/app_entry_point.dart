@@ -21,8 +21,7 @@ class MyApp extends StatelessWidget {
       themeMode: ThemeMode.light,
       defaultTransition: Transition.fadeIn,
       transitionDuration: Duration(milliseconds: 200),
-
-      title: 'luggage-tracking',
+      title: 'Trkli',
     );
   }
 }

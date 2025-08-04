@@ -32,9 +32,8 @@ class ServiceCategoryBox extends StatelessWidget {
           color: AppColors.instance.white50,
           borderRadius: BorderRadius.circular(AppSize.width(value: 12)),
         ),
-        // Wrap Column in fixed height SizedBox to constrain height
         child: SizedBox(
-          height: AppSize.height(value: 100), // same fixed height as your ListView item height
+          height: AppSize.height(value: 100),
           width: AppSize.height(value: 100),
           child: FittedBox(
             fit: BoxFit.scaleDown,
