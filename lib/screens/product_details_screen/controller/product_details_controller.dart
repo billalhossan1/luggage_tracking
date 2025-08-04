@@ -2,6 +2,12 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
+import 'package:luggage_tracking/screens/product_details_screen/model/product_details_model.dart';
+import 'package:luggage_tracking/services/api/network_caller.dart';
+import 'package:luggage_tracking/services/api/network_response.dart';
+
+import '../../../const/urls/urls.dart';
+import '../../../services/save_data/save_data.dart';
 
 
 class ProductDetailsController extends GetxController {
@@ -10,19 +16,13 @@ class ProductDetailsController extends GetxController {
   RxString selectedImage = ''.obs;
   RxInt quantity = 1.obs;
   RxBool isLoading = false.obs;
+  String productId = '';
 
 
   onInitialDataLoadFunction(){
     try{
-      productItem = Get.arguments["product"];
-      if (productItem != null) {
-        images.addAll(productItem?.images ?? []);
-        if (images.isNotEmpty) {
-          selectedImage.value =  images[0];
-        }
-      }
-      Logger().i("images in product details: $images");
-      Logger().i("selected image: ${selectedImage.value}");
+     productId = Get.arguments['productId'];
+     getProductDetails();
     }catch (e){
       debugPrint(e.toString());
     }
@@ -32,6 +32,31 @@ class ProductDetailsController extends GetxController {
     onInitialDataLoadFunction();
     super.onInit();
 
+  }
+
+  Future<void>getProductDetails()async{
+    isLoading.value = true;
+    NetworkResponse response = await productDetailsApiCall();
+    isLoading.value = false;
+    if(response.isSuccess){
+      ProductDetailsModel productDetailsModel = ProductDetailsModel.fromJson(response.responseData);
+      productItem = productDetailsModel.productItem;
+      images.addAll(productItem?.images ?? []);
+      if (images.isNotEmpty) {
+        selectedImage.value =  images[0];
+      }
+    }
+  }
+
+  Future<dynamic> productDetailsApiCall() async {
+    if (!Get.isRegistered<SaveDataController>() ) {
+      Get.lazyPut(() => SaveDataController());
+    }
+    final networkCaller = NetworkCaller();
+    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    // _accessToken = accessToken;
+    return networkCaller.getRequest(
+        Urls.productDetailsUrl(productId), accessToken: accessToken);
   }
 
   void selectImage(String img) {

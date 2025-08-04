@@ -25,7 +25,7 @@ class ProductDetailsScreen extends StatelessWidget {
         init: ProductDetailsController(),
         builder: (controller) {
 
-          return SingleChildScrollView(
+          return Obx(()=>controller.isLoading.value?Center(child: CircularProgressIndicator(),):controller.productItem==null?Center(child: Text("No product found"),) :SingleChildScrollView(
             child: Column(
               children: [
                 SizedBox(
@@ -60,7 +60,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   controller.selectedImage.value = img;
 
                                   // controller.selectImage(img)
-                              controller.update();
+                                  controller.update();
                                 },
                                 child: Container(
                                   padding: EdgeInsets.all(12),
@@ -70,7 +70,7 @@ class ProductDetailsScreen extends StatelessWidget {
                                   decoration: BoxDecoration(
                                     border: Border.all(
                                       color:
-                                     isSelected
+                                      isSelected
                                           ? Colors.purple
                                           : Colors.transparent,
                                       width: 2,
@@ -171,8 +171,8 @@ class ProductDetailsScreen extends StatelessWidget {
                       ),
 
                       TitledescriptionWidget(
-                        title: 'Description:',
-                        descreption:controller.productItem?.description??''
+                          title: 'Description:',
+                          descreption:controller.productItem?.description??''
                       ),
 
                     ],
@@ -180,12 +180,12 @@ class ProductDetailsScreen extends StatelessWidget {
                 ),
               ],
             ),
-          );
+          ));
         },
       ),
       bottomNavigationBar: GetBuilder<ProductDetailsController>(
         builder: (controller) {
-          return Column(
+          return Obx(()=>controller.isLoading.value?Center(child: CircularProgressIndicator(),):controller.productItem==null?SizedBox():Column(
             mainAxisSize: MainAxisSize.min,
             children: [
               Gap(height: AppSize.width(value: 8)),
@@ -254,7 +254,7 @@ class ProductDetailsScreen extends StatelessWidget {
               ),
               Gap(height: AppSize.width(value: AppSize.width(value: 26))),
             ],
-          );
+          ));
         }
       ),
 

@@ -28,7 +28,7 @@ class ProductCard extends StatelessWidget {
     return GestureDetector(
       onTap: (){
         Get.toNamed(AppRoutes.instance.productDetailsScreen,arguments: {
-          "product": productItem
+          "productId": productItem!.sId
         });
       },
       child: Stack(

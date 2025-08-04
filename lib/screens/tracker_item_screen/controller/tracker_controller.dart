@@ -45,10 +45,8 @@ class TrackerController extends GetxController {
     final isGranted = await _isLocationPermissionGranted();
 
     if (!isGranted) {
-      // If not granted, ask for permission and show dialog
       final granted = await _requestPermission();
       if (!granted) {
-        // Show an alert dialog asking the user if they want to open settings
         bool? openSettings = await showDialog(
           context: Get.context!,
           builder: (BuildContext context) {
