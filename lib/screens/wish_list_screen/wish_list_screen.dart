@@ -41,7 +41,7 @@ class WishListScreen extends StatelessWidget {
                           crossAxisSpacing: 10,
                           mainAxisSpacing: 10,
                           childAspectRatio:
-                          AppSize.size.width * 0.40 / (AppSize.size.width * 0.40 * 1.4), // Adjust aspect ratio
+                          AppSize.size.width * 0.40 / (AppSize.size.width * 0.40 * 1.3), // Adjust aspect ratio
                         ),
                         itemCount: controller.wishListItems.length,
                         padding: EdgeInsets.all(8),

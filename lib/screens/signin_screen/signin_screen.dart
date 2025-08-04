@@ -1,9 +1,11 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
+import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/signin_screen/controller/sign_in_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
@@ -22,6 +24,7 @@ class SignInScreen extends StatelessWidget {
       init: SignInScreenController(),
       builder: (controller) {
         return Scaffold(
+          
           body: SafeArea(
             child: SingleChildScrollView(
               padding: EdgeInsets.symmetric(
@@ -35,8 +38,8 @@ class SignInScreen extends StatelessWidget {
                   Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppImage(
-                        path: AssetsIconsPath.instance.appLogoCircle,
+                      SvgPicture.asset(
+                         AssetsImagesPath.instance.homeLogo,
                         width: AppSize.width(value: 48),
                         height: AppSize.width(value: 48),
                       ),

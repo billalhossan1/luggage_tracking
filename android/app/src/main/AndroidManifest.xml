@@ -9,13 +9,13 @@
 
 
     <application
-        android:label="Luggage Tracking"
+        android:label="Trkli"
         android:name="${applicationName}"
         android:enableOnBackInvokedCallback="true"
         android:hardwareAccelerated="true"
         android:allowBackup="false"
-        android:fullBackupContent="false">
-    android:icon="@mipmap/ic_launcher">
+        android:fullBackupContent="false"
+        android:icon="@mipmap/launcher_icon">
 
 <!--        <meta-data-->
 <!--            android:name="com.facebook.sdk.ApplicationId"-->
