@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
@@ -42,14 +43,45 @@ class TrackerController extends GetxController {
 
   Future<LatLng?> _getCurrentLocationOnce() async {
     final isGranted = await _isLocationPermissionGranted();
+
     if (!isGranted) {
+      // If not granted, ask for permission and show dialog
       final granted = await _requestPermission();
       if (!granted) {
-        await Geolocator.openAppSettings();
+        // Show an alert dialog asking the user if they want to open settings
+        bool? openSettings = await showDialog(
+          context: Get.context!,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Permission Required for tracking your device'),
+              content: Text(
+                  'Location permission is required to proceed. Would you like to open the settings to enable it?'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(false);
+                  },
+                  child: Text('No'),
+                ),
+                TextButton(
+                  onPressed: () {
+                    Navigator.of(context).pop(true);
+                  },
+                  child: Text('Yes'),
+                ),
+              ],
+            );
+          },
+        );
+
+        if (openSettings == true) {
+          await Geolocator.openAppSettings();
+        }
         return null;
       }
     }
 
+    // Check if GPS service is enabled
     final isServiceEnabled = await _checkGpsServiceEnable();
     if (!isServiceEnabled) {
       await Geolocator.openLocationSettings();
@@ -57,6 +89,7 @@ class TrackerController extends GetxController {
     }
 
     try {
+      // Try fetching the current position with high accuracy
       final position = await Geolocator.getCurrentPosition(
         locationSettings: LocationSettings(accuracy: LocationAccuracy.high),
       );
@@ -70,6 +103,7 @@ class TrackerController extends GetxController {
       return null;
     }
   }
+
 
   Future<bool> _isLocationPermissionGranted() async {
     LocationPermission permission = await Geolocator.checkPermission();
