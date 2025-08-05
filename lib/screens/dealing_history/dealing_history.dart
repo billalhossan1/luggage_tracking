@@ -150,7 +150,7 @@ class DealingHistoryScreen extends StatelessWidget {
                                           ),
                                           GestureDetector(
                                             onTap: (){
-                                              controller.onTapBuyAgain(order.product!);
+                                              controller.onTapBuyAgain(order.product!.sId!);
                                             },
                                             child: Container(
                                               padding: EdgeInsets.symmetric(

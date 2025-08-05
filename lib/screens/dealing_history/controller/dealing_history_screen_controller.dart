@@ -84,8 +84,8 @@ class DealingHistoryScreenController extends GetxController {
     }
   }
 
-  void onTapBuyAgain(ProductItem product){
-    Get.toNamed(AppRoutes.instance.productDetailsScreen,arguments: { "product": product});
+  void onTapBuyAgain(String productId){
+    Get.toNamed(AppRoutes.instance.productDetailsScreen,arguments: { "productId": productId});
   }
 
   @override

@@ -15,7 +15,7 @@
         android:hardwareAccelerated="true"
         android:allowBackup="false"
         android:fullBackupContent="false"
-        android:icon="@mipmap/launcher_icon">
+        android:icon="@mipmap/ic_launcher">
 
 <!--        <meta-data-->
 <!--            android:name="com.facebook.sdk.ApplicationId"-->

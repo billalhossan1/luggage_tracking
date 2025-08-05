@@ -27,6 +27,7 @@ class BannerListModel {
 class BannerItem {
   String? sId;
   String? name;
+  String? product;
   String? image;
   String? createdAt;
   String? updatedAt;
@@ -43,6 +44,7 @@ class BannerItem {
   BannerItem.fromJson(Map<String, dynamic> json) {
     sId = json['_id'];
     name = json['name'];
+    product = json['product'];
     image = json['image'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
