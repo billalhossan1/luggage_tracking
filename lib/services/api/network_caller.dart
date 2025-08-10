@@ -254,4 +254,48 @@ class NetworkCaller {
   void _logResponse(String url, int statusCode, Map<String, String>? headers, String body) {
     _logger.i('URL => $url\nHeaders => $headers\nStatus code => $statusCode\nBODY => $body');
   }
+  Future<NetworkResponse> putRequest(String url, {dynamic body, String? accessToken}) async {
+    try {
+      Map<String, String> headers = {'content-type': 'application/json'};
+      if (accessToken != null) {
+        headers['Authorization'] = 'Bearer $accessToken';
+      }
+
+      _logRequest(url, headers, body);
+      Uri uri = Uri.parse(url);
+      http.Response response = await http.put(uri, headers: headers, body: jsonEncode(body));
+
+      _logResponse(url, response.statusCode, response.headers, response.body);
+
+      if (response.statusCode == 200) {
+        return NetworkResponse(
+          isSuccess: true,
+          statusCode: response.statusCode,
+          responseData: jsonDecode(response.body),
+        );
+      } else {
+        ErrorResponseModel errorResponseModel = ErrorResponseModel.fromJson(jsonDecode(response.body));
+        return NetworkResponse(
+          isSuccess: false,
+          statusCode: response.statusCode,
+          errorMessage: errorResponseModel.errorMessages?.isNotEmpty == true
+              ? errorResponseModel.errorMessages!.first.message ?? 'Unknown error occurred'
+              : errorResponseModel.message ?? 'Unknown error occurred',
+        );
+      }
+    } on SocketException {
+      return NetworkResponse(
+        isSuccess: false,
+        statusCode: -1,
+        errorMessage: "No Internet Connection",
+      );
+    } catch (e) {
+      return NetworkResponse(
+        isSuccess: false,
+        statusCode: -1,
+        errorMessage: e.toString(),
+      );
+    }
+  }
+
 }

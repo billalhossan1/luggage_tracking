@@ -56,7 +56,19 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       controller: controller.emailTEController,
                     ),
                     AppInputWidget(
-                      title: "Address (this content well show in Card)",
+                      title: "zip code",
+                      hintText: "1234",
+                      controller: controller.zipCodeTEController,
+                    ),AppInputWidget(
+                      title: "city",
+                      hintText: "Damascus",
+                      controller: controller.cityTEController,
+                    ),AppInputWidget(
+                      title: "Street",
+                      hintText: "123, Main Street",
+                      controller: controller.streetTEController,
+                    ),AppInputWidget(
+                      title: "Address",
                       hintText: "P. O. Box 50332, Damasc...",
                       controller: controller.addressTEController,
                     ),

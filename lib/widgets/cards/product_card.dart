@@ -10,7 +10,10 @@ import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
+import '../../screens/cart_screen/controller/add_to_cart_controller.dart';
+
 class ProductCard extends StatelessWidget {
+
 
   final ProductItem? productItem; // Optional product data
   final bool isBookmarked; // Track the bookmark state
@@ -25,7 +28,9 @@ class ProductCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
+   Get.lazyPut(() => AddToCartController());
+   AddToCartController controller= Get.find<AddToCartController>();
+   return GestureDetector(
       onTap: (){
         Get.toNamed(AppRoutes.instance.productDetailsScreen,arguments: {
           "productId": productItem!.sId
@@ -84,7 +89,7 @@ class ProductCard extends StatelessWidget {
                     ),
                     GestureDetector(
                       onTap: (){
-                        Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"product":productItem,"quantity":1});
+                       controller.addToCart(productId: productItem!.sId!);
                       },
                       child: Container(
                         padding: EdgeInsets.all(6),

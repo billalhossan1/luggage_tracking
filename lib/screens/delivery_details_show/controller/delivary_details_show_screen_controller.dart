@@ -1,6 +1,7 @@
 import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
+import 'package:luggage_tracking/screens/cart_screen/model/cart_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
@@ -10,25 +11,28 @@ import 'package:luggage_tracking/widgets/payment_web_view_widget/product_payment
 
 class DeliveryDetailsShowScreenController extends GetxController {
   String? responseUrl;
-  ProductItem? product;
+  RxList<CartItem>? productList = <CartItem>[].obs;
   String? email;
   RxBool isLoading = false.obs;
   String? contact;
   String? note;
   String? address;
   int? quantity;
+  num totalPrice=0;
 
   @override
   void onInit() {
     String myNote = Get.arguments["note"];
-    product = Get.arguments["product"];
+    productList = Get.arguments["productList"];
     email = Get.arguments["email"];
     contact = Get.arguments["contact"];
     if (myNote.isNotEmpty) {
       note = Get.arguments["note"];
     }
+    quantity=Get.arguments['totalQuantity'];
+    totalPrice=Get.arguments['totalPrice'];
     address = Get.arguments["address"];
-    quantity = Get.arguments["quantity"];
+
     // Logger().i("productName :${product!.name}");
     // Logger().i("email :$email");
     // Logger().i("contact :$contact");
@@ -44,9 +48,8 @@ class DeliveryDetailsShowScreenController extends GetxController {
       "contact": contact,
       "note": note,
       "address": address,
-      "quantity": quantity,
-      "product": product?.sId ?? '',
-      "delivery_charge": 4.30
+      "delivery_charge": 4.30,
+      "price":totalPrice
     };
     // if (!Get.isRegistered<SaveDataController>()) {
     //   Get.lazyPut(() => SaveDataController());

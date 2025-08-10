@@ -60,18 +60,16 @@ class Pagination {
 }
 
 class ProductItem {
-  //billal dsafadsf
   String? sId;
   String? name;
   String? description;
   List<String>? images; // images list can be null
   Category? category;
-  int? price;
+  dynamic price;
   String? status;
   String? color;
   String? createdAt;
   String? updatedAt;
-  int? iV;
   bool? bookmark;
 
   ProductItem({
@@ -85,7 +83,6 @@ class ProductItem {
     this.color,
     this.createdAt,
     this.updatedAt,
-    this.iV,
     this.bookmark,
   });
 
@@ -106,7 +103,6 @@ class ProductItem {
     color = json['color'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];
-    iV = json['__v'];
     bookmark = json['bookmark'];
   }
 
@@ -124,7 +120,6 @@ class ProductItem {
     data['color'] = color;
     data['createdAt'] = createdAt;
     data['updatedAt'] = updatedAt;
-    data['__v'] = iV;
     data['bookmark'] = bookmark;
     return data;
   }

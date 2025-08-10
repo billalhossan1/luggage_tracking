@@ -80,6 +80,14 @@ class AccountScreen extends StatelessWidget {
                       ),
                       IcontextRow(
                         iconPath: AssetsIconsPath.instance.dealCart,
+                        text: "MyCart",
+                        onTap: () {
+                          Get.toNamed(AppRoutes.instance.cartScreen);
+                        },
+                      ),
+
+                      IcontextRow(
+                        iconPath: AssetsIconsPath.instance.dealCart,
                         text: "Dealing History ",
                         onTap: () {
                           Get.toNamed(AppRoutes.instance.dealingHistoryScreen);

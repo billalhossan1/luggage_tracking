@@ -6,9 +6,27 @@ class SaveDataController extends GetxController {
   final String _rememberMeKey = 'rememberMe';
   final String _seenOnboardingKey = 'seenOnboarding';
   final String _isSubscribeKey = 'isSubscribe';
+  final String _fcmTokenKey = 'fcm';
 
   String? tempToken;
   bool? rememberMe;
+  Future<void>setString(String key, String value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(key, value);
+  }
+  Future<String?> getString(String key) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(key);
+  }
+  Future<void> saveFcmToken(String token) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_fcmTokenKey, token);
+  }
+
+  Future<String?> getFcmToken() async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    return sharedPreferences.getString(_fcmTokenKey);
+  }
 
   Future<void> saveUserData(String token) async {
     SharedPreferences sharedPreferences = await SharedPreferences.getInstance();

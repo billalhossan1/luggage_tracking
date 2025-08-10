@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "953616443674",
+    "project_id": "elite-academy-7d7fe",
+    "storage_bucket": "elite-academy-7d7fe.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:953616443674:android:92d41a798cbc6ad177a4a3",
+        "android_client_info": {
+          "package_name": "com.dinhInternational.luggageTracking"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAnaw0cikUTRmgVvSdM-XVyMQSvqr8f7ak"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

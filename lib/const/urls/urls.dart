@@ -15,6 +15,7 @@ class Urls{
   static final String getProductListUrl = '$_baseUrl/product';
   static final String getWishListUrl = '$_baseUrl/bookmark';
   static final String getOrderListUrl = '$_baseUrl/order';
+  static final String getCartList = '$_baseUrl/cart';
   static final String makeOrderListUrl = '$_baseUrl/order';
   static final String getProfileDetailsUrl = '$_baseUrl/user/profile';
   static final String getFAQListUrl = '$_baseUrl/faq';

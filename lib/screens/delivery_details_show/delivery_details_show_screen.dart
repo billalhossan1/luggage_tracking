@@ -73,43 +73,43 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                             fontWeight: FontWeight.w400,
                             color: AppColors.instance.black200,
                           ),
-                          Row(
-                            children: [
-                              AppText(
-                                data: "\$${controller.product?.price?.toStringAsFixed(2)?? 0}",
-                                fontSize: AppSize.width(value: 14),
-                                fontWeight: FontWeight.w500,
-                                color: AppColors.instance.black500,
-                              ),
-
-                              Gap(width: AppSize.width(value: 6)),
-                              Text(
-                                '\$20.30',
-                                style: TextStyle(
-                                  fontSize: AppSize.width(value: 12),
-                                  color: AppColors.instance.red1,
-                                  fontWeight: FontWeight.w400,
-                                  fontFamily: AppConst.fontFamily1,
-                                  decoration: TextDecoration.lineThrough,
-                                  decorationColor: AppColors.instance.red1,
-                                ),
-                              ),
-                            ],
-                          ),
-                          Row(
-                            children: [
-                              AppText(data: "Color:  ${controller.product?.color??''}"),
-                              Gap(width: AppSize.width(value: 10)),
-                              // Container(
-                              //   width: AppSize.width(value: 20),
-                              //   height: AppSize.width(value: 20),
-                              //   decoration: BoxDecoration(
-                              //     color: AppColors.instance.black900,
-                              //     shape: BoxShape.circle,
-                              //   ),
-                              // ),
-                            ],
-                          ),
+                          // Row(
+                          //   children: [
+                          //     AppText(
+                          //       data: "\$${controller.product?.price?.toStringAsFixed(2)?? 0}",
+                          //       fontSize: AppSize.width(value: 14),
+                          //       fontWeight: FontWeight.w500,
+                          //       color: AppColors.instance.black500,
+                          //     ),
+                          //
+                          //     Gap(width: AppSize.width(value: 6)),
+                          //     Text(
+                          //       '\$20.30',
+                          //       style: TextStyle(
+                          //         fontSize: AppSize.width(value: 12),
+                          //         color: AppColors.instance.red1,
+                          //         fontWeight: FontWeight.w400,
+                          //         fontFamily: AppConst.fontFamily1,
+                          //         decoration: TextDecoration.lineThrough,
+                          //         decorationColor: AppColors.instance.red1,
+                          //       ),
+                          //     ),
+                          //   ],
+                          // ),
+                          // Row(
+                          //   children: [
+                          //     AppText(data: "Color:  ${controller.product?.color??''}"),
+                          //     Gap(width: AppSize.width(value: 10)),
+                          //     // Container(
+                          //     //   width: AppSize.width(value: 20),
+                          //     //   height: AppSize.width(value: 20),
+                          //     //   decoration: BoxDecoration(
+                          //     //     color: AppColors.instance.black900,
+                          //     //     shape: BoxShape.circle,
+                          //     //   ),
+                          //     // ),
+                          //   ],
+                          // ),
                         ],
                       ),
                       AppImage(
@@ -132,7 +132,7 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                       AppDivider(),
                       TextRowItem(
                         text1: "Subtotal",
-                        text2: "\$${((controller.product?.price ?? 0) * (controller.quantity ?? 0)).toStringAsFixed(2)}",
+                        text2: "\$${(controller.totalPrice.toStringAsFixed(2))}",
                       ),
 
                       Gap(height: AppSize.width(value: 14)),
@@ -143,7 +143,7 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                       AppDivider(),
                       TextRowItem(
                         text1: "Total",
-                        text2: "\$${(((controller.product?.price ?? 0) * (controller.quantity ?? 0))+4.30).toStringAsFixed(2)}",
+                        text2: "\$${(((controller.totalPrice ?? 0))+4.30).toStringAsFixed(2)}",
                         text2Color: AppColors.instance.green1,
                       ),
                     ],

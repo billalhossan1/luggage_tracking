@@ -1,9 +1,13 @@
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 import 'package:luggage_tracking/app_entry_point.dart';
+import 'package:luggage_tracking/widgets/notification_widget.dart';
 
-void main() {
+import 'firebase_options.dart';
+
+void main()async {
 
   WidgetsFlutterBinding.ensureInitialized();
 
@@ -14,6 +18,10 @@ void main() {
       statusBarBrightness: Brightness.dark,
     ),
   );
+  await Firebase.initializeApp(
+    options: DefaultFirebaseOptions.currentPlatform,
+  );
+  await NotificationService().setupFCM();
 
   runApp(
 

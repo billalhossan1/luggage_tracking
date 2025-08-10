@@ -4,6 +4,7 @@ import 'package:luggage_tracking/routes/bindings/account_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/all_product_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/app_binding.dart';
 import 'package:luggage_tracking/routes/bindings/auth_binding.dart';
+import 'package:luggage_tracking/routes/bindings/cart_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/category_screen_binding.dart';
 import 'package:luggage_tracking/routes/bindings/change_password_binding.dart';
 import 'package:luggage_tracking/routes/bindings/dealing_history_binding.dart';
@@ -26,6 +27,7 @@ import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/account_setting_screen/account_setting_screen.dart';
 import 'package:luggage_tracking/screens/add_Device_scanner/add_device_scanner.dart';
 import 'package:luggage_tracking/screens/all_product_screen/screen/all_product_screen.dart';
+import 'package:luggage_tracking/screens/cart_screen/cart_screen.dart';
 import 'package:luggage_tracking/screens/category_screnn/category_screen.dart';
 import 'package:luggage_tracking/screens/change_password_screen/chnage_password_screen.dart';
 import 'package:luggage_tracking/screens/create_new_password_screen/create_new_password_screen.dart';
@@ -191,6 +193,12 @@ List<GetPage> appRootRoutesFile = <GetPage>[
     name: AppRoutes.instance.signUpWithPersonalData,
     binding: SignUpWithPersonalDataBinding(),
     page: () => SignupWithPersonalDataScreen(),
+  ),
+
+  GetPage(
+    name: AppRoutes.instance.cartScreen,
+    binding: CartScreenBinding(),
+    page: () => CartScreen(),
   ),
   GetPage(
     name: AppRoutes.instance.accountScreen,
