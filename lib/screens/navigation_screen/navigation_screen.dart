@@ -7,6 +7,7 @@ import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/controllers/navigation_screen_controller.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/tracker_item_screen.dart';
+import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 
@@ -20,12 +21,21 @@ class NavigationScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           body: Obx(
-            () => IndexedStack(
+                () => IndexedStack(
               index: controller.selectedIndex.value,
               children: [
                 const HomeScreen(),
                 DeviceScreen(),
-                const TrackerItemScreen(),
+                controller.selectedIndex.value == 2 && !controller.isSubscribe
+                    ? Scaffold(
+                  body: Center(
+                    child: Text(
+                      'You need to purchase a subscription first to access this feature.',
+                      textAlign: TextAlign.center,
+                    ),
+                  ),
+                )
+                    : const TrackerItemScreen(),
                 AccountScreen(),
               ],
             ),
@@ -34,7 +44,6 @@ class NavigationScreen extends StatelessWidget {
             alignment: Alignment.bottomCenter,
             children: [
               Container(
-                // margin: const EdgeInsets.all(16),
                 padding: EdgeInsets.only(
                   bottom: AppSize.width(value: 20),
                   top: AppSize.width(value: 4),
@@ -51,12 +60,12 @@ class NavigationScreen extends StatelessWidget {
                   ],
                 ),
                 child: Obx(
-                  () => SafeArea(
+                      () => SafeArea(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: List.generate(4, (index) {
-                        final isSelected =
-                            controller.selectedIndex.value == index;
+                        final isSelected = controller.selectedIndex.value == index;
+
                         final iconPaths = [
                           "assets/icons/home_nav.png",
                           AssetsIconsPath.instance.deviceNav,
@@ -68,24 +77,19 @@ class NavigationScreen extends StatelessWidget {
                           onTap: () => controller.changeIndex(index),
                           child: Container(
                             padding: const EdgeInsets.all(10),
-                            decoration:
-                                isSelected
-                                    ? BoxDecoration(
-                                      color:
-                                          AppColors
-                                              .instance
-                                              .purple_500, // Purple circle
-                                      shape: BoxShape.circle,
-                                    )
-                                    : null,
+                            decoration: isSelected
+                                ? BoxDecoration(
+                              color: AppColors.instance.purple_500, // Purple circle
+                              shape: BoxShape.circle,
+                            )
+                                : null,
                             child: AppImage(
                               path: iconPaths[index],
                               width: 24,
                               height: 24,
-                              iconColor:
-                                  isSelected
-                                      ? Colors.white
-                                      : AppColors.instance.black200,
+                              iconColor: isSelected
+                                  ? Colors.white
+                                  : AppColors.instance.black200,
                             ),
                           ),
                         );
@@ -113,3 +117,4 @@ class NavigationScreen extends StatelessWidget {
     );
   }
 }
+

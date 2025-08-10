@@ -1,6 +1,8 @@
 
 import 'package:get/get.dart';
 
+import '../../../services/save_data/save_data.dart';
+
 /////////  variable
 // AppUserData? appUserData;
 // Rx<AppUserData> appUserData = AppUserData().obs;
@@ -53,11 +55,20 @@ class NavigationScreenController extends GetxController {
     //   errorLog("navigation screen initial data setup function", e);
     // }
   }
-
+  bool isSubscribe= false;
   @override
   void onInit() {
-    initialDataSetUp();
+    initial();
     super.onInit();
+  }
+  void initial()async{
+    if(!Get.isRegistered<SaveDataController>()){
+      Get.lazyPut(()=>SaveDataController());
+    }
+    isSubscribe=await SaveDataController().getIsSubscribe();
+
+    initialDataSetUp();
+
   }
 
   // @override
