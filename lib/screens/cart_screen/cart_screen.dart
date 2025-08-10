@@ -47,7 +47,7 @@ class CartScreen extends StatelessWidget {
                         price: ((controller.cartList[index].quantity)! * (controller.cartList[index].product?.price ?? 0)),
                         quantity: controller.cartList[index].quantity ?? 1,
                         onDelete: () {
-                          // Implement delete functionality
+                          controller.onTapDelete(controller.cartList[index].sId ?? '');
                         },
                         onIncrement: () {
                           controller.cartList[index].quantity = controller.cartList[index].quantity! + 1;

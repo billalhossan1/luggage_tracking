@@ -36,6 +36,7 @@ class Urls{
   static final String paymentSuccessUrl = 'https://nadir3000.binarybards.online/order/success';
   static  String productDetailsUrl(String productId) =>'$_baseUrl/product/$productId';
   static  String deleteDeviceUrl(String deviceId) =>'$_baseUrl/device/$deviceId';
+  static  String deleteCart(String cartId) =>'$_baseUrl/cart/$cartId';
   static  String subscriptionUrl(String email) => 'https://buy.stripe.com/test_cNicN56drcUlehmggL6AM1t?prefilled_email=$email';
 
 }

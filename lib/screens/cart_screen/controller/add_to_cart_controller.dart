@@ -17,7 +17,7 @@ class AddToCartController extends GetxController{
     if(response.isSuccess){
       showCustomSnackBar(title: "Success", message: "Product added to cart");
     }else{
-      showCustomSnackBar(title: "error", message: response.errorMessage);
+      showCustomSnackBar(title: "error", message: response.errorMessage,isError: true);
     }
   }
 

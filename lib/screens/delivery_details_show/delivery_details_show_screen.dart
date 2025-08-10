@@ -89,17 +89,17 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                                     ),
 
                                     Gap(width: AppSize.width(value: 6)),
-                                    Text(
-                                      '\$20.30',
-                                      style: TextStyle(
-                                        fontSize: AppSize.width(value: 12),
-                                        color: AppColors.instance.red1,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: AppConst.fontFamily1,
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationColor: AppColors.instance.red1,
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   '\$20.30',
+                                    //   style: TextStyle(
+                                    //     fontSize: AppSize.width(value: 12),
+                                    //     color: AppColors.instance.red1,
+                                    //     fontWeight: FontWeight.w400,
+                                    //     fontFamily: AppConst.fontFamily1,
+                                    //     decoration: TextDecoration.lineThrough,
+                                    //     decorationColor: AppColors.instance.red1,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 Row(

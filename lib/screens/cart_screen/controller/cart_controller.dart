@@ -10,6 +10,7 @@ import '../model/cart_list_model.dart';
 class CartController extends GetxController{
   RxBool isLoading = false.obs;
   num totalPrice= 0;
+  int page =1;
   int totalQuantity=0;
   RxList<CartItem> cartList = <CartItem>[].obs;
   NetworkCaller networkCaller = NetworkCaller();
@@ -25,6 +26,9 @@ class CartController extends GetxController{
     isLoading.value = false;
     if(response.isSuccess){
       CartListModel cartListModel = CartListModel.fromJson(response.responseData);
+      if(page==1){
+        cartList.clear();
+      }
       cartList.addAll(cartListModel.cartList ?? []);
     }else{
       showCustomSnackBar(title: "error", message: response.errorMessage);
@@ -76,6 +80,30 @@ class CartController extends GetxController{
     final NetworkResponse response = await networkCaller.patchRequest(
       Urls.getCartList,
       accessToken: accessToken,body: body
+    );
+    return response;
+  }
+  Future<void>onTapDelete(String cartId)async{
+    isLoading.value=true;
+    NetworkResponse response = await deleteApiCall(cartId);
+    isLoading.value = false;
+    if(response.isSuccess){
+      showCustomSnackBar(title: "Success", message: "Cart deleted");
+      getCartList();
+    }else{
+      showCustomSnackBar(title: "error", message: response.errorMessage);
+    }
+  }
+
+  Future<dynamic>deleteApiCall(String cartId)async{
+    if(!Get.isRegistered<SaveDataController>()){
+      Get.lazyPut(() => SaveDataController());
+    }
+
+    final accessToken = await Get.find<SaveDataController>().getUserData();
+    final NetworkResponse response = await networkCaller.delRequest(
+      Urls.deleteCart(cartId),
+      accessToken: accessToken, body: {},
     );
     return response;
   }

@@ -153,18 +153,18 @@ class ProductDetailsScreen extends StatelessWidget {
                                       color: AppColors.instance.black500,
                                     ),
                                     Gap(width: AppSize.width(value: 6)),
-                                    Text(
-                                      '\$2000.30',
-                                      style: TextStyle(
-                                        fontSize: AppSize.width(value: 14),
-                                        color: AppColors.instance.red1,
-                                        fontWeight: FontWeight.w400,
-                                        fontFamily: AppConst.fontFamily1,
-                                        decoration: TextDecoration.lineThrough,
-                                        decorationColor:
-                                            AppColors.instance.red1,
-                                      ),
-                                    ),
+                                    // Text(
+                                    //   '\$2000.30',
+                                    //   style: TextStyle(
+                                    //     fontSize: AppSize.width(value: 14),
+                                    //     color: AppColors.instance.red1,
+                                    //     fontWeight: FontWeight.w400,
+                                    //     fontFamily: AppConst.fontFamily1,
+                                    //     decoration: TextDecoration.lineThrough,
+                                    //     decorationColor:
+                                    //         AppColors.instance.red1,
+                                    //   ),
+                                    // ),
                                   ],
                                 ),
                                 Row(

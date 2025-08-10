@@ -7,6 +7,7 @@ void showCustomSnackBar({
   bool isError = false,
 }) {
   Get.showSnackbar(
+
     GetSnackBar(
       titleText: Text(
         title,
@@ -24,7 +25,7 @@ void showCustomSnackBar({
         color: Colors.white,
       ),
       backgroundColor: isError ? Colors.redAccent : Colors.green,
-      snackPosition: SnackPosition.BOTTOM,
+      snackPosition: SnackPosition.TOP,
       borderRadius: 10,
       margin: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
       duration: const Duration(seconds: 2),
