@@ -78,13 +78,7 @@ class AccountScreen extends StatelessWidget {
                           Get.toNamed(AppRoutes.instance.wishListScreen);
                         },
                       ),
-                      IcontextRow(
-                        iconPath: AssetsIconsPath.instance.dealCart,
-                        text: "MyCart",
-                        onTap: () {
-                          Get.toNamed(AppRoutes.instance.cartScreen);
-                        },
-                      ),
+
 
                       IcontextRow(
                         iconPath: AssetsIconsPath.instance.dealCart,

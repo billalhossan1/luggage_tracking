@@ -39,7 +39,17 @@ class HomeScreen extends StatelessWidget {
                     pinned: true, // height when expanded
                     flexibleSpace: HomeScreenAppBar(
                       actions: [
-                        Gap(width: AppSize.width(value: 16)),
+                        GestureDetector(
+                          onTap: () {
+                            Get.toNamed(AppRoutes.instance.cartScreen);
+                          },
+                          child: AppImage(
+                            path: AssetsIconsPath.instance.dealCart,
+                            width: AppSize.width(value: 20),
+                            height: AppSize.width(value: 20),
+                          ),
+                        ),
+                        Gap(width: AppSize.width(value: 20)),
                         GestureDetector(
                           onTap: () {
                             // Get.toNamed(AppRoutes.instance.notificationScreen);
@@ -50,6 +60,7 @@ class HomeScreen extends StatelessWidget {
                             height: AppSize.width(value: 24),
                           ),
                         ),
+
                       ],
                       title: "Welcome to Trkli",
                       subtitle: "Every move matters",

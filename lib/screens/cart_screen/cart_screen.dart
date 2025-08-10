@@ -66,33 +66,40 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           )),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppButton(
-              filColor: Colors.transparent,
-              decoration: BoxDecoration(
-                border: Border.all(color: Color(0xff8F00FF)),
+          Obx(()=>Visibility(
+            visible: !controller.isLoading.value,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppButton(
+                filColor: Colors.transparent,
+                decoration: BoxDecoration(
+                  border: Border.all(color: Color(0xff8F00FF)),
+                  borderRadius: BorderRadius.circular(12),
+                ),
                 borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.navigationScreen);
+                },
+                titleColor: Color(0xff8F00FF),
+                title: "Continue Shopping",
+                titleSize: AppSize.width(value: 20),
               ),
-              borderRadius: BorderRadius.circular(12),
-              onTap: () {
-              },
-              titleColor: Color(0xff8F00FF),
-              title: "Continue Shopping",
-              titleSize: AppSize.width(value: 20),
             ),
-          ),
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: AppButton(
-              borderRadius: BorderRadius.circular(12),
-              onTap: () {
-                Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"products":controller.cartList,"totalQuantity":controller.totalQuantity,"totalPrice":controller.totalPrice,});
-              },
-              title: "Confirm Order",
-              titleSize: AppSize.width(value: 20),
+          ),),
+          Obx(()=>Visibility(
+            visible: !controller.isLoading.value,
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: AppButton(
+                borderRadius: BorderRadius.circular(12),
+                onTap: () {
+                  Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"products":controller.cartList,"totalQuantity":controller.totalQuantity,"totalPrice":controller.totalPrice,});
+                },
+                title: "Confirm Order",
+                titleSize: AppSize.width(value: 20),
+              ),
             ),
-          ),
+          ),),
           Gap(height: 20,)
         ],
       ),
