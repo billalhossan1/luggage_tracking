@@ -23,7 +23,7 @@ class SplashScreenController extends GetxController {
           if (accessToken != null) {
             Get.offAllNamed(AppRoutes.instance.navigationScreen);
           } else {
-            Get.offAllNamed(AppRoutes.instance.signIn); // or your default screen
+            Get.offAllNamed(AppRoutes.instance.onBoardingScreen); // or your default screen
           }
       });
     } catch (e) {
