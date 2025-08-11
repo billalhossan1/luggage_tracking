@@ -42,7 +42,7 @@ class LocationScreen extends StatelessWidget {
                 ),
                 children: [
                   TextSpan(
-                    text: 'Trkil',
+                    text: 'Trkli',
                     style: TextStyle(
                       fontSize: AppSize.width(value: 24),
                       fontWeight: FontWeight.w500,

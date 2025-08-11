@@ -43,7 +43,7 @@ class DeviceScreen extends StatelessWidget {
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       AppText(
-                        data: "Add Trkil Device",
+                        data: "Add Trkli Device",
                         fontSize: AppSize.width(value: 16),
                         fontWeight: FontWeight.w400,
                         color: AppColors.instance.black400,

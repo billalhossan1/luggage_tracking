@@ -98,7 +98,7 @@ class _OnboardingScreenState extends State<OnboardingScreen>
                   ScaleTransition(
                     scale: _scaleAnimation,
                     child: AppText(
-                      data: "Trkil",
+                      data: "Trkli",
                       fontSize: AppSize.width(value: 96),
                       fontWeight: FontWeight.w600,
                       color: AppColors.instance.white50,
@@ -163,7 +163,7 @@ void showCustomBottomSheet() {
                 ),
                 children: [
                   TextSpan(
-                    text: 'Trkil',
+                    text: 'Trkli',
                     style: TextStyle(
                       fontSize: AppSize.width(value: 16),
                       fontWeight: FontWeight.w600,

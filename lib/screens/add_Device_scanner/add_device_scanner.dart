@@ -197,7 +197,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
                               const Text(
-                                'Trkil Tracking device',
+                                'Trkli Tracking device',
                                 style: TextStyle(
                                   fontSize: 18,
                                   fontWeight: FontWeight.w500,
