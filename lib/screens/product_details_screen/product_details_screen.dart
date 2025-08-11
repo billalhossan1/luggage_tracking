@@ -269,11 +269,8 @@ class ProductDetailsScreen extends StatelessWidget {
                                 builder: (addToCartCon) {
                               return Expanded(
                                   child: Obx(
-                                () => addToCartCon.isLoading.value
-                                    ? Center(
-                                        child: CircularProgressIndicator(),
-                                      )
-                                    : AppButton(
+                                () =>  AppButton(
+                                  isLoading: addToCartCon.isLoading.value,
                                         title: "Add to Cart",
                                         onTap: () {
                                           addToCartCon.addToCart(

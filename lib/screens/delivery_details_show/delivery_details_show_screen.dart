@@ -159,7 +159,8 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                   ),
                 ),
                 Gap(height: AppSize.width(value: 44)),
-                Obx(()=>controller.isLoading.value? Center(child: CircularProgressIndicator(),):AppButton(
+                Obx(()=>AppButton(
+                  isLoading: controller.isLoading.value,
                   title: "Continue",
                   titleSize: 20,
                   onTap: () {

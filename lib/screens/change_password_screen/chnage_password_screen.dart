@@ -53,7 +53,8 @@ class ChangePasswordScreen extends StatelessWidget {
                 ),
                 Gap(height: AppSize.width(value: 30)),
                 Obx(
-                  () => controller.inProgress.value?Center(child: CircularProgressIndicator(),):AppButton(
+                  () => AppButton(
+                    isLoading: controller.inProgress.value,
                     onTap: () {
                       controller.changePassword();
                     },

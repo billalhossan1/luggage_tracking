@@ -153,9 +153,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                   ),
                   Obx(
                     () =>
-                        controller.otpIsLoading.value
-                            ? Center(child: CircularProgressIndicator())
-                            : AppButton(
+                      AppButton(
+                        isLoading: controller.otpIsLoading.value,
                               title:
                                   !controller.isEmailVerification.value
                                       ? "Reset Password"

@@ -80,6 +80,7 @@ class OtpVerificationScreenController extends GetxController {
 
     try {
       if (argMail.value.isNotEmpty) {
+        startTimer();
         _inProgress = true;
         var response = await resendOtp();
         _inProgress = false;
@@ -88,7 +89,7 @@ class OtpVerificationScreenController extends GetxController {
             errorMessage = null;
             message = response.responseData["message"];
             AppSnackBar.success(message!);
-            startTimer();
+
           } else {
             errorMessage = response.errorMessage;
             hasError.value = true;
@@ -96,7 +97,7 @@ class OtpVerificationScreenController extends GetxController {
           }
         }
       } else {
-        AppSnackBar.error("Email is empty");
+        AppSnackBar.error("Back to Previous Page and Enter your Email again");
       }
     } catch (e) {
       log("error from click resend button : $e");

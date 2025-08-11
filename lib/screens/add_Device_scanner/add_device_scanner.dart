@@ -312,9 +312,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   // Connect Button
                   Obx(
                     () =>
-                        controller.isLoading.value
-                            ? Center(child: CircularProgressIndicator())
-                            : AppButton(onTap: (){controller.onTapConnectDevice();},title: "Connect Device"),
+                        AppButton(isLoading: controller.isLoading.value,onTap: (){controller.onTapConnectDevice();},title: "Connect Device"),
                   ),
                 ],
               ),

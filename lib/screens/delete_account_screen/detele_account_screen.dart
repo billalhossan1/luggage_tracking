@@ -40,10 +40,8 @@ class DeteleAccountScreen extends StatelessWidget {
 
                 Gap(height: AppSize.width(value: 30)),
                 Obx(
-                  () => Visibility(
-                    visible: !controller.inProgress.value,
-                    replacement: Center(child: CircularProgressIndicator(),),
-                    child: AppButton(
+                  () =>  AppButton(
+                    isLoading: controller.inProgress.value,
                       onTap: controller.deleteAccount,
                       title: "Confirm",
                       titleColor: AppColors.instance.white50,
@@ -51,7 +49,7 @@ class DeteleAccountScreen extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                   ),
-                ),
+
               ],
             ),
           ),
