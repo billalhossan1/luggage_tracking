@@ -71,6 +71,8 @@ class NavigationScreenController extends GetxController {
 
   }
 
+
+
   // @override
   // void onClose() {
   //   appUserData.dispose();

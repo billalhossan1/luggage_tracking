@@ -1,12 +1,16 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
+import '../../screens/account_screen/model/profile_model.dart';
+
 class SaveDataController extends GetxController {
   final String _accessTokenKey = 'accessToken';
   final String _rememberMeKey = 'rememberMe';
   final String _seenOnboardingKey = 'seenOnboarding';
   final String _isSubscribeKey = 'isSubscribe';
   final String _fcmTokenKey = 'fcm';
+  final String _userEmailKey = 'email';
+  final String _userNameKey = 'name';
 
   String? tempToken;
   bool? rememberMe;
@@ -81,6 +85,29 @@ class SaveDataController extends GetxController {
   Future<bool> getOnboardingStatus() async {
     SharedPreferences prefs = await SharedPreferences.getInstance();
     return prefs.getBool(_seenOnboardingKey) ?? false;
+  }
+  Future<void>setUserEmail( String value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_userEmailKey, value);
+  }
+  Future<void>setUserName( String value) async {
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+    await sharedPreferences.setString(_userNameKey, value);
+  }
+
+  Future<String?> getUserEmail()  async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    String email =sharedPreferences.getString(_userEmailKey) ?? "";
+
+    return email;
+  }
+  Future<String?> getUserName()  async{
+    SharedPreferences sharedPreferences = await SharedPreferences.getInstance();
+
+    String name =sharedPreferences.getString(_userNameKey) ?? "";
+
+    return name;
   }
 }
 
