@@ -36,7 +36,7 @@ class TextRowItem extends StatelessWidget {
             fontSize: AppSize.width(value: 14),
             fontWeight: FontWeight.w400,
             color: text2Color ?? AppColors.instance.black300,
-            maxLines: 1,
+            maxLines: 2,
             overflow:TextOverflow.ellipsis,
           ),
         ),

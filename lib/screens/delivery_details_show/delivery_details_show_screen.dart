@@ -39,16 +39,16 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
                       TextForCardHeadLine(text: "Contact Details"),
 
                       Gap(height: AppSize.width(value: 2)),
-                      TextRowItem(text1: "Contact No", text2: controller.contact??'no contact given'),
+                      TextRowItem(text1: "Contact No: ", text2: controller.contact??'no contact given'),
                       TextRowItem(
-                        text1: "Email",
+                        text1: "Email: ",
                         text2: controller.email??'no email given',
                       ),
                       TextRowItem(
-                        text1: "Address",
+                        text1: "Address: ",
                         text2: controller.address??'no address given',
                       ),
-                      TextRowItem(text1: "Note", text2: controller.note??'no note given',),
+                      TextRowItem(text1: "Note: ", text2: controller.note??'no note given',),
                     ],
                   ),
                 ),
