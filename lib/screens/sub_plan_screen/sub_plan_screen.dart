@@ -35,12 +35,25 @@ class SubPlanScreen extends StatelessWidget {
                   Padding(
                     padding: EdgeInsets.symmetric(
                         vertical: AppSize.width(value: 30)),
-                    child: AppText(
-                      data: "Unlock your Subscription Plan",
-                      fontSize: AppSize.width(value: 24),
-                      fontWeight: FontWeight.w500,
-                      color: AppColors.instance.black400,
-                    ),
+                    child: Row(
+                      children: [
+                        // GestureDetector(
+                        //   onTap:(){
+                        //     Get.back();
+                        //   },
+                        //   child: Padding(
+                        //     padding: const EdgeInsets.all(8.0),
+                        //     child: Icon(Icons.arrow_back_ios),
+                        //   ),
+                        // ),
+                        AppText(
+                          data: "Unlock your Subscription Plan",
+                          fontSize: AppSize.width(value: 24),
+                          fontWeight: FontWeight.w500,
+                          color: AppColors.instance.black400,
+                        ),
+                      ],
+                    )
                   ),
                   Expanded(
                     child: ListView.builder(
