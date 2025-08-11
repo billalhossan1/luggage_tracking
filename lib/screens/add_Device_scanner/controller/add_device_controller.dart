@@ -70,6 +70,10 @@ class AddDeviceController extends GetxController {
 
   // API call method
   Future<dynamic> apiCall() async {
+    int length = Get.find<DeviceScreenController>().devices.length;
+    if(length>0){
+     // return showCustomSnackBar(title: 'error', message: "You need premimum subscription to add more de")
+    }
     Map<String, dynamic> body = {
       "name": itemNameController.text.trim(),
       "category": selectedCatId.value,

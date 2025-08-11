@@ -25,7 +25,7 @@ class NavigationScreen extends StatelessWidget {
               index: controller.selectedIndex.value,
               children: [
                 const HomeScreen(),
-                DeviceScreen(),
+                 DeviceScreen(),
                 controller.selectedIndex.value == 2 && !controller.isSubscribe
                     ? SubscriptionRequiredScreen()
                     : const TrackerItemScreen(),

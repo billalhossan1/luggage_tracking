@@ -45,6 +45,11 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     Gap(height: AppSize.width(value: 12)),
 
                     AppInputWidget(
+                      title: "Name",
+                      hintText: "john doe",
+                      controller: controller.contactTEController,
+                    ),
+                    AppInputWidget(
                       title: "Contact No",
                       hintText: "+963 xxx xxx xxx",
                       controller: controller.contactTEController,
@@ -56,20 +61,28 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       controller: controller.emailTEController,
                     ),
                     AppInputWidget(
-                      title: "zip code",
-                      hintText: "1234",
-                      controller: controller.zipCodeTEController,
-                    ),AppInputWidget(
-                      title: "city",
-                      hintText: "Damascus",
-                      controller: controller.cityTEController,
-                    ),AppInputWidget(
                       title: "Street",
                       hintText: "123, Main Street",
                       controller: controller.streetTEController,
-                    ),AppInputWidget(
-                      title: "Address",
-                      hintText: "P. O. Box 50332, Damasc...",
+                    ),
+                    AppInputWidget(
+                      title: "city",
+                      hintText: "Damascus",
+                      controller: controller.cityTEController,
+                    ),
+                    AppInputWidget(
+                      title: "state",
+                      hintText: "Damascus",
+                      controller: controller.cityTEController,
+                    ),
+                    AppInputWidget(
+                      title: "zip code",
+                      hintText: "1234",
+                      controller: controller.zipCodeTEController,
+                    ),
+                   AppInputWidget(
+                      title: "Country",
+                      hintText: "Syria",
                       controller: controller.addressTEController,
                     ),
                     AddDescripsion(title: "Note (Optional)",controller: controller.noteTEController,validatior: false,),

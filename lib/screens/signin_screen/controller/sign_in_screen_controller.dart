@@ -71,18 +71,18 @@ class SignInScreenController extends GetxController {
               message = response.responseData["message"];
               final accessToken = response.responseData["data"]["accessToken"];
               bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
-              saveDataController.isSubscribe(isSubscribed);
-              Logger().i("isSubscribed: $isSubscribed");
-              if(isSubscribed){
+              // saveDataController.isSubscribe(isSubscribed);
+              // Logger().i("isSubscribed: $isSubscribed");
+              // if(isSubscribed){
                 saveDataController.saveUserData(accessToken);
                 Get.offAllNamed(AppRoutes.instance.navigationScreen,);
                 Logger().i("Access Token: $accessToken");
 
-              }
-             else{
-                AppSnackBar.success(message!);
-                Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
-              }
+              // }
+             // else{
+             //    AppSnackBar.success(message!);
+             //    Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
+             //  }
             } else {
               errorMessage = response.errorMessage;
               AppSnackBar.error(errorMessage!);

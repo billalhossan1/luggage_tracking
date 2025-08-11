@@ -43,10 +43,14 @@ class HomeScreen extends StatelessWidget {
                           onTap: () {
                             Get.toNamed(AppRoutes.instance.cartScreen);
                           },
-                          child: AppImage(
-                            path: AssetsIconsPath.instance.dealCart,
-                            width: AppSize.width(value: 20),
-                            height: AppSize.width(value: 20),
+                          child: Badge.count(
+
+                            count: 5,
+                            child: AppImage(
+                              path: AssetsIconsPath.instance.dealCart,
+                              width: AppSize.width(value: 20),
+                              height: AppSize.width(value: 20),
+                            ),
                           ),
                         ),
                         Gap(width: AppSize.width(value: 20)),
@@ -54,10 +58,13 @@ class HomeScreen extends StatelessWidget {
                           onTap: () {
                             // Get.toNamed(AppRoutes.instance.notificationScreen);
                           },
-                          child: AppImage(
-                            path: AssetsIconsPath.instance.notification,
-                            width: AppSize.width(value: 24),
-                            height: AppSize.width(value: 24),
+                          child: Badge.count(
+                            count: 5,
+                            child: AppImage(
+                              path: AssetsIconsPath.instance.notification,
+                              width: AppSize.width(value: 24),
+                              height: AppSize.width(value: 24),
+                            ),
                           ),
                         ),
 

@@ -269,25 +269,51 @@ class ProductDetailsScreen extends StatelessWidget {
                                 builder: (addToCartCon) {
                               return Expanded(
                                   child: Obx(
-                                () =>  AppButton(
+                                () => AppButton(
                                   isLoading: addToCartCon.isLoading.value,
-                                        title: "Add to Cart",
-                                        onTap: () {
-                                          addToCartCon.addToCart(
-                                              quantity:
-                                                  controller.quantity.value,
-                                              productId:
-                                                  controller.productItem!.sId!);
-                                        },
-                                      ),
+                                  title: "Add to Cart",
+                                  onTap: () {
+                                    addToCartCon.addToCart(
+                                        quantity: controller.quantity.value,
+                                        productId:
+                                            controller.productItem!.sId!);
+                                  },
+                                ),
                               ));
                             }),
+
                           ],
                         ),
                       ),
-                      Gap(
-                          height:
-                              AppSize.width(value: AppSize.width(value: 26))),
+
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AppButton(
+                          isLoading: controller.isLoading.value,
+                          filColor: Colors.transparent,
+                          decoration: BoxDecoration(
+                            border: Border.all(color: Color(0xff8F00FF)),
+                            borderRadius: BorderRadius.circular(12),
+                          ),
+                          borderRadius: BorderRadius.circular(12),
+                          onTap: (){
+                            Get.toNamed(AppRoutes.instance.navigationScreen);
+                          },
+                          titleColor: Color(0xff8F00FF),
+                          title: "Continue Shopping",
+                          titleSize: AppSize.width(value: 20),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: AppButton(
+                          isLoading: controller.isLoading.value,
+                          borderRadius: BorderRadius.circular(12),
+
+                          title: "Confirm Order",
+                          titleSize: AppSize.width(value: 20),
+                        ),
+                      ),
                     ],
                   ));
       }),
