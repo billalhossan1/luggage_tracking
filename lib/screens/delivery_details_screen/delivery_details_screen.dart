@@ -71,12 +71,12 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       controller: controller.cityTEController,
                     ),
                     AppInputWidget(
-                      title: "state",
+                      title: "State",
                       hintText: "Damascus",
                       controller: controller.stateTEController,
                     ),
                     AppInputWidget(
-                      title: "zip code",
+                      title: "Zip code",
                       hintText: "1234",
                       controller: controller.zipCodeTEController,
                     ),
