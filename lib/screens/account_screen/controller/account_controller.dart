@@ -36,6 +36,7 @@ class AccountController extends GetxController{
         // Handle the profile data as needed
         ProfileModel profileModel = ProfileModel.fromJson(data);
         this.profileModel = profileModel.data.obs;
+        SaveDataController().isSubscribe(this.profileModel.value?.isSubscribed??false);
         // Logger().e("Profile model created: ${profileModel.data!.name}");
 
 

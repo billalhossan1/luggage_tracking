@@ -211,7 +211,7 @@ class NetworkCaller {
 
       _logRequest(url, headers, body);
       Uri uri = Uri.parse(url);
-      http.Response response = await http.patch(uri, headers: headers, body: jsonEncode(body));
+      http.Response response = await http.patch(uri, headers: headers, body:jsonEncode(body));
 
       _logResponse(url, response.statusCode, response.headers, response.body);
 

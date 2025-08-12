@@ -1,10 +1,13 @@
 
 import 'package:get/get.dart';
 import 'package:intl/intl.dart';
+import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
 import 'package:luggage_tracking/screens/my_plan/model/my_plan_model.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
+import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 
 import '../../../const/urls/urls.dart';
+import '../../../routes/app_routes.dart';
 import '../../../services/api/network_caller.dart';
 import '../../../services/api/network_response.dart';
 import '../../../services/save_data/save_data.dart';
@@ -31,6 +34,32 @@ class MyPlanController extends GetxController {
     final String? accessToken = await Get.find<SaveDataController>().getUserData();
     final response = await Get.find<NetworkCaller>().getRequest(Urls.myPlanUrl, accessToken: accessToken);
     return response;
+  }
+  
+  Future<dynamic>cancelSubscription() async {
+    // String? accessToken = await Get.find<SaveDataController>().getUserData();
+    String? userId =  Get.find<AccountController>().profileModel.value?.sId??'';
+    final response = await NetworkCaller().patchRequest("${Urls.cancel}/$userId",body: {'billal':'tuhin'});
+    return response;
+  }
+  RxBool cancelIsLoading = false.obs;
+
+  Future<void>onTapCancel()async{
+    cancelIsLoading.value=true;
+    final NetworkResponse response = await cancelSubscription();
+    cancelIsLoading.value=false;
+    print("respones:$response");
+    if(response.isSuccess){
+      showCustomSnackBar(title: "Success", message: "Cancel Plan Successfully");
+    }else{
+      showCustomSnackBar(title: "error",message: "Something went wrong");
+    }
+  }
+  Future<void>onTapChangePlan()async{
+    String? userName = await SaveDataController().getUserName();
+    String? userEmail = await SaveDataController().getUserEmail();
+    String? accessToken = await SaveDataController().getUserData();
+    Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"name":userName,"email":userEmail,"token":accessToken});
   }
 
   Future<void> getMyPlan() async {
