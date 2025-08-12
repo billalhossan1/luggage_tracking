@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
-import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
-import 'package:luggage_tracking/screens/profile_details/controller/profile_details_controller.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 
 class SubscriptionRequiredScreen extends StatelessWidget {
@@ -48,42 +45,37 @@ class SubscriptionRequiredScreen extends StatelessWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 32),
-          SizedBox(
-            width: double.infinity,
-            child: ElevatedButton(
-              onPressed: () async {
-                if (!Get.isRegistered<SaveDataController>()) {
-                  Get.lazyPut(() => SaveDataController());
-                }
-                SaveDataController saveDataController = Get.find<SaveDataController>();
+            SizedBox(
+              width: double.infinity,
+              child: ElevatedButton(
+                onPressed: () async {
+                  if (!Get.isRegistered<SaveDataController>()) {
+                    Get.lazyPut(() => SaveDataController());
+                  }
+                  SaveDataController saveDataController = Get.find<SaveDataController>();
 
-                String email = await saveDataController.getUserEmail() ?? "";
-                String name = await saveDataController.getUserName() ?? "";
-                String token = await saveDataController.getUserData() ?? "";
+                  String email = await saveDataController.getUserEmail() ?? "";
+                  String name = await saveDataController.getUserName() ?? "";
+                  String token = await saveDataController.getUserData() ?? "";
 
-                Get.toNamed(
-                  AppRoutes.instance.subPlanScreen,
-                  arguments: {
-                    'email': email,
-                    'name': name,
-                    'token': token,
-                    'from':'home'
-                  },
-                );
-              },
-              style: ElevatedButton.styleFrom(
-                padding: const EdgeInsets.symmetric(vertical: 14),
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(8),
+                  Get.toNamed(
+                    AppRoutes.instance.subPlanScreen,
+                    arguments: {'email': email, 'name': name, 'token': token, 'from': 'home'},
+                  );
+                },
+                style: ElevatedButton.styleFrom(
+                  padding: const EdgeInsets.symmetric(vertical: 14),
+                  shape: RoundedRectangleBorder(
+                    borderRadius: BorderRadius.circular(8),
+                  ),
+                ),
+                child: const Text(
+                  "Purchase Subscription",
+                  style: TextStyle(fontSize: 16),
                 ),
               ),
-              child: const Text(
-                "Purchase Subscription",
-                style: TextStyle(fontSize: 16),
-              ),
             ),
-          ),
-          TextButton(
+            TextButton(
               onPressed: () {
                 // Maybe navigate back or show more info
               },

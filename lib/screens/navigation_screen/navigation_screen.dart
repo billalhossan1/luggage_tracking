@@ -6,7 +6,6 @@ import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/controllers/navigation_screen_controller.dart';
-import 'package:luggage_tracking/screens/navigation_screen/need_perchase_screen.dart';
 import 'package:luggage_tracking/screens/tracker_item_screen/tracker_item_screen.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
@@ -21,11 +20,11 @@ class NavigationScreen extends StatelessWidget {
       builder: (controller) {
         return Scaffold(
           body: Obx(
-                () => IndexedStack(
+            () => IndexedStack(
               index: controller.selectedIndex.value,
               children: [
                 const HomeScreen(),
-                 DeviceScreen(),
+                DeviceScreen(),
                 // controller.selectedIndex.value == 2 && !controller.isSubscribe
                 //     ? SubscriptionRequiredScreen()
                 //     :
@@ -54,7 +53,7 @@ class NavigationScreen extends StatelessWidget {
                   ],
                 ),
                 child: Obx(
-                      () => SafeArea(
+                  () => SafeArea(
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       children: List.generate(4, (index) {
@@ -73,17 +72,15 @@ class NavigationScreen extends StatelessWidget {
                             padding: const EdgeInsets.all(10),
                             decoration: isSelected
                                 ? BoxDecoration(
-                              color: AppColors.instance.purple_500, // Purple circle
-                              shape: BoxShape.circle,
-                            )
+                                    color: AppColors.instance.purple_500, // Purple circle
+                                    shape: BoxShape.circle,
+                                  )
                                 : null,
                             child: AppImage(
                               path: iconPaths[index],
                               width: 24,
                               height: 24,
-                              iconColor: isSelected
-                                  ? Colors.white
-                                  : AppColors.instance.black200,
+                              iconColor: isSelected ? Colors.white : AppColors.instance.black200,
                             ),
                           ),
                         );
@@ -111,4 +108,3 @@ class NavigationScreen extends StatelessWidget {
     );
   }
 }
-
