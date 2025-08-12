@@ -19,6 +19,7 @@ class OtpVerificationScreenController extends GetxController {
   bool get inProgress => _inProgress;
   String? errorMessage;
   String? message;
+  String name = '';
 
   GlobalKey<FormState> verificationCodeKey = GlobalKey<FormState>();
 
@@ -40,6 +41,7 @@ class OtpVerificationScreenController extends GetxController {
       var argData = Get.arguments;
       if (argData != null && argData is Map) {
         argMail.value = argData["email"] ?? "";
+        name = argData['name']??'';
         isEmailVerification.value = argData["isEmailVerification"] ?? false;
        // var logger= Logger();
        // logger.i("argMail:${argMail.value}");
@@ -52,6 +54,7 @@ class OtpVerificationScreenController extends GetxController {
   }
 
   Future<dynamic> otpVerification() async {
+
     Map<String, dynamic> body = {"email":argMail.value,"oneTimeCode": otpController.text,};
     // print("email:${email.value}");
     otpIsLoading.value =true;
@@ -117,8 +120,9 @@ class OtpVerificationScreenController extends GetxController {
               errorMessage = null;
               message = response.responseData["message"];
               AppSnackBar.success(message!);
+              String token = response.responseData["data"]["accessToken"];
               // Get.toNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"token":'', "email": argMail.value,"name":''});
-            Get.offAllNamed(AppRoutes.instance.signIn);
+            Get.offAllNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":argMail.value,"name":name,"token":token});
             } else {
               errorMessage = response.errorMessage;
               hasError.value = true;

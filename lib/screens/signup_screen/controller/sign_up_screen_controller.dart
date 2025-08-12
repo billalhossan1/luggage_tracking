@@ -75,7 +75,7 @@ class SignUpScreenController extends GetxController {
           AppSnackBar.success(message ?? 'Registration successful');
           Get.toNamed(AppRoutes.instance.otpScreen, arguments: {
             "email": emailTextEditingController.text.trim(),
-            "isEmailVerification": true,
+            "isEmailVerification": true,"name":nameTextEditingController.text.trim()
           },);
         } else {
           errorMessage = response.errorMessage;

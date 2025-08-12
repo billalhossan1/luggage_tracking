@@ -307,9 +307,11 @@ class ProductDetailsScreen extends StatelessWidget {
                       Padding(
                         padding: const EdgeInsets.all(8.0),
                         child: AppButton(
+                          onTap: (){
+                            Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {'products':controller.makeOrder,'totalQuantity':controller.quantity.value,'totalPrice':((controller.productPrice)*(controller.quantity.value)),"details":'details'});
+                          },
                           isLoading: controller.isLoading.value,
                           borderRadius: BorderRadius.circular(12),
-
                           title: "Confirm Order",
                           titleSize: AppSize.width(value: 20),
                         ),

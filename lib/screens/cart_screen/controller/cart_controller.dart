@@ -1,4 +1,5 @@
 import 'package:get/get.dart';
+import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 
 import '../../../const/urls/urls.dart';
@@ -12,6 +13,7 @@ class CartController extends GetxController{
   num totalPrice= 0;
   int page =1;
   int totalQuantity=0;
+  RxInt cartCount = 0.obs;
   RxList<CartItem> cartList = <CartItem>[].obs;
   NetworkCaller networkCaller = NetworkCaller();
   @override
@@ -30,6 +32,8 @@ class CartController extends GetxController{
         cartList.clear();
       }
       cartList.addAll(cartListModel.cartList ?? []);
+      cartCount = cartList.length.obs;
+      update();
     }else{
       showCustomSnackBar(title: "error", message: response.errorMessage);
     }

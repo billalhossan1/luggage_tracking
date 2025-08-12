@@ -5,6 +5,7 @@ import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/const/assets_images_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
+import 'package:luggage_tracking/screens/cart_screen/controller/cart_controller.dart';
 import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
@@ -33,50 +34,63 @@ class HomeScreen extends StatelessWidget {
               child: CustomScrollView(
                 slivers: [
                   // SliverAppBar with some basic properties
-                  SliverAppBar(
-                    automaticallyImplyLeading: false,
-                    toolbarHeight: AppSize.width(value: 56),
-                    pinned: true, // height when expanded
-                    flexibleSpace: HomeScreenAppBar(
-                      actions: [
-                        GestureDetector(
-                          onTap: () {
-                            Get.toNamed(AppRoutes.instance.cartScreen);
-                          },
-                          child: Badge.count(
+                  GetBuilder<CartController>(
+                    builder: (cartController) {
+                      return SliverAppBar(
+                        automaticallyImplyLeading: false,
+                        toolbarHeight: AppSize.width(value: 56),
+                        pinned: true, // height when expanded
+                        flexibleSpace: HomeScreenAppBar(
+                          actions: [
+                            Obx(()=>GestureDetector(
+                              onTap: () {
+                                Get.toNamed(AppRoutes.instance.cartScreen);
+                              },
+                              child: cartController.cartCount>0?Badge.count(
 
-                            count: 5,
-                            child: AppImage(
-                              path: AssetsIconsPath.instance.dealCart,
-                              width: AppSize.width(value: 20),
-                              height: AppSize.width(value: 20),
-                            ),
+                                count: cartController.cartCount.value,
+                                child: AppImage(
+                                  path: AssetsIconsPath.instance.dealCart,
+                                  width: AppSize.width(value: 20),
+                                  height: AppSize.width(value: 20),
+                                ),
+                              ):GestureDetector(
+                                onTap: () {
+                                  Get.toNamed(AppRoutes.instance.cartScreen);
+                                },
+                                child: AppImage(
+                                  path: AssetsIconsPath.instance.dealCart,
+                                  width: AppSize.width(value: 20),
+                                  height: AppSize.width(value: 20),
+                                ),
+                              ),
+                            ),),
+                            // Gap(width: AppSize.width(value: 20)),
+                            // GestureDetector(
+                            //   onTap: () {
+                            //     Get.toNamed(AppRoutes.instance.notificationScreen);
+                            //   },
+                            //   child: Badge.count(
+                            //     count: 5,
+                            //     child: AppImage(
+                            //       path: AssetsIconsPath.instance.notification,
+                            //       width: AppSize.width(value: 24),
+                            //       height: AppSize.width(value: 24),
+                            //     ),
+                            //   ),
+                            // ),
+
+                          ],
+                          title: "Welcome to Trkli",
+                          subtitle: "Every move matters",
+                          leading: SvgPicture.asset(
+                             AssetsImagesPath.instance.homeLogo,
+                            width: AppSize.width(value: 40),
+                            height: AppSize.width(value: 40),
                           ),
                         ),
-                        Gap(width: AppSize.width(value: 20)),
-                        GestureDetector(
-                          onTap: () {
-                            // Get.toNamed(AppRoutes.instance.notificationScreen);
-                          },
-                          child: Badge.count(
-                            count: 5,
-                            child: AppImage(
-                              path: AssetsIconsPath.instance.notification,
-                              width: AppSize.width(value: 24),
-                              height: AppSize.width(value: 24),
-                            ),
-                          ),
-                        ),
-
-                      ],
-                      title: "Welcome to Trkli",
-                      subtitle: "Every move matters",
-                      leading: SvgPicture.asset(
-                         AssetsImagesPath.instance.homeLogo,
-                        width: AppSize.width(value: 40),
-                        height: AppSize.width(value: 40),
-                      ),
-                    ),
+                      );
+                    }
                   ),
                   SliverToBoxAdapter(
                     child: controller.bannerIsLoading.value

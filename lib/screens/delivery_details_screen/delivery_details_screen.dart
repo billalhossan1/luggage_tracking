@@ -47,7 +47,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                     AppInputWidget(
                       title: "Name",
                       hintText: "john doe",
-                      controller: controller.contactTEController,
+                      controller: controller.nameTEController,
                     ),
                     AppInputWidget(
                       title: "Contact No",
@@ -66,14 +66,14 @@ class DeliveryDetailsScreen extends StatelessWidget {
                       controller: controller.streetTEController,
                     ),
                     AppInputWidget(
-                      title: "city",
+                      title: "City",
                       hintText: "Damascus",
                       controller: controller.cityTEController,
                     ),
                     AppInputWidget(
                       title: "state",
                       hintText: "Damascus",
-                      controller: controller.cityTEController,
+                      controller: controller.stateTEController,
                     ),
                     AppInputWidget(
                       title: "zip code",
@@ -83,7 +83,7 @@ class DeliveryDetailsScreen extends StatelessWidget {
                    AppInputWidget(
                       title: "Country",
                       hintText: "Syria",
-                      controller: controller.addressTEController,
+                      controller: controller.countryTEController,
                     ),
                     AddDescripsion(title: "Note (Optional)",controller: controller.noteTEController,validatior: false,),
                   ],

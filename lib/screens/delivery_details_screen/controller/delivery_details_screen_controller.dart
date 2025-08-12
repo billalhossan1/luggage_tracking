@@ -12,35 +12,42 @@ class DeliveryDetailsScreenController extends GetxController {
   RxList<CartItem>productList = <CartItem>[].obs;
   TextEditingController emailTEController = TextEditingController();
   TextEditingController contactTEController = TextEditingController();
+  TextEditingController nameTEController = TextEditingController();
   TextEditingController zipCodeTEController = TextEditingController();
   TextEditingController cityTEController = TextEditingController();
   TextEditingController streetTEController = TextEditingController();
-  TextEditingController addressTEController = TextEditingController();
+  TextEditingController countryTEController = TextEditingController();
   TextEditingController noteTEController = TextEditingController();
+  TextEditingController stateTEController = TextEditingController();
   String totalAddress='';
   int quantity = 1;
+  String details = '';
   dynamic totalPrice = 0;
   @override
   void onInit() {
     productList = Get.arguments["products"];
     quantity = Get.arguments["totalQuantity"];
     totalPrice = Get.arguments["totalPrice"];
+    details = Get.arguments["details"]??'';
     super.onInit();
   }
 
   void onTapContinue() {
     if (formKey.currentState?.validate() ?? false) {
-      totalAddress = '${zipCodeTEController.text.trim()}, ${cityTEController.text.trim()},${streetTEController.text.trim()},${addressTEController.text.trim()} ';
+      totalAddress = '${streetTEController.text.trim()}, ${cityTEController.text.trim()}, ${stateTEController.text.trim()},${zipCodeTEController.text.trim()},${countryTEController.text.trim()} ';
+      print("total======$totalAddress");
       Get.toNamed(
         AppRoutes.instance.deliveryDetainShowScreen,
         arguments: {
+          "name": nameTEController.text.trim(),
           "email": emailTEController.text.trim(),
           "contact": contactTEController.text.trim(),
           "address": totalAddress,
           "note": noteTEController.text.trim(),
           "totalQuantity": quantity,
           "totalPrice": totalPrice,
-          "productList": productList
+          "productList": productList,
+          "details":details
         },
       );
     } else {

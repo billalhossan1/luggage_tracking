@@ -17,6 +17,7 @@ class DeliveryDetailsShowScreenController extends GetxController {
   String? contact;
   String? note;
   String? address;
+  String details='';
   int? quantity;
   num totalPrice=0;
 
@@ -32,6 +33,7 @@ class DeliveryDetailsShowScreenController extends GetxController {
     quantity=Get.arguments['totalQuantity'];
     totalPrice=Get.arguments['totalPrice'];
     address = Get.arguments["address"];
+    details = Get.arguments["details"];
 
     // Logger().i("productName :${product!.name}");
     // Logger().i("email :$email");

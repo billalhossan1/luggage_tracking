@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import 'package:logger/logger.dart';
 import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
+import 'package:luggage_tracking/screens/cart_screen/controller/cart_controller.dart';
 import 'package:luggage_tracking/screens/home_screen/model/banner_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/category_list_model.dart';
 import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
@@ -22,6 +23,7 @@ class HomeScreenController extends GetxController{
   RxList<CategoryItem> categoryList = <CategoryItem>[].obs;
   RxList<ProductItem> productList = <ProductItem>[].obs;
   RxList<BannerItem> bannerList = <BannerItem>[].obs;
+  CartController cartController = Get.find<CartController>();
 
   @override
   Future<void> onInit() async {
@@ -30,6 +32,8 @@ class HomeScreenController extends GetxController{
     getProductList();
     getBannerList();
     Get.find<AccountController>().getProfileDetails();
+    cartController.getCartList();
+
     // Logger().i("Category list fetched: ${categoryList.length} items");
     // Logger().i("Product list fetched: ${productList.length} items");
     super.onInit();

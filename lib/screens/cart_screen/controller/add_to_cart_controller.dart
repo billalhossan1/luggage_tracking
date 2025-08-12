@@ -1,4 +1,6 @@
 import 'package:get/get.dart';
+import 'package:luggage_tracking/screens/cart_screen/controller/cart_controller.dart';
+import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';
@@ -16,6 +18,7 @@ class AddToCartController extends GetxController{
     isLoading.value = false;
     if(response.isSuccess){
       showCustomSnackBar(title: "Success", message: "Product added to cart");
+      Get.find<CartController>().getCartList();
     }else{
       showCustomSnackBar(title: "error", message: response.errorMessage,isError: true);
     }

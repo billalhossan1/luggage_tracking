@@ -26,9 +26,10 @@ class NavigationScreen extends StatelessWidget {
               children: [
                 const HomeScreen(),
                  DeviceScreen(),
-                controller.selectedIndex.value == 2 && !controller.isSubscribe
-                    ? SubscriptionRequiredScreen()
-                    : const TrackerItemScreen(),
+                // controller.selectedIndex.value == 2 && !controller.isSubscribe
+                //     ? SubscriptionRequiredScreen()
+                //     :
+                const TrackerItemScreen(),
                 AccountScreen(),
               ],
             ),

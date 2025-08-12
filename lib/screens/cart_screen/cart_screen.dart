@@ -66,10 +66,9 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           )),
-          Obx(()=>Padding(
+          Obx(()=>controller.isLoading.value?SizedBox():Padding(
               padding: const EdgeInsets.all(8.0),
               child: AppButton(
-                isLoading: controller.isLoading.value,
                 filColor: Colors.transparent,
                 decoration: BoxDecoration(
                   border: Border.all(color: Color(0xff8F00FF)),
@@ -85,10 +84,9 @@ class CartScreen extends StatelessWidget {
               ),
             ),
           ),
-          Obx(()=>Padding(
+          Obx(()=>controller.isLoading.value?SizedBox():Padding(
               padding: const EdgeInsets.all(8.0),
               child: AppButton(
-                isLoading: controller.isLoading.value,
                 borderRadius: BorderRadius.circular(12),
                 onTap: () {
                   Get.toNamed(AppRoutes.instance.deliveryDetainScreen,arguments: {"products":controller.cartList,"totalQuantity":controller.totalQuantity,"totalPrice":controller.totalPrice,});

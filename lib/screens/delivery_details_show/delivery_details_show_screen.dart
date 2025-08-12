@@ -23,155 +23,137 @@ class DeliveryDetailsShowScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetBuilder<DeliveryDetailsShowScreenController>(
-      builder: (controller) {
-        return Scaffold(
-          appBar: CustomAppBar(title: "Delivery Details"),
-          body: Padding(
-            padding: EdgeInsets.all(AppSize.width(value: 12)),
-            child:Column(
-              spacing: AppSize.width(value: 10),
-              children: [
-                ///Contact Details
-                AppCard(
-                  child: Column(
-                    spacing: AppSize.width(value: 12),
-                    children: [
-                      TextForCardHeadLine(text: "Contact Details"),
+        builder: (controller) {
+          return Scaffold(
+            appBar: CustomAppBar(title: "Delivery Details"),
+            body: Padding(
+              padding: EdgeInsets.all(AppSize.width(value: 12)),
+              child: Column(
+                spacing: AppSize.width(value: 10),
+                children: [
+                  ///Contact Details
+                  AppCard(
+                    child: Column(
+                      spacing: AppSize.width(value: 12),
+                      children: [
+                        TextForCardHeadLine(text: "Contact Details"),
 
-                      Gap(height: AppSize.width(value: 2)),
-                      TextRowItem(text1: "Contact No: ", text2: controller.contact??'no contact given'),
-                      TextRowItem(
-                        text1: "Email: ",
-                        text2: controller.email??'no email given',
-                      ),
-                      TextRowItem(
-                        text1: "Address: ",
-                        text2: controller.address??'no address given',
-                      ),
-                      TextRowItem(text1: "Note: ", text2: controller.note??'no note given',),
-                    ],
+                        Gap(height: AppSize.width(value: 2)),
+                        TextRowItem(text1: "Contact No: ", text2: controller.contact ?? 'no contact given'),
+                        TextRowItem(
+                          text1: "Email: ",
+                          text2: controller.email ?? 'no email given',
+                        ),
+                        TextRowItem(
+                          text1: "Address: ",
+                          text2: controller.address ?? 'no address given',
+                        ),
+                        TextRowItem(text1: "Note: ", text2: controller.note ?? 'no note given',),
+                      ],
+                    ),
                   ),
-                ),
 
-                ///Product Information
-                SizedBox(
-                  height: 200,
-                  child: Expanded(
-                    child: ListView.builder(itemCount: controller.productList!.length,itemBuilder: (context,index)=>Padding(
-                      padding: const EdgeInsets.only(bottom: 8.0),
-                      child: AppCard(
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Column(
-                              spacing: AppSize.width(value: 10),
-                              crossAxisAlignment: CrossAxisAlignment.start,
-                              children: [
-                                AppText(
-                                  data: controller.productList?[index].product?.name??'',
-                                  fontSize: AppSize.width(value: 16),
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.instance.black400,
-                                ),
-                                AppText(
-                                  data:"Quantity: ${controller.productList?[index].quantity}",
-                                  fontSize: AppSize.width(value: 14),
-                                  fontWeight: FontWeight.w400,
-                                  color: AppColors.instance.black200,
-                                ),
-                                Row(
-                                  children: [
-                                    AppText(
-                                      data: "\$${controller.productList?[index].product?.price.toStringAsFixed(2)?? 0}",
-                                      fontSize: AppSize.width(value: 14),
-                                      fontWeight: FontWeight.w500,
-                                      color: AppColors.instance.black500,
-                                    ),
+                  ///Product Information
+                  SizedBox(
+                    height: 200, // Specify the height for the list
+                    child: ListView.builder(
+                      itemCount: controller.productList!.length,
+                      itemBuilder: (context, index) => Padding(
+                        padding: const EdgeInsets.only(bottom: 8.0),
+                        child: AppCard(
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              Column(
+                                spacing: AppSize.width(value: 10),
+                                crossAxisAlignment: CrossAxisAlignment.start,
+                                children: [
+                                  AppText(
+                                    data: controller.productList?[index].product?.name ?? '',
+                                    fontSize: AppSize.width(value: 16),
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.instance.black400,
+                                  ),
+                                  AppText(
+                                    data:"Quantity: ${controller.productList!.length==1?controller.quantity:controller.productList?[index].quantity}",
+                                    fontSize: AppSize.width(value: 14),
+                                    fontWeight: FontWeight.w400,
+                                    color: AppColors.instance.black200,
+                                  ),
+                                  Row(
+                                    children: [
+                                      AppText(
+                                        data: "\$${controller.productList?[index].product?.price.toStringAsFixed(2) ?? 0}",
+                                        fontSize: AppSize.width(value: 14),
+                                        fontWeight: FontWeight.w500,
+                                        color: AppColors.instance.black500,
+                                      ),
 
-                                    Gap(width: AppSize.width(value: 6)),
-                                    // Text(
-                                    //   '\$20.30',
-                                    //   style: TextStyle(
-                                    //     fontSize: AppSize.width(value: 12),
-                                    //     color: AppColors.instance.red1,
-                                    //     fontWeight: FontWeight.w400,
-                                    //     fontFamily: AppConst.fontFamily1,
-                                    //     decoration: TextDecoration.lineThrough,
-                                    //     decorationColor: AppColors.instance.red1,
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                                Row(
-                                  children: [
-                                    AppText(data: "Color:  ${controller.productList?[index].product?.color??''}"),
-                                    Gap(width: AppSize.width(value: 10)),
-                                    // Container(
-                                    //   width: AppSize.width(value: 20),
-                                    //   height: AppSize.width(value: 20),
-                                    //   decoration: BoxDecoration(
-                                    //     color: AppColors.instance.black900,
-                                    //     shape: BoxShape.circle,
-                                    //   ),
-                                    // ),
-                                  ],
-                                ),
-                              ],
-                            ),
-                            AppImage(
-                              url: "${Urls.imageBaseUrl}${controller.productList?[index].product?.images?[0]??''}",
-                              width: AppSize.width(value: 84),
-                              height: AppSize.width(value: 100),
-                            ),
-                          ],
+                                      Gap(width: AppSize.width(value: 6)),
+                                    ],
+                                  ),
+                                  Row(
+                                    children: [
+                                      AppText(data: "Color:  ${controller.productList?[index].product?.color ?? ''}"),
+                                      Gap(width: AppSize.width(value: 10)),
+                                    ],
+                                  ),
+                                ],
+                              ),
+                              AppImage(
+                                url: "${Urls.imageBaseUrl}${controller.productList?[index].product?.images?[0] ?? ''}",
+                                width: AppSize.width(value: 84),
+                                height: AppSize.width(value: 100),
+                              ),
+                            ],
+                          ),
                         ),
                       ),
-                    ),),
+                    ),
                   ),
-                ),
 
-                ///Payment Summary
-                AppCard(
-                  child: Column(
-                    children: [
-                      TextForCardHeadLine(text: "Payment Summary"),
-                      Gap(height: AppSize.width(value: 16)),
+                  ///Payment Summary
+                  AppCard(
+                    child: Column(
+                      children: [
+                        TextForCardHeadLine(text: "Payment Summary"),
+                        Gap(height: AppSize.width(value: 16)),
 
-                      TextRowItem(text1: "Product Quantity", text2: "${controller.quantity}"),
-                      AppDivider(),
-                      TextRowItem(
-                        text1: "Subtotal",
-                        text2: "\$${(controller.totalPrice.toStringAsFixed(2))}",
-                      ),
+                        TextRowItem(text1: "Total Quantity", text2: "${controller.quantity}"),
+                        AppDivider(),
+                        TextRowItem(
+                          text1: "Subtotal",
+                          text2: "\$${(controller.totalPrice.toStringAsFixed(2))}",
+                        ),
 
-                      Gap(height: AppSize.width(value: 14)),
-                      TextRowItem(
-                        text1: "Delivery Charge",
-                        text2: "\$${4.30.toStringAsFixed(2)}",
-                      ),
-                      AppDivider(),
-                      TextRowItem(
-                        text1: "Total",
-                        text2: "\$${(((controller.totalPrice))+4.30).toStringAsFixed(2)}",
-                        text2Color: AppColors.instance.green1,
-                      ),
-                    ],
+                        Gap(height: AppSize.width(value: 14)),
+                        TextRowItem(
+                          text1: "Delivery Charge",
+                          text2: "\$${4.30.toStringAsFixed(2)}",
+                        ),
+                        AppDivider(),
+                        TextRowItem(
+                          text1: "Total",
+                          text2: "\$${(((controller.totalPrice)) + 4.30).toStringAsFixed(2)}",
+                          text2Color: AppColors.instance.green1,
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-                Gap(height: AppSize.width(value: 44)),
-                Obx(()=>AppButton(
-                  isLoading: controller.isLoading.value,
-                  title: "Continue",
-                  titleSize: 20,
-                  onTap: () {
-                    controller.onTapContinue(context);
-                  },
-                ),)
-              ],
+                  Gap(height: AppSize.width(value: 44)),
+                  Obx(() => AppButton(
+                    isLoading: controller.isLoading.value,
+                    title: "Continue",
+                    titleSize: 20,
+                    onTap: () {
+                      controller.onTapContinue(context);
+                    },
+                  ))
+                ],
+              ),
             ),
-          ),
-        );
-      }
+          );
+        }
     );
   }
 }
