@@ -16,6 +16,7 @@ class DeliveryDetailsShowScreenController extends GetxController {
   RxBool isLoading = false.obs;
   String? contact;
   String? note;
+  String? name;
   String? address;
   String details='';
   int? quantity;
@@ -26,6 +27,7 @@ class DeliveryDetailsShowScreenController extends GetxController {
     String myNote = Get.arguments["note"];
     productList = Get.arguments["productList"];
     email = Get.arguments["email"];
+    name = Get.arguments["name"];
     contact = Get.arguments["contact"];
     if (myNote.isNotEmpty) {
       note = Get.arguments["note"];
@@ -46,6 +48,7 @@ class DeliveryDetailsShowScreenController extends GetxController {
 
   Future<dynamic> apiCall() async {
     Map<String, dynamic> body = {
+      "name":name,
       "email": email,
       "contact": contact,
       "note": note,

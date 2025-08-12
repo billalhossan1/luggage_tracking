@@ -13,6 +13,7 @@ class AddToCartController extends GetxController{
 
 
   Future<void>addToCart({int quantity=1,required String productId})async{
+
     isLoading.value = true;
     NetworkResponse response = await addCartApiCall(quantity, productId);
     isLoading.value = false;
