@@ -7,7 +7,6 @@ import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 import '../../../services/api/network_response.dart';
 import '../../../utils/app_all_log/error_log.dart';
 
-
 class SignUpScreenController extends GetxController {
   //////////////  variable & object
   String? errorMessage;
@@ -23,8 +22,7 @@ class SignUpScreenController extends GetxController {
   TextEditingController passwordTextEditingController = TextEditingController();
   TextEditingController nameTextEditingController = TextEditingController();
   TextEditingController contactTextEditingController = TextEditingController();
-  TextEditingController confirmPasswordTextEditingController =
-      TextEditingController();
+  TextEditingController confirmPasswordTextEditingController = TextEditingController();
 
   // Future<void> signIn() async {
   //   try {
@@ -55,17 +53,16 @@ class SignUpScreenController extends GetxController {
 
     try {
       if (signUpFormKey.currentState!.validate()) {
-        isLoading.value= true;
+        isLoading.value = true;
         update();
         Map<String, dynamic> body = {
           "name": nameTextEditingController.text.trim(),
-          "email": emailTextEditingController.text.trim(),
+          "email": emailTextEditingController.text.toLowerCase().trim(),
           "contact": contactTextEditingController.text.trim(),
           "password": passwordTextEditingController.text,
           "confirmPassword": confirmPasswordTextEditingController.text,
         };
-        final NetworkResponse response = await Get.find<NetworkCaller>()
-            .postRequest(Urls.registerUrl, body: body);
+        final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.registerUrl, body: body);
         isLoading.value = false;
         update();
         if (response.isSuccess) {
@@ -73,10 +70,14 @@ class SignUpScreenController extends GetxController {
           message = response.responseData["message"];
           isSuccess = true;
           AppSnackBar.success(message ?? 'Registration successful');
-          Get.toNamed(AppRoutes.instance.otpScreen, arguments: {
-            "email": emailTextEditingController.text.trim(),
-            "isEmailVerification": true,"name":nameTextEditingController.text.trim()
-          },);
+          Get.toNamed(
+            AppRoutes.instance.otpScreen,
+            arguments: {
+              "email": emailTextEditingController.text.toLowerCase().trim(),
+              "isEmailVerification": true,
+              "name": nameTextEditingController.text.trim()
+            },
+          );
         } else {
           errorMessage = response.errorMessage;
           isSuccess = false;

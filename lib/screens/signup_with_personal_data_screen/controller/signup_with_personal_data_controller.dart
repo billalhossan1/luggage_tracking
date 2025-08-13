@@ -15,13 +15,10 @@ class SignupWithPersonalDataController extends GetxController {
   String argName = '';
   String? errorMessage;
   String? message;
-  TextEditingController contactNumberTextEditingController =
-      TextEditingController();
-  TextEditingController dateOfBirthTextEditingController =
-      TextEditingController();
+  TextEditingController contactNumberTextEditingController = TextEditingController();
+  TextEditingController dateOfBirthTextEditingController = TextEditingController();
   TextEditingController genderTextEditingController = TextEditingController();
-  TextEditingController occupationTextEditingController =
-      TextEditingController();
+  TextEditingController occupationTextEditingController = TextEditingController();
   RxnString selectedCountry = RxnString(null);
   RxnString selectedCity = RxnString(null);
   TextEditingController addressTextEditingController = TextEditingController();
@@ -31,7 +28,7 @@ class SignupWithPersonalDataController extends GetxController {
   @override
   void onInit() {
     argToken = Get.arguments['token'] ?? ''.obs;
-    argEmail = Get.arguments['email'] ?? ''.obs;
+    argEmail = (Get.arguments['email'] ?? '').toString().toLowerCase();
     argName = Get.arguments['name'] ?? ''.obs;
     Logger().i("Token: $argToken");
     Logger().i("Email: $argEmail");
@@ -60,12 +57,11 @@ class SignupWithPersonalDataController extends GetxController {
       body["name"] = argName;
     }
 
-    final NetworkResponse response = await Get.find<NetworkCaller>()
-        .patchRequest(
-          Urls.updateProfileUrl,
-          body: body,
-          accessToken: 'Bearer $argToken',
-        );
+    final NetworkResponse response = await Get.find<NetworkCaller>().patchRequest(
+      Urls.updateProfileUrl,
+      body: body,
+      accessToken: 'Bearer $argToken',
+    );
     return response;
   }
 
@@ -78,7 +74,8 @@ class SignupWithPersonalDataController extends GetxController {
         if (response.isSuccess) {
           message = response.responseData["message"];
           errorMessage = null;
-          Get.find<SaveDataController>().saveUserData(argToken);
+          await Get.find<SaveDataController>().saveUserData(argToken);
+          await Get.find<SaveDataController>().setUserEmail(argEmail);
           AppSnackBar.success(message ?? "Your Account Created Successfully");
           Get.offAllNamed(
             AppRoutes.instance.subPlanScreen,

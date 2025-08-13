@@ -22,74 +22,74 @@ class SubPlanScreen extends StatelessWidget {
               child: controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
                   : controller.subscriptionPlanList.isEmpty
-                  ? Center(
-                child: AppText(
-                  data: 'No subscription plans available',
-                  fontSize: AppSize.width(value: 16),
-                  fontWeight: FontWeight.w500,
-                  color: AppColors.instance.black400,
-                ),
-              )
-                  : Column(
-                children: [
-                  Padding(
-                    padding: EdgeInsets.symmetric(
-                        vertical: AppSize.width(value: 30)),
-                    child: Row(
-                      children: [
-                        // GestureDetector(
-                        //   onTap:(){
-                        //     Get.back();
-                        //   },
-                        //   child: Padding(
-                        //     padding: const EdgeInsets.all(8.0),
-                        //     child: Icon(Icons.arrow_back_ios),
-                        //   ),
-                        // ),
-                        AppText(
-                          data: "Unlock your Subscription Plan",
-                          fontSize: AppSize.width(value: 24),
-                          fontWeight: FontWeight.w500,
-                          color: AppColors.instance.black400,
-                        ),
-                      ],
-                    )
-                  ),
-                  Expanded(
-                    child: ListView.builder(
-                      padding: EdgeInsets.zero,
-                      itemCount: controller.subscriptionPlanList.length + 1, // Adding 1 for the static card
-                      itemBuilder: (context, index) {
-                        // If index is equal to the length of the dynamic plans, display the free trial card
-                        if (index == controller.subscriptionPlanList.length) {
-                          return PlanCard(
-                            onTap: () {
-                              controller.onTapFree();
-                            },
-                            heading: "Free Trial",
-                            price: "\$0.00/Trial",
-                            offer1: "Enjoy 7 days of free access.",
-                            isSelected: false, // Static plan, no selection state
-                          );
-                        }
-
-                        // Otherwise, display dynamic subscription plans
-                        final plan = controller.subscriptionPlanList[index];
-                        return PlanCard(
-                          onTap: () => controller.onTapSubscription(
-                            context,
-                            paymentUrl: plan.paymentLink ?? "",
+                      ? Center(
+                          child: AppText(
+                            data: 'No subscription plans available',
+                            fontSize: AppSize.width(value: 16),
+                            fontWeight: FontWeight.w500,
+                            color: AppColors.instance.black400,
                           ),
-                          heading: plan.title,
-                          price: "\$${plan.price?.toStringAsFixed(2)}/${plan.paymentType}",
-                          offer1: plan.description,
-                          isSelected: true,
-                        );
-                      },
-                    ),
-                  ),
-                ],
-              ),
+                        )
+                      : Column(
+                          children: [
+                            Padding(
+                                padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 30)),
+                                child: Row(
+                                  mainAxisAlignment: MainAxisAlignment.center,
+                                  children: [
+                                    // GestureDetector(
+                                    //   onTap:(){
+                                    //     Get.back();
+                                    //   },
+                                    //   child: Padding(
+                                    //     padding: const EdgeInsets.all(8.0),
+                                    //     child: Icon(Icons.arrow_back_ios),
+                                    //   ),
+                                    // ),
+                                    AppText(
+                                      data: "Unlock your Subscription Plan",
+                                      fontSize: AppSize.width(value: 24),
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.instance.black400,
+                                      textAlign: TextAlign.center,
+                                    ),
+                                  ],
+                                )),
+                            Expanded(
+                              child: ListView.builder(
+                                padding: EdgeInsets.zero,
+                                itemCount: controller.subscriptionPlanList.length + 1, // Adding 1 for the static card
+                                itemBuilder: (context, index) {
+                                  // If index is equal to the length of the dynamic plans, display the free trial card
+                                  if (index == controller.subscriptionPlanList.length) {
+                                    return PlanCard(
+                                      onTap: () {
+                                        controller.onTapFree();
+                                      },
+                                      heading: "Free Trial",
+                                      price: "\$0.00/Trial",
+                                      offer1: "Enjoy 7 days of free access.",
+                                      isSelected: false, // Static plan, no selection state
+                                    );
+                                  }
+
+                                  // Otherwise, display dynamic subscription plans
+                                  final plan = controller.subscriptionPlanList[index];
+                                  return PlanCard(
+                                    onTap: () => controller.onTapSubscription(
+                                      context,
+                                      paymentUrl: plan.paymentLink ?? "",
+                                    ),
+                                    heading: plan.title,
+                                    price: "\$${plan.price?.toStringAsFixed(2)}/${plan.paymentType}",
+                                    offer1: plan.description,
+                                    isSelected: true,
+                                  );
+                                },
+                              ),
+                            ),
+                          ],
+                        ),
             );
           }),
         );
@@ -97,8 +97,6 @@ class SubPlanScreen extends StatelessWidget {
     );
   }
 }
-
-
 
 class PlanCard extends StatelessWidget {
   final String? heading;
@@ -134,14 +132,10 @@ class PlanCard extends StatelessWidget {
         ),
         width: AppSize.width(value: double.infinity),
         decoration: BoxDecoration(
-          color: isSelected
-              ? AppColors.instance.purple_50
-              : AppColors.instance.white100,
+          color: isSelected ? AppColors.instance.purple_50 : AppColors.instance.white100,
           borderRadius: BorderRadius.circular(12),
           border: Border.all(
-            color: isSelected
-                ? AppColors.instance.purple_500
-                : AppColors.instance.black400,
+            color: isSelected ? AppColors.instance.purple_500 : AppColors.instance.black400,
           ),
         ),
         child: Column(
@@ -153,7 +147,9 @@ class PlanCard extends StatelessWidget {
               fontWeight: FontWeight.w400,
               color: AppColors.instance.black400,
             ),
-            Gap(height: AppSize.height(value: 10),),
+            Gap(
+              height: AppSize.height(value: 10),
+            ),
             AppText(
               data: price ?? "",
               fontSize: AppSize.width(value: 14),

@@ -17,7 +17,9 @@ class AppButton extends StatelessWidget {
     this.borderRadius,
     this.decoration,
     this.titleColor,
-    this.titleSize, this.filColor,
+    this.titleSize,
+    this.filColor,
+    this.fontWeight,
   });
 
   final void Function()? onTap;
@@ -32,6 +34,7 @@ class AppButton extends StatelessWidget {
   final Color? titleColor;
   final double? titleSize;
   final Color? filColor;
+  final FontWeight? fontWeight;
 
   @override
   Widget build(BuildContext context) {
@@ -42,29 +45,26 @@ class AppButton extends StatelessWidget {
         height: height ?? AppSize.width(value: 50.0),
         alignment: Alignment.center,
         margin: margin,
-        decoration:
-            decoration ??
+        decoration: decoration ??
             BoxDecoration(
-              color:filColor ?? AppColors.instance.purple_500,
-              borderRadius:borderRadius ?? BorderRadius.circular( 8),
+              color: filColor ?? AppColors.instance.purple_500,
+              borderRadius: borderRadius ?? BorderRadius.circular(8),
             ),
-
-        child:
-            isLoading
-                ? SizedBox(
-                  height: circularHeight ?? AppSize.width(value: 30.0),
-                  width: circularHeight ?? AppSize.width(value: 30.0),
-                  child: CircularProgressIndicator(
-                    color: AppColors.instance.white400,
-                    strokeWidth: 2,
-                  ),
-                )
-                : AppText(
-                  data: title,
-                  color: titleColor ?? AppColors.instance.white300,
-                  fontWeight: FontWeight.w400,
-                  fontSize: titleSize ?? 16,
+        child: isLoading
+            ? SizedBox(
+                height: circularHeight ?? AppSize.width(value: 30.0),
+                width: circularHeight ?? AppSize.width(value: 30.0),
+                child: CircularProgressIndicator(
+                  color: AppColors.instance.white400,
+                  strokeWidth: 2,
                 ),
+              )
+            : AppText(
+                data: title,
+                color: titleColor ?? AppColors.instance.white300,
+                fontWeight: fontWeight ?? FontWeight.w400,
+                fontSize: titleSize ?? 16,
+              ),
       ),
     );
   }

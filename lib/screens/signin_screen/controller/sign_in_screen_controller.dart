@@ -1,5 +1,3 @@
-
-
 import 'dart:convert';
 import 'dart:developer';
 
@@ -16,7 +14,6 @@ import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
 class SignInScreenController extends GetxController {
-
   //////////////  variable & object
   RxBool isLoading = RxBool(false);
   String? errorMessage;
@@ -25,6 +22,7 @@ class SignInScreenController extends GetxController {
   void onToggleRememberMe() {
     isRememberMe.value = !isRememberMe.value;
   }
+
   GlobalKey<FormState> signInFormKey = GlobalKey<FormState>();
   // final AuthRepository authRepository = AuthRepository();
 
@@ -47,57 +45,52 @@ class SignInScreenController extends GetxController {
   //   }
   // }
 
-  Future<dynamic> signIn()async{
-    Map<String, dynamic> body = {
-      "email": emailTextEditingController.text.trim(),
-      "password": passwordTextEditingController.text
-    };
-    final NetworkResponse response =
-        await Get.find<NetworkCaller>().postRequest(Urls.loginUrl, body: body);
+  Future<dynamic> signIn() async {
+    Map<String, dynamic> body = {"email": emailTextEditingController.text.toLowerCase().trim(), "password": passwordTextEditingController.text};
+    final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.loginUrl, body: body);
     return response;
   }
 
   Future<void> clickSignIButton() async {
-    Get.lazyPut(()=>SaveDataController());
-    SaveDataController saveDataController=Get.find<SaveDataController>();
+    Get.lazyPut(() => SaveDataController());
+    SaveDataController saveDataController = Get.find<SaveDataController>();
     try {
       if (signInFormKey.currentState!.validate()) {
         isLoading.value = true;
-        var response =await signIn();
+        var response = await signIn();
         isLoading.value = false;
         if (response != null) {
-            if (response.isSuccess) {
-              errorMessage = null;
-              message = response.responseData["message"];
-              final accessToken = response.responseData["data"]["accessToken"];
-              bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
-              // saveDataController.isSubscribe(isSubscribed);
-              // Logger().i("isSubscribed: $isSubscribed");
-              // if(isSubscribed){
-                saveDataController.saveUserData(accessToken);
-                Get.offAllNamed(AppRoutes.instance.navigationScreen,);
-                Logger().i("Access Token: $accessToken");
+          if (response.isSuccess) {
+            errorMessage = null;
+            message = response.responseData["message"];
+            final accessToken = response.responseData["data"]["accessToken"];
+            bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
+            // saveDataController.isSubscribe(isSubscribed);
+            // Logger().i("isSubscribed: $isSubscribed");
+            // if(isSubscribed){
+            await saveDataController.saveUserData(accessToken);
+            await saveDataController.setUserEmail(emailTextEditingController.text.toLowerCase().trim());
+            Get.offAllNamed(
+              AppRoutes.instance.navigationScreen,
+            );
+            Logger().i("Access Token: $accessToken");
 
-              // }
-             // else{
-             //    AppSnackBar.success(message!);
-             //    Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
-             //  }
-            } else {
-              errorMessage = response.errorMessage;
-              AppSnackBar.error(errorMessage!);
-            }
-            // Get.back(times: 2);
-
+            // }
+            // else{
+            //    AppSnackBar.success(message!);
+            //    Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":emailTextEditingController.text.trim(),"token":accessToken,"name":""});
+            //  }
+          } else {
+            errorMessage = response.errorMessage;
+            AppSnackBar.error(errorMessage!);
           }
+          // Get.back(times: 2);
         }
-
+      }
     } catch (e) {
       log("error form click SignIn button function : $e");
     }
   }
-
-
 
   Future<void> googleLogin() async {
     try {
@@ -118,8 +111,6 @@ class SignInScreenController extends GetxController {
       if (idToken != null) {
         await socialLogin(appId: idToken, email: googleUser.email, name: googleUser.displayName ?? '');
       }
-
-
     } catch (e) {
       AppSnackBar.error('Google login failed: $e');
     }
@@ -156,11 +147,8 @@ class SignInScreenController extends GetxController {
     }
   }
 
-
-
-
-  Future<void> socialLogin({required String appId,required String email,required String name}) async {
-    Map<String,dynamic> body = {
+  Future<void> socialLogin({required String appId, required String email, required String name}) async {
+    Map<String, dynamic> body = {
       "appId": appId,
     };
     try {
@@ -170,9 +158,7 @@ class SignInScreenController extends GetxController {
       );
 
       // Check type and decode if needed
-      final data = response.responseData is String
-          ? jsonDecode(response.responseData)
-          : response.responseData as Map<String, dynamic>;
+      final data = response.responseData is String ? jsonDecode(response.responseData) : response.responseData as Map<String, dynamic>;
 
       Logger().i('Social login response data: $data');
 
@@ -184,25 +170,25 @@ class SignInScreenController extends GetxController {
           return;
         }
         AppSnackBar.success('Login successful: ${data['message']}');
-       if(!isRegister){
-         bool isSubscribed = data["data"]["isSubscribed"] ?? false;
-         if(!isSubscribed){
-           Get.lazyPut(()=>SaveDataController());
-          Get.find<SaveDataController>().saveUserData(accessToken);
-           Get.offAllNamed(AppRoutes.instance.navigationScreen);
-           Logger().i("Navigation to Home Screen");
-         }
-        else{
-          Logger().i("Screen: SubPlanScreen");
-           Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"token": accessToken,"email":email,"name":name});
-         }
-       }else{
-         Logger().i("Screen: SignUpWithPersonalDataScreen");
-         // await Get.find<SaveDataController>().saveUserData(accessToken);
-          Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"email":email,"name":name,"token":accessToken});
-       }
+        if (!isRegister) {
+          bool isSubscribed = data["data"]["isSubscribed"] ?? false;
+          if (!isSubscribed) {
+            Get.lazyPut(() => SaveDataController());
+            await Get.find<SaveDataController>().saveUserData(accessToken);
+            await Get.find<SaveDataController>().setUserEmail(email.toLowerCase());
+            Get.offAllNamed(AppRoutes.instance.navigationScreen);
+            Logger().i("Navigation to Home Screen");
+          } else {
+            Logger().i("Screen: SubPlanScreen");
+            Get.toNamed(AppRoutes.instance.subPlanScreen, arguments: {"token": accessToken, "email": email, "name": name});
+          }
+        } else {
+          Logger().i("Screen: SignUpWithPersonalDataScreen");
+          // await Get.find<SaveDataController>().saveUserData(accessToken);
+          Get.offAllNamed(AppRoutes.instance.signUpWithPersonalData, arguments: {"email": email, "name": name, "token": accessToken});
+        }
       } else {
-          AppSnackBar.error('Login failed: ${data['message'] ?? response.responseData}');
+        AppSnackBar.error('Login failed: ${data['message'] ?? response.responseData}');
         // log("Social login error: ${response.responseData}");
       }
     } catch (e) {
@@ -210,9 +196,6 @@ class SignInScreenController extends GetxController {
       log("Social login exception: $e");
     }
   }
-
-
-
 
   // appClose() {
   //   try {

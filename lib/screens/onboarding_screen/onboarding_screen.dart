@@ -18,8 +18,7 @@ class OnboardingScreen extends StatefulWidget {
   State<OnboardingScreen> createState() => _OnboardingScreenState();
 }
 
-class _OnboardingScreenState extends State<OnboardingScreen>
-    with SingleTickerProviderStateMixin {
+class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _scaleAnimation;
 
@@ -47,84 +46,87 @@ class _OnboardingScreenState extends State<OnboardingScreen>
 
   @override
   Widget build(BuildContext context) {
+    Size size = MediaQuery.of(context).size;
     return Scaffold(
-      backgroundColor: AppColors.instance.purple_500,
+      backgroundColor: Colors.transparent,
       // backgroundColor: Colors.transparent,
-      body: GestureDetector(
-        onTap: () {
-          showCustomBottomSheet();
-        },
-        child: Stack(
-          fit: StackFit.expand,
-          children: [
-            // Background Image
-            Image.asset(
-              AssetsImagesPath
-                  .instance
-                  .onBoardingImg, // Make sure this image path is correct
-              fit: BoxFit.cover,
-            ),
-            Positioned(
-              top: AppSize.size.height * 0.4,
-              left: 0,
-              right: 0,
-              child: Align(
-                child: SizedBox(
-                  width: AppSize.width(value: 92),
-                  height: AppSize.width(value: 92),
-                  child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
+      body: SafeArea(
+        top: false,
+        bottom: false,
+        child: GestureDetector(
+          onTap: () {
+            showCustomBottomSheet();
+          },
+          child: Stack(
+            fit: StackFit.expand,
+            children: [
+              // Background Image
+              Image.asset(
+                AssetsImagesPath.instance.onBoardingImg, // Make sure this image path is correct
+                fit: BoxFit.cover,
+                width: size.width,
+                height: size.height,
+              ),
+              Positioned(
+                top: AppSize.size.height * 0.4,
+                left: 0,
+                right: 0,
+                child: Align(
+                  child: SizedBox(
+                    width: AppSize.width(value: 92),
+                    height: AppSize.width(value: 92),
+                    child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
+                  ),
                 ),
               ),
-            ),
 
-            // Overlay content
-            Padding(
-              padding: const EdgeInsets.symmetric(
-                horizontal: 24.0,
-                vertical: 90.0,
-              ),
-              child: Column(
-                mainAxisAlignment: MainAxisAlignment.end,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  AppText(
-                    data: "Welcome To",
-                    fontSize: AppSize.width(value: 29),
-                    fontWeight: FontWeight.w600,
-                    color: AppColors.instance.white50,
-                  ),
-
-                  Gap(height: AppSize.width(value: 8)),
-                  ScaleTransition(
-                    scale: _scaleAnimation,
-                    child: AppText(
-                      data: "Trkli",
-                      fontSize: AppSize.width(value: 96),
+              // Overlay content
+              Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 24.0,
+                  vertical: 90.0,
+                ),
+                child: Column(
+                  mainAxisAlignment: MainAxisAlignment.end,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    AppText(
+                      data: "Welcome To",
+                      fontSize: AppSize.width(value: 29),
                       fontWeight: FontWeight.w600,
                       color: AppColors.instance.white50,
                     ),
-                  ),
-                  Gap(height: AppSize.width(value: 12)),
-                  AppText(
-                    data:
-                        "A smart tracking system to make your life\nsmarter, and completely stress-free",
-                    fontSize: AppSize.width(value: 16),
-                    fontWeight: FontWeight.w400,
-                    color: AppColors.instance.white600,
-                  ),
-                  Gap(height: AppSize.width(value: 46)),
-                  AppButton(
-                    title: "Get Started",
-                    borderRadius: BorderRadius.circular(12),
-                    titleSize: 20,
-                    onTap: () {
-                      showCustomBottomSheet();
-                    },
-                  ),
-                ],
+                    Gap(height: AppSize.width(value: 8)),
+                    ScaleTransition(
+                      scale: _scaleAnimation,
+                      child: AppText(
+                        data: "Trkli",
+                        fontSize: AppSize.width(value: 96),
+                        fontWeight: FontWeight.w600,
+                        color: AppColors.instance.white50,
+                      ),
+                    ),
+                    Gap(height: AppSize.width(value: 12)),
+                    AppText(
+                      data: "A smart tracking system to make your life\nsmarter, and completely stress-free",
+                      fontSize: AppSize.width(value: 16),
+                      fontWeight: FontWeight.w400,
+                      color: AppColors.instance.white600,
+                    ),
+                    Gap(height: AppSize.width(value: 46)),
+                    AppButton(
+                      title: "Get Started",
+                      borderRadius: BorderRadius.circular(12),
+                      titleSize: 20,
+                      onTap: () {
+                        showCustomBottomSheet();
+                      },
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -145,7 +147,7 @@ void showCustomBottomSheet() {
           children: [
             // Top Icon in circular container
             AppImage(
-              path: AssetsIconsPath.instance.appLogoWhiteBg,
+              path: AssetsIconsPath.instance.appLogoCircle,
               width: AppSize.width(value: 48),
               height: AppSize.width(value: 48),
             ),

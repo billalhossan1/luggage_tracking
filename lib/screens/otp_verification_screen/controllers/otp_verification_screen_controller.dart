@@ -7,6 +7,7 @@ import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
+import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/utils/app_all_log/error_log.dart';
 import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
 
@@ -29,7 +30,6 @@ class OtpVerificationScreenController extends GetxController {
 
   TextEditingController otpController = TextEditingController();
 
-
   @override
   void onInit() {
     super.onInit();
@@ -40,12 +40,12 @@ class OtpVerificationScreenController extends GetxController {
     try {
       var argData = Get.arguments;
       if (argData != null && argData is Map) {
-        argMail.value = argData["email"] ?? "";
-        name = argData['name']??'';
+        argMail.value = (argData["email"] ?? "").toString().toLowerCase();
+        name = argData['name'] ?? '';
         isEmailVerification.value = argData["isEmailVerification"] ?? false;
-       // var logger= Logger();
-       // logger.i("argMail:${argMail.value}");
-       // logger.i("isEmailVerification:${isEmailVerification.value}");
+        // var logger= Logger();
+        // logger.i("argMail:${argMail.value}");
+        // logger.i("isEmailVerification:${isEmailVerification.value}");
       }
       startTimer();
     } catch (e) {
@@ -54,33 +54,32 @@ class OtpVerificationScreenController extends GetxController {
   }
 
   Future<dynamic> otpVerification() async {
-
-    Map<String, dynamic> body = {"email":argMail.value,"oneTimeCode": otpController.text,};
+    Map<String, dynamic> body = {
+      "email": argMail.value,
+      "oneTimeCode": otpController.text,
+    };
     // print("email:${email.value}");
-    otpIsLoading.value =true;
-    final NetworkResponse response =
-    await Get.find<NetworkCaller>().postRequest(Urls.verifyEmailUrl, body: body);
+    otpIsLoading.value = true;
+    final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.verifyEmailUrl, body: body);
     otpIsLoading.value = false;
     return response;
     // Simulate network response or connect to AuthRepository
     // return await authRepository.verifyEmail(email: argMail.value, otp: otpController.text.trim());
   }
 
-  Future<dynamic>resendOtp()async{
-    Map<String, dynamic> body = {"email":argMail.value,};
+  Future<dynamic> resendOtp() async {
+    Map<String, dynamic> body = {
+      "email": argMail.value,
+    };
     // print("email:${email.value}");
-    final NetworkResponse response =
-    await Get.find<NetworkCaller>().postRequest(Urls.resendOtpUrl, body: body);
+    final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(Urls.resendOtpUrl, body: body);
 
     return response;
     // Simulate network response or connect to AuthRepository
     // return await authRepository.verifyEmail(email: argMail.value, otp: otpController.text.trim());
-
-
   }
 
-  Future<void> onTapResend()async{
-
+  Future<void> onTapResend() async {
     try {
       if (argMail.value.isNotEmpty) {
         startTimer();
@@ -92,7 +91,6 @@ class OtpVerificationScreenController extends GetxController {
             errorMessage = null;
             message = response.responseData["message"];
             AppSnackBar.success(message!);
-
           } else {
             errorMessage = response.errorMessage;
             hasError.value = true;
@@ -122,23 +120,22 @@ class OtpVerificationScreenController extends GetxController {
               AppSnackBar.success(message!);
               String token = response.responseData["data"]["accessToken"];
               // Get.toNamed(AppRoutes.instance.signUpWithPersonalData,arguments: {"token":'', "email": argMail.value,"name":''});
-            Get.offAllNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":argMail.value,"name":name,"token":token});
+              await Get.find<SaveDataController>().setUserEmail(argMail.value);
+              Get.offAllNamed(AppRoutes.instance.subPlanScreen, arguments: {"email": argMail.value, "name": name, "token": token});
             } else {
               errorMessage = response.errorMessage;
               hasError.value = true;
               AppSnackBar.error(errorMessage!);
             }
             // Get.back(times: 2);
-          }
-          else {
+          } else {
             if (response.isSuccess) {
-            var verifyToken = response.responseData["data"];
-            errorMessage = null;
-            message = response.responseData["message"];
-            AppSnackBar.success(message!);
-            Get.offNamed(AppRoutes.instance.cretaeNewPasswordScreen, arguments: {"verifyToken": verifyToken.toString()}
-            );
-            }else{
+              var verifyToken = response.responseData["data"];
+              errorMessage = null;
+              message = response.responseData["message"];
+              AppSnackBar.success(message!);
+              Get.offNamed(AppRoutes.instance.cretaeNewPasswordScreen, arguments: {"verifyToken": verifyToken.toString()});
+            } else {
               errorMessage = response.errorMessage;
               hasError.value = true;
               AppSnackBar.error(errorMessage!);
@@ -156,15 +153,13 @@ class OtpVerificationScreenController extends GetxController {
   String formatTime(int seconds) {
     int minutes = seconds ~/ 60;
     int remainingSeconds = seconds % 60;
-    return minutes > 0
-        ? '$minutes:${remainingSeconds.toString().padLeft(2, '0')}'
-        : '$remainingSeconds';
+    return minutes > 0 ? '$minutes:${remainingSeconds.toString().padLeft(2, '0')}' : '$remainingSeconds';
   }
 
   bool _isolateRunning = false;
 
   void startTimer() async {
-    if (_isolateRunning) return;  // Prevent multiple isolates
+    if (_isolateRunning) return; // Prevent multiple isolates
     _isolateRunning = true;
 
     try {
@@ -193,7 +188,6 @@ class OtpVerificationScreenController extends GetxController {
     _isolateRunning = false;
   }
 
-
   static void _isolateEntryPoint(SendPort sendPort) {
     int seconds = 120;
     void timerCallback(Timer timer) {
@@ -221,8 +215,6 @@ class OtpVerificationScreenController extends GetxController {
     stopTimer();
     appClose();
   }
-
-
 }
 
 // import 'dart:async';
@@ -386,4 +378,3 @@ class OtpVerificationScreenController extends GetxController {
 // //     setArgData();
 // //   }
 // // }
-
