@@ -1,9 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/screens/account_screen/controller/account_controller.dart';
-import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
-import 'package:luggage_tracking/screens/profile_details/controller/profile_details_controller.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 
 class SubscriptionRequiredScreen extends StatelessWidget {

@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/routes/app_routes.dart';
-import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import '../../../widgets/my_plan_widget/my_plan_info_wiget.dart';

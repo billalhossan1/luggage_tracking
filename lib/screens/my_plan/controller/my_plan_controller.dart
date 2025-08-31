@@ -48,7 +48,6 @@ class MyPlanController extends GetxController {
     cancelIsLoading.value=true;
     final NetworkResponse response = await cancelSubscription();
     cancelIsLoading.value=false;
-    print("respones:$response");
     if(response.isSuccess){
       showCustomSnackBar(title: "Success", message: "Cancel Plan Successfully");
     }else{

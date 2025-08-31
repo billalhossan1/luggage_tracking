@@ -6,7 +6,6 @@ import 'package:luggage_tracking/screens/cart_screen/controller/cart_controller.
 import 'package:luggage_tracking/utils/gap.dart';
 import 'package:luggage_tracking/widgets/cart_item_widget/cart_item_widget.dart';
 
-import '../../const/app_colors.dart';
 import '../../routes/app_routes.dart';
 import '../../utils/app_size.dart';
 import '../../widgets/appbar/custom_appbar.dart';

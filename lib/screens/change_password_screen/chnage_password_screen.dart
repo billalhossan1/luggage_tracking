@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:get/get_state_manager/src/simple/get_state.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/screens/change_password_screen/controller/change_password_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';

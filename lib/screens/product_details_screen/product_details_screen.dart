@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/const/app_const.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/cart_screen/controller/add_to_cart_controller.dart';
 import 'package:luggage_tracking/screens/product_details_screen/controller/product_details_controller.dart';

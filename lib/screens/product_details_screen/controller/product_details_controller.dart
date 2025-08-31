@@ -22,7 +22,7 @@ class ProductDetailsController extends GetxController {
   CartItem? cartItem;
   dynamic productPrice = 0;
 
-  onInitialDataLoadFunction() async {
+  void onInitialDataLoadFunction() async {
     try {
       productId = Get.arguments['productId'];
       await getProductDetails();
@@ -36,7 +36,6 @@ class ProductDetailsController extends GetxController {
 
       productPrice = productItem?.price;
       makeOrder.add(cartItem ?? CartItem()); // Adding the cart item to makeOrder list
-      print("===================makeorder =====${makeOrder.length}");
 
     } catch (e) {
       debugPrint(e.toString());

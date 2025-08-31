@@ -2,7 +2,6 @@ import 'package:flutter/cupertino.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/screens/cart_screen/model/cart_list_model.dart';
-import 'package:luggage_tracking/screens/home_screen/model/product_list_model.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';

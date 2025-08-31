@@ -1,6 +1,5 @@
 import 'package:get/get.dart';
 import 'package:luggage_tracking/screens/cart_screen/controller/cart_controller.dart';
-import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 
 import '../../../const/urls/urls.dart';
 import '../../../services/api/network_caller.dart';

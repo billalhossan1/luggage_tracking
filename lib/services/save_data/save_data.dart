@@ -1,7 +1,6 @@
 import 'package:get/get.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
-import '../../screens/account_screen/model/profile_model.dart';
 
 class SaveDataController extends GetxController {
   final String _accessTokenKey = 'accessToken';

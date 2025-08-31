@@ -64,7 +64,7 @@ class SignInScreenController extends GetxController {
             errorMessage = null;
             message = response.responseData["message"];
             final accessToken = response.responseData["data"]["accessToken"];
-            bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
+            // bool isSubscribed = response.responseData["data"]["isSubscribed"] ?? false;
             // saveDataController.isSubscribe(isSubscribed);
             // Logger().i("isSubscribed: $isSubscribed");
             // if(isSubscribed){

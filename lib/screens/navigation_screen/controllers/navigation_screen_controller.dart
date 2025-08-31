@@ -17,7 +17,7 @@ class NavigationScreenController extends GetxController {
     update(); // Notifies GetBuilder to rebuild
   }
 
-  changeIndex(int index) {
+  void changeIndex(int index) {
     selectedIndex.value = index;
   }
 
@@ -42,7 +42,7 @@ class NavigationScreenController extends GetxController {
   //   );
   // }
 
-  initialDataSetUp() {
+  void initialDataSetUp() {
     // try {
     //   final argData = Get.arguments;
     //   if (argData.runtimeType != Null) {

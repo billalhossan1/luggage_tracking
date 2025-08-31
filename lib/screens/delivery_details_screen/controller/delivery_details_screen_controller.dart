@@ -35,7 +35,6 @@ class DeliveryDetailsScreenController extends GetxController {
   void onTapContinue() {
     if (formKey.currentState?.validate() ?? false) {
       totalAddress = '${streetTEController.text.trim()}, ${cityTEController.text.trim()}, ${stateTEController.text.trim()},${zipCodeTEController.text.trim()},${countryTEController.text.trim()} ';
-      print("total======$totalAddress");
       Get.toNamed(
         AppRoutes.instance.deliveryDetainShowScreen,
         arguments: {

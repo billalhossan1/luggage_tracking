@@ -9,7 +9,7 @@ class AppSnackBar {
   // >>>>>>>>>>>>>>>>>>>>>> when show message  <<<<<<<<<<<<<<<<<<<<<<
 
   // >>>>>>>>>>>>>>>>>>>>>> error message snackbar  <<<<<<<<<<<<<<<<<<<<<<
-  static error(String parameterValue) {
+   static void error(String parameterValue) {
     Get.showSnackbar(
       GetSnackBar(
 
@@ -39,7 +39,7 @@ class AppSnackBar {
 
   // >>>>>>>>>>>>>>>>>>>>>> success message <<<<<<<<<<<<<<<<<<<<<<
 
-  static success(String parameterValue) {
+  static void success(String parameterValue) {
     Get.showSnackbar(
       GetSnackBar(
         backgroundColor: AppColors.instance.black500,
@@ -69,7 +69,7 @@ class AppSnackBar {
   // >>>>>>>>>>>>>>>>>>>>>> message  <<<<<<<<<<<<<<<<<<<<<<
   // >>>>>>>>>>>>>>>>>>>>>> only show message <<<<<<<<<<<<<<<<<<<<<<
 
-  static message(String parameterValue) {
+  static void message(String parameterValue) {
     Get.showSnackbar(
       GetSnackBar(
         backgroundColor: AppColors.instance.purple_100,

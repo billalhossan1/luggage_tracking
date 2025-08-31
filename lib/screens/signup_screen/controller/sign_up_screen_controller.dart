@@ -91,7 +91,7 @@ class SignUpScreenController extends GetxController {
     return isSuccess;
   }
 
-  appClose() {
+  void appClose() {
     try {
       nameTextEditingController.dispose();
       contactTextEditingController.dispose();

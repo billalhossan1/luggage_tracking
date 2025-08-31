@@ -6,10 +6,10 @@ import 'package:luggage_tracking/screens/account_screen/account_screen.dart';
 import 'package:luggage_tracking/screens/device_screen/device_screen.dart';
 import 'package:luggage_tracking/screens/home_screen/home_screen.dart';
 import 'package:luggage_tracking/screens/navigation_screen/controllers/navigation_screen_controller.dart';
-import 'package:luggage_tracking/screens/navigation_screen/need_perchase_screen.dart';
-import 'package:luggage_tracking/screens/tracker_item_screen/tracker_item_screen.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/widgets/app_image/app_image.dart';
+
+import '../tracker_item_screen/tracker_item_screen.dart';
 
 class NavigationScreen extends StatelessWidget {
   const NavigationScreen({super.key});

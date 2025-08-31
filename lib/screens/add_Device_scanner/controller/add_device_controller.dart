@@ -109,7 +109,7 @@ class AddDeviceController extends GetxController {
       Get.find<DeviceScreenController>().getDevices();
       update();
     } else {
-      showCustomSnackBar(title: "Failed", message: response.errorMessage ?? "Something went wrong.");
+      showCustomSnackBar(title: "Failed", message: response.errorMessage );
     }
   }
 
@@ -146,7 +146,7 @@ class AddDeviceController extends GetxController {
       scannerController.start();
     } else if (status.isPermanentlyDenied) {
       bool? openSettings = await showDialog<bool>(
-        context: context,
+        context: Get.context!,
         builder: (context) => AlertDialog(
           title: const Text('Permission Required for scan your device'),
           content: const Text('Camera permission is required to proceed. Would you like to open the settings to enable it?'),
@@ -166,7 +166,7 @@ class AddDeviceController extends GetxController {
         await openAppSettings();
       }
     } else {
-      ScaffoldMessenger.of(context).showSnackBar(
+      ScaffoldMessenger.of(Get.context!).showSnackBar(
         const SnackBar(
           content: Text('Camera permission is required to scan.'),
         ),

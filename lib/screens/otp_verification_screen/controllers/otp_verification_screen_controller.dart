@@ -36,7 +36,7 @@ class OtpVerificationScreenController extends GetxController {
     setArgData();
   }
 
-  setArgData() {
+  void setArgData() {
     try {
       var argData = Get.arguments;
       if (argData != null && argData is Map) {
@@ -201,7 +201,7 @@ class OtpVerificationScreenController extends GetxController {
     Timer.periodic(const Duration(seconds: 1), timerCallback);
   }
 
-  appClose() {
+  void appClose() {
     try {
       otpController.dispose();
     } catch (e) {
