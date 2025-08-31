@@ -17,7 +17,7 @@ class SplashScreenController extends GetxController {
         animation2.value = 1.0;
       });
       // Get.delete<SplashScreenController>();
-      String? accessToken= await Get.find<SaveDataController>().getUserData();
+      String? accessToken= await SaveDataController().getUserData();
       // Logger().i("Access Token: $accessToken");
       Future.delayed(Duration(seconds: 3), () {
           if (accessToken != null) {

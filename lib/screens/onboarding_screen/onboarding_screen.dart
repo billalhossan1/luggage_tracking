@@ -67,18 +67,6 @@ class _OnboardingScreenState extends State<OnboardingScreen> with SingleTickerPr
                 width: size.width,
                 height: size.height,
               ),
-              Positioned(
-                top: AppSize.size.height * 0.4,
-                left: 0,
-                right: 0,
-                child: Align(
-                  child: SizedBox(
-                    width: AppSize.width(value: 92),
-                    height: AppSize.width(value: 92),
-                    child: AppImage(path: AssetsIconsPath.instance.onBoardIcon),
-                  ),
-                ),
-              ),
 
               // Overlay content
               Padding(

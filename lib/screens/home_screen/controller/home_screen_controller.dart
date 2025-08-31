@@ -27,7 +27,6 @@ class HomeScreenController extends GetxController{
 
   @override
   Future<void> onInit() async {
-    Logger().i("HomeScreenController initialized");
     getCategoryList();
     getProductList();
     getBannerList();

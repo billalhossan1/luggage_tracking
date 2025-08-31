@@ -33,28 +33,34 @@ class SubPlanScreen extends StatelessWidget {
                       : Column(
                           children: [
                             Padding(
-                                padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 30)),
-                                child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.center,
-                                  children: [
-                                    // GestureDetector(
-                                    //   onTap:(){
-                                    //     Get.back();
-                                    //   },
-                                    //   child: Padding(
-                                    //     padding: const EdgeInsets.all(8.0),
-                                    //     child: Icon(Icons.arrow_back_ios),
-                                    //   ),
-                                    // ),
-                                    AppText(
-                                      data: "Unlock your Subscription Plan",
+                              padding: EdgeInsets.symmetric(vertical: AppSize.width(value: 30)),
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                                children: [
+                                  const SizedBox(width: 48), // Placeholder for symmetry (or add back button if needed)
+                                  Expanded(
+                                    child: AppText(
+                                      data: "Buy Membership For Enhanced Features",
                                       fontSize: AppSize.width(value: 24),
                                       fontWeight: FontWeight.w500,
                                       color: AppColors.instance.black400,
                                       textAlign: TextAlign.center,
                                     ),
-                                  ],
-                                )),
+                                  ),
+                                  TextButton(
+                                    onPressed: () {
+                                      controller.onTapFree();
+                                    },
+                                    child: AppText(
+                                      data: "Skip",
+                                      fontSize: AppSize.width(value: 16),
+                                      fontWeight: FontWeight.w500,
+                                      color: AppColors.instance.blue1,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
                             Expanded(
                               child: ListView.builder(
                                 padding: EdgeInsets.zero,

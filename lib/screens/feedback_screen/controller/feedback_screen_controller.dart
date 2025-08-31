@@ -20,7 +20,7 @@ class FeedbackScreenController extends GetxController {
       "comment":message,
       "rating":ratting
     };
-    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    String? accessToken = await SaveDataController().getUserData();
     final NetworkResponse response = await Get.find<NetworkCaller>().postRequest(
       Urls.feedbackUrl,
       body: body,

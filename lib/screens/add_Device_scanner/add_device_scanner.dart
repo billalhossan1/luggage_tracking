@@ -93,27 +93,40 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                                           alignment: Alignment.center,
                                           children: [
                                             GetBuilder<AddDeviceController>(
-                                              builder: (context) {
-                                                return MobileScanner(
-                                                  controller:
-                                                      controller.scannerController,
-                                                  onDetect: (capture) {
-                                                    final List<Barcode> barcodes =
-                                                        capture.barcodes;
-                                                    for (final barcode
-                                                        in barcodes) {
-                                                      if (barcode.rawValue !=
-                                                          null) {
-                                                        setState(() {
-                                                          controller
-                                                                  .scannedDeviceId =
-                                                              barcode.rawValue;
-                                                        });
-                                                        break;
-                                                      }
-                                                    }
-                                                  },
-                                                );
+                                              builder: (controller) {
+                                                return Obx(() {
+                                                  if (!controller.isCameraPermissionGranted.value) {
+                                                    return Center(
+                                                      child: ElevatedButton(
+                                                        onPressed: () async {
+                                                          await controller.requestCameraPermission(context);
+                                                        },
+                                                        child: const Text('Tap to enable camera'),
+                                                      ),
+                                                    );
+                                                  } else {
+                                                    return MobileScanner(
+                                                      controller:
+                                                          controller.scannerController,
+                                                      onDetect: (capture) {
+                                                        final List<Barcode> barcodes =
+                                                            capture.barcodes;
+                                                        for (final barcode
+                                                            in barcodes) {
+                                                          if (barcode.rawValue !=
+                                                              null) {
+                                                            setState(() {
+                                                              controller
+                                                                      .scannedDeviceId =
+                                                                  barcode.rawValue;
+                                                            });
+                                                            break;
+                                                          }
+                                                        }
+                                                      },
+                                                    );
+                                                  }
+                                                });
                                               }
                                             ),
                                           ],
@@ -121,71 +134,6 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                               ),
                             ),
                           ),
-                          // child: Container(
-                          //   height: 300,
-                          //   width: double.infinity,
-                          //   decoration: BoxDecoration(
-                          //     borderRadius: BorderRadius.circular(16),
-                          //     border: Border.all(
-                          //       color: Colors.purple.shade200,
-                          //       width: 2,
-                          //     ),
-                          //   ),
-                          //   child: ClipRRect(
-                          //     borderRadius: BorderRadius.circular(16),
-                          //     child:
-                          //         _scannedDeviceId != null
-                          //             ? Center(
-                          //               child: Column(
-                          //                 mainAxisAlignment:
-                          //                     MainAxisAlignment.center,
-                          //                 children: [
-                          //                   Container(
-                          //                     padding: const EdgeInsets.all(16),
-                          //                     decoration: const BoxDecoration(
-                          //                       color: Colors.black54,
-                          //                       shape: BoxShape.circle,
-                          //                     ),
-                          //                     child: const Icon(
-                          //                       Icons.check,
-                          //                       color: Colors.white,
-                          //                       size: 40,
-                          //                     ),
-                          //                   ),
-                          //                   const SizedBox(height: 16),
-                          //                   Text(
-                          //                     'Device ID: $_scannedDeviceId',
-                          //                     style: const TextStyle(
-                          //                       fontWeight: FontWeight.bold,
-                          //                     ),
-                          //                   ),
-                          //                 ],
-                          //               ),
-                          //             )
-                          //             : Stack(
-                          //               alignment: Alignment.center,
-                          //               children: [
-                          //                 MobileScanner(
-                          //                   controller: _scannerController,
-                          //                   onDetect: (capture) {
-                          //                     final List<Barcode> barcodes =
-                          //                         capture.barcodes;
-                          //                     for (final barcode in barcodes) {
-                          //                       if (barcode.rawValue != null) {
-                          //                         setState(() {
-                          //                           _scannedDeviceId =
-                          //                               barcode.rawValue;
-                          //                         });
-                          //                         break;
-                          //                       }
-                          //                     }
-                          //                   },
-                          //                 ),
-
-                          //               ],
-                          //             ),
-                          //   ),
-                          // ),
                         ),
                         Container(
                           width: double.infinity,
@@ -220,8 +168,8 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                                     onPressed: () {
                                       setState(() {
                                         controller.scannedDeviceId = null;
+                                        controller.isCameraPermissionGranted.value = false;
                                       });
-                                      controller.scannerController.start();
                                     },
                                   ),
                                 ],

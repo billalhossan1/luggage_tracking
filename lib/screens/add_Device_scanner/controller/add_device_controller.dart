@@ -6,7 +6,6 @@ import 'package:luggage_tracking/screens/account_screen/controller/account_contr
 import 'package:luggage_tracking/screens/device_screen/controller/device_screen_controller.dart';
 import 'package:luggage_tracking/screens/home_screen/controller/home_screen_controller.dart';
 import 'package:luggage_tracking/screens/home_screen/model/category_list_model.dart';
-import 'package:luggage_tracking/screens/profile_details/controller/profile_details_controller.dart';
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
@@ -25,6 +24,9 @@ class AddDeviceController extends GetxController {
   bool termsAgreed = false;
   String? scannedDeviceId;
 
+  bool _isRequestingPermission = false;
+  RxBool isCameraPermissionGranted = false.obs;
+
   @override
   void onInit() {
     HomeScreenController homeScreenController = Get.find<HomeScreenController>();
@@ -32,7 +34,6 @@ class AddDeviceController extends GetxController {
     for (var cat in categoryList) {
       categories.add(cat.name!);
     }
-    _checkCameraPermission();
     super.onInit();
   }
 
@@ -112,28 +113,66 @@ class AddDeviceController extends GetxController {
     }
   }
 
-  // Method to check camera permission
-  Future<void> _checkCameraPermission() async {
-    PermissionStatus permission = await Permission.camera.status;
-
-    if (permission.isDenied) {
-      PermissionStatus status = await Permission.camera.request();
-      if (status.isGranted) {
-        // Permission granted, start the camera
-        scannerController.start();
-        update(); // Notify the UI that the permission is granted
-      } else {
-        // Show an error if permission is denied
-        showCustomSnackBar(title: 'Permission Denied', message: 'Camera permission is required for scanning QR codes.');
-      }
-    } else if (permission.isPermanentlyDenied) {
-      // If permission is permanently denied, open app settings
-      openAppSettings();
-    } else {
-      // Camera permission is already granted
-      scannerController.start();
-      update(); // Refresh UI since permission is already granted
+  Future<void> requestCameraPermission(BuildContext context) async {
+    if (_isRequestingPermission) return;
+    _isRequestingPermission = true;
+    final confirm = await showDialog<bool>(
+      context: context,
+      builder: (context) => AlertDialog(
+        title: const Text('Camera Permission'),
+        content: const Text('Camera permission is required to scan. Do you want to continue?'),
+        actions: [
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(false),
+            child: const Text('Cancel'),
+          ),
+          TextButton(
+            onPressed: () => Navigator.of(context).pop(true),
+            child: const Text('Continue'),
+          ),
+        ],
+      ),
+    );
+    if (confirm != true) {
+      _isRequestingPermission = false;
+      return;
     }
+    var status = await Permission.camera.status;
+    if (!status.isGranted) {
+      status = await Permission.camera.request();
+    }
+    if (status.isGranted) {
+      isCameraPermissionGranted.value = true;
+      scannerController.start();
+    } else if (status.isPermanentlyDenied) {
+      bool? openSettings = await showDialog<bool>(
+        context: context,
+        builder: (context) => AlertDialog(
+          title: const Text('Permission Required for scan your device'),
+          content: const Text('Camera permission is required to proceed. Would you like to open the settings to enable it?'),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(false),
+              child: const Text('No'),
+            ),
+            TextButton(
+              onPressed: () => Navigator.of(context).pop(true),
+              child: const Text('Yes'),
+            ),
+          ],
+        ),
+      );
+      if (openSettings == true) {
+        await openAppSettings();
+      }
+    } else {
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Camera permission is required to scan.'),
+        ),
+      );
+    }
+    _isRequestingPermission = false;
   }
 
 

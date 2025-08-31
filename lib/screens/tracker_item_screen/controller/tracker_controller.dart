@@ -3,6 +3,7 @@ import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
+import 'package:luggage_tracking/widgets/permission_dialog.dart';
 
 import '../../../widgets/snackbar_message/snack_bar_widget.dart';
 
@@ -14,22 +15,29 @@ class TrackerController extends GetxController {
   RxBool isCurrentLocation = false.obs;
   bool isSubscribed = false;
 
-
-
-  Future<void> isSubscribe()async{
+  Future<void> isSubscribe() async {
     final bool isSubscribe = await SaveDataController().getIsSubscribe();
     isSubscribed = isSubscribe;
   }
 
-
   @override
   Future<void> onInit() async {
     super.onInit();
-    currentPosition.value = await _getCurrentLocationOnce();
-    if (currentPosition.value != null) {
-      isCurrentLocation.value = true;
-    } else {
-    }
+    WidgetsBinding.instance.addPostFrameCallback((_) async {
+      bool? isPermit = await showPermissionDialog(
+        context: Get.context!,
+        title: 'Permission Required for tracking your device',
+        content: 'Location permission is required to proceed. Would you like to give permission?',
+        denyText: 'No',
+        allowText: 'Yes',
+      );
+      if (isPermit == true) {
+        currentPosition.value = await _getCurrentLocationOnce();
+        if (currentPosition.value != null) {
+          isCurrentLocation.value = true;
+        }
+      }
+    });
     await isSubscribe();
   }
 
@@ -42,36 +50,30 @@ class TrackerController extends GetxController {
   }
 
   Future<LatLng?> _getCurrentLocationOnce() async {
+    // Ask for location permission using the reusable dialog
+    bool? isPermit = await showPermissionDialog(
+      context: Get.context!,
+      title: 'Permission Required for tracking your device',
+      content: 'Location permission is required to proceed. Would you like to give permission?',
+      denyText: 'No',
+      allowText: 'Yes',
+    );
+    if (isPermit == null || isPermit == false) {
+      return null;
+    }
+
     final isGranted = await _isLocationPermissionGranted();
 
     if (!isGranted) {
       final granted = await _requestPermission();
       if (!granted) {
-        bool? openSettings = await showDialog(
+        bool? openSettings = await showPermissionDialog(
           context: Get.context!,
-          builder: (BuildContext context) {
-            return AlertDialog(
-              title: Text('Permission Required for tracking your device'),
-              content: Text(
-                  'Location permission is required to proceed. Would you like to open the settings to enable it?'),
-              actions: <Widget>[
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(false);
-                  },
-                  child: Text('No'),
-                ),
-                TextButton(
-                  onPressed: () {
-                    Navigator.of(context).pop(true);
-                  },
-                  child: Text('Yes'),
-                ),
-              ],
-            );
-          },
+          title: 'Permission Required for tracking your device',
+          content: 'Location permission is required to proceed. Would you like to open the settings to enable it?',
+          denyText: 'No',
+          allowText: 'Yes',
         );
-
         if (openSettings == true) {
           await Geolocator.openAppSettings();
         }
@@ -102,7 +104,6 @@ class TrackerController extends GetxController {
     }
   }
 
-
   Future<bool> _isLocationPermissionGranted() async {
     LocationPermission permission = await Geolocator.checkPermission();
     return permission == LocationPermission.always ||
@@ -127,4 +128,3 @@ class TrackerController extends GetxController {
     }
   }
 }
-

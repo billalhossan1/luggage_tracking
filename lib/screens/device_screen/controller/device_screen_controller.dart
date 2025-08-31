@@ -80,7 +80,7 @@ class DeviceScreenController extends GetxController {
 
   // API call method with pagination support
   Future<dynamic> apiCall({int page = 1}) async {
-    String? accessToken = await Get.find<SaveDataController>().getUserData();
+    String? accessToken = await SaveDataController().getUserData();
     final response = await Get.find<NetworkCaller>().getRequest(
       Urls.getDevicesUrl,
       queryParam: {'page': page.toString()},
