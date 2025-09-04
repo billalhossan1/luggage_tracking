@@ -5,7 +5,7 @@ Future<bool?> showPermissionDialog({
   required BuildContext context,
   required String title,
   required String content,
-  String denyText = 'Deny',
+  String?denyText,
   String allowText = 'Allow',
 }) {
   return showDialog<bool>(
@@ -15,12 +15,12 @@ Future<bool?> showPermissionDialog({
         title: Text(title),
         content: Text(content),
         actions: <Widget>[
-          TextButton(
+         denyText!=null? TextButton(
             onPressed: () {
               Navigator.of(dialogContext, rootNavigator: true).pop(false);
             },
             child: Text(denyText),
-          ),
+          ):SizedBox(),
           TextButton(
             onPressed: () {
               Navigator.of(dialogContext, rootNavigator: true).pop(true);

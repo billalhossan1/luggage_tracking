@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
 import 'package:google_maps_flutter/google_maps_flutter.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
 import 'package:luggage_tracking/widgets/permission_dialog.dart';
 
+import '../../../utils/location_utils.dart';
 import '../../../widgets/snackbar_message/snack_bar_widget.dart';
 
 class TrackerController extends GetxController {
@@ -24,19 +24,18 @@ class TrackerController extends GetxController {
   Future<void> onInit() async {
     super.onInit();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      bool? isPermit = await showPermissionDialog(
-        context: Get.context!,
-        title: 'Permission Required for tracking your device',
-        content: 'Location permission is required to proceed. Would you like to give permission?',
-        denyText: 'No',
-        allowText: 'Yes',
-      );
-      if (isPermit == true) {
+      // bool? isPermit = await showPermissionDialog(
+      //   context: Get.context!,
+      //   title: 'Permission Required for tracking your device',
+      //   content: 'Location permission is required to proceed. Would you like to give permission?',
+      //   allowText: 'Continue',
+      // );
+      // if (isPermit == true) {
         currentPosition.value = await _getCurrentLocationOnce();
-        if (currentPosition.value != null) {
-          isCurrentLocation.value = true;
-        }
-      }
+        // if (currentPosition.value != null) {
+        //   isCurrentLocation.value = true;
+        // }
+      // }
     });
     await isSubscribe();
   }
@@ -50,75 +49,17 @@ class TrackerController extends GetxController {
   }
 
   Future<LatLng?> _getCurrentLocationOnce() async {
-    // Ask for location permission using the reusable dialog
-    bool? isPermit = await showPermissionDialog(
-      context: Get.context!,
-      title: 'Permission Required for tracking your device',
-      content: 'Location permission is required to proceed. Would you like to give permission?',
-      denyText: 'No',
-      allowText: 'Yes',
-    );
-    if (isPermit == null || isPermit == false) {
-      return null;
-    }
-
-    final isGranted = await _isLocationPermissionGranted();
-
-    if (!isGranted) {
-      final granted = await _requestPermission();
-      if (!granted) {
-        bool? openSettings = await showPermissionDialog(
-          context: Get.context!,
-          title: 'Permission Required for tracking your device',
-          content: 'Location permission is required to proceed. Would you like to open the settings to enable it?',
-          denyText: 'No',
-          allowText: 'Yes',
-        );
-        if (openSettings == true) {
-          await Geolocator.openAppSettings();
-        }
-        return null;
-      }
-    }
-
-    // Check if GPS service is enabled
-    final isServiceEnabled = await _checkGpsServiceEnable();
-    if (!isServiceEnabled) {
-      await Geolocator.openLocationSettings();
-      return null;
-    }
-
-    try {
-      // Try fetching the current position with high accuracy
-      final position = await Geolocator.getCurrentPosition(
-        locationSettings: LocationSettings(accuracy: LocationAccuracy.high),
-      );
-      return LatLng(position.latitude, position.longitude);
-    } catch (e) {
+    // Use centralized permission and location logic
+    final position = await appUserGeoLocation();
+    if (position == null) {
       showCustomSnackBar(
         title: 'Error',
-        message: 'Failed to get location: $e',
+        message: 'Failed to get location or permission denied.',
         isError: true,
       );
       return null;
     }
-  }
-
-  Future<bool> _isLocationPermissionGranted() async {
-    LocationPermission permission = await Geolocator.checkPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
-  }
-
-  Future<bool> _requestPermission() async {
-    LocationPermission permission = await Geolocator.requestPermission();
-    return permission == LocationPermission.always ||
-        permission == LocationPermission.whileInUse;
-  }
-
-  Future<bool> _checkGpsServiceEnable() async {
-    bool isServiceEnabled = await Geolocator.isLocationServiceEnabled();
-    return isServiceEnabled;
+    return LatLng(position.latitude, position.longitude);
   }
 
   void goToCurrentLocation(GoogleMapController mapController) {
