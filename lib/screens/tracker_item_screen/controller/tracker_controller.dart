@@ -24,6 +24,10 @@ class TrackerController extends GetxController {
   @override
   Future<void> onInit() async {
     super.onInit();
+    initial();
+  }
+
+  Future<void>initial()async{
     WidgetsBinding.instance.addPostFrameCallback((_) async {
       // bool? isPermit = await showPermissionDialog(
       //   context: Get.context!,
@@ -32,15 +36,14 @@ class TrackerController extends GetxController {
       //   allowText: 'Continue',
       // );
       // if (isPermit == true) {
-        currentPosition.value = LatLng(appGlobalLocationData.value!.latitude, appGlobalLocationData.value!.longitude);
-        // if (currentPosition.value != null) {
-        //   isCurrentLocation.value = true;
-        // }
+      currentPosition.value = LatLng(appGlobalLocationData.value?.latitude??54.613072699163325, appGlobalLocationData.value?.longitude??15.22438119481026);
+      // if (currentPosition.value != null) {
+      //   isCurrentLocation.value = true;
+      // }
       // }
     });
     await isSubscribe();
   }
-
   void toggleExpanded() {
     isExpanded.value = !isExpanded.value;
   }
