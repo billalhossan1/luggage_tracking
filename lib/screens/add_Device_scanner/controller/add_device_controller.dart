@@ -9,9 +9,10 @@ import 'package:luggage_tracking/screens/home_screen/model/category_list_model.d
 import 'package:luggage_tracking/services/api/network_caller.dart';
 import 'package:luggage_tracking/services/api/network_response.dart';
 import 'package:luggage_tracking/services/save_data/save_data.dart';
+import 'package:luggage_tracking/utils/app_all_log/error_log.dart';
+import 'package:luggage_tracking/widgets/camera_use/camera_use_permission_dialog.dart';
 import 'package:luggage_tracking/widgets/snackbar_message/snack_bar_widget.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class AddDeviceController extends GetxController {
   final TextEditingController itemNameController = TextEditingController();
@@ -24,7 +25,6 @@ class AddDeviceController extends GetxController {
   bool termsAgreed = false;
   String? scannedDeviceId;
 
-  bool _isRequestingPermission = false;
   RxBool isCameraPermissionGranted = false.obs;
 
   @override
@@ -46,7 +46,7 @@ class AddDeviceController extends GetxController {
 
   String getCatIdFromName(String catName) {
     final category = categoryList.firstWhere(
-          (cat) => cat.name == catName,
+      (cat) => cat.name == catName,
       orElse: () => CategoryItem(sId: '', name: ''),
     );
     return category.sId ?? '';
@@ -74,33 +74,30 @@ class AddDeviceController extends GetxController {
 
   // API call method
   Future<dynamic> apiCall() async {
-    bool isSubscribe =Get.find<AccountController>().profileModel.value?.isSubscribed??false;
-  if(isSubscribe==false){
-    int length = Get.find<DeviceScreenController>().devices.length;
-    if (length > 0) {
-
-      return showPremiumPurchaseDialog();
+    bool isSubscribe = Get.find<AccountController>().profileModel.value?.isSubscribed ?? false;
+    if (isSubscribe == false) {
+      int length = Get.find<DeviceScreenController>().devices.length;
+      if (length > 0) {
+        return showPremiumPurchaseDialog();
+      }
     }
-  }
 
     Map<String, dynamic> body = {
       "name": itemNameController.text.trim(),
       "category": selectedCatId.value,
       "serial": "ffffv",
     };
-  isLoading.value=true;
+    isLoading.value = true;
     String? accessToken = await SaveDataController().getUserData();
-   NetworkResponse response =await NetworkCaller().postRequest(Urls.getDevicesUrl, body: body, accessToken: accessToken);
-    isLoading.value=false;
+    NetworkResponse response = await NetworkCaller().postRequest(Urls.getDevicesUrl, body: body, accessToken: accessToken);
+    isLoading.value = false;
     return response;
-
   }
 
   Future<void> onTapConnectDevice() async {
     if (!validateInput()) {
       return;
     }
-
 
     final NetworkResponse response = await apiCall();
 
@@ -109,101 +106,114 @@ class AddDeviceController extends GetxController {
       Get.find<DeviceScreenController>().getDevices();
       update();
     } else {
-      showCustomSnackBar(title: "Failed", message: response.errorMessage );
+      showCustomSnackBar(title: "Failed", message: response.errorMessage);
     }
   }
 
-  Future<void> requestCameraPermission(BuildContext context) async {
-    if (_isRequestingPermission) return;
-    _isRequestingPermission = true;
-    final confirm = await showDialog<bool>(
-      context: context,
-      builder: (context) => AlertDialog(
-        title: const Text('Camera Permission'),
-        content: const Text('Camera permission is required to scan. Do you want to continue?'),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: const Text('Cancel'),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            child: const Text('Continue'),
-          ),
-        ],
-      ),
-    );
-    if (confirm != true) {
-      _isRequestingPermission = false;
-      return;
-    }
-    var status = await Permission.camera.status;
-    if (!status.isGranted) {
-      status = await Permission.camera.request();
-    }
-    if (status.isGranted) {
-      isCameraPermissionGranted.value = true;
-      scannerController.start();
-    } else if (status.isPermanentlyDenied) {
-      bool? openSettings = await showDialog<bool>(
-        context: Get.context!,
-        builder: (context) => AlertDialog(
-          title: const Text('Permission Required for scan your device'),
-          content: const Text('Camera permission is required to proceed. Would you like to open the settings to enable it?'),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(false),
-              child: const Text('No'),
-            ),
-            TextButton(
-              onPressed: () => Navigator.of(context).pop(true),
-              child: const Text('Yes'),
-            ),
-          ],
-        ),
-      );
-      if (openSettings == true) {
-        await openAppSettings();
+  Future<void> requestCameraPermission() async {
+    try {
+      var response = await customCameraPermissionDialog();
+
+      if (response) {
+        isCameraPermissionGranted.value = true;
+      } else {
+        isCameraPermissionGranted.value = false;
       }
-    } else {
-      ScaffoldMessenger.of(Get.context!).showSnackBar(
-        const SnackBar(
-          content: Text('Camera permission is required to scan.'),
-        ),
-      );
+
+      update();
+    } catch (e) {
+      errorLog("requestCameraPermission", e);
     }
-    _isRequestingPermission = false;
   }
 
-
+  // Future<void> requestCameraPermission(BuildContext context) async {
+  //   if (_isRequestingPermission) return;
+  //   _isRequestingPermission = true;
+  //   final confirm = await showDialog<bool>(
+  //     context: context,
+  //     builder: (context) => AlertDialog(
+  //       title: const Text('Camera Permission'),
+  //       content: const Text('Camera permission is required to scan. Do you want to continue?'),
+  //       actions: [
+  //         TextButton(
+  //           onPressed: () => Navigator.of(context).pop(false),
+  //           child: const Text('Cancel'),
+  //         ),
+  //         TextButton(
+  //           onPressed: () => Navigator.of(context).pop(true),
+  //           child: const Text('Continue'),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  //   if (confirm != true) {
+  //     _isRequestingPermission = false;
+  //     return;
+  //   }
+  //   var status = await Permission.camera.status;
+  //   if (!status.isGranted) {
+  //     status = await Permission.camera.request();
+  //   }
+  //   if (status.isGranted) {
+  //     isCameraPermissionGranted.value = true;
+  //     scannerController.start();
+  //   } else if (status.isPermanentlyDenied) {
+  //     bool? openSettings = await showDialog<bool>(
+  //       context: Get.context!,
+  //       builder: (context) => AlertDialog(
+  //         title: const Text('Permission Required for scan your device'),
+  //         content: const Text('Camera permission is required to proceed. Would you like to open the settings to enable it?'),
+  //         actions: [
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(false),
+  //             child: const Text('No'),
+  //           ),
+  //           TextButton(
+  //             onPressed: () => Navigator.of(context).pop(true),
+  //             child: const Text('Yes'),
+  //           ),
+  //         ],
+  //       ),
+  //     );
+  //     if (openSettings == true) {
+  //       await openAppSettings();
+  //     }
+  //   } else {
+  //     ScaffoldMessenger.of(Get.context!).showSnackBar(
+  //       const SnackBar(
+  //         content: Text('Camera permission is required to scan.'),
+  //       ),
+  //     );
+  //   }
+  //   _isRequestingPermission = false;
+  // }
 
   // Show the Premium Subscription Dialog
   Future<void> showPremiumPurchaseDialog() async {
-    if(!Get.isRegistered<SaveDataController>()){
+    if (!Get.isRegistered<SaveDataController>()) {
       Get.lazyPut(() => SaveDataController());
     }
     String? name = await SaveDataController().getUserName();
     String? email = await SaveDataController().getUserEmail();
-    String? token =await SaveDataController().getUserData();
+    String? token = await SaveDataController().getUserData();
     return Get.dialog(
       AlertDialog(
         title: Text('Premium Subscription Required'),
-        content: Text(
-            'To add more devices, you need to purchase the premium subscription. Do you want to purchase now?'),
+        content: Text('To add more devices, you need to purchase the premium subscription. Do you want to purchase now?'),
         actions: [
           // No button - dismiss the dialog
           TextButton(
             onPressed: () {
-            Navigator.pop(Get.context!);
+              Navigator.pop(Get.context!);
             },
             child: Text('No'),
           ),
           // Yes button - handle purchase logic here
           TextButton(
-            onPressed: ()  {
+            onPressed: () {
               Navigator.pop(Get.context!);
 
-              Get.toNamed(AppRoutes.instance.subPlanScreen,arguments: {"email":email,"name":name,"token":token});
+              Get.toNamed(AppRoutes.instance.subPlanScreen, arguments: {"email": email, "name": name, "token": token});
             },
             child: Text('Yes'),
           ),

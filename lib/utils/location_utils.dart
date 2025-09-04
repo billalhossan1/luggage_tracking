@@ -11,7 +11,6 @@ Future<Position?> appUserGeoLocation() async {
   try {
     bool serviceEnabled;
     LocationPermission permission;
-    late LocationSettings locationSettings;
 
     serviceEnabled = await Geolocator.isLocationServiceEnabled();
     if (!serviceEnabled) {
@@ -44,42 +43,45 @@ Future<Position?> appUserGeoLocation() async {
       }
     }
 
-    if (defaultTargetPlatform == TargetPlatform.android) {
-      locationSettings = AndroidSettings(
-        accuracy: LocationAccuracy.high,
-        distanceFilter: 100,
-        forceLocationManager: true,
-        intervalDuration: const Duration(seconds: 10),
-        foregroundNotificationConfig: const ForegroundNotificationConfig(
-          notificationText: "Ooh Ah will continue to receive your location even when you using it",
-          notificationTitle: "Location Service",
-          enableWakeLock: true,
-        ),
-      );
-    } else if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
-      locationSettings = AppleSettings(
-        accuracy: LocationAccuracy.high,
-        activityType: ActivityType.fitness,
-        distanceFilter: 100,
-        pauseLocationUpdatesAutomatically: true,
-        showBackgroundLocationIndicator: false,
-      );
-    } else if (kIsWeb) {
-      locationSettings = WebSettings(accuracy: LocationAccuracy.high, distanceFilter: 100, maximumAge: const Duration(minutes: 5));
-    } else {
-      locationSettings = const LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100);
-    }
-
-    return await Geolocator.getCurrentPosition(locationSettings: locationSettings);
+    return await Geolocator.getCurrentPosition(locationSettings: _locationSettings());
   } catch (e) {
     errorLog("appUserGeoLocation", e);
     return null;
   }
 }
 
+LocationSettings _locationSettings() {
+  if (defaultTargetPlatform == TargetPlatform.android) {
+    return AndroidSettings(
+      accuracy: LocationAccuracy.high,
+      distanceFilter: 100,
+      forceLocationManager: true,
+      intervalDuration: const Duration(seconds: 10),
+      foregroundNotificationConfig: const ForegroundNotificationConfig(
+        notificationText: "Trkli will continue to receive your location even when you using it",
+        notificationTitle: "Location Service",
+        enableWakeLock: true,
+      ),
+    );
+  } else if (defaultTargetPlatform == TargetPlatform.iOS || defaultTargetPlatform == TargetPlatform.macOS) {
+    return AppleSettings(
+      accuracy: LocationAccuracy.high,
+      activityType: ActivityType.fitness,
+      distanceFilter: 100,
+      pauseLocationUpdatesAutomatically: true,
+      showBackgroundLocationIndicator: false,
+    );
+  } else if (kIsWeb) {
+    return WebSettings(accuracy: LocationAccuracy.high, distanceFilter: 100, maximumAge: const Duration(minutes: 5));
+  } else {
+    return const LocationSettings(accuracy: LocationAccuracy.high, distanceFilter: 100);
+  }
+}
+
 Future<bool> getCallAgainPermission({
   String title = "Location Access Needed",
-  String content = """We use your location to show you nearby artists and services based on your preferences.\n\nThis helps us provide faster, more relevant service matches in your area. We only use your location when necessary and always respect your privacy.\n\nYou can enable location access in your device settings if you'd like to use this feature.""",
+  String content =
+      """We use your location to show you nearby artists and services based on your preferences.\n\nThis helps us provide faster, more relevant service matches in your area. We only use your location when necessary and always respect your privacy.\n\nYou can enable location access in your device settings if you'd like to use this feature.""",
 }) async {
   bool userConfirmed = false;
 

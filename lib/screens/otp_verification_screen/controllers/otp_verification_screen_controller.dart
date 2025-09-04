@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'dart:developer';
-import 'dart:isolate';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/urls/urls.dart';
@@ -26,8 +25,7 @@ class OtpVerificationScreenController extends GetxController {
 
   final RxInt _seconds = 0.obs;
   RxInt get seconds => _seconds;
-  late Isolate _isolate;
-
+  Timer? _timer;
   TextEditingController otpController = TextEditingController();
 
   @override
@@ -43,9 +41,6 @@ class OtpVerificationScreenController extends GetxController {
         argMail.value = (argData["email"] ?? "").toString().toLowerCase();
         name = argData['name'] ?? '';
         isEmailVerification.value = argData["isEmailVerification"] ?? false;
-        // var logger= Logger();
-        // logger.i("argMail:${argMail.value}");
-        // logger.i("isEmailVerification:${isEmailVerification.value}");
       }
       startTimer();
     } catch (e) {
@@ -156,54 +151,39 @@ class OtpVerificationScreenController extends GetxController {
     return minutes > 0 ? '$minutes:${remainingSeconds.toString().padLeft(2, '0')}' : '$remainingSeconds';
   }
 
-  bool _isolateRunning = false;
-
   void startTimer() async {
-    if (_isolateRunning) return; // Prevent multiple isolates
-    _isolateRunning = true;
-
     try {
-      final receivePort = ReceivePort();
-      _isolate = await Isolate.spawn(_isolateEntryPoint, receivePort.sendPort);
-
-      receivePort.listen((data) {
-        _seconds.value = data as int;
-        if (_seconds.value <= 0) {
-          stopTimer();
-        }
-      });
+      _seconds.value = 180;
+      _timer?.cancel();
+      _timer = null;
+      _timer = Timer.periodic(
+        Duration(seconds: 1),
+        (timer) {
+          _seconds.value = _seconds.value - 1;
+          if (_seconds.value <= 0) {
+            timer.cancel();
+          }
+        },
+      );
     } catch (e) {
       log(e.toString());
     }
   }
 
   void stopTimer() {
-    if (!_isolateRunning) return;
     try {
-      _isolate.kill(priority: Isolate.immediate);
+      _timer?.cancel();
+      _timer = null;
     } catch (e) {
       log(e.toString());
     }
     _seconds.value = 0;
-    _isolateRunning = false;
-  }
-
-  static void _isolateEntryPoint(SendPort sendPort) {
-    int seconds = 120;
-    void timerCallback(Timer timer) {
-      seconds--;
-      sendPort.send(seconds);
-      if (seconds <= 0) {
-        timer.cancel();
-      }
-    }
-
-    Timer.periodic(const Duration(seconds: 1), timerCallback);
   }
 
   void appClose() {
     try {
       otpController.dispose();
+      stopTimer();
     } catch (e) {
       errorLog("app close", e);
     }
@@ -211,170 +191,7 @@ class OtpVerificationScreenController extends GetxController {
 
   @override
   void onClose() {
-    super.onClose();
-    stopTimer();
     appClose();
+    super.onClose();
   }
 }
-
-// import 'dart:async';
-// import 'dart:developer';
-// import 'dart:isolate';
-// import 'package:flutter/material.dart';
-// import 'package:get/get.dart';
-// import 'package:luggage_tracking/utils/app_all_log/error_log.dart';
-// import 'package:luggage_tracking/widgets/app_snack_bar/app_snack_bar.dart';
-//
-// // class OtpVerificationScreenController extends GetxController {
-// //   ///////////////  object and variable
-// //   // AuthRepository authRepository = AuthRepository();
-// //   RxString argMail = "".obs;
-// //   RxBool isEmailVerification = false.obs;
-// //   RxBool isLoading = false.obs;
-// // ////////////////  form key use for validation
-// //   GlobalKey<FormState> verificationCodeKey = GlobalKey<FormState>();
-// // ////////////////////  isolate variable
-// //   final RxInt _seconds = 0.obs;
-// //   RxInt get seconds => _seconds;
-// //   late Isolate _isolate;
-//
-// //   TextEditingController otpText1 = TextEditingController();
-// //   TextEditingController otpText2 = TextEditingController();
-// //   TextEditingController otpText3 = TextEditingController();
-// //   TextEditingController otpText4 = TextEditingController();
-// //   TextEditingController otpText5 = TextEditingController();
-// //   TextEditingController otpText6 = TextEditingController();
-//
-// //   setArgData() {
-// //     try {
-// //       var argData = Get.arguments;
-// //       if (argData.runtimeType != Null) {
-// //         if (argData is String) {
-// //           argMail.value = argData.toString();
-// //         } else if (argData is Map) {
-// //           argMail.value = argData["email"];
-// //           isEmailVerification.value = true;
-// //         }
-// //       }
-// //       startTimer();
-// //     } catch (e) {
-// //       log("error form otp verification arg set data function : $e");
-// //     }
-// //   }
-//
-//
-// //   Future<dynamic> otpVerification() async {
-// //     // try {
-// //     //   return await authRepository.verifyEmail(email: argMail.value, otp: _getOtpNumber());
-// //     // } catch (e) {
-// //     //   errorLog("otp verification", e);
-// //     //   return false;
-// //     // }
-// //   }
-//
-// //   Future<void> clickVerificationCodeButton() async {
-// //     try {
-// //       if (verificationCodeKey.currentState!.validate()) {
-// //         isLoading.value = true;
-// //         var response = await otpVerification();
-// //         if (response != null) {
-// //           if (isEmailVerification.value) {
-// //             AppSnackBar.success("Your OTP verified");
-// //             AppSnackBar.success("Again Credential use and sign-in");
-// //             // Get.back(times: 2);
-// //           } else {
-// //             if (response["data"].runtimeType != Null) {
-// //               AppSnackBar.message("Verification Successful: Please securely store and utilize this code for reset password");
-// //               // Get.offAndToNamed(AppRoutes.resetPasswordScreen, arguments: response["data"].toString());
-// //             }
-// //           }
-// //         }
-// //         isLoading.value = false;
-// //       }
-// //     } catch (e) {
-// //       log("error form click verification code function button : $e");
-// //       isLoading.value = false;
-// //     }
-// //   }
-//
-// //   String formatTime(int seconds) {
-// //     int minutes = seconds ~/ 60;
-// //     int remainingSeconds = seconds % 60;
-//
-// //     if (minutes > 0) {
-// //       return '$minutes:${remainingSeconds.toString().padLeft(2, '0')}';
-// //     } else {
-// //       return '$remainingSeconds';
-// //     }
-// //   }
-//
-// //   void startTimer() async {
-// //     try {
-// //       final receivePort = ReceivePort();
-// //       _isolate = await Isolate.spawn(_isolateEntryPoint, receivePort.sendPort);
-// //       receivePort.listen((data) {
-// //         _seconds.value = data as int;
-// //         if (_seconds.value <= 0) {
-// //           stopTimer();
-// //         }
-// //       });
-// //     } catch (e) {
-// //       log(e.toString());
-// //     }
-// //   }
-//
-// //   reCallStatTimer() {
-// //     if (seconds.value == 0) {
-// //       startTimer();
-// //     }
-// //   }
-//
-// // //////////  stop timer and isolate
-// //   void stopTimer() {
-// //     try {
-// //       _isolate.kill(priority: Isolate.immediate);
-// //       _seconds.value = 0;
-// //     } catch (e) {
-// //       log(e.toString());
-// //     }
-// //   }
-//
-// //   static void _isolateEntryPoint(SendPort sendPort) {
-// //     int seconds = 120;
-//
-// //     void timerCallback(Timer timer) {
-// //       seconds--;
-// //       sendPort.send(seconds);
-// //       if (seconds <= 0) {
-// //         timer.cancel();
-// //       }
-// //     }
-//
-// //     Timer.periodic(const Duration(seconds: 1), timerCallback);
-// //   }
-//
-// //   appClose() {
-// //     try {
-// //       otpText1.dispose();
-// //       otpText2.dispose();
-// //       otpText3.dispose();
-// //       otpText4.dispose();
-// //       otpText5.dispose();
-// //       otpText6.dispose();
-// //     } catch (e) {
-// //       errorLog("app close", e);
-// //     }
-// //   }
-//
-// //   @override
-// //   void onClose() {
-// //     super.onClose();
-// //     stopTimer();
-// //   }
-//
-// //   @override
-// //   void onInit() {
-// //     super.onInit();
-// //     setArgData();
-// //   }
-// // }

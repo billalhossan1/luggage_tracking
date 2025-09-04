@@ -4,12 +4,10 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
-import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/routes/app_routes.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/controllers/otp_verification_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
 import 'package:luggage_tracking/utils/gap.dart';
-import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
@@ -99,7 +97,6 @@ class SignUpScreen extends StatelessWidget {
                         Gap(height: 16),
                         AppInputWidgetTwo(
                           hintText: "Password",
-
                           filled: true,
                           isPassWord: true,
                           maxLines: 1,
@@ -108,17 +105,19 @@ class SignUpScreen extends StatelessWidget {
                           controller: controller.confirmPasswordTextEditingController,
                         ),
                         Gap(height: 24),
-                        Obx(()=>AppButton(
-                          borderRadius: BorderRadius.circular(12),
-                          isLoading: controller.isLoading.value,
-                          onTap: () {
-                            Get.find<OtpVerificationScreenController>().isEmailVerification.value = true;
-                            controller.onTapResister();
-                            // appLog("==============>>>>>Sign Up BTN Clicked<<<<=================");
-                          },
-                          title: "Sign Up",
-                          titleSize: AppSize.width(value: 20),
-                        ),),
+                        Obx(
+                          () => AppButton(
+                            borderRadius: BorderRadius.circular(12),
+                            isLoading: controller.isLoading.value,
+                            onTap: () {
+                              Get.find<OtpVerificationScreenController>().isEmailVerification.value = true;
+                              controller.onTapResister();
+                              // appLog("==============>>>>>Sign Up BTN Clicked<<<<=================");
+                            },
+                            title: "Sign Up",
+                            titleSize: AppSize.width(value: 20),
+                          ),
+                        ),
                         Gap(height: AppSize.width(value: 30)),
                         // Row(
                         //   mainAxisAlignment: MainAxisAlignment.center,
@@ -191,16 +190,14 @@ class SignUpScreen extends StatelessWidget {
                             style: TextStyle(
                               color: AppColors.instance.blue1,
                               fontFamily: AppConst.fontFamily1,
-
                               fontWeight: FontWeight.w500,
                             ),
-                            recognizer:
-                                TapGestureRecognizer()
-                                  ..onTap = () {
-                                    // Tap handle logic here
-                                    Get.offNamed(AppRoutes.instance.signIn);
-                                    // Navigator.push(...); // optionally navigate to another page
-                                  },
+                            recognizer: TapGestureRecognizer()
+                              ..onTap = () {
+                                // Tap handle logic here
+                                Get.offNamed(AppRoutes.instance.signIn);
+                                // Navigator.push(...); // optionally navigate to another page
+                              },
                           ),
                         ],
                       ),

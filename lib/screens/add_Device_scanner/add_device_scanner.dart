@@ -58,79 +58,69 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                               ),
                               child: ClipRRect(
                                 // borderRadius: BorderRadius.circular(0),
-                                child:
-                                    controller.scannedDeviceId != null
-                                        ? Center(
-                                          child: Column(
-                                            mainAxisAlignment:
-                                                MainAxisAlignment.center,
-                                            children: [
-                                              Container(
-                                                padding: const EdgeInsets.all(
-                                                  16,
-                                                ),
-                                                decoration: const BoxDecoration(
-                                                  color: Colors.black54,
-                                                  shape: BoxShape.circle,
-                                                ),
-                                                child: const Icon(
-                                                  Icons.check,
-                                                  color: Colors.white,
-                                                  size: 40,
-                                                ),
-                                              ),
-                                              const SizedBox(height: 16),
-                                              Text(
-                                                'Device ID: ${controller.scannedDeviceId}',
-                                                style: const TextStyle(
-                                                  fontWeight: FontWeight.bold,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        )
-                                        : Stack(
-                                          alignment: Alignment.center,
+                                child: controller.scannedDeviceId != null
+                                    ? Center(
+                                        child: Column(
+                                          mainAxisAlignment: MainAxisAlignment.center,
                                           children: [
-                                            GetBuilder<AddDeviceController>(
-                                              builder: (controller) {
-                                                return Obx(() {
-                                                  if (!controller.isCameraPermissionGranted.value) {
-                                                    return Center(
-                                                      child: ElevatedButton(
-                                                        onPressed: () async {
-                                                          await controller.requestCameraPermission(context);
-                                                        },
-                                                        child: const Text('Tap to enable camera'),
-                                                      ),
-                                                    );
-                                                  } else {
-                                                    return MobileScanner(
-                                                      controller:
-                                                          controller.scannerController,
-                                                      onDetect: (capture) {
-                                                        final List<Barcode> barcodes =
-                                                            capture.barcodes;
-                                                        for (final barcode
-                                                            in barcodes) {
-                                                          if (barcode.rawValue !=
-                                                              null) {
-                                                            setState(() {
-                                                              controller
-                                                                      .scannedDeviceId =
-                                                                  barcode.rawValue;
-                                                            });
-                                                            break;
-                                                          }
-                                                        }
-                                                      },
-                                                    );
-                                                  }
-                                                });
-                                              }
+                                            Container(
+                                              padding: const EdgeInsets.all(
+                                                16,
+                                              ),
+                                              decoration: const BoxDecoration(
+                                                color: Colors.black54,
+                                                shape: BoxShape.circle,
+                                              ),
+                                              child: const Icon(
+                                                Icons.check,
+                                                color: Colors.white,
+                                                size: 40,
+                                              ),
+                                            ),
+                                            const SizedBox(height: 16),
+                                            Text(
+                                              'Device ID: ${controller.scannedDeviceId}',
+                                              style: const TextStyle(
+                                                fontWeight: FontWeight.bold,
+                                              ),
                                             ),
                                           ],
                                         ),
+                                      )
+                                    : Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          GetBuilder<AddDeviceController>(builder: (controller) {
+                                            return Obx(() {
+                                              if (!controller.isCameraPermissionGranted.value) {
+                                                return Center(
+                                                  child: ElevatedButton(
+                                                    onPressed: () async {
+                                                      controller.requestCameraPermission();
+                                                    },
+                                                    child: const Text('Tap to enable camera'),
+                                                  ),
+                                                );
+                                              } else {
+                                                return MobileScanner(
+                                                  controller: controller.scannerController,
+                                                  onDetect: (capture) {
+                                                    final List<Barcode> barcodes = capture.barcodes;
+                                                    for (final barcode in barcodes) {
+                                                      if (barcode.rawValue != null) {
+                                                        setState(() {
+                                                          controller.scannedDeviceId = barcode.rawValue;
+                                                        });
+                                                        break;
+                                                      }
+                                                    }
+                                                  },
+                                                );
+                                              }
+                                            });
+                                          }),
+                                        ],
+                                      ),
                               ),
                             ),
                           ),
@@ -153,8 +143,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                               ),
                               const SizedBox(height: 4),
                               Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
+                                mainAxisAlignment: MainAxisAlignment.spaceBetween,
                                 children: [
                                   Text(
                                     'D. ID: ${controller.scannedDeviceId ?? '1313646321321'}',
@@ -184,7 +173,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   const SizedBox(height: 24),
 
                   // Item Name Field
-                  CustomTextField.build(controller: controller.itemNameController,hintText: "Item Name"),
+                  CustomTextField.build(controller: controller.itemNameController, hintText: "Item Name"),
 
                   const SizedBox(height: 24),
 
@@ -195,8 +184,7 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                       selectedValue: controller.selectedCatName.value,
                       onChanged: (value) {
                         controller.selectedCatName.value = value;
-                        controller.selectedCatId.value = controller
-                            .getCatIdFromName(controller.selectedCatName.value);
+                        controller.selectedCatId.value = controller.getCatIdFromName(controller.selectedCatName.value);
                       },
                     ),
                   ),
@@ -259,8 +247,12 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
 
                   // Connect Button
                   Obx(
-                    () =>
-                        AppButton(isLoading: controller.isLoading.value,onTap: (){controller.onTapConnectDevice();},title: "Connect Device"),
+                    () => AppButton(
+                        isLoading: controller.isLoading.value,
+                        onTap: () {
+                          controller.onTapConnectDevice();
+                        },
+                        title: "Connect Device"),
                   ),
                 ],
               ),
@@ -275,11 +267,10 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
 class CornerBorderPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
-    final paint =
-        Paint()
-          ..color = AppColors.instance.purple_100
-          ..strokeWidth = 4
-          ..style = PaintingStyle.stroke;
+    final paint = Paint()
+      ..color = AppColors.instance.purple_100
+      ..strokeWidth = 4
+      ..style = PaintingStyle.stroke;
 
     double length = 80;
 

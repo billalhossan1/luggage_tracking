@@ -2,10 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/const/assets_icons_path.dart';
 import 'package:luggage_tracking/screens/otp_verification_screen/controllers/otp_verification_screen_controller.dart';
 import 'package:luggage_tracking/utils/app_size.dart';
-import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
@@ -98,25 +96,17 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                               filled: true,
                               enabledBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                  color:
-                                      controller.hasError.value
-                                          ? AppColors.instance.red1
-                                          : AppColors.instance.black50,
+                                  color: controller.hasError.value ? AppColors.instance.red1 : AppColors.instance.black50,
                                 ),
                               ),
                               focusedBorder: UnderlineInputBorder(
                                 borderSide: BorderSide(
-                                  color:
-                                      controller.hasError.value
-                                          ? AppColors.instance.red1
-                                          : AppColors.instance.black50,
+                                  color: controller.hasError.value ? AppColors.instance.red1 : AppColors.instance.black50,
                                 ),
                               ),
                             ),
                             validator: (value) {
-                              if (value == null ||
-                                  value.isEmpty ||
-                                  value.length != 6) {
+                              if (value == null || value.isEmpty || value.length != 6) {
                                 controller.hasError.value = true;
                                 return 'Enter a valid 6-digit OTP';
                               }
@@ -155,25 +145,21 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                     ),
                   ),
                   Obx(
-                    () =>
-                      AppButton(
-                        isLoading: controller.otpIsLoading.value,
-                              title:
-                                  !controller.isEmailVerification.value
-                                      ? "Reset Password"
-                                      : "Verify",
-                              onTap: () {
-                                try {
-                                  controller.clickVerificationCodeButton();
-                                } catch (e) {
-                                  debugPrint("Navigation error: $e");
-                                  Get.snackbar(
-                                    "Error",
-                                    "Could not navigate to next screen",
-                                  );
-                                }
-                              },
-                            ),
+                    () => AppButton(
+                      isLoading: controller.otpIsLoading.value,
+                      title: !controller.isEmailVerification.value ? "Reset Password" : "Verify",
+                      onTap: () {
+                        try {
+                          controller.clickVerificationCodeButton();
+                        } catch (e) {
+                          debugPrint("Navigation error: $e");
+                          Get.snackbar(
+                            "Error",
+                            "Could not navigate to next screen",
+                          );
+                        }
+                      },
+                    ),
                   ),
                 ],
               ),

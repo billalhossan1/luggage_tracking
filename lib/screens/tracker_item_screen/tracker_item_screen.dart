@@ -31,8 +31,6 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
     super.dispose();
   }
 
-
-
   @override
   Widget build(BuildContext context) {
     return GetBuilder<TrackerController>(
@@ -45,8 +43,13 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
           body: Stack(
             children: [
               Obx(() {
-                final currentPos = controller.currentPosition.value ??
-                    controller.initialCameraPosition;
+                if (controller.isLoading.value) {
+                  return Center(
+                    child: CircularProgressIndicator(),
+                  );
+                }
+
+                final currentPos = controller.currentPosition.value ?? controller.initialCameraPosition;
 
                 return GoogleMap(
                   zoomGesturesEnabled: true,
@@ -54,7 +57,6 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                   mapToolbarEnabled: false,
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
-
                   initialCameraPosition: CameraPosition(
                     target: currentPos,
                     zoom: controller.isCurrentLocation.value ? 15 : 9,
@@ -64,15 +66,15 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                   },
                   circles: controller.isCurrentLocation.value
                       ? {
-                    Circle(
-                      circleId: const CircleId('current_location_circle'),
-                      center: currentPos,
-                      radius: 100,
-                      fillColor: Colors.blue.withAlpha(60),
-                      strokeColor: Colors.blue,
-                      strokeWidth: 2,
-                    ),
-                  }
+                          Circle(
+                            circleId: const CircleId('current_location_circle'),
+                            center: currentPos,
+                            radius: 100,
+                            fillColor: Colors.blue.withAlpha(60),
+                            strokeColor: Colors.blue,
+                            strokeWidth: 2,
+                          ),
+                        }
                       : {},
                 );
               }),
@@ -80,8 +82,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
           ),
           // Floating Action Button to navigate to the current location
           floatingActionButton: FloatingActionButton(
-            onPressed: (){
-
+            onPressed: () {
               Get.bottomSheet(
                 FractionallySizedBox(
                   heightFactor: 0.45, // Use up to 90% of the screen height
@@ -125,258 +126,206 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                     },
                                   ),
                                   Obx(
-                                        () =>
-                                    controller.isExpanded.value
+                                    () => controller.isExpanded.value
                                         ? AnimatedContainer(
-                                      duration: Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: [
-                                          AppDivider(),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: StartSoundActiveButton(
-                                                  onTap:
-                                                      () {
-                                                   if(controller.isSubscribed){
-                                                     controller
-                                                         .soundActive();
-                                                   }else{
-                                                      showCustomSnackBar(title: "Failed", message: "you need to purchase premium subscription for access these function", isError: true);
-                                                   }
-                              },
-
-                                                  controller: controller,
+                                            duration: Duration(milliseconds: 300),
+                                            child: Column(
+                                              children: [
+                                                AppDivider(),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: StartSoundActiveButton(
+                                                        onTap: () {
+                                                          if (controller.isSubscribed) {
+                                                            controller.soundActive();
+                                                          } else {
+                                                            showCustomSnackBar(
+                                                                title: "Failed",
+                                                                message: "you need to purchase premium subscription for access these function",
+                                                                isError: true);
+                                                          }
+                                                        },
+                                                        controller: controller,
+                                                      ),
+                                                    ),
+                                                    Gap(
+                                                      width: AppSize.width(
+                                                        value: 8,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: IconTextColumn(
+                                                        onTap: () {
+                                                          if (controller.isSubscribed) {
+                                                            Get.toNamed(
+                                                              AppRoutes.instance.findNearby,
+                                                            );
+                                                          } else {
+                                                            showCustomSnackBar(
+                                                                title: "Failed",
+                                                                message: "you need to purchase premium subscription for access these function",
+                                                                isError: true);
+                                                          }
+                                                        },
+                                                        text: "Find Nearby",
+                                                        iconPath: AssetsIconsPath.instance.arrowGreen,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                              Gap(
-                                                width: AppSize.width(
-                                                  value: 8,
+                                                Gap(
+                                                  height: AppSize.width(value: 8),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: IconTextColumn(
-                                                  onTap: () {
-                                                  if(controller.isSubscribed){
-                                                    Get.toNamed(
-                                                      AppRoutes
-                                                          .instance
-                                                          .findNearby,
-                                                    );
-                                                  }else{
-                                                    showCustomSnackBar(title: "Failed", message: "you need to purchase premium subscription for access these function", isError: true);
-                                                  }},
-                                                  text: "Find Nearby",
-                                                  iconPath:
-                                                  AssetsIconsPath
-                                                      .instance
-                                                      .arrowGreen,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Gap(
-                                            height: AppSize.width(value: 8),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: IconTextColumn(
-                                                  onTap: () {
-                                                  if(controller.isSubscribed){
-                                                    Get.toNamed(
-                                                      AppRoutes
-                                                          .instance
-                                                          .shareItem,
-                                                    );
-                                                  }else{
-                                                    showCustomSnackBar(title: "Failed", message: "you need to purchase premium subscription for access these function", isError: true);
-                                                  }},
-                                                  text: "Share Item",
-                                                  iconPath:
-                                                  AssetsIconsPath
-                                                      .instance
-                                                      .addUser,
-                                                ),
-                                              ),
-                                              Gap(
-                                                width: AppSize.width(
-                                                  value: 8,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: IconTextColumn(
-                                                  onTap: () {
-                                                    Get.bottomSheet(
-                                                      Container(
-                                                        padding: EdgeInsets.only(
-                                                          top:
-                                                          AppSize.width(
-                                                            value: 36,
-                                                          ),
-                                                          left:
-                                                          AppSize.width(
-                                                            value: 20,
-                                                          ),
-                                                          right:
-                                                          AppSize.width(
-                                                            value: 20,
-                                                          ),
-                                                          bottom: AppSize.width(
-                                                            value: 100,
-                                                          ), // Add bottom padding for spacing
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                          color:
-                                                          AppColors
-                                                              .instance
-                                                              .white200,
-                                                          borderRadius:
-                                                          BorderRadius.only(
-                                                            topLeft:
-                                                            Radius.circular(
-                                                              12,
-                                                            ),
-                                                            topRight:
-                                                            Radius.circular(
-                                                              12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        width:
-                                                        double.infinity,
-
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                          MainAxisSize
-                                                              .min, // ✅ Makes the height dynamic!
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          children: [
-                                                            AppText(
-                                                              data:
-                                                              "Are you sure ?",
-                                                              fontSize:
-                                                              AppSize.width(
-                                                                value:
-                                                                20,
-                                                              ),
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w400,
-                                                              color:
-                                                              AppColors
-                                                                  .instance
-                                                                  .black900,
-                                                            ),
-                                                            Gap(
-                                                              height:
-                                                              AppSize.width(
-                                                                value:
-                                                                20,
-                                                              ),
-                                                            ),
-                                                            AppText(
-                                                              data:
-                                                              "Do you want to turn on tracking notification option",
-                                                              fontSize:
-                                                              AppSize.width(
-                                                                value:
-                                                                12,
-                                                              ),
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w500,
-                                                              color:
-                                                              AppColors
-                                                                  .instance
-                                                                  .black300,
-                                                            ),
-                                                            Gap(
-                                                              height:
-                                                              AppSize.width(
-                                                                value:
-                                                                16,
-                                                              ),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  flex: 1,
-                                                                  child:
-                                                                  SizedBox(),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: IconTextColumn(
+                                                        onTap: () {
+                                                          if (controller.isSubscribed) {
+                                                            Get.toNamed(
+                                                              AppRoutes.instance.shareItem,
+                                                            );
+                                                          } else {
+                                                            showCustomSnackBar(
+                                                                title: "Failed",
+                                                                message: "you need to purchase premium subscription for access these function",
+                                                                isError: true);
+                                                          }
+                                                        },
+                                                        text: "Share Item",
+                                                        iconPath: AssetsIconsPath.instance.addUser,
+                                                      ),
+                                                    ),
+                                                    Gap(
+                                                      width: AppSize.width(
+                                                        value: 8,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: IconTextColumn(
+                                                        onTap: () {
+                                                          Get.bottomSheet(
+                                                            Container(
+                                                              padding: EdgeInsets.only(
+                                                                top: AppSize.width(
+                                                                  value: 36,
                                                                 ),
-                                                                Expanded(
-                                                                  flex: 2,
-                                                                  child: AppButton(
-                                                                    title:
-                                                                    "No",
+                                                                left: AppSize.width(
+                                                                  value: 20,
+                                                                ),
+                                                                right: AppSize.width(
+                                                                  value: 20,
+                                                                ),
+                                                                bottom: AppSize.width(
+                                                                  value: 100,
+                                                                ), // Add bottom padding for spacing
+                                                              ),
+                                                              decoration: BoxDecoration(
+                                                                color: AppColors.instance.white200,
+                                                                borderRadius: BorderRadius.only(
+                                                                  topLeft: Radius.circular(
+                                                                    12,
+                                                                  ),
+                                                                  topRight: Radius.circular(
+                                                                    12,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              width: double.infinity,
+                                                              child: Column(
+                                                                mainAxisSize: MainAxisSize.min, // ✅ Makes the height dynamic!
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  AppText(
+                                                                    data: "Are you sure ?",
+                                                                    fontSize: AppSize.width(
+                                                                      value: 20,
+                                                                    ),
+                                                                    fontWeight: FontWeight.w400,
+                                                                    color: AppColors.instance.black900,
+                                                                  ),
+                                                                  Gap(
                                                                     height: AppSize.width(
-                                                                      value:
-                                                                      38,
+                                                                      value: 20,
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Gap(
-                                                                  width: AppSize.width(
-                                                                    value:
-                                                                    20,
+                                                                  AppText(
+                                                                    data: "Do you want to turn on tracking notification option",
+                                                                    fontSize: AppSize.width(
+                                                                      value: 12,
+                                                                    ),
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: AppColors.instance.black300,
                                                                   ),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 2,
-                                                                  child: OutlinedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      // Add your logic here
-                                                                    },
-                                                                    style: OutlinedButton.styleFrom(
-                                                                      side: BorderSide(
-                                                                        color:
-                                                                        AppColors.instance.purple_500,
+                                                                  Gap(
+                                                                    height: AppSize.width(
+                                                                      value: 16,
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child: SizedBox(),
                                                                       ),
-                                                                      foregroundColor:
-                                                                      AppColors.instance.purple_500,
-                                                                      shape: RoundedRectangleBorder(
-                                                                        borderRadius: BorderRadius.circular(
-                                                                          8,
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child: AppButton(
+                                                                          title: "No",
+                                                                          height: AppSize.width(
+                                                                            value: 38,
+                                                                          ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    child: AppText(
-                                                                      data:
-                                                                      "Yes",
-                                                                      fontSize: AppSize.width(
-                                                                        value:
-                                                                        16,
+                                                                      Gap(
+                                                                        width: AppSize.width(
+                                                                          value: 20,
+                                                                        ),
                                                                       ),
-                                                                      fontWeight:
-                                                                      FontWeight.w400,
-                                                                      color:
-                                                                      AppColors.instance.purple_500,
-                                                                    ),
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child: OutlinedButton(
+                                                                          onPressed: () {
+                                                                            // Add your logic here
+                                                                          },
+                                                                          style: OutlinedButton.styleFrom(
+                                                                            side: BorderSide(
+                                                                              color: AppColors.instance.purple_500,
+                                                                            ),
+                                                                            foregroundColor: AppColors.instance.purple_500,
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(
+                                                                                8,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          child: AppText(
+                                                                            data: "Yes",
+                                                                            fontSize: AppSize.width(
+                                                                              value: 16,
+                                                                            ),
+                                                                            fontWeight: FontWeight.w400,
+                                                                            color: AppColors.instance.purple_500,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          );
+                                                        },
+                                                        text: "Notification",
+                                                        iconPath: AssetsIconsPath.instance.bellRed,
                                                       ),
-                                                    );
-                                                  },
-                                                  text: "Notification",
-                                                  iconPath:
-                                                  AssetsIconsPath
-                                                      .instance
-                                                      .bellRed,
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
+                                              ],
+                                            ),
+                                          )
                                         : SizedBox.shrink(),
                                   ),
                                 ],
@@ -401,263 +350,211 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                     },
                                   ),
                                   Obx(
-                                        () =>
-                                    controller.isExpanded.value
+                                    () => controller.isExpanded.value
                                         ? AnimatedContainer(
-                                      duration: Duration(milliseconds: 300),
-                                      child: Column(
-                                        children: [
-                                          AppDivider(),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: StartSoundActiveButton(
-                                                  onTap:
-                                                      () {
-                                                      if(controller.isSubscribed)  {
-                                                        controller
-                                                            .soundActive();
-                                                      }else{
-                                                        showCustomSnackBar(title: "Failed", message: "you need to purchase premium subscription for access these function", isError: true);
-                                                      }
-
-                                                      }
-                                                    ,
-                                                  controller: controller,
+                                            duration: Duration(milliseconds: 300),
+                                            child: Column(
+                                              children: [
+                                                AppDivider(),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: StartSoundActiveButton(
+                                                        onTap: () {
+                                                          if (controller.isSubscribed) {
+                                                            controller.soundActive();
+                                                          } else {
+                                                            showCustomSnackBar(
+                                                                title: "Failed",
+                                                                message: "you need to purchase premium subscription for access these function",
+                                                                isError: true);
+                                                          }
+                                                        },
+                                                        controller: controller,
+                                                      ),
+                                                    ),
+                                                    Gap(
+                                                      width: AppSize.width(
+                                                        value: 8,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: IconTextColumn(
+                                                        onTap: () {
+                                                          if (controller.isSubscribed) {
+                                                            // Get.toNamed(
+                                                            //   AppRoutes
+                                                            //       .instance
+                                                            //       .findNearby,
+                                                            // );
+                                                          } else {
+                                                            showCustomSnackBar(
+                                                                title: "Failed",
+                                                                message: "you need to purchase premium subscription for access these function",
+                                                                isError: true);
+                                                          }
+                                                        },
+                                                        text: "Find Nearby",
+                                                        iconPath: AssetsIconsPath.instance.arrowGreen,
+                                                      ),
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                              Gap(
-                                                width: AppSize.width(
-                                                  value: 8,
+                                                Gap(
+                                                  height: AppSize.width(value: 8),
                                                 ),
-                                              ),
-                                              Expanded(
-                                                child: IconTextColumn(
-                                                  onTap: () {
-                                                   if(controller.isSubscribed) {
-                                                     // Get.toNamed(
-                                                     //   AppRoutes
-                                                     //       .instance
-                                                     //       .findNearby,
-                                                     // );
-                                                  }
-                                                   else{
-                                                     showCustomSnackBar(title: "Failed", message: "you need to purchase premium subscription for access these function", isError: true);
-                                                   }
-                                                  },
-                                                  text: "Find Nearby",
-                                                  iconPath:
-                                                  AssetsIconsPath
-                                                      .instance
-                                                      .arrowGreen,
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Gap(
-                                            height: AppSize.width(value: 8),
-                                          ),
-                                          Row(
-                                            children: [
-                                              Expanded(
-                                                child: IconTextColumn(
-                                                  onTap: () {
-                                                  if(controller.isSubscribed) {
-                                                    Get.toNamed(
-                                                      AppRoutes
-                                                          .instance
-                                                          .shareItem,
-                                                    );
-                                                  }else{
-                                                    showCustomSnackBar(title: "Failed", message: "you need to purchase premium subscription for access these function", isError: true);
-                                                  }},
-                                                  text: "Share Item",
-                                                  iconPath:
-                                                  AssetsIconsPath
-                                                      .instance
-                                                      .addUser,
-                                                ),
-                                              ),
-                                              Gap(
-                                                width: AppSize.width(
-                                                  value: 8,
-                                                ),
-                                              ),
-                                              Expanded(
-                                                child: IconTextColumn(
-                                                  onTap: () {
-                                                    Get.bottomSheet(
-                                                      Container(
-                                                        padding: EdgeInsets.only(
-                                                          top:
-                                                          AppSize.width(
-                                                            value: 36,
-                                                          ),
-                                                          left:
-                                                          AppSize.width(
-                                                            value: 20,
-                                                          ),
-                                                          right:
-                                                          AppSize.width(
-                                                            value: 20,
-                                                          ),
-                                                          bottom: AppSize.width(
-                                                            value: 100,
-                                                          ), // Add bottom padding for spacing
-                                                        ),
-                                                        decoration: BoxDecoration(
-                                                          color:
-                                                          AppColors
-                                                              .instance
-                                                              .white200,
-                                                          borderRadius:
-                                                          BorderRadius.only(
-                                                            topLeft:
-                                                            Radius.circular(
-                                                              12,
-                                                            ),
-                                                            topRight:
-                                                            Radius.circular(
-                                                              12,
-                                                            ),
-                                                          ),
-                                                        ),
-                                                        // ✅ Remove width or use full screen width
-                                                        width:
-                                                        double.infinity,
-
-                                                        // ✅ Wrap Column with IntrinsicHeight or not needed if Column fits naturally
-                                                        child: Column(
-                                                          mainAxisSize:
-                                                          MainAxisSize
-                                                              .min, // ✅ Makes the height dynamic!
-                                                          crossAxisAlignment:
-                                                          CrossAxisAlignment
-                                                              .start,
-                                                          children: [
-                                                            AppText(
-                                                              data:
-                                                              "Are you sure ?",
-                                                              fontSize:
-                                                              AppSize.width(
-                                                                value:
-                                                                20,
-                                                              ),
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w400,
-                                                              color:
-                                                              AppColors
-                                                                  .instance
-                                                                  .black900,
-                                                            ),
-                                                            Gap(
-                                                              height:
-                                                              AppSize.width(
-                                                                value:
-                                                                20,
-                                                              ),
-                                                            ),
-                                                            AppText(
-                                                              data:
-                                                              "Do you want to turn on tracking notification option",
-                                                              fontSize:
-                                                              AppSize.width(
-                                                                value:
-                                                                12,
-                                                              ),
-                                                              fontWeight:
-                                                              FontWeight
-                                                                  .w500,
-                                                              color:
-                                                              AppColors
-                                                                  .instance
-                                                                  .black300,
-                                                            ),
-                                                            Gap(
-                                                              height:
-                                                              AppSize.width(
-                                                                value:
-                                                                16,
-                                                              ),
-                                                            ),
-                                                            Row(
-                                                              children: [
-                                                                Expanded(
-                                                                  flex: 1,
-                                                                  child:
-                                                                  SizedBox(),
+                                                Row(
+                                                  children: [
+                                                    Expanded(
+                                                      child: IconTextColumn(
+                                                        onTap: () {
+                                                          if (controller.isSubscribed) {
+                                                            Get.toNamed(
+                                                              AppRoutes.instance.shareItem,
+                                                            );
+                                                          } else {
+                                                            showCustomSnackBar(
+                                                                title: "Failed",
+                                                                message: "you need to purchase premium subscription for access these function",
+                                                                isError: true);
+                                                          }
+                                                        },
+                                                        text: "Share Item",
+                                                        iconPath: AssetsIconsPath.instance.addUser,
+                                                      ),
+                                                    ),
+                                                    Gap(
+                                                      width: AppSize.width(
+                                                        value: 8,
+                                                      ),
+                                                    ),
+                                                    Expanded(
+                                                      child: IconTextColumn(
+                                                        onTap: () {
+                                                          Get.bottomSheet(
+                                                            Container(
+                                                              padding: EdgeInsets.only(
+                                                                top: AppSize.width(
+                                                                  value: 36,
                                                                 ),
-                                                                Expanded(
-                                                                  flex: 2,
-                                                                  child: AppButton(
-                                                                    title:
-                                                                    "No",
+                                                                left: AppSize.width(
+                                                                  value: 20,
+                                                                ),
+                                                                right: AppSize.width(
+                                                                  value: 20,
+                                                                ),
+                                                                bottom: AppSize.width(
+                                                                  value: 100,
+                                                                ), // Add bottom padding for spacing
+                                                              ),
+                                                              decoration: BoxDecoration(
+                                                                color: AppColors.instance.white200,
+                                                                borderRadius: BorderRadius.only(
+                                                                  topLeft: Radius.circular(
+                                                                    12,
+                                                                  ),
+                                                                  topRight: Radius.circular(
+                                                                    12,
+                                                                  ),
+                                                                ),
+                                                              ),
+                                                              // ✅ Remove width or use full screen width
+                                                              width: double.infinity,
+
+                                                              // ✅ Wrap Column with IntrinsicHeight or not needed if Column fits naturally
+                                                              child: Column(
+                                                                mainAxisSize: MainAxisSize.min, // ✅ Makes the height dynamic!
+                                                                crossAxisAlignment: CrossAxisAlignment.start,
+                                                                children: [
+                                                                  AppText(
+                                                                    data: "Are you sure ?",
+                                                                    fontSize: AppSize.width(
+                                                                      value: 20,
+                                                                    ),
+                                                                    fontWeight: FontWeight.w400,
+                                                                    color: AppColors.instance.black900,
+                                                                  ),
+                                                                  Gap(
                                                                     height: AppSize.width(
-                                                                      value:
-                                                                      38,
+                                                                      value: 20,
                                                                     ),
                                                                   ),
-                                                                ),
-                                                                Gap(
-                                                                  width: AppSize.width(
-                                                                    value:
-                                                                    20,
+                                                                  AppText(
+                                                                    data: "Do you want to turn on tracking notification option",
+                                                                    fontSize: AppSize.width(
+                                                                      value: 12,
+                                                                    ),
+                                                                    fontWeight: FontWeight.w500,
+                                                                    color: AppColors.instance.black300,
                                                                   ),
-                                                                ),
-                                                                Expanded(
-                                                                  flex: 2,
-                                                                  child: OutlinedButton(
-                                                                    onPressed:
-                                                                        () {
-                                                                      // Add your logic here
-                                                                    },
-                                                                    style: OutlinedButton.styleFrom(
-                                                                      side: BorderSide(
-                                                                        color:
-                                                                        AppColors.instance.purple_500,
+                                                                  Gap(
+                                                                    height: AppSize.width(
+                                                                      value: 16,
+                                                                    ),
+                                                                  ),
+                                                                  Row(
+                                                                    children: [
+                                                                      Expanded(
+                                                                        flex: 1,
+                                                                        child: SizedBox(),
                                                                       ),
-                                                                      foregroundColor:
-                                                                      AppColors.instance.purple_500,
-                                                                      shape: RoundedRectangleBorder(
-                                                                        borderRadius: BorderRadius.circular(
-                                                                          8,
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child: AppButton(
+                                                                          title: "No",
+                                                                          height: AppSize.width(
+                                                                            value: 38,
+                                                                          ),
                                                                         ),
                                                                       ),
-                                                                    ),
-                                                                    child: AppText(
-                                                                      data:
-                                                                      "Yes",
-                                                                      fontSize: AppSize.width(
-                                                                        value:
-                                                                        16,
+                                                                      Gap(
+                                                                        width: AppSize.width(
+                                                                          value: 20,
+                                                                        ),
                                                                       ),
-                                                                      fontWeight:
-                                                                      FontWeight.w400,
-                                                                      color:
-                                                                      AppColors.instance.purple_500,
-                                                                    ),
+                                                                      Expanded(
+                                                                        flex: 2,
+                                                                        child: OutlinedButton(
+                                                                          onPressed: () {
+                                                                            // Add your logic here
+                                                                          },
+                                                                          style: OutlinedButton.styleFrom(
+                                                                            side: BorderSide(
+                                                                              color: AppColors.instance.purple_500,
+                                                                            ),
+                                                                            foregroundColor: AppColors.instance.purple_500,
+                                                                            shape: RoundedRectangleBorder(
+                                                                              borderRadius: BorderRadius.circular(
+                                                                                8,
+                                                                              ),
+                                                                            ),
+                                                                          ),
+                                                                          child: AppText(
+                                                                            data: "Yes",
+                                                                            fontSize: AppSize.width(
+                                                                              value: 16,
+                                                                            ),
+                                                                            fontWeight: FontWeight.w400,
+                                                                            color: AppColors.instance.purple_500,
+                                                                          ),
+                                                                        ),
+                                                                      ),
+                                                                    ],
                                                                   ),
-                                                                ),
-                                                              ],
+                                                                ],
+                                                              ),
                                                             ),
-                                                          ],
-                                                        ),
+                                                          );
+                                                        },
+                                                        text: "Notification",
+                                                        iconPath: AssetsIconsPath.instance.bellRed,
                                                       ),
-                                                    );
-                                                  },
-                                                  text: "Notification",
-                                                  iconPath:
-                                                  AssetsIconsPath
-                                                      .instance
-                                                      .bellRed,
+                                                    ),
+                                                  ],
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    )
+                                              ],
+                                            ),
+                                          )
                                         : SizedBox.shrink(),
                                   ),
                                 ],
@@ -682,9 +579,6 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
   }
 }
 
-
-
-
 class StartSoundActiveButton extends StatelessWidget {
   final TrackerController controller;
   final VoidCallback? onTap;
@@ -707,10 +601,7 @@ class StartSoundActiveButton extends StatelessWidget {
           ),
           decoration: BoxDecoration(
             borderRadius: BorderRadius.circular(12),
-            color:
-                controller.isActiveSound.value
-                    ? AppColors.instance.purple_500
-                    : AppColors.instance.white200,
+            color: controller.isActiveSound.value ? AppColors.instance.purple_500 : AppColors.instance.white200,
             boxShadow: [
               BoxShadow(
                 color: Colors.black.withValues(alpha: .1),
@@ -724,12 +615,9 @@ class StartSoundActiveButton extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               AppImage(
-                path:
-                    controller.isActiveSound.value
-                        ? AssetsIconsPath
-                            .instance
-                            .soundActive // ✅ Use different icons for active/inactive
-                        : AssetsIconsPath.instance.soundInActive,
+                path: controller.isActiveSound.value
+                    ? AssetsIconsPath.instance.soundActive // ✅ Use different icons for active/inactive
+                    : AssetsIconsPath.instance.soundInActive,
                 width: AppSize.width(value: 20),
                 height: AppSize.width(value: 20),
               ),
@@ -738,10 +626,7 @@ class StartSoundActiveButton extends StatelessWidget {
                 data: "Start Sound",
                 fontSize: AppSize.width(value: 14),
                 fontWeight: FontWeight.w500,
-                color:
-                    controller.isActiveSound.value
-                        ? AppColors.instance.white500
-                        : AppColors.instance.black700,
+                color: controller.isActiveSound.value ? AppColors.instance.white500 : AppColors.instance.black700,
               ),
             ],
           ),
