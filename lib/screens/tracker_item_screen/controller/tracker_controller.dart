@@ -6,6 +6,7 @@ import 'package:luggage_tracking/widgets/permission_dialog.dart';
 
 import '../../../utils/location_utils.dart';
 import '../../../widgets/snackbar_message/snack_bar_widget.dart';
+import '../../navigation_screen/controllers/navigation_screen_controller.dart';
 
 class TrackerController extends GetxController {
   RxBool isExpanded = false.obs;
@@ -31,7 +32,7 @@ class TrackerController extends GetxController {
       //   allowText: 'Continue',
       // );
       // if (isPermit == true) {
-        currentPosition.value = await _getCurrentLocationOnce();
+        currentPosition.value = LatLng(appGlobalLocationData.value!.latitude, appGlobalLocationData.value!.longitude);
         // if (currentPosition.value != null) {
         //   isCurrentLocation.value = true;
         // }
@@ -48,19 +49,19 @@ class TrackerController extends GetxController {
     isActiveSound.value = !isActiveSound.value;
   }
 
-  Future<LatLng?> _getCurrentLocationOnce() async {
-    // Use centralized permission and location logic
-    final position = await appUserGeoLocation();
-    if (position == null) {
-      showCustomSnackBar(
-        title: 'Error',
-        message: 'Failed to get location or permission denied.',
-        isError: true,
-      );
-      return null;
-    }
-    return LatLng(position.latitude, position.longitude);
-  }
+  // Future<LatLng?> _getCurrentLocationOnce() async {
+  //   // Use centralized permission and location logic
+  //   final position = await appUserGeoLocation();
+  //   if (position == null) {
+  //     showCustomSnackBar(
+  //       title: 'Error',
+  //       message: 'Failed to get location or permission denied.',
+  //       isError: true,
+  //     );
+  //     return null;
+  //   }
+  //   return LatLng(position.latitude, position.longitude);
+  // }
 
   void goToCurrentLocation(GoogleMapController mapController) {
     if (currentPosition.value != null) {

@@ -54,6 +54,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                   mapToolbarEnabled: false,
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
+
                   initialCameraPosition: CameraPosition(
                     target: currentPos,
                     zoom: controller.isCurrentLocation.value ? 15 : 9,
@@ -242,11 +243,9 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                             ),
                                                           ),
                                                         ),
-                                                        // ✅ Remove width or use full screen width
                                                         width:
                                                         double.infinity,
 
-                                                        // ✅ Wrap Column with IntrinsicHeight or not needed if Column fits naturally
                                                         child: Column(
                                                           mainAxisSize:
                                                           MainAxisSize
@@ -676,6 +675,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
             backgroundColor: Colors.blue, // Trigger action
             child: const Icon(Icons.my_location), // FAB background color
           ),
+          floatingActionButtonLocation: FloatingActionButtonLocation.startFloat,
         );
       },
     );
