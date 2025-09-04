@@ -40,6 +40,13 @@ class NavigationScreenController extends GetxController {
         Get.lazyPut(() => SaveDataController());
       }
       isSubscribe = await SaveDataController().getIsSubscribe();
+      LocationPermission permission = await Geolocator.checkPermission();
+      if (permission == LocationPermission.deniedForever|| permission == LocationPermission.denied) {
+        await _showLocationPermissionDialog();
+        isLoading = false;
+        update();
+        return;
+      }
       appGlobalLocationData.value = await appUserGeoLocation();
       if (appGlobalLocationData.value == null) {
         await _showLocationPermissionDialog();
@@ -65,6 +72,12 @@ class NavigationScreenController extends GetxController {
           Get.back();
         },
         child: const Text('Open Settings'),
+      ),
+      cancel:  ElevatedButton(
+        onPressed: () async {
+          Get.back();
+        },
+        child: const Text('Cancel'),
       ),
     );
   }
