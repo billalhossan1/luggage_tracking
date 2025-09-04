@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
@@ -8,6 +9,8 @@ import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/appbar/custom_appbar.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
+
+import '../../const/assets_images_path.dart';
 
 class OtpVerificationScreen extends StatefulWidget {
   const OtpVerificationScreen({super.key});
@@ -45,8 +48,8 @@ class _OtpVerificationScreenState extends State<OtpVerificationScreen> {
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   SizedBox(height: screenHeight * 0.05),
-                  AppImage(
-                    path: AssetsIconsPath.instance.appLogoCircle,
+                  SvgPicture.asset(
+                    AssetsImagesPath.instance.homeLogo,
                     width: screenWidth * 0.12,
                     height: screenWidth * 0.12,
                   ),

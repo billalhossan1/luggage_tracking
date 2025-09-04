@@ -24,7 +24,7 @@ class CartController extends GetxController {
 
   Future<void> getCartList() async {
     try {
-      final accessToken = await Get.find<SaveDataController>().getUserData();
+      final accessToken = await SaveDataController().getUserData();
       if ((accessToken ?? "").isEmpty) {
         return;
       }
@@ -49,10 +49,8 @@ class CartController extends GetxController {
   }
 
   Future<dynamic> cartListApiCall({int page = 1}) async {
-    if (!Get.isRegistered<SaveDataController>()) {
-      Get.lazyPut(() => SaveDataController());
-    }
-    final accessToken = await Get.find<SaveDataController>().getUserData();
+
+    final accessToken = await SaveDataController().getUserData();
     Map<String, dynamic> query = {'page': page.toString()};
     final NetworkResponse response = await networkCaller.getRequest(
       Urls.getCartList,
@@ -63,21 +61,17 @@ class CartController extends GetxController {
   }
 
   Future<dynamic> increaseApiCall(String cartId) async {
-    if (!Get.isRegistered<SaveDataController>()) {
-      Get.lazyPut(() => SaveDataController());
-    }
+
     Map<String, dynamic> body = {'cart': cartId};
-    final accessToken = await Get.find<SaveDataController>().getUserData();
+    final accessToken = await SaveDataController().getUserData();
     final NetworkResponse response = await networkCaller.putRequest(Urls.getCartList, accessToken: accessToken, body: body);
     return response;
   }
 
   Future<dynamic> decreaseApiCall(String cartId) async {
-    if (!Get.isRegistered<SaveDataController>()) {
-      Get.lazyPut(() => SaveDataController());
-    }
+
     Map<String, dynamic> body = {'cart': cartId};
-    final accessToken = await Get.find<SaveDataController>().getUserData();
+    final accessToken = await SaveDataController().getUserData();
     final NetworkResponse response = await networkCaller.patchRequest(Urls.getCartList, accessToken: accessToken, body: body);
     return response;
   }
@@ -95,11 +89,9 @@ class CartController extends GetxController {
   }
 
   Future<dynamic> deleteApiCall(String cartId) async {
-    if (!Get.isRegistered<SaveDataController>()) {
-      Get.lazyPut(() => SaveDataController());
-    }
 
-    final accessToken = await Get.find<SaveDataController>().getUserData();
+
+    final accessToken = await SaveDataController().getUserData();
     final NetworkResponse response = await networkCaller.delRequest(
       Urls.deleteCart(cartId),
       accessToken: accessToken,

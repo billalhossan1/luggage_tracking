@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
@@ -134,8 +135,8 @@ void showCustomBottomSheet() {
           mainAxisSize: MainAxisSize.min,
           children: [
             // Top Icon in circular container
-            AppImage(
-              path: AssetsIconsPath.instance.appLogoCircle,
+            SvgPicture.asset(
+              AssetsImagesPath.instance.homeLogo,
               width: AppSize.width(value: 48),
               height: AppSize.width(value: 48),
             ),

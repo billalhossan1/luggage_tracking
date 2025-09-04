@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/assets_icons_path.dart';
@@ -9,6 +10,8 @@ import 'package:luggage_tracking/widgets/app_image/app_image.dart';
 import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
+
+import '../../const/assets_images_path.dart';
 
 class CreateNewPasswordScreen extends StatelessWidget {
   const CreateNewPasswordScreen({super.key});
@@ -34,8 +37,8 @@ class CreateNewPasswordScreen extends StatelessWidget {
                         Column(
                           crossAxisAlignment: CrossAxisAlignment.start,
                           children: [
-                            AppImage(
-                              path: AssetsIconsPath.instance.appLogoCircle,
+                            SvgPicture.asset(
+                               AssetsImagesPath.instance.homeLogo,
                               width: AppSize.width(value: 48),
                               height: AppSize.width(value: 48),
                             ),

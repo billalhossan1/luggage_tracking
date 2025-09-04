@@ -1,5 +1,6 @@
 import 'package:flutter/gestures.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
 import 'package:luggage_tracking/const/app_const.dart';
@@ -13,6 +14,7 @@ import 'package:luggage_tracking/widgets/button/app_button.dart';
 import 'package:luggage_tracking/widgets/texts/app_input_widget_two.dart';
 import 'package:luggage_tracking/widgets/texts/app_text.dart';
 
+import '../../const/assets_images_path.dart';
 import 'controller/sign_up_screen_controller.dart';
 
 class SignUpScreen extends StatelessWidget {
@@ -37,8 +39,8 @@ class SignUpScreen extends StatelessWidget {
                     spacing: AppSize.width(value: 8),
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      AppImage(
-                        path: AssetsIconsPath.instance.appLogoCircle,
+                      SvgPicture.asset(
+                        AssetsImagesPath.instance.homeLogo,
                         width: AppSize.width(value: 48),
                         height: AppSize.width(value: 48),
                       ),

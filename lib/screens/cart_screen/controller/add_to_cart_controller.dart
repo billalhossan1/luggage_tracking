@@ -25,14 +25,12 @@ class AddToCartController extends GetxController{
   }
 
   Future<dynamic>addCartApiCall(int quantity,String productId)async{
-    if(!Get.isRegistered<SaveDataController>()){
-      Get.lazyPut(() => SaveDataController());
-    }
+
     Map<String,dynamic>body={
       'product': productId,
       'quantity':quantity
     };
-    final accessToken = await Get.find<SaveDataController>().getUserData();
+    final accessToken = await SaveDataController().getUserData();
     final NetworkResponse response = await NetworkCaller().postRequest(
         Urls.getCartList,
         accessToken: accessToken,body: body
