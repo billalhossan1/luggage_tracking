@@ -1,13 +1,11 @@
 class AssetsIconsPath {
   AssetsIconsPath._privateConstructor();
-  static final AssetsIconsPath _instance =
-      AssetsIconsPath._privateConstructor();
+  static final AssetsIconsPath _instance = AssetsIconsPath._privateConstructor();
   static AssetsIconsPath get instance => _instance;
 
   //=================AppIcons WA================================
-  
+
   final String notification = "assets/icons/notification.png";
-  final String appLogoCircle = "assets/icons/logo_circle.png";
   final String search = "assets/icons/search.png";
   final String favorate = "assets/icons/favorate.png";
   final String leftArrow = "assets/icons/left_arrow.png";
@@ -51,7 +49,4 @@ class AssetsIconsPath {
   final String soundInActive = "assets/icons/soundInActive.png";
   final String soundActive = "assets/icons/sound_active.png";
   final String isFavorate = "assets/icons/isFavorate.png";
-
-
-  
 }
