@@ -4,7 +4,7 @@ class AppColors {
   AppColors._privateCobtructor();
   static final AppColors _instance = AppColors._privateCobtructor();
   static AppColors get instance => _instance;
-  
+
   //==============grediant========================
 
   final Gradient customGradient = LinearGradient(
@@ -72,4 +72,5 @@ class AppColors {
   final Color yellow2 = Color(0xffFBC02D);
   final Color blue1 = Color(0xff1E90FF);
   final Color blue2 = Color(0xff1976D2);
+  final Color transparent = Colors.transparent;
 }
