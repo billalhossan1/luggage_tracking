@@ -67,7 +67,7 @@ class SubPlanScreenController extends GetxController {
           subscriptionPlanList.value = planModel.plans!;
         } else {
           subscriptionPlanList.clear();
-          AppSnackBar.error("No subscription plans available");
+          AppSnackBar.error("No membership available");
         }
       } else {
         subscriptionPlanList.clear();

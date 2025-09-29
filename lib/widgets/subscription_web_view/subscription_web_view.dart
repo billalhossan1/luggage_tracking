@@ -24,7 +24,7 @@ void openSubscriptionWebView(BuildContext context, String email, String paymentU
               context: context,
               builder: (context) => AlertDialog(
                 title: const Text('Payment Successful'),
-                content: const Text('Your subscription payment was successful.'),
+                content: const Text('Your membership payment was successful.'),
                 actions: [
                   TextButton(
                     onPressed: () {

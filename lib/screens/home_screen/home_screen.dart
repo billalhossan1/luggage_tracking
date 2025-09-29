@@ -96,7 +96,7 @@ class HomeScreen extends StatelessWidget {
                     child: controller.bannerIsLoading.value
                         ? HomeSliderShimmer()
                         : controller.bannerList.isEmpty
-                            ? AppText(data: "No Banner Available")
+                            ? Center(child: AppText(data: "No Banner Available"))
                             : Padding(
                                 padding: const EdgeInsets.only(bottom: 8.0),
                                 child: HomeSlider(controller: controller),

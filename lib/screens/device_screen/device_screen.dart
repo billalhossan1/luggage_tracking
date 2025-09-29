@@ -191,7 +191,7 @@ class DeviceScreen extends StatelessWidget {
                           } else {
                             if (!controller.isSubscribe) {
                               WidgetsBinding.instance.addPostFrameCallback((_) {
-                                showCustomSnackBar(title: "Failed", message: "You need to purchase premium subscription for access these item",isError: true);
+                                showCustomSnackBar(title: "Failed", message: "You need to purchase premium membership for access these item",isError: true);
                               });
                               return const SizedBox();
                             }

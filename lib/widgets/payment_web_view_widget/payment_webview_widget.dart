@@ -22,7 +22,7 @@ void paymentWebView(BuildContext context, String paymentUrl) {
               context: context,
               builder: (context) => AlertDialog(
                 title: const Text('Payment Successful'),
-                content: const Text('Your subscription payment was successful.'),
+                content: const Text('Your membership payment was successful.'),
                 actions: [
                   TextButton(
                     onPressed: () {
@@ -42,7 +42,7 @@ void paymentWebView(BuildContext context, String paymentUrl) {
               context: context,
               builder: (context) => AlertDialog(
                 title: const Text('Payment Failed'),
-                content: const Text('Your subscription payment was Failed.'),
+                content: const Text('Your membership payment was Failed.'),
                 actions: [
                   TextButton(
                     onPressed: () {

@@ -198,8 +198,8 @@ class AddDeviceController extends GetxController {
     String? token = await SaveDataController().getUserData();
     return Get.dialog(
       AlertDialog(
-        title: Text('Premium Subscription Required'),
-        content: Text('To add more devices, you need to purchase the premium subscription. Do you want to purchase now?'),
+        title: Text('Premium Membership Required'),
+        content: Text('To add more devices, you need to purchase the premium membership. Do you want to purchase now?'),
         actions: [
           // No button - dismiss the dialog
           TextButton(

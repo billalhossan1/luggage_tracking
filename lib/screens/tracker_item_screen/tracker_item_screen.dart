@@ -142,7 +142,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                           } else {
                                                             showCustomSnackBar(
                                                                 title: "Failed",
-                                                                message: "you need to purchase premium subscription for access these function",
+                                                                message: "you need to purchase membership for access these function",
                                                                 isError: true);
                                                           }
                                                         },
@@ -164,7 +164,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                           } else {
                                                             showCustomSnackBar(
                                                                 title: "Failed",
-                                                                message: "you need to purchase premium subscription for access these function",
+                                                                message: "you need to purchase membership for access these function",
                                                                 isError: true);
                                                           }
                                                         },
@@ -189,7 +189,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                           } else {
                                                             showCustomSnackBar(
                                                                 title: "Failed",
-                                                                message: "you need to purchase premium subscription for access these function",
+                                                                message: "you need to purchase membership for access these function",
                                                                 isError: true);
                                                           }
                                                         },
@@ -366,7 +366,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                           } else {
                                                             showCustomSnackBar(
                                                                 title: "Failed",
-                                                                message: "you need to purchase premium subscription for access these function",
+                                                                message: "you need to purchase membership for access these function",
                                                                 isError: true);
                                                           }
                                                         },
@@ -390,7 +390,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                           } else {
                                                             showCustomSnackBar(
                                                                 title: "Failed",
-                                                                message: "you need to purchase premium subscription for access these function",
+                                                                message: "you need to purchase membership for access these function",
                                                                 isError: true);
                                                           }
                                                         },
@@ -415,7 +415,7 @@ class _TrackerItemScreenState extends State<TrackerItemScreen> {
                                                           } else {
                                                             showCustomSnackBar(
                                                                 title: "Failed",
-                                                                message: "you need to purchase premium subscription for access these function",
+                                                                message: "you need to purchase membership for access these function",
                                                                 isError: true);
                                                           }
                                                         },
