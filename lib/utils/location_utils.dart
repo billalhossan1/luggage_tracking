@@ -2,6 +2,7 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:logger/logger.dart';
 
 import '../widgets/app_snack_bar/app_snack_bar.dart';
 import '../widgets/texts/app_text.dart';
@@ -17,10 +18,11 @@ Future<Position?> appUserGeoLocation() async {
       AppSnackBar.error("Your device has no GPS services");
       return null;
     }
-
     permission = await Geolocator.checkPermission();
-
+    Logger().i("message");
+    Logger().i("permission: $permission");
     if (permission == LocationPermission.deniedForever) {
+
       await Future.delayed(const Duration(milliseconds: 500));
       bool wantsToEnable = await getCallAgainPermission();
       if (wantsToEnable) {
@@ -33,6 +35,7 @@ Future<Position?> appUserGeoLocation() async {
     }
 
     if (permission == LocationPermission.denied) {
+
       var response = await firstAskPermission();
       if (!response) {
         return null;
@@ -43,8 +46,23 @@ Future<Position?> appUserGeoLocation() async {
       }
     }
 
-    return await Geolocator.getCurrentPosition(locationSettings: _locationSettings());
+    Logger().i("About to get current position...");
+
+    // Add timeout to prevent hanging
+    Position position = await Geolocator.getCurrentPosition(
+      locationSettings: _locationSettings()
+    ).timeout(
+      const Duration(seconds: 15),
+      onTimeout: () {
+        Logger().e("Location request timed out");
+        throw Exception("Location request timed out");
+      },
+    );
+
+    Logger().i("Successfully got position: ${position.latitude}, ${position.longitude}");
+    return position;
   } catch (e) {
+    Logger().e("Error in appUserGeoLocation: $e");
     errorLog("appUserGeoLocation", e);
     return null;
   }
@@ -52,13 +70,15 @@ Future<Position?> appUserGeoLocation() async {
 
 LocationSettings _locationSettings() {
   if (defaultTargetPlatform == TargetPlatform.android) {
+    Logger().i("Platform: $defaultTargetPlatform");
+
     return AndroidSettings(
-      accuracy: LocationAccuracy.high,
+      accuracy: LocationAccuracy.medium, // Changed from high to medium
       distanceFilter: 100,
-      forceLocationManager: true,
-      intervalDuration: const Duration(seconds: 10),
+      forceLocationManager: false, // Changed from true to false
+      intervalDuration: const Duration(seconds: 30), // Increased from 10 to 30 seconds
       foregroundNotificationConfig: const ForegroundNotificationConfig(
-        notificationText: "Trkli will continue to receive your location even when you using it",
+        notificationText: "Trkli will continue to receive your location even when you're using it",
         notificationTitle: "Location Service",
         enableWakeLock: true,
       ),
@@ -81,7 +101,7 @@ LocationSettings _locationSettings() {
 Future<bool> getCallAgainPermission({
   String title = "Location Access Needed",
   String content =
-      """We use your location to show you nearby artists and services based on your preferences.\n\nThis helps us provide faster, more relevant service matches in your area. We only use your location when necessary and always respect your privacy.\n\nYou can enable location access in your device settings if you'd like to use this feature.""",
+  """We use your location to show you nearby artists and services based on your preferences.\n\nThis helps us provide faster, more relevant service matches in your area. We only use your location when necessary and always respect your privacy.\n\nYou can enable location access in your device settings if you'd like to use this feature.""",
 }) async {
   bool userConfirmed = false;
 

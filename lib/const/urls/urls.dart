@@ -1,6 +1,6 @@
 class Urls{
-  static final String _baseUrl = 'http://72.167.224.54:8080/api/v1';
-  static final String imageBaseUrl = 'http://72.167.224.54:8080';
+  static final String _baseUrl = 'https://api.trkli.com/api/v1';
+  static final String imageBaseUrl = 'https://api.trkli.com';
   static final String registerUrl = '$_baseUrl/user';
   static final String loginUrl = '$_baseUrl/auth/login';
   static final String forgotPasswordUrl = '$_baseUrl/auth/forgot-password';

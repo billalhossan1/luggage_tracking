@@ -21,15 +21,7 @@ class SubPlanScreen extends StatelessWidget {
             return SafeArea(
               child: controller.isLoading.value
                   ? const Center(child: CircularProgressIndicator())
-                  : controller.subscriptionPlanList.isEmpty
-                      ? Center(
-                          child: AppText(
-                            data: 'No subscription plans available',
-                            fontSize: AppSize.width(value: 16),
-                            fontWeight: FontWeight.w500,
-                            color: AppColors.instance.black400,
-                          ),
-                        )
+
                       : Column(
                           children: [
                             Padding(

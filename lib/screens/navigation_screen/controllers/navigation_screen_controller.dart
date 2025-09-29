@@ -1,5 +1,6 @@
 import 'package:geolocator/geolocator.dart';
 import 'package:get/get.dart';
+import 'package:logger/logger.dart';
 import 'package:luggage_tracking/utils/app_all_log/error_log.dart';
 import 'package:luggage_tracking/utils/location_utils.dart';
 import '../../../services/save_data/save_data.dart';
@@ -33,11 +34,11 @@ class NavigationScreenController extends GetxController {
   Future<void> initial() async {
     try {
       isLoading = true;
-      if (!Get.isRegistered<SaveDataController>()) {
-        Get.lazyPut(() => SaveDataController());
-      }
+      update(); // Add this to update UI when loading starts
+
       isSubscribe = await SaveDataController().getIsSubscribe();
       appGlobalLocationData.value = await appUserGeoLocation();
+       Logger().i("NAV");
     } catch (e) {
       errorLog("initial", e);
     }
@@ -45,9 +46,9 @@ class NavigationScreenController extends GetxController {
     update();
   }
 
-  // @override
-  // void onClose() {
-  //   appUserData.dispose();
-  //   super.onClose();
-  // }
+// @override
+// void onClose() {
+//   appUserData.dispose();
+//   super.onClose();
+// }
 }
