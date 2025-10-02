@@ -1,7 +1,7 @@
 import 'dart:developer';
 import 'dart:io';
 import 'package:flutter/material.dart';
-import 'package:luggage_tracking/const/app_api_url.dart';
+import 'package:luggage_tracking/const/urls/urls.dart';
 import 'package:luggage_tracking/utils/app_all_log/app_log.dart';
 import 'package:luggage_tracking/utils/app_all_log/error_log.dart';
 
@@ -53,11 +53,11 @@ class AppImageCircular extends StatelessWidget {
       return ClipRRect(
         borderRadius: BorderRadius.circular(borderRadius),
         child: Container(
-          width: width ,
+          width: width,
           height: height,
           decoration: const BoxDecoration(
-            // color: AppColors.circleItemBorder,
-          ),
+              // color: AppColors.circleItemBorder,
+              ),
           child: Image.asset(
             path!,
             width: width,
@@ -141,7 +141,7 @@ class _NetworkImageWithRetryState extends State<NetworkImageWithRetry> {
       } else if (widget.imageUrl.startsWith("http") || widget.imageUrl.startsWith("https")) {
         image = widget.imageUrl;
       } else {
-        image = "${AppApiUrl.domain}${widget.imageUrl}";
+        image = "${Urls.imageBaseUrl}${widget.imageUrl}";
       }
     } catch (e) {
       image = "";

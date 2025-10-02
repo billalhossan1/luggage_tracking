@@ -32,15 +32,15 @@
 		<true/>
 	</dict>
 	<key>NSCameraUsageDescription</key>
-	<string>Your app needs camera access for XYZ purpose</string>
+	<string>We need camera access to take profile pictures and upload documents.</string>
 	<key>NSLocationAlwaysAndWhenInUseUsageDescription</key>
-	<string>Your app needs access to your location for XYZ purpose</string>
+	<string>Your location is used to help match you with nearby luggage for recovery and tracking</string>
 	<key>NSLocationAlwaysUsageDescription</key>
-	<string>Your app needs access to your location for XYZ purpose</string>
+	<string>Your location is used to help match you with nearby luggage for recovery and tracking</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>Your app needs access to your location for XYZ purpose</string>
+	<string>Your location is used to help match you with nearby luggage for recovery and tracking</string>
 	<key>NSMicrophoneUsageDescription</key>
-	<string>Your app needs access to your location for XYZ purpose</string>
+	<string>We need microphone access for voice input field.</string>
 	<key>NSPhotoLibraryAddUsageDescription</key>
 	<string>We need permission to save images to your gallery.</string>
 	<key>NSPhotoLibraryUsageDescription</key>
