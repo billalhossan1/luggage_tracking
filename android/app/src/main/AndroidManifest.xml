@@ -5,6 +5,15 @@
     <uses-feature android:name="android.hardware.location.gps" android:required="true"/>
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <!-- Android 12+ -->
+    <uses-permission android:name="android.permission.BLUETOOTH_SCAN"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_CONNECT"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADVERTISE"/>
+    <!-- Location (for pre-Android 12 scanning) -->
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+
 
 
 

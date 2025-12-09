@@ -17,7 +17,7 @@ class DeviceScreenController extends GetxController {
 
   int currentPage = 1;
   int totalPage = 1;
-  bool isSubscribe=false;
+  bool isSubscribe=true;
 
   ScrollController scrollController = ScrollController();
 
@@ -27,7 +27,9 @@ class DeviceScreenController extends GetxController {
     getDevices(); // Load initial devices
     scrollController.addListener(_scrollListener);
     Get.lazyPut(()=>SaveDataController());
-    isSubscribe =await Get.find<SaveDataController>().getIsSubscribe();
+    // isSubscribe =await Get.find<SaveDataController>().getIsSubscribe();
+    isSubscribe =true;
+
     Logger().e("===============================$isSubscribe");
   }
   Future<void> onRefresh()async{

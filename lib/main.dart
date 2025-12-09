@@ -27,8 +27,8 @@ void main()async {
   await NotificationService().setupFCM();
 
   runApp(
-
-      const MyApp());
+      const MyApp()
+  );
 }
 
 
