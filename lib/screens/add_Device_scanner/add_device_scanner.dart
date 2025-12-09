@@ -427,27 +427,27 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
 
                 // Debug Mode Button (helps troubleshoot device detection)
                 SizedBox(height: 8),
-                Row(
-                  children: [
-                    Expanded(
-                      child: OutlinedButton.icon(
-                        onPressed: () {
-                          Get.to(() => const BluetoothDebugScreen());
-                        },
-                        icon: Icon(Icons.bug_report, size: 16),
-                        label: Text(
-                          'Debug Mode - Show All Devices',
-                          style: TextStyle(fontSize: 12),
-                        ),
-                        style: OutlinedButton.styleFrom(
-                          foregroundColor: Colors.orange,
-                          side: BorderSide(color: Colors.orange),
-                          padding: EdgeInsets.symmetric(vertical: 8),
-                        ),
-                      ),
-                    ),
-                  ],
-                ),
+                // Row(
+                //   children: [
+                //     Expanded(
+                //       child: OutlinedButton.icon(
+                //         onPressed: () {
+                //           // Get.to(() => const BluetoothDebugScreen());
+                //         },
+                //         icon: Icon(Icons.bug_report, size: 16),
+                //         label: Text(
+                //           'Debug Mode - Show All Devices',
+                //           style: TextStyle(fontSize: 12),
+                //         ),
+                //         style: OutlinedButton.styleFrom(
+                //           foregroundColor: Colors.orange,
+                //           side: BorderSide(color: Colors.orange),
+                //           padding: EdgeInsets.symmetric(vertical: 8),
+                //         ),
+                //       ),
+                //     ),
+                //   ],
+                // ),
               ],
             ),
           ),

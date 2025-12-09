@@ -375,6 +375,72 @@ class AddDeviceController extends GetxController {
     }
   }
 
+  // Connect to a device using MAC address (useful for reconnecting to saved devices)
+  Future<void> connectToDeviceByMacAddress(String macAddress, {String? deviceName}) async {
+    try {
+      debugPrint('🔗 Attempting to connect to device by MAC: $macAddress');
+
+      // First, check if we already have this device in our discovered list
+      if (_discoveredDevices.containsKey(macAddress)) {
+        debugPrint('✅ Device found in cache, connecting...');
+        await connectToBluetoothDevice(macAddress);
+        return;
+      }
+
+      // If not found, start scanning specifically for this device
+      debugPrint('🔍 Device not in cache, starting targeted scan...');
+      showCustomSnackBar(
+        title: "Searching",
+        message: "Looking for your device...",
+      );
+
+      bool deviceFound = false;
+
+      _bleScanSubscription = _ble.scanForDevices(
+        withServices: [],
+        scanMode: ScanMode.lowLatency,
+      ).listen(
+        (device) {
+          if (device.id.toUpperCase() == macAddress.toUpperCase()) {
+            debugPrint('✅ Found target device: ${device.id}');
+            _discoveredDevices[device.id] = device;
+            deviceFound = true;
+
+            // Connect to it
+            _bleScanSubscription?.cancel();
+            connectToBluetoothDevice(device.id);
+          }
+        },
+        onError: (error) {
+          debugPrint('❌ Error scanning for device: $error');
+          showCustomSnackBar(
+            title: "Error",
+            message: "Failed to find device",
+          );
+        },
+      );
+
+      // Timeout after 15 seconds
+      Future.delayed(Duration(seconds: 15), () {
+        if (!deviceFound && !isBluetoothConnected.value) {
+          _bleScanSubscription?.cancel();
+          showCustomSnackBar(
+            title: "Not Found",
+            message: "Could not find device. Make sure it's powered on and nearby.",
+          );
+        }
+      });
+
+    } catch (e) {
+      debugPrint('❌ Failed to connect by MAC address: $e');
+      errorLog("connectToDeviceByMacAddress", e);
+      showCustomSnackBar(
+        title: "Error",
+        message: "Failed to connect to device",
+      );
+    }
+  }
+
   // Monitor RSSI continuously for distance calculation (for beacon devices)
   void _startContinuousRssiMonitoring(String deviceId) {
     _rssiUpdateTimer?.cancel();
@@ -382,46 +448,80 @@ class AddDeviceController extends GetxController {
 
     debugPrint('📡 Starting continuous RSSI monitoring for: $deviceId');
 
-    // Start continuous scanning focused on this device
-    _bleScanSubscription = _ble.scanForDevices(
-      withServices: [],
-      scanMode: ScanMode.lowLatency,
-    ).listen(
-      (device) {
-        if (device.id == deviceId) {
-          // Update RSSI and distance
-          currentRssi.value = device.rssi;
-          estimatedDistance.value = rssiToDistance(device.rssi);
+    DateTime lastUpdate = DateTime.now();
+    int consecutiveFailures = 0;
 
-          // Update the stored device info
-          _discoveredDevices[deviceId] = device;
-          connectedBleDevice.value = device;
+    void startScan() {
+      debugPrint('🔄 (Re)starting scan for beacon monitoring...');
+      _bleScanSubscription?.cancel();
 
-          debugPrint('📊 Beacon Update - RSSI: ${device.rssi} dBm, Distance: ${estimatedDistance.value.toStringAsFixed(2)}m');
-          update();
-        }
-      },
-      onError: (error) {
-        debugPrint('❌ RSSI monitoring error: $error');
-        // Don't disconnect on error, just log it
-      },
-    );
+      // Start continuous scanning focused on this device
+      _bleScanSubscription = _ble.scanForDevices(
+        withServices: [],
+        scanMode: ScanMode.lowLatency,
+      ).listen(
+        (device) {
+          if (device.id == deviceId) {
+            // Update RSSI and distance
+            currentRssi.value = device.rssi;
+            estimatedDistance.value = rssiToDistance(device.rssi);
 
-    // Watchdog timer - if no updates for 10 seconds, consider disconnected
-    _rssiUpdateTimer = Timer.periodic(Duration(seconds: 10), (timer) {
+            // Update the stored device info
+            _discoveredDevices[deviceId] = device;
+            connectedBleDevice.value = device;
+
+            lastUpdate = DateTime.now();
+            consecutiveFailures = 0; // Reset failure counter
+
+            debugPrint('📊 Beacon Update - RSSI: ${device.rssi} dBm, Distance: ${estimatedDistance.value.toStringAsFixed(2)}m');
+            update();
+          }
+        },
+        onError: (error) {
+          debugPrint('❌ RSSI monitoring error: $error');
+          consecutiveFailures++;
+
+          // If too many errors, try restarting scan
+          if (consecutiveFailures >= 3 && isBluetoothConnected.value) {
+            debugPrint('⚠️ Multiple scan errors, restarting scan...');
+            Future.delayed(Duration(seconds: 2), () {
+              if (isBluetoothConnected.value) {
+                startScan();
+              }
+            });
+          }
+        },
+      );
+    }
+
+    // Start initial scan
+    startScan();
+
+    // Periodic check and scan restart (every 15 seconds)
+    _rssiUpdateTimer = Timer.periodic(Duration(seconds: 15), (timer) {
       if (!isBluetoothConnected.value) {
         timer.cancel();
         _bleScanSubscription?.cancel();
         return;
       }
 
-      // Check if we've received recent updates
-      if (currentRssi.value == 0) {
-        debugPrint('⚠️ No beacon signal detected for 10 seconds');
-        showCustomSnackBar(
-          title: "Weak Signal",
-          message: "Beacon signal lost. Move closer to device.",
-        );
+      final timeSinceLastUpdate = DateTime.now().difference(lastUpdate);
+
+      if (timeSinceLastUpdate.inSeconds > 10) {
+        debugPrint('⚠️ No beacon signal for ${timeSinceLastUpdate.inSeconds}s, restarting scan...');
+
+        // Restart scan
+        startScan();
+
+        // Show warning to user
+        if (timeSinceLastUpdate.inSeconds > 20) {
+          showCustomSnackBar(
+            title: "Weak Signal",
+            message: "Beacon signal lost. Move closer to device.",
+          );
+        }
+      } else {
+        debugPrint('✅ Beacon monitoring healthy. Last update: ${timeSinceLastUpdate.inSeconds}s ago');
       }
     });
   }
@@ -543,6 +643,45 @@ class AddDeviceController extends GetxController {
   }
 
   Future<void> onTapConnectDevice() async {
+    // For Bluetooth connection - already connected, just navigate
+    if (connectionMethod.value == 'bluetooth' && isBluetoothConnected.value) {
+      showCustomSnackBar(
+        title: "Success",
+        message: "Device Connected - Showing Distance Tracking",
+      );
+
+      // Navigate to distance tracking screen (already navigated in connectToBluetoothDevice)
+      // If not already navigated, do it here:
+      if (Get.currentRoute != '/DeviceDistanceTrackingScreen') {
+        Get.to(() => const DeviceDistanceTrackingScreen());
+      }
+      return;
+    }
+
+    // For QR code method - connect using scanned MAC address
+    if (connectionMethod.value == 'qr') {
+      // Basic validation
+      if (scannedDeviceId == null || scannedDeviceId!.isEmpty) {
+        showCustomSnackBar(title: "Error", message: "Please scan a QR code first.");
+        return;
+      }
+
+      // Connect to device using scanned MAC address
+      debugPrint('🔗 QR Code scanned: $scannedDeviceId - Connecting via Bluetooth...');
+
+      showCustomSnackBar(
+        title: "Connecting",
+        message: "Connecting to device via Bluetooth...",
+      );
+
+      // Use the scanned device ID (MAC address) to connect
+      await connectToDeviceByMacAddress(scannedDeviceId!);
+
+      return;
+    }
+
+    // Original API call (commented out for testing)
+    /*
     if (!validateInput()) {
       return;
     }
@@ -565,6 +704,7 @@ class AddDeviceController extends GetxController {
     } else {
       showCustomSnackBar(title: "Failed", message: response.errorMessage);
     }
+    */
   }
 
   Future<void> requestCameraPermission() async {
