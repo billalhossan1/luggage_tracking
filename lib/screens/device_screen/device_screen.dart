@@ -133,9 +133,10 @@ class DeviceScreen extends StatelessWidget {
                                                                 Expanded(
                                                                   child: AppButton(
                                                                     onTap: (){
-                                                                      Get.find<NavigationScreenController>().changeIndex(2);
-                                                                      Navigator.pop(context);
-                                                                      Navigator.pop(context);
+                                                                      final deviceId = (controller.devices[index].deviceMac != null && controller.devices[index].deviceMac!.isNotEmpty)
+                                                                          ? controller.devices[index].deviceMac!
+                                                                          : (controller.devices[index].serial ?? '');
+                                                                      controller.connectToDeviceByMacAddress(deviceId,deviceName:  controller.devices[index].name ?? 'Unknown');
                                                                     },
                                                                     height: 24,
                                                                     circularHeight: 8,
@@ -240,6 +241,9 @@ class DeviceScreen extends StatelessWidget {
                                                               const Expanded(child: SizedBox()),
                                                               Expanded(
                                                                 child: AppButton(
+                                                                  onTap: (){
+                                                                    // controller.connectToBluetoothDevice(controller.devices[index].serial!, controller.devices[index].name ?? 'Unknown');
+                                                                  },
                                                                   height: 24,
                                                                   circularHeight: 8,
                                                                   filColor: AppColors.instance.white500,

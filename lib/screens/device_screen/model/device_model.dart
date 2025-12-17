@@ -56,6 +56,8 @@ class Devices {
   String? sId;
   String? user;
   String? name;
+  String? connectionType;
+  String? deviceMac;
   Category? category;
   String? status;
   String? serial;
@@ -68,6 +70,8 @@ class Devices {
         this.user,
         this.name,
         this.category,
+        this.connectionType,
+        this.deviceMac,
         this.serial,
         this.status,
         this.createdAt,
@@ -83,6 +87,8 @@ class Devices {
         ? Category.fromJson(json['category'])
         : null;
     serial = json['serial'];
+    connectionType = json['connectionType'];
+    deviceMac = json['deviceMac'];
     status = json['status'];
     createdAt = json['createdAt'];
     updatedAt = json['updatedAt'];

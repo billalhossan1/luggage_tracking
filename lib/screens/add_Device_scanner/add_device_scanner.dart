@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:luggage_tracking/const/app_colors.dart';
-import 'package:luggage_tracking/screens/add_Device_scanner/bluetooth_debug_screen.dart';
 import 'package:luggage_tracking/screens/add_Device_scanner/controller/add_device_controller.dart';
 import 'package:luggage_tracking/screens/add_Device_scanner/widgets/bluetooth_device_status_card.dart';
 import 'package:luggage_tracking/screens/add_Device_scanner/widgets/bluetooth_devices_list.dart';

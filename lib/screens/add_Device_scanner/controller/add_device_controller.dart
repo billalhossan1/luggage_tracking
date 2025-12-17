@@ -550,6 +550,18 @@ class AddDeviceController extends GetxController {
     }
   }
 
+  // Public method to start monitoring when connected from another controller
+  void startMonitoringFromExternalController(String deviceId) {
+    debugPrint('🔄 Starting monitoring from external controller for: $deviceId');
+
+    // Add the connected device to the discovered devices map if not already there
+    if (connectedBleDevice.value != null && !_discoveredDevices.containsKey(deviceId)) {
+      _discoveredDevices[deviceId] = connectedBleDevice.value!;
+    }
+
+    _startContinuousRssiMonitoring(deviceId);
+  }
+
   // Get list of discovered devices
   List<DiscoveredDevice> get discoveredDevices => _discoveredDevices.values.toList();
 
@@ -625,11 +637,14 @@ class AddDeviceController extends GetxController {
       "connectionType": connectionMethod.value,
       if (connectionMethod.value == 'bluetooth') ...{
         "deviceMac": connectedBleDevice.value?.id,
-        "deviceName": connectedBleDevice.value?.name,
-        "rssi": currentRssi.value,
-        "estimatedDistance": estimatedDistance.value,
+        // "deviceName": connectedBleDevice.value?.name,
+        // "rssi": currentRssi.value,
+        // "estimatedDistance": estimatedDistance.value,
+      }else...{
+        "deviceMac": scannedDeviceId,
       }
     };
+    print("=====================apiBody:$body");
 
     isLoading.value = true;
     String? accessToken = await SaveDataController().getUserData();
@@ -666,18 +681,41 @@ class AddDeviceController extends GetxController {
         return;
       }
 
-      // Connect to device using scanned MAC address
-      debugPrint('🔗 QR Code scanned: $scannedDeviceId - Connecting via Bluetooth...');
+      // // Connect to device using scanned MAC address
+      // debugPrint('🔗 QR Code scanned: $scannedDeviceId - Connecting via Bluetooth...');
+      //
+      // showCustomSnackBar(
+      //   title: "Connecting",
+      //   message: "Connecting to device via Bluetooth...",
+      // );
+      if (!validateInput()) {
+        return;
+      }
 
-      showCustomSnackBar(
-        title: "Connecting",
-        message: "Connecting to device via Bluetooth...",
-      );
+      final NetworkResponse response = await apiCall();
+
+      if (response.isSuccess) {
+        showCustomSnackBar(
+          title: "Success",
+          message: response.responseData["message"] ?? "Device Added Successfully",
+        );
+
+        // Clean up
+        // if (connectionMethod.value == 'bluetooth') {
+        //   disconnectBluetoothDevice();
+        // }
+
+        Get.find<DeviceScreenController>().getDevices();
+        Navigator.pop(Get.context!); // Navigate back after successful connection
+      } else {
+        showCustomSnackBar(title: "Failed", message: response.errorMessage);
+      }
 
       // Use the scanned device ID (MAC address) to connect
-      await connectToDeviceByMacAddress(scannedDeviceId!);
+      // await connectToDeviceByMacAddress(scannedDeviceId!);
+      // await connectToDeviceByMacAddress("C3:00:00:5E:32:AF");
 
-      return;
+      // return;
     }
 
     // Original API call (commented out for testing)
