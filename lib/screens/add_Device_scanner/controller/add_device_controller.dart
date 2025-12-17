@@ -562,6 +562,13 @@ class AddDeviceController extends GetxController {
     _startContinuousRssiMonitoring(deviceId);
   }
 
+  // Transfer device from external controller
+  void transferDeviceFromExternalController(String deviceId, DiscoveredDevice device) {
+    debugPrint('📲 Transferring device from external controller: $deviceId');
+    _discoveredDevices[deviceId] = device;
+    connectedBleDevice.value = device;
+  }
+
   // Get list of discovered devices
   List<DiscoveredDevice> get discoveredDevices => _discoveredDevices.values.toList();
 

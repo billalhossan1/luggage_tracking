@@ -126,23 +126,29 @@ class DeviceScreenController extends GetxController {
         message: "Connected to $name",
       );
 
-      // Start continuous monitoring of this specific beacon
-      _startContinuousRssiMonitoring(deviceId);
-
-      debugPrint('✅ Beacon monitoring started for: $deviceId');
-      update();
+      debugPrint('✅ Device connected, transferring to tracking screen');
 
       // Initialize AddDeviceController and transfer connection state
       final addDeviceController = Get.put(AddDeviceController());
-      addDeviceController.connectedBleDevice.value = connectedBleDevice.value;
-      addDeviceController.isBluetoothConnected.value = isBluetoothConnected.value;
-      addDeviceController.connectionStatus.value = connectionStatus.value;
-      addDeviceController.currentRssi.value = currentRssi.value;
-      addDeviceController.estimatedDistance.value = estimatedDistance.value;
-      addDeviceController.scannedDeviceId = scannedDeviceId;
 
-      // Start monitoring in AddDeviceController as well
+      // Transfer device to AddDeviceController's discovered devices map
+      addDeviceController.transferDeviceFromExternalController(deviceId, device);
+
+      // Transfer connection state
+      addDeviceController.connectedBleDevice.value = connectedBleDevice.value;
+      addDeviceController.isBluetoothConnected.value = true;
+      addDeviceController.connectionStatus.value = 'Connected';
+      addDeviceController.scannedDeviceId = deviceId;
+
+      // Start monitoring in AddDeviceController
       addDeviceController.startMonitoringFromExternalController(deviceId);
+
+      // Stop monitoring in this controller to avoid conflicts
+      _bleScanSubscription?.cancel();
+      _rssiUpdateTimer?.cancel();
+
+      debugPrint('✅ Monitoring transferred to AddDeviceController');
+      update();
 
       // Navigate to distance tracking screen
       Get.to(() => const DeviceDistanceTrackingScreen());
@@ -316,7 +322,7 @@ class DeviceScreenController extends GetxController {
         debugPrint('⚠️ No beacon signal for ${timeSinceLastUpdate.inSeconds}s, restarting scan...');
 
         // Restart scan
-        startScan();
+        // startScan();
 
         // Show warning to user
         if (timeSinceLastUpdate.inSeconds > 20) {

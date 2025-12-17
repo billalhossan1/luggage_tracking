@@ -179,34 +179,38 @@ class DeviceDistanceTrackingScreen extends StatelessWidget {
                               ),
                             ),
                             SizedBox(height: 16),
-                            Row(
-                              mainAxisAlignment: MainAxisAlignment.center,
-                              crossAxisAlignment: CrossAxisAlignment.end,
-                              children: [
-                                Text(
-                                  distance >= 0
-                                    ? distance.toStringAsFixed(2)
-                                    : '--',
-                                  style: TextStyle(
-                                    fontSize: 72,
-                                    fontWeight: FontWeight.bold,
-                                    color: _getDistanceColor(distance),
-                                    height: 1,
-                                  ),
-                                ),
-                                SizedBox(width: 8),
-                                Padding(
-                                  padding: EdgeInsets.only(bottom: 12),
-                                  child: Text(
-                                    'meters',
+                            FittedBox(
+                              fit: BoxFit.scaleDown,
+                              child: Row(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                crossAxisAlignment: CrossAxisAlignment.end,
+                                mainAxisSize: MainAxisSize.min,
+                                children: [
+                                  Text(
+                                    distance >= 0
+                                      ? distance.toStringAsFixed(2)
+                                      : '--',
                                     style: TextStyle(
-                                      fontSize: 24,
-                                      fontWeight: FontWeight.w500,
+                                      fontSize: 60,
+                                      fontWeight: FontWeight.bold,
                                       color: _getDistanceColor(distance),
+                                      height: 1,
                                     ),
                                   ),
-                                ),
-                              ],
+                                  SizedBox(width: 8),
+                                  Padding(
+                                    padding: EdgeInsets.only(bottom: 12),
+                                    child: Text(
+                                      'meters',
+                                      style: TextStyle(
+                                        fontSize: 24,
+                                        fontWeight: FontWeight.w500,
+                                        color: _getDistanceColor(distance),
+                                      ),
+                                    ),
+                                  ),
+                                ],
+                              ),
                             ),
                             SizedBox(height: 16),
                             Container(
