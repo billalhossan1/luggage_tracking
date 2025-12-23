@@ -54,7 +54,8 @@ class AddDeviceController extends GetxController {
   RxString selectedCatId = ''.obs;
   RxString selectedCatName = ''.obs;
   RxBool isLoading = false.obs;
-  bool termsAgreed = false;
+  // bool termsAgreed = false;
+  bool termsAgreed = true;
   String? scannedDeviceId;
   RxBool isCameraPermissionGranted = false.obs;
 

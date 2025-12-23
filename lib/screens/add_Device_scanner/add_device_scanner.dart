@@ -106,58 +106,59 @@ class _AddTrkilDeviceScreenState extends State<AddTrkilDeviceScreen> {
                   const SizedBox(height: 24),
 
                   // Terms of Service
-                  Row(
-                    children: [
-                      Expanded(
-                        child: SizedBox(
-                          width: 24,
-                          height: 24,
-                          child: Checkbox(
-                            value: controller.termsAgreed,
-                            onChanged: (bool? value) {
-                              setState(() {
-                                controller.termsAgreed = value ?? false;
-                              });
-                            },
-                            shape: RoundedRectangleBorder(
-                              borderRadius: BorderRadius.circular(4),
-                            ),
-                            side: BorderSide(color: Colors.grey.shade400),
-                            activeColor: Colors.purple,
-                          ),
-                        ),
-                      ),
-                      const SizedBox(width: 8),
-                      Text(
-                        'I agree with ',
-                        style: TextStyle(color: Colors.grey.shade600),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // Navigate to terms of service
-                        },
-                        child: const Text(
-                          'terms of service',
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                      Text(
-                        ' and ',
-                        style: TextStyle(color: Colors.grey.shade600),
-                      ),
-                      GestureDetector(
-                        onTap: () {
-                          // Navigate to privacy policy
-                        },
-                        child: const Text(
-                          'privacy policy',
-                          style: TextStyle(color: Colors.blue),
-                        ),
-                      ),
-                    ],
-                  ),
+                  // Row(
+                  //   children: [
+                  //     Expanded(
+                  //       child: SizedBox(
+                  //         width: 24,
+                  //         height: 24,
+                  //         child: Checkbox(
+                  //           value: controller.termsAgreed,
+                  //           onChanged: (bool? value) {
+                  //             setState(() {
+                  //               controller.termsAgreed = value ?? false;
+                  //             });
+                  //           },
+                  //           shape: RoundedRectangleBorder(
+                  //             borderRadius: BorderRadius.circular(4),
+                  //           ),
+                  //           side: BorderSide(color: Colors.grey.shade400),
+                  //           activeColor: Colors.purple,
+                  //         ),
+                  //       ),
+                  //     ),
+                  //     const SizedBox(width: 8),
+                  //     Text(
+                  //       'I agree with ',
+                  //       style: TextStyle(color: Colors.grey.shade600),
+                  //     ),
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         // Navigate to terms of service
+                  //       },
+                  //       child: const Text(
+                  //         'terms of service',
+                  //         style: TextStyle(color: Colors.blue),
+                  //       ),
+                  //     ),
+                  //     Text(
+                  //       ' and ',
+                  //       style: TextStyle(color: Colors.grey.shade600),
+                  //     ),
+                  //     GestureDetector(
+                  //       onTap: () {
+                  //         // Navigate to privacy policy
+                  //       },
+                  //       child: const Text(
+                  //         'privacy policy',
+                  //         style: TextStyle(color: Colors.blue),
+                  //       ),
+                  //     ),
+                  //   ],
+                  // ),
 
                   const SizedBox(height: 32),
+
 
                   // Connect Button
                   Obx(
