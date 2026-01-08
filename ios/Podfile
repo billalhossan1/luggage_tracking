@@ -53,4 +53,34 @@ post_install do |installer|
       ]
     end
   end
+  
+  # Add BeaconPlus frameworks to the project
+  project_path = 'Runner.xcodeproj'
+  project = Xcodeproj::Project.open(project_path)
+  
+  # Get the Runner target
+  runner_target = project.targets.find { |target| target.name == 'Runner' }
+  
+  if runner_target
+    frameworks_group = project.main_group.find_subpath('Frameworks', true)
+    
+    # Add frameworks
+    ['MTBeaconPlus.framework', 'iOSDFULibrary.framework', 'ZIPFoundation.framework'].each do |framework_name|
+      framework_path = "Framworks/#{framework_name}"
+      
+      # Check if framework reference already exists
+      unless frameworks_group.files.any? { |file| file.path == framework_path }
+        framework_ref = frameworks_group.new_file(framework_path)
+        runner_target.frameworks_build_phase.add_file_reference(framework_ref)
+      end
+    end
+    
+    # Add framework search paths
+    runner_target.build_configurations.each do |config|
+      config.build_settings['FRAMEWORK_SEARCH_PATHS'] ||= ['$(inherited)']
+      config.build_settings['FRAMEWORK_SEARCH_PATHS'] << '$(PROJECT_DIR)/Framworks'
+    end
+    
+    project.save
+  end
 end
