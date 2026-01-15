@@ -13,15 +13,19 @@
 		01038B1F2F0FA6260029ED0C /* MTBeaconPlus.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 01038B172F0FA6050029ED0C /* MTBeaconPlus.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		01038B202F0FA6280029ED0C /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 01038B182F0FA6050029ED0C /* ZIPFoundation.framework */; };
 		01038B212F0FA6280029ED0C /* ZIPFoundation.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 01038B182F0FA6050029ED0C /* ZIPFoundation.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		01038B222F0FA6290029ED0C /* BeaconPlusHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 01038B232F0FA62A0029ED0C /* BeaconPlusHandler.swift */; };
 		1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */ = {isa = PBXBuildFile; fileRef = 1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */; };
+		14EF253F6E964D44233C73E1 /* ZIPFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2EB31B03FF6C9C7BDBF2E404 /* ZIPFoundation.framework */; };
 		1D54BA82679E8B469146BF23 /* Pods_RunnerTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 69CC06D6C092E0E723385C65 /* Pods_RunnerTests.framework */; };
 		29EF3C39978931CEC1053053 /* Pods_Runner.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1BE1EB5428A3EE5BC2F92F1C /* Pods_Runner.framework */; };
 		331C808B294A63AB00263BE5 /* RunnerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 331C807B294A618700263BE5 /* RunnerTests.swift */; };
 		3B3967161E833CAA004F5970 /* AppFrameworkInfo.plist in Resources */ = {isa = PBXBuildFile; fileRef = 3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */; };
+		5A32AE65758EC7E8DC606CBD /* iOSDFULibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F3628C31E57C85A82F7705FB /* iOSDFULibrary.framework */; };
 		74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 74858FAE1ED2DC5600515810 /* AppDelegate.swift */; };
 		97C146FC1CF9000F007C117D /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FA1CF9000F007C117D /* Main.storyboard */; };
 		97C146FE1CF9000F007C117D /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FD1CF9000F007C117D /* Assets.xcassets */; };
 		97C147011CF9000F007C117D /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 97C146FF1CF9000F007C117D /* LaunchScreen.storyboard */; };
+		A7992D347B4908A959884FDE /* MTBeaconPlus.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5286F1BB51D5AB45A6BD0A5C /* MTBeaconPlus.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -54,15 +58,18 @@
 		01038B162F0FA6050029ED0C /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = iOSDFULibrary.framework; sourceTree = "<group>"; };
 		01038B172F0FA6050029ED0C /* MTBeaconPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = MTBeaconPlus.framework; sourceTree = "<group>"; };
 		01038B182F0FA6050029ED0C /* ZIPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = ZIPFoundation.framework; sourceTree = "<group>"; };
+		01038B232F0FA62A0029ED0C /* BeaconPlusHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = BeaconPlusHandler.swift; sourceTree = "<group>"; };
 		0A6ED13578A8F1EF2CC58F50 /* Pods-RunnerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.release.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.release.xcconfig"; sourceTree = "<group>"; };
 		1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GeneratedPluginRegistrant.h; sourceTree = "<group>"; };
 		1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = GeneratedPluginRegistrant.m; sourceTree = "<group>"; };
 		1BE1EB5428A3EE5BC2F92F1C /* Pods_Runner.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Runner.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		2EB31B03FF6C9C7BDBF2E404 /* ZIPFoundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ZIPFoundation.framework; path = Framworks/ZIPFoundation.framework; sourceTree = "<group>"; };
 		331C807B294A618700263BE5 /* RunnerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RunnerTests.swift; sourceTree = "<group>"; };
 		331C8081294A63A400263BE5 /* RunnerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = RunnerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3B3967151E833CAA004F5970 /* AppFrameworkInfo.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = AppFrameworkInfo.plist; path = Flutter/AppFrameworkInfo.plist; sourceTree = "<group>"; };
 		40CC06C62267EC472C5C26CD /* Pods-Runner.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.release.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.release.xcconfig"; sourceTree = "<group>"; };
 		49AD12E0098F2D2AFFC7206C /* Pods-RunnerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.debug.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.debug.xcconfig"; sourceTree = "<group>"; };
+		5286F1BB51D5AB45A6BD0A5C /* MTBeaconPlus.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MTBeaconPlus.framework; path = Framworks/MTBeaconPlus.framework; sourceTree = "<group>"; };
 		63FA51BCA35539342A6E0852 /* Pods-RunnerTests.profile.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-RunnerTests.profile.xcconfig"; path = "Target Support Files/Pods-RunnerTests/Pods-RunnerTests.profile.xcconfig"; sourceTree = "<group>"; };
 		69CC06D6C092E0E723385C65 /* Pods_RunnerTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_RunnerTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Runner-Bridging-Header.h"; sourceTree = "<group>"; };
@@ -77,6 +84,7 @@
 		97C147001CF9000F007C117D /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		97C147021CF9000F007C117D /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B5E41FE4C8F67821600242ED /* Pods-Runner.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Runner.debug.xcconfig"; path = "Target Support Files/Pods-Runner/Pods-Runner.debug.xcconfig"; sourceTree = "<group>"; };
+		F3628C31E57C85A82F7705FB /* iOSDFULibrary.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = iOSDFULibrary.framework; path = Framworks/iOSDFULibrary.framework; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -96,6 +104,9 @@
 				01038B202F0FA6280029ED0C /* ZIPFoundation.framework in Frameworks */,
 				29EF3C39978931CEC1053053 /* Pods_Runner.framework in Frameworks */,
 				01038B1E2F0FA6260029ED0C /* MTBeaconPlus.framework in Frameworks */,
+				A7992D347B4908A959884FDE /* MTBeaconPlus.framework in Frameworks */,
+				5A32AE65758EC7E8DC606CBD /* iOSDFULibrary.framework in Frameworks */,
+				14EF253F6E964D44233C73E1 /* ZIPFoundation.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -176,6 +187,7 @@
 				1498D2321E8E86230040F4C2 /* GeneratedPluginRegistrant.h */,
 				1498D2331E8E89220040F4C2 /* GeneratedPluginRegistrant.m */,
 				74858FAE1ED2DC5600515810 /* AppDelegate.swift */,
+				01038B232F0FA62A0029ED0C /* BeaconPlusHandler.swift */,
 				74858FAD1ED2DC5600515810 /* Runner-Bridging-Header.h */,
 			);
 			path = Runner;
@@ -186,6 +198,9 @@
 			children = (
 				1BE1EB5428A3EE5BC2F92F1C /* Pods_Runner.framework */,
 				69CC06D6C092E0E723385C65 /* Pods_RunnerTests.framework */,
+				5286F1BB51D5AB45A6BD0A5C /* MTBeaconPlus.framework */,
+				F3628C31E57C85A82F7705FB /* iOSDFULibrary.framework */,
+				2EB31B03FF6C9C7BDBF2E404 /* ZIPFoundation.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -421,6 +436,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				74858FAF1ED2DC5600515810 /* AppDelegate.swift in Sources */,
+				01038B222F0FA6290029ED0C /* BeaconPlusHandler.swift in Sources */,
 				1498D2341E8E89220040F4C2 /* GeneratedPluginRegistrant.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -518,6 +534,9 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
 					"$(PROJECT_DIR)/Framworks",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
@@ -717,6 +736,9 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
 				INFOPLIST_KEY_CFBundleDisplayName = Trkli;
@@ -753,6 +775,9 @@
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
+					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
+					"$(PROJECT_DIR)/Framworks",
 					"$(PROJECT_DIR)/Framworks",
 				);
 				INFOPLIST_FILE = Runner/Info.plist;
