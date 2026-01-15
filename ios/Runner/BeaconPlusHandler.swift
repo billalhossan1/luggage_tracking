@@ -28,16 +28,17 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
     }
     
     private func powerStateToString(_ state: PowerState) -> String {
-        switch state {
-        case .poweredOn:
+        let rawValue = state.rawValue
+        switch rawValue {
+        case 5: // PowerStatePoweredOn
             return "poweredOn"
-        case .poweredOff:
+        case 4: // PowerStatePoweredOff
             return "poweredOff"
-        case .unauthorized:
+        case 3: // PowerStateUnauthorized
             return "unauthorized"
-        case .unsupported:
+        case 2: // PowerStateUnsupported
             return "unsupported"
-        case .resetting:
+        case 1: // PowerStateResetting
             return "resetting"
         default:
             return "unknown"
@@ -69,8 +70,9 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
                 ]
                 
                 // Add battery if available
-                if framer.battery != MTNAValue {
-                    deviceData["battery"] = framer.battery
+                let batteryValue = framer.battery
+                if batteryValue < 10000000000 { // Check if not MTNAValue
+                    deviceData["battery"] = batteryValue
                 }
                 
                 // Parse advertisement frames
@@ -128,20 +130,21 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
     }
     
     private func frameTypeToString(_ frameType: FrameType) -> String {
-        switch frameType {
-        case .iBeacon:
+        let rawValue = frameType.rawValue
+        switch rawValue {
+        case 101: // FrameiBeacon
             return "iBeacon"
-        case .UID:
+        case 100: // FrameUID
             return "UID"
-        case .URL:
+        case 102: // FrameURL
             return "URL"
-        case .TLM:
+        case 0: // FrameTLM
             return "TLM"
-        case .DeviceInfo:
+        case 103: // FrameDeviceInfo
             return "DeviceInfo"
-        case .HTSensor:
+        case 1: // FrameHTSensor
             return "HTSensor"
-        case .LineBeacon:
+        case 13: // FrameLineBeacon
             return "LineBeacon"
         default:
             return "Unknown"
@@ -161,12 +164,12 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
         }
         
         // Setup connection status handler
-        peripheral.connector?.statusChangeHandler = { [weak self] status, error in
+        peripheral.connector?.statusChangedHandler = { [weak self] status, error in
             self?.handleConnectionStatus(status, error: error)
         }
         
         // Connect to the device
-        centralManager?.connect(to: peripheral, passwordRequire: { [weak self] passwordBlock in
+        centralManager?.connect(toPeriperal: peripheral, passwordRequire: { [weak self] passwordBlock in
             // Provide password if required
             let pwd = password ?? "minew123" // Default password
             passwordBlock?(pwd)
@@ -191,22 +194,23 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
             return
         }
         
-        switch status {
-        case .completed:
+        let rawValue = status.rawValue
+        switch rawValue {
+        case 13: // StatusCompleted
             sendEvent([
                 "type": "connected",
                 "message": "Device connected successfully"
             ])
             startRssiMonitoring()
             
-        case .disconnected:
+        case -1: // StatusDisconnected
             sendEvent([
                 "type": "disconnected",
                 "message": "Device disconnected"
             ])
             stopRssiMonitoring()
             
-        case .connectFailed:
+        case -2: // StatusConnectFailed
             sendEvent([
                 "type": "connectionError",
                 "error": "Connection failed"
@@ -221,24 +225,25 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
     }
     
     private func connectionStatusToString(_ status: ConnectionStatus) -> String {
-        switch status {
-        case .connecting:
+        let rawValue = status.rawValue
+        switch rawValue {
+        case 1: // StatusConnecting
             return "connecting"
-        case .connected:
+        case 2: // StatusConnected
             return "connected"
-        case .readingInfo:
+        case 3: // StatusReadingInfo
             return "readingInfo"
-        case .deviceValidating:
+        case 4: // StatusDeviceValidating
             return "deviceValidating"
-        case .passwordValidating:
+        case 5: // StatusPasswordValidating
             return "passwordValidating"
-        case .sycingTime:
+        case 6: // StatusSycingTime
             return "syncingTime"
-        case .completed:
+        case 13: // StatusCompleted
             return "completed"
-        case .disconnected:
+        case -1: // StatusDisconnected
             return "disconnected"
-        case .connectFailed:
+        case -2: // StatusConnectFailed
             return "connectFailed"
         default:
             return "undefined"
@@ -249,7 +254,7 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
         print("🔌 Disconnecting device...")
         
         if let peripheral = connectedPeripheral {
-            centralManager?.disconnect(from: peripheral)
+            centralManager?.disconnect(fromPeriperal: peripheral)
         }
         
         stopRssiMonitoring()
@@ -328,7 +333,6 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
         
         if let feature = connector.feature {
             deviceInfo["slotCount"] = feature.slotAtitude
-            deviceInfo["supportedFrames"] = feature.supportedSlots?.map { frameTypeToString(FrameType(rawValue: $0.intValue) ?? .none) }
             deviceInfo["supportedTxPowers"] = feature.supportedTxpowers
         }
         
@@ -339,10 +343,11 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
     }
     
     private func connectableToString(_ connectable: Connectable) -> String {
-        switch connectable {
-        case .yes:
+        let rawValue = connectable.rawValue
+        switch rawValue {
+        case 1: // ConnectableYes
             return "yes"
-        case .no:
+        case 2: // ConnectableNo
             return "no"
         default:
             return "none"
@@ -350,18 +355,19 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
     }
     
     private func versionToString(_ version: Version) -> String {
-        switch version {
-        case .base:
+        let rawValue = version.rawValue
+        switch rawValue {
+        case 1: // VersionBase
             return "base"
-        case .version0_9_8:
+        case 2: // Version0_9_8
             return "0.9.8"
-        case .version0_9_9:
+        case 3: // Version0_9_9
             return "0.9.9"
-        case .version2_0_0:
+        case 4: // Version2_0_0
             return "2.0.0"
-        case .version2_2_60:
+        case 5: // Version2_2_60
             return "2.2.60"
-        case .max:
+        case 1000: // VersionMax
             return "max"
         default:
             return "undefined"
@@ -369,10 +375,11 @@ class BeaconPlusHandler: NSObject, FlutterStreamHandler {
     }
     
     private func passwordStatusToString(_ status: PasswordStatus) -> String {
-        switch status {
-        case .require:
+        let rawValue = status.rawValue
+        switch rawValue {
+        case 2: // PasswordStatusRequire
             return "required"
-        case .none:
+        case 1: // PasswordStatusNone
             return "none"
         default:
             return "unknown"
